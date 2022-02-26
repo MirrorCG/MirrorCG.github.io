@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://MirrorCG.github.io">
-  <title>categories | Mirror的个人博客</title>
+  <title>分类 | Mirror的个人博客</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   <meta name="description" content="记录工作和学习中的成果，分享一些踩坑记录和代码">
 <meta property="og:type" content="website">
-<meta property="og:title" content="categories">
+<meta property="og:title" content="分类">
 <meta property="og:url" content="http://mirrorcg.github.io/categories/index.html">
 <meta property="og:site_name" content="Mirror的个人博客">
 <meta property="og:description" content="记录工作和学习中的成果，分享一些踩坑记录和代码">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-02-24T12:44:47.000Z">
-<meta property="article:modified_time" content="2022-02-24T14:05:27.316Z">
+<meta property="article:modified_time" content="2022-02-26T06:09:52.730Z">
 <meta property="article:author" content="Mirror">
 <meta property="article:tag" content="python">
 <meta property="article:tag" content="Maya">
@@ -81,8 +81,13 @@
 			
 				<li><a href="/" >主页</a></li>
 			
-				<li><a href="/archives" >归档</a></li>
+				<li><a href="/archives" >归档日期</a></li>
 			
+				<li><a href="/tags" >标签</a></li>
+			
+				<li><a href="/categories" >分类目录</a></li>
+			
+			总文章数:3
 			</ul>
 		</nav>
 		<nav class="header-smart-menu">
@@ -180,6 +185,10 @@
 			
 				
 			
+				
+			
+				
+			
 			
 			
 			<nav class="header-nav">
@@ -214,12 +223,16 @@
 			</nav>
 
 			<nav class="header-menu js-header-menu">
-				<ul style="width: 50%">
+				<ul style="width: 70%">
 				
 				
-					<li style="width: 50%"><a href="/">主页</a></li>
+					<li style="width: 25%"><a href="/">主页</a></li>
 		        
-					<li style="width: 50%"><a href="/archives">归档</a></li>
+					<li style="width: 25%"><a href="/archives">归档日期</a></li>
+		        
+					<li style="width: 25%"><a href="/tags">标签</a></li>
+		        
+					<li style="width: 25%"><a href="/categories">分类目录</a></li>
 		        
 				</ul>
 			</nav>
@@ -242,7 +255,7 @@
   
   
     <h1 class="article-title" itemprop="name">
-      categories
+      分类
     </h1>
   
 
@@ -288,9 +301,51 @@
   
   <div class="article-entry" itemprop="articleBody">
     
+
+      
+      <!-- 这里也可用type去判断，categories分类页 -->
+        <hr>
+        <br>
+        <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Doc/">Doc</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maya/">Maya</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Maya/arnold/">arnold</a><span class="category-list-count">1</span></li></ul></li></ul>
+
+        <!-- 这里也可以放进css文件中，这样阅读性好些 -->
+        <style>
+            .category-list li{
+                display: inline-block;
+                margin: 0 2em .9em 0;
+                padding: 11px;
+                border: 2px solid #fcbd12;
+                font-size: 1.2em;
+            }
+            .category-list a {
+                color: #000000;
+            }
+            .category-list-item {
+              background-color: rgb(0, 183, 255);
+              border-radius: 30%;
+              opacity:0.6; 
+            }
     
+            .category-list-item:hover a {
+                color: #fffb00;
+                text-decoration: none;
+                font-weight: bold;
+            }
+            .category-list-count {
+                margin-left: 40px;
+                font-size: 1em;
+                color: #000000;
+            }          
+            
+            .article-entry ul li:before{
+                display: none;
+            }
+        </style>
     
 
+    
+    
+    
     
     <div class="page-reward">
       <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
@@ -334,7 +389,7 @@
         </li>
         <li>
           <strong>本文链接：</strong>
-          <a href="http://MirrorCG.github.io/categories/index.html" title="categories" target="_blank">http://MirrorCG.github.io/categories/index.html</a>
+          <a href="http://MirrorCG.github.io/categories/index.html" title="分类" target="_blank">http://MirrorCG.github.io/categories/index.html</a>
         </li>
         
         <li>
@@ -433,6 +488,27 @@
 
 
 
+
+<!--这是文章评论，添加于2022/2/26-->
+
+  <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+  if(true){
+    var gitalk = new Gitalk({
+      clientID: '1f5272e04699062eab57',
+      clientSecret: '6130412d55e6cdf5038ee26e9a8a48dc67e5ee1c',
+      repo: 'https://github.com/MirrorCG/BlogComment.git',
+      owner: 'MirrorCG',
+      admin: ['MirrorCG'],
+      id: 'Thu Feb 24 2022 20:44:47 GMT+0800',
+      distractionFreeMode: 'true'
+    })
+    gitalk.render('gitalk-container')
+  }
+</script>
 
           </div>
         </div>
@@ -564,11 +640,19 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color5">灯光分层</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Aitoon</a>
               </li>
             
             <div class="clearfix"></div>
@@ -630,7 +714,7 @@
             </li>
           
             <li class="search-li">
-              <a href="https://github.com/JoeyBling" target="_blank" 
+              <a href="https://github.com/MirrorCG" target="_blank" 
                 class="search-title" >
                 
                   <i class="icon-link icon"></i>
@@ -678,7 +762,7 @@
     	<section class="tools-section tools-section-me" q-show="aboutme">
         
           
-  	  		<div class="aboutme-wrap" id="aboutme">主要涉及技术：<br>Python、Maya、CG渲染<br><br>联系QQ:1726397400<br><br>博客持续更新中<br><br>感谢大家关注</div>
+  	  		<div class="aboutme-wrap" id="aboutme">主要涉及技术：<br>Python、Maya、Deadline、CG渲染<br><br>联系QQ:1726397400<br><br>博客持续更新中<br>感谢大家关注</div>
   	  	
     	</section>
     

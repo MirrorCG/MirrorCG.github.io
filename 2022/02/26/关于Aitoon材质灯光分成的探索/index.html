@@ -6,23 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://MirrorCG.github.io">
-  <title>Tag: Hexo | Mirror的个人博客</title>
+  <title>关于Aitoon材质灯光分层的探索 | Mirror的个人博客</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="记录工作和学习中的成果，分享一些踩坑记录和代码">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Mirror的个人博客">
-<meta property="og:url" content="http://mirrorcg.github.io/tags/Hexo/index.html">
+  <meta name="description" content="前段时间，开始对在 Maya 中进行三渲二的渲染分层有了兴趣。于是，我就尝试自己探索一下：在 Maya 在利用 Aitoon 材质进行三渲二的灯光分层，以及在 Nuke中进行合成的过程。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于Aitoon材质灯光分层的探索">
+<meta property="og:url" content="http://mirrorcg.github.io/2022/02/26/%E5%85%B3%E4%BA%8EAitoon%E6%9D%90%E8%B4%A8%E7%81%AF%E5%85%89%E5%88%86%E6%88%90%E7%9A%84%E6%8E%A2%E7%B4%A2/index.html">
 <meta property="og:site_name" content="Mirror的个人博客">
-<meta property="og:description" content="记录工作和学习中的成果，分享一些踩坑记录和代码">
+<meta property="og:description" content="前段时间，开始对在 Maya 中进行三渲二的渲染分层有了兴趣。于是，我就尝试自己探索一下：在 Maya 在利用 Aitoon 材质进行三渲二的灯光分层，以及在 Nuke中进行合成的过程。">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-02-26T05:44:11.000Z">
+<meta property="article:modified_time" content="2022-02-26T05:54:44.959Z">
 <meta property="article:author" content="Mirror">
-<meta property="article:tag" content="python">
-<meta property="article:tag" content="Maya">
-<meta property="article:tag" content="Deadline">
-<meta property="article:tag" content="CG">
-<meta property="article:tag" content="个人博客">
+<meta property="article:tag" content="灯光分层">
+<meta property="article:tag" content="Aitoon">
 <meta name="twitter:card" content="summary">
   
   
@@ -246,81 +245,279 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-关于Aitoon材质灯光分成的探索" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/02/20/Hexo%E6%96%87%E6%A1%A3/" class="archive-article-date">
-        <time datetime="2022-02-20T15:09:10.737Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-20</time>
-</a>
-
-        </div>
-    	 
+      <header class="article-header">
   
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/02/20/Hexo%E6%96%87%E6%A1%A3/" target="_blank">Hexo文档</a>
   
+    <h1 class="article-title" itemprop="name">
+      关于Aitoon材质灯光分层的探索
     </h1>
   
 
 
-        <div class="article-info info-on-right">
+  
+  
+        
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+<a href="/2022/02/26/%E5%85%B3%E4%BA%8EAitoon%E6%9D%90%E8%B4%A8%E7%81%AF%E5%85%89%E5%88%86%E6%88%90%E7%9A%84%E6%8E%A2%E7%B4%A2/" class="archive-article-date">
+        <time datetime="2022-02-26T05:44:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-26</time>
+</a>
+
+  
+  
+    
+<div style="margin-top:10px;">
+  <span class="post-time">
+    <span class="post-meta-item-icon">
+      <!-- fonts.scss -->
+      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
+      <i class="icon-statistics"></i>
+      <span class="post-meta-item-text"> 字数统计:</span>
+      <span class="post-count">66字</span>
+    </span>
+  </span>
+
+  <span class="post-time">
+    &nbsp; | &nbsp;
+    <span class="post-meta-item-icon">
+      <i class="icon-book icon"></i>
+      <span class="post-meta-item-text"> 阅读时长≈</span>
+      <span class="post-count">1分</span>
+    </span>
+  </span>
+</div>
+
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+
+    
+
+    
+    <p>前段时间，开始对在 Maya 中进行三渲二的渲染分层有了兴趣。于是，我就尝试自己探索一下：在 Maya 在利用 Aitoon 材质进行三渲二的灯光分层，以及在 Nuke中进行合成的过程。<span id="more"></span></p>
+
+    
+    
+    <div class="page-reward">
+      <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
+        <div class="tooltip tooltip-east">
+          <span class="tooltip-item">
+            赏
+          </span>
+          <span class="tooltip-content">
+            <span class="tooltip-text">
+              <span class="tooltip-inner">
+                <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i
+                    class="icon icon-quo-right"></i></p>
+                <div class="reward-box">
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/images/home/aliPay.jpg">
+                    <span class="reward-type">支付宝</span>
+                  </div>
+                  
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/images/home/winxinPay.jpg">
+                    <span class="reward-type">微信</span>
+                  </div>
+                  
+                </div>
+              </span>
+            </span>
+          </span>
+        </div>
+      </a>
+    </div>
+    
+
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          Mirror
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="http://MirrorCG.github.io/2022/02/26/关于Aitoon材质灯光分成的探索/" title="关于Aitoon材质灯光分层的探索" target="_blank">http://MirrorCG.github.io/2022/02/26/关于Aitoon材质灯光分成的探索/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
           
+          本博客所有文章除特别声明外，均采用 <a href="https://github.com/JoeyBling/hexo-theme-yilia-plus/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
+        </li>
+        
+      </ul>
+    </div>
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">灯光分层</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hexo</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Aitoon</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+    
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Doc//" class="article-tag-list-link color4">Doc</a>
+        			<a href="/categories/Maya//" class="article-tag-list-link color5">Maya</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Maya/arnold//" class="article-tag-list-link color2">arnold</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
     
 
+    
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=http://mirrorcg.github.io/2022/02/26/%E5%85%B3%E4%BA%8EAitoon%E6%9D%90%E8%B4%A8%E7%81%AF%E5%85%89%E5%88%86%E6%88%90%E7%9A%84%E6%8E%A2%E7%B4%A2/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+
+<nav id="article-nav">
+  
+  
+    <a href="/2022/02/20/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E6%B5%8B%E8%AF%95%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">我的第一篇博客文章</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--这是文章评论，添加于2022/2/26-->
+
+  <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+  if(true){
+    var gitalk = new Gitalk({
+      clientID: '1f5272e04699062eab57',
+      clientSecret: '6130412d55e6cdf5038ee26e9a8a48dc67e5ee1c',
+      repo: 'https://github.com/MirrorCG/BlogComment.git',
+      owner: 'MirrorCG',
+      admin: ['MirrorCG'],
+      id: 'Sat Feb 26 2022 13:44:11 GMT+0800',
+      distractionFreeMode: 'true'
+    })
+    gitalk.render('gitalk-container')
+  }
+</script>
 
           </div>
         </div>
@@ -360,9 +557,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: true,
