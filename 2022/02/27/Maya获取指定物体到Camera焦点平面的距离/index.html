@@ -6,24 +6,26 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://MirrorCG.github.io">
-  <title>Tag: Git | Mirror的个人博客</title>
+  <title>Maya获取指定物体到Camera焦点平面的距离 | Mirror的个人博客</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="记录工作和学习中的成果，分享一些踩坑记录和代码">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Mirror的个人博客">
-<meta property="og:url" content="http://mirrorcg.github.io/tags/Git/index.html">
+  <meta name="description" content="文章介绍在Maya中获取物体到相机焦点所在平面的距离，并将获取到的距离写入相机的焦距属性，使用Arnold渲染。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Maya获取指定物体到Camera焦点平面的距离">
+<meta property="og:url" content="http://mirrorcg.github.io/2022/02/27/Maya%E8%8E%B7%E5%8F%96%E6%8C%87%E5%AE%9A%E7%89%A9%E4%BD%93%E5%88%B0Camera%E7%84%A6%E7%82%B9%E5%B9%B3%E9%9D%A2%E7%9A%84%E8%B7%9D%E7%A6%BB/index.html">
 <meta property="og:site_name" content="Mirror的个人博客">
-<meta property="og:description" content="记录工作和学习中的成果，分享一些踩坑记录和代码">
+<meta property="og:description" content="文章介绍在Maya中获取物体到相机焦点所在平面的距离，并将获取到的距离写入相机的焦距属性，使用Arnold渲染。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://mirrorcg.github.io/images/Maya%E8%8E%B7%E5%8F%96%E6%8C%87%E5%AE%9A%E7%89%A9%E4%BD%93%E5%88%B0Camera%E7%84%A6%E7%82%B9%E5%B9%B3%E9%9D%A2%E7%9A%84%E8%B7%9D%E7%A6%BB/%E7%A9%BA%E9%97%B4%E7%A4%BA%E6%84%8F%E5%9B%BE2.jpg">
+<meta property="og:image" content="http://mirrorcg.github.io/images/Maya%E8%8E%B7%E5%8F%96%E6%8C%87%E5%AE%9A%E7%89%A9%E4%BD%93%E5%88%B0Camera%E7%84%A6%E7%82%B9%E5%B9%B3%E9%9D%A2%E7%9A%84%E8%B7%9D%E7%A6%BB/%E7%A9%BA%E9%97%B4%E7%A4%BA%E6%84%8F%E5%9B%BE3.jpg">
+<meta property="article:published_time" content="2022-02-27T10:55:19.000Z">
+<meta property="article:modified_time" content="2022-02-27T16:47:34.701Z">
 <meta property="article:author" content="Mirror">
-<meta property="article:tag" content="python">
-<meta property="article:tag" content="Maya">
-<meta property="article:tag" content="Deadline">
-<meta property="article:tag" content="CG">
-<meta property="article:tag" content="个人博客">
+<meta property="article:tag" content="灯光">
+<meta property="article:tag" content="矩阵">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://mirrorcg.github.io/images/Maya%E8%8E%B7%E5%8F%96%E6%8C%87%E5%AE%9A%E7%89%A9%E4%BD%93%E5%88%B0Camera%E7%84%A6%E7%82%B9%E5%B9%B3%E9%9D%A2%E7%9A%84%E8%B7%9D%E7%A6%BB/%E7%A9%BA%E9%97%B4%E7%A4%BA%E6%84%8F%E5%9B%BE2.jpg">
   
   
     <link rel="icon" href="/images/home/websiteIco.ico">
@@ -246,80 +248,347 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Maya获取指定物体到Camera焦点平面的距离" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/02/20/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E6%B5%8B%E8%AF%95%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/" class="archive-article-date">
-        <time datetime="2022-02-20T15:30:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-20</time>
-</a>
-
-        </div>
-    	 
+      <header class="article-header">
   
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/02/20/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E6%B5%8B%E8%AF%95%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/" target="_blank">我的第一篇博客文章</a>
   
+    <h1 class="article-title" itemprop="name">
+      Maya获取指定物体到Camera焦点平面的距离
     </h1>
   
 
 
-        <div class="article-info info-on-right">
+  
+  
+        
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+<a href="/2022/02/27/Maya%E8%8E%B7%E5%8F%96%E6%8C%87%E5%AE%9A%E7%89%A9%E4%BD%93%E5%88%B0Camera%E7%84%A6%E7%82%B9%E5%B9%B3%E9%9D%A2%E7%9A%84%E8%B7%9D%E7%A6%BB/" class="archive-article-date">
+        <time datetime="2022-02-27T10:55:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-27</time>
+</a>
+
+  
+  
+    
+<div style="margin-top:10px;">
+  <span class="post-time">
+    <span class="post-meta-item-icon">
+      <!-- fonts.scss -->
+      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
+      <i class="icon-statistics"></i>
+      <span class="post-meta-item-text"> 字数统计:</span>
+      <span class="post-count">2k字</span>
+    </span>
+  </span>
+
+  <span class="post-time">
+    &nbsp; | &nbsp;
+    <span class="post-meta-item-icon">
+      <i class="icon-book icon"></i>
+      <span class="post-meta-item-text"> 阅读时长≈</span>
+      <span class="post-count">9分</span>
+    </span>
+  </span>
+</div>
+
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+
+    
+
+    
+    <h3 id="文章介绍"><a href="#文章介绍" class="headerlink" title="文章介绍"></a>文章介绍</h3><p style="text-indent:2em">在Maya中获取物体到相机焦点所在平面的距离，并将获取到的距离写入相机的焦距属性，使用Arnold渲染。<span id="more"></span></p>
+<p style="text-indent:2em">本文介绍两种获取相机焦距的方法提供参考：一种是使用矩阵的办法计算向量之间的投射长度，另一种是使用约束的方式获取焦距。</p>
+
+<h3 id="方法一：计算向量"><a href="#方法一：计算向量" class="headerlink" title="方法一：计算向量"></a>方法一：计算向量</h3><p style="text-indent:2em">在三维空间中，已知相机单位向量、位置和物体坐标，可计算出相机焦点到物体的距离（该距离并非我们所要求的焦点平面到物体的距离），然后即可得到一个空间中存在的长方体，经过对物体和相机两点之间构成的向量投射到相机单位向量方向上的投影长度，即我们所求的相机焦点平面到物体的距离。如下图所示，空间中，我们需要获取线段ob之间的距离，其中线段oa之间的距离可根据相机和物体的坐标计算得出，相机法向量v可从相机中获取，由此我们可计算得出线段oa在向量v方向的投影</p>
+
+<p><img src="/images/Maya%E8%8E%B7%E5%8F%96%E6%8C%87%E5%AE%9A%E7%89%A9%E4%BD%93%E5%88%B0Camera%E7%84%A6%E7%82%B9%E5%B9%B3%E9%9D%A2%E7%9A%84%E8%B7%9D%E7%A6%BB/%E7%A9%BA%E9%97%B4%E7%A4%BA%E6%84%8F%E5%9B%BE2.jpg" alt="空间示意图"></p>
+<p style="text-indent:2em">首先，我们需要通过xfrom方法获取相机的法向量</p>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Cam = mc.xform(cam.name(), q=<span class="literal">True</span>, ws=<span class="literal">True</span>, m=<span class="literal">True</span>)[<span class="number">8</span>:<span class="number">11</span>]  <span class="comment"># 数组第8到第10位为相机法向量</span></span><br><span class="line">Cam_vector = np.array(Cam) * -<span class="number">1</span>   <span class="comment"># 由于取出的数据是列表，这里需要转换成向量再取反，即为相机单位向量方向</span></span><br></pre></td></tr></table></figure>
+
+
+<p style="text-indent:2em">获取相机的坐标和物体的坐标，计算得出向量oa</p>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">getVector</span>(<span class="params">locatorP, camP</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;计算向量坐标</span></span><br><span class="line"><span class="string">        locatorP: 物体坐标</span></span><br><span class="line"><span class="string">        camP：相机坐标</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    newVector = (locatorP[<span class="number">0</span>] - camP[<span class="number">0</span>], locatorP[<span class="number">1</span>] - camP[<span class="number">1</span>], locatorP[<span class="number">2</span>] - camP[<span class="number">2</span>])</span><br><span class="line">    <span class="keyword">return</span> newVector</span><br></pre></td></tr></table></figure>
+
+
+<p style="text-indent:2em">由于需要区分向量之间的夹角，若为锐角，焦距为正，反之为负</p>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">judgeAngle</span>(<span class="params">_ang</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;计算向量角度为锐角还是钝角&quot;&quot;&quot;</span></span><br><span class="line">    _flag = (_ang * <span class="number">180.0</span>) / pi</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">u&quot;向量间的角度为: %s 度(角度制)&quot;</span> % _flag)</span><br><span class="line">    <span class="keyword">if</span> (_flag &gt; <span class="number">90</span>) <span class="keyword">and</span> (_flag &lt;= <span class="number">180</span>):</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span></span><br><span class="line">    <span class="keyword">elif</span> (_flag &lt; <span class="number">90</span>) <span class="keyword">and</span> (_flag &gt;= <span class="number">0</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">elif</span> _flag == <span class="number">90</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+
+<p style="text-indent:2em">使用上面获得的数据，即可求出相机焦点平面到物体的距离。以下为工具完整脚本</p>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"><span class="comment"># @Author: MirrorCG</span></span><br><span class="line"><span class="comment"># @Time: ----</span></span><br><span class="line"><span class="comment"># =========================================</span></span><br><span class="line"><span class="keyword">import</span> maya.cmds <span class="keyword">as</span> mc</span><br><span class="line"><span class="keyword">import</span> pymel.core <span class="keyword">as</span> pm</span><br><span class="line"><span class="keyword">import</span> maya.mel <span class="keyword">as</span> mel</span><br><span class="line"><span class="keyword">from</span> math <span class="keyword">import</span> pi, cos</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">getVector</span>(<span class="params">locatorP, camP</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;计算向量坐标&quot;&quot;&quot;</span></span><br><span class="line">    newVector = (locatorP[<span class="number">0</span>] - camP[<span class="number">0</span>], locatorP[<span class="number">1</span>] - camP[<span class="number">1</span>], locatorP[<span class="number">2</span>] - camP[<span class="number">2</span>])</span><br><span class="line">    <span class="keyword">return</span> newVector</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">squareRVector</span>(<span class="params">_vector</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;计算平方根，向量长度&quot;&quot;&quot;</span></span><br><span class="line">    AB = (_vector[<span class="number">0</span>] * _vector[<span class="number">0</span>] + _vector[<span class="number">1</span>] * _vector[<span class="number">1</span>] + _vector[<span class="number">2</span>] * _vector[<span class="number">2</span>]) ** <span class="number">0.5</span></span><br><span class="line">    <span class="keyword">return</span> AB</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">judgeAngle</span>(<span class="params">_ang</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;计算向量角度为锐角还是钝角&quot;&quot;&quot;</span></span><br><span class="line">    _flag = (_ang * <span class="number">180.0</span>) / pi</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">u&quot;向量间的角度为: %s 度(角度制)&quot;</span> % _flag)</span><br><span class="line">    <span class="keyword">if</span> (_flag &gt; <span class="number">90</span>) <span class="keyword">and</span> (_flag &lt;= <span class="number">180</span>):</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span></span><br><span class="line">    <span class="keyword">elif</span> (_flag &lt; <span class="number">90</span>) <span class="keyword">and</span> (_flag &gt;= <span class="number">0</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">elif</span> _flag == <span class="number">90</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">getCam</span>(<span class="params">camName</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;获取选中的相机，填入窗口&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        cam = pm.ls(sl=<span class="literal">True</span>)[<span class="number">0</span>].getChildren()[<span class="number">0</span>]  <span class="comment"># 选择相机</span></span><br><span class="line">    <span class="keyword">except</span> IndexError <span class="keyword">as</span> e:</span><br><span class="line">        mc.warning(<span class="string">u&quot;未选中对象&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">not</span> cam) <span class="keyword">or</span> (cam.nodeType() != <span class="string">&quot;camera&quot;</span>):</span><br><span class="line">        mc.warning(<span class="string">u&quot;未选中相机&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    _camName = cam.longName()</span><br><span class="line">    mc.textField(camName, e=<span class="literal">True</span>, tx=_camName)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">createLocator</span>(<span class="params">locName, camName</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;创建/获取locator,移动至相机位置，并将改1ocator填入窗口中&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        cam = pm.ls(mc.textField(camName, q=<span class="literal">True</span>, tx=<span class="literal">True</span>))[<span class="number">0</span>].getParent()</span><br><span class="line">    <span class="keyword">except</span> IndexError <span class="keyword">as</span> e:</span><br><span class="line">        mc.warning(<span class="string">u&quot;请选择并添加相机&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    camP = cam.getTranslation().get()  <span class="comment"># 相机坐标</span></span><br><span class="line">    <span class="keyword">if</span> mc.objExists(<span class="string">&quot;find_focous&quot;</span>) <span class="keyword">and</span> pm.nodeType(pm.ls(<span class="string">&quot;find_focous&quot;</span>)[<span class="number">0</span>].getChildren()[<span class="number">0</span>]) == <span class="string">&quot;locator&quot;</span>:</span><br><span class="line">        loc = pm.ls(<span class="string">&quot;find_focous&quot;</span>)[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        loc = pm.createNode(<span class="string">&quot;locator&quot;</span>).getParent()</span><br><span class="line">        loc.rename(<span class="string">&quot;find_focous&quot;</span>)</span><br><span class="line">    loc.setAttr(<span class="string">&quot;translate&quot;</span>, camP)</span><br><span class="line">    mc.textField(locName, e=<span class="literal">True</span>, tx=loc.name())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">getInstance</span>(<span class="params">instName, camName, locName, *args</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;计算焦距，判断距离方向&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">not</span> mc.textField(camName, q=<span class="literal">True</span>, tx=<span class="literal">True</span>)) <span class="keyword">or</span> (<span class="keyword">not</span> mc.textField(locName, q=<span class="literal">True</span>, tx=<span class="literal">True</span>)):</span><br><span class="line">        mc.warning(<span class="string">u&quot;请填入相机或locator(`find_focous`)&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    cam = pm.ls(mc.textField(camName, q=<span class="literal">True</span>, tx=<span class="literal">True</span>))[<span class="number">0</span>].getParent()</span><br><span class="line">    camP = cam.getTranslation().get()</span><br><span class="line">    loc = pm.ls(mc.textField(locName, q=<span class="literal">True</span>, tx=<span class="literal">True</span>))[<span class="number">0</span>]</span><br><span class="line">    cam_vector = np.array(mc.xform(cam.name(), q=<span class="literal">True</span>, ws=<span class="literal">True</span>, m=<span class="literal">True</span>)[<span class="number">8</span>:<span class="number">11</span>]) * -<span class="number">1</span>  <span class="comment"># 获取相机单位向量(从maya获取的向量需要取反</span></span><br><span class="line">    locatorP = loc.getAttr(<span class="string">&quot;translate&quot;</span>)  <span class="comment"># 定位器坐标</span></span><br><span class="line">    AB_vector = getVector(locatorP, camP)</span><br><span class="line">    AB = squareRVector(AB_vector)  <span class="comment"># 定位器距离相机距离</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">u&quot;定位器距离相机: %s 个单位&quot;</span> % AB)</span><br><span class="line">    x = np.array(cam_vector)</span><br><span class="line">    y = np.array(AB_vector)</span><br><span class="line">    lx = np.sqrt(x.dot(x))</span><br><span class="line">    ly = np.sqrt(y.dot(y))</span><br><span class="line">    cos_angle = x.dot(y) / (lx * ly)</span><br><span class="line">    _angle = np.arccos(cos_angle)</span><br><span class="line">    _flag = judgeAngle(_angle)</span><br><span class="line">    <span class="keyword">if</span> AB == <span class="number">0</span>:</span><br><span class="line">        focus = <span class="number">0.1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        focus = <span class="built_in">abs</span>(cos(_angle) * AB)</span><br><span class="line">    <span class="keyword">if</span> _flag == <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    <span class="keyword">elif</span> _flag == -<span class="number">1</span>:</span><br><span class="line">        focus = (-<span class="number">1</span> * focus)</span><br><span class="line">    <span class="keyword">elif</span> _flag == <span class="number">0</span>:</span><br><span class="line">        focus = <span class="number">0.1</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">u&quot;相机焦距为: %s 个单位&quot;</span> % focus)</span><br><span class="line">    mc.textField(instName, e=<span class="literal">True</span>, tx=<span class="string">&quot;%s&quot;</span> % focus)</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        cam.setAttr(<span class="string">&quot;focusDistance&quot;</span>, focus)</span><br><span class="line">    <span class="keyword">except</span> RuntimeError <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">u&quot;焦距小于默认最小值,设定为0.1&quot;</span>)</span><br><span class="line">    cam.setAttr(<span class="string">&quot;focusDistance&quot;</span>, <span class="number">0.1</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;=&quot;</span> * <span class="number">40</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">toolDoc</span>(<span class="params">winName</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;工具帮助&quot;&quot;&quot;</span></span><br><span class="line">    win_name = <span class="string">u&quot;工具帮助&quot;</span></span><br><span class="line">    <span class="keyword">if</span> mc.window(win_name, q=<span class="literal">True</span>, ex=<span class="literal">True</span>):</span><br><span class="line">        mc.deleteUI(win_name, window=<span class="literal">True</span>)</span><br><span class="line">    helpWin= mc.window(<span class="string">u&quot;工具帮助&quot;</span>, t=<span class="string">u&quot;工具帮助&quot;</span>, wh=(<span class="number">700</span>, <span class="number">70</span>), p=winName)</span><br><span class="line">    mc.paneLayout()</span><br><span class="line">    mc.textScrollList(<span class="string">&quot;line&quot;</span>,</span><br><span class="line">                      append=[<span class="string">u&quot;1.选择相机：先选择要测量焦距的相机，再点击按钮(相机名可以手动填入，但相机名为长名，防止错误选择相机)&quot;</span>,</span><br><span class="line">                              <span class="string">u&quot;2.创建locator：点击后创建定位器，或手动填入已有的locator(默认创建的1ocator为&#x27;find_focous&#x27;,手动填入不用点击)&quot;</span>,</span><br><span class="line">                              <span class="string">u&quot;3.计算焦距按钮：先移动调整好位置的1ocator，点击&#x27;移动locator，计算焦距&#x27;按钮，即可测出想要的焦距&quot;</span>,</span><br><span class="line">                              <span class="string">u&quot;4.帮 助：本工具的使用说明&quot;</span>])</span><br><span class="line">    mc.textScrollList(<span class="string">&quot;line&quot;</span>, edit=<span class="literal">True</span>, lf=[(<span class="number">1</span>, <span class="string">&quot;fixedWidthFont&quot;</span>), (<span class="number">2</span>, <span class="string">&quot;fixedWidthFont&quot;</span>), (<span class="number">3</span>, <span class="string">&quot;fixedWidthFont&quot;</span>), (<span class="number">4</span>, <span class="string">&quot;fixedWidthFont&quot;</span>)])</span><br><span class="line">    mc.showWindow(helpWin)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    win_name = <span class="string">u&quot;测量相机焦距&quot;</span></span><br><span class="line">    <span class="keyword">if</span> mc.window(win_name, q=<span class="literal">True</span>, ex=<span class="literal">True</span>):</span><br><span class="line">        mc.deleteUI(win_name, window=<span class="literal">True</span>)</span><br><span class="line">    win = mc.window(win_name, title=<span class="string">u&quot;测量相机焦距&quot;</span>, iconName=<span class="string">u&quot;Short_Name&quot;</span>, widthHeight=(<span class="number">400</span>, <span class="number">110</span>))</span><br><span class="line">    mc.columnLayout(adjustableColumn=<span class="literal">True</span>, rs=<span class="number">2</span>)</span><br><span class="line">    mc.rowColumnLayout(numberOfColumns=<span class="number">3</span>, columnAttach=(<span class="number">1</span>, <span class="string">&quot;right&quot;</span>, <span class="number">0</span>), columnWidth=[(<span class="number">1</span>, <span class="number">60</span>), (<span class="number">2</span>, <span class="number">240</span>), (<span class="number">3</span>, <span class="number">100</span>)])</span><br><span class="line">    mc.text(label=<span class="string">u&#x27;相 机 名:&#x27;</span>, align=<span class="string">&#x27;left&#x27;</span>)</span><br><span class="line">    camName = mc.textField()</span><br><span class="line">    mc.button(label=<span class="string">u&#x27;选择相机&#x27;</span>, command=<span class="string">&quot;getCam(camName)&quot;</span>)</span><br><span class="line">    mc.setParent(<span class="string">&#x27;..&#x27;</span>)</span><br><span class="line">    mc.rowColumnLayout(numberOfColumns=<span class="number">3</span>, columnAttach=(<span class="number">1</span>, <span class="string">&#x27;right&#x27;</span>, <span class="number">0</span>), columnWidth=[(<span class="number">1</span>, <span class="number">60</span>), (<span class="number">2</span>, <span class="number">240</span>), (<span class="number">3</span>, <span class="number">100</span>)])</span><br><span class="line">    mc.text(label=<span class="string">u&#x27;locator: &#x27;</span>, align=<span class="string">&#x27;left&#x27;</span>)</span><br><span class="line">    locName = mc.textField()</span><br><span class="line">    mc.button(label=<span class="string">u&#x27;创建1ocator&#x27;</span>, command=<span class="string">&quot;createLocator(locName,camName)&quot;</span>)</span><br><span class="line">    mc.setParent(<span class="string">&#x27;..&#x27;</span>)</span><br><span class="line">    mc.button(label=<span class="string">u&quot;移动locator,计算距离&quot;</span>, command=<span class="string">&quot;getInstance(instName, camName, 1ocName)&quot;</span>, bgc=(<span class="number">1</span>, <span class="number">0.73</span>, <span class="number">0.14</span>))</span><br><span class="line">    mc.rowColumnLayout(numberOfColumns=<span class="number">4</span>, columnAttach=(<span class="number">1</span>, <span class="string">&#x27;right&#x27;</span>, <span class="number">0</span>), columnWidth=[(<span class="number">1</span>, <span class="number">60</span>), (<span class="number">2</span>, <span class="number">200</span>), (<span class="number">3</span>, <span class="number">100</span>), (<span class="number">4</span>, <span class="number">40</span>)])</span><br><span class="line">    mc.text(label=<span class="string">u&#x27;焦  距:&#x27;</span>, align=<span class="string">&#x27;left&#x27;</span>)</span><br><span class="line">    instName = mc.textField(ed=<span class="literal">False</span>, bgc=(<span class="number">0.64</span>, <span class="number">0.79</span>, <span class="number">10.48</span>))</span><br><span class="line">    mc.text(label=<span class="string">u&quot; &quot;</span>, align=<span class="string">&#x27;left&#x27;</span>)</span><br><span class="line">    mc.button(label=<span class="string">u&#x27;帮助&#x27;</span>, command=<span class="string">&quot;toolDoc(win)&quot;</span>)</span><br><span class="line">    mc.setParent(<span class="string">&quot;..&quot;</span>)</span><br><span class="line">    mc.setParent(<span class="string">&quot;..&quot;</span>)</span><br><span class="line">    mc.showWindow(win)</span><br></pre></td></tr></table></figure>
+
+
+<p style="text-indent:2em">若要动态获取相机焦距，可将下面的脚本修改后填入相机属性的表达式中</p>
+
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">vector</span> $camP = <span class="string">`getAttr camera1.translate`</span>; <span class="comment">//相机坐标</span></span><br><span class="line"><span class="keyword">float</span> $camVct[<span class="number">16</span>] = <span class="string">`xform -q -m -ws camera1`</span>; <span class="comment">//相机世界空间矩阵</span></span><br><span class="line"><span class="keyword">vector</span> $camVector = &lt;&lt;$camVct [<span class="number">8</span>],$camVct[<span class="number">9</span>],$camVct [<span class="number">10</span>]&gt;&gt;*<span class="number">-1</span>;  <span class="comment">//从maya中获取的相机向量，需要取反</span></span><br><span class="line"><span class="keyword">vector</span> $locP = <span class="string">`getAttr find_focous.translate`</span>;</span><br><span class="line"><span class="keyword">vector</span> $lcInstance = $locP - $camP;</span><br><span class="line"><span class="keyword">float</span> $inst = <span class="keyword">mag</span>($locP - $camP); <span class="comment">//物体距离相机的距离</span></span><br><span class="line"><span class="keyword">float</span> $_angle = <span class="keyword">angle</span>($camVector,$lcInstance); <span class="comment">//向量间的夹角</span></span><br><span class="line"><span class="keyword">float</span> $_focus = <span class="keyword">cos</span>($_angle)*$inst; <span class="comment">//焦距</span></span><br><span class="line"><span class="keyword">float</span> $flag = ($_angle*<span class="number">180</span>)/<span class="number">3.141592657</span>;</span><br><span class="line"><span class="keyword">if</span> ($flag &gt;= <span class="number">90</span>)</span><br><span class="line">&#123;</span><br><span class="line">    $focus = <span class="number">0.1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">print</span> $_focus;</span><br><span class="line">cameraShape1.focusDistance = $_focus;</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h3 id="方法二：添加约束"><a href="#方法二：添加约束" class="headerlink" title="方法二：添加约束"></a>方法二：添加约束</h3><p style="text-indent:2em">在相机位置创建两个定位器：其中一号定位器p到相机上，并使用该定位器约束二号定位器的Z轴，将二号定位器移动到物体的位置，此时，一号定位器的Z轴数值即是相机焦距，将此属性连接到相机的aifocus属性即可动态获取相机焦距，如下图所示：</p>
+
+<p><img src="/images/Maya%E8%8E%B7%E5%8F%96%E6%8C%87%E5%AE%9A%E7%89%A9%E4%BD%93%E5%88%B0Camera%E7%84%A6%E7%82%B9%E5%B9%B3%E9%9D%A2%E7%9A%84%E8%B7%9D%E7%A6%BB/%E7%A9%BA%E9%97%B4%E7%A4%BA%E6%84%8F%E5%9B%BE3.jpg" alt="空间示意图"></p>
+<p style="text-indent:2em">约束工具如下：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 下面是评论界面 -->
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+var gitalk = new Gitalk({
+    id: '',
+    clientID: '',
+    clientSecret: '',
+    repo: 'gitalk',
+    owner: 'JairusTse',
+    admin: ['JairusTse'],
+    labels: ['Gitalk'],
+    perPage: 50
+})
+gitalk.render('gitalk-container')
+</script>
+
+
+    
+    
+    <div class="page-reward">
+      <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
+        <div class="tooltip tooltip-east">
+          <span class="tooltip-item">
+            赏
+          </span>
+          <span class="tooltip-content">
+            <span class="tooltip-text">
+              <span class="tooltip-inner">
+                <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i
+                    class="icon icon-quo-right"></i></p>
+                <div class="reward-box">
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/images/home/aliPay.jpg">
+                    <span class="reward-type">支付宝</span>
+                  </div>
+                  
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/images/home/winxinPay.jpg">
+                    <span class="reward-type">微信</span>
+                  </div>
+                  
+                </div>
+              </span>
+            </span>
+          </span>
+        </div>
+      </a>
+    </div>
+    
+
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          Mirror
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="http://MirrorCG.github.io/2022/02/27/Maya获取指定物体到Camera焦点平面的距离/" title="Maya获取指定物体到Camera焦点平面的距离" target="_blank">http://MirrorCG.github.io/2022/02/27/Maya获取指定物体到Camera焦点平面的距离/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
           
+          本博客所有文章除特别声明外，均采用 <a href="https://github.com/JoeyBling/hexo-theme-yilia-plus/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
+        </li>
+        
+      </ul>
+    </div>
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Blog</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">灯光</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Git</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">矩阵</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+    
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Doc//" class="article-tag-list-link color4">Doc</a>
+        			<a href="/categories/Maya//" class="article-tag-list-link color5">Maya</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Maya/Arnold//" class="article-tag-list-link color2">Arnold</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
+    
 
     
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=http://mirrorcg.github.io/2022/02/27/Maya%E8%8E%B7%E5%8F%96%E6%8C%87%E5%AE%9A%E7%89%A9%E4%BD%93%E5%88%B0Camera%E7%84%A6%E7%82%B9%E5%B9%B3%E9%9D%A2%E7%9A%84%E8%B7%9D%E7%A6%BB/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+
+<nav id="article-nav">
+  
+  
+    <a href="/2022/02/26/%E5%85%B3%E4%BA%8EAitoon%E6%9D%90%E8%B4%A8%E7%81%AF%E5%85%89%E5%88%86%E6%88%90%E7%9A%84%E6%8E%A2%E7%B4%A2/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">关于Aitoon材质灯光分层的探索</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+  
+  <div id="gitment-ctn"></div>
+  
+    <!-- 中文 -->
+    <link rel="stylesheet" href="/lib/gitment.css">
+    <script src="/lib/gitment.js"></script>
+  
+  <script>
+    <!-- id: "Maya获取指定物体到Camera焦点平面的距离" -->
+    var gitment = new Gitment({
+      id: "20220227185519",
+      owner: 'MirrorCG',
+      repo: 'BlogComment',
+      oauth: {
+        client_id: '1f5272e04699062eab57',
+        client_secret: '0fe2bf0bd9a22cd81272296ca60ba6add0bdd5fb',
+      },
+    })
+    gitment.render('gitment-ctn')
+  </script>
+
+
+  
+
 
 
           </div>
@@ -360,9 +629,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: true,
