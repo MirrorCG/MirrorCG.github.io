@@ -28,7 +28,7 @@
 <meta property="og:image" content="http://mirrorcg.github.io/images/关于Aitoon材质灯光分层的探索/图3-1.png">
 <meta property="og:image" content="http://mirrorcg.github.io/images/关于Aitoon材质灯光分层的探索/图3-2.png">
 <meta property="article:published_time" content="2022-02-26T05:44:11.000Z">
-<meta property="article:modified_time" content="2022-02-27T11:26:30.292Z">
+<meta property="article:modified_time" content="2022-03-01T15:20:07.895Z">
 <meta property="article:author" content="Mirror">
 <meta property="article:tag" content="灯光">
 <meta property="article:tag" content="Aitoon">
@@ -96,7 +96,7 @@
 			
 				<li><a href="/categories" >分类目录</a></li>
 			
-			总文章数:5
+			总文章数:6
 			</ul>
 		</nav>
 		<nav class="header-smart-menu">
@@ -290,7 +290,7 @@
       <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
       <i class="icon-statistics"></i>
       <span class="post-meta-item-text"> 字数统计:</span>
-      <span class="post-count">1.9k字</span>
+      <span class="post-count">1.8k字</span>
     </span>
   </span>
 
@@ -364,23 +364,6 @@
 <h3 id="四．写在最后"><a href="#四．写在最后" class="headerlink" title="四．写在最后"></a>四．写在最后</h3><p style="text-indent:2em">此方法按照aitoon材质球的非基于物理渲染的特性，以basetonemap的ramp与贴图相乘得出最终颜色信息的特点，进行aov分层;它相对于单纯使用aitoon材质球对物体进行材质覆盖的方式进行亮暗部区分的优点在于，不以单一的材质覆盖的亮暗部过度信息、能更准确地保留材质的亮暗部范围和过度方式、能分别获取到材质的亮暗部rgb信息。相对于传统基于物理的分层方式，能单独调整亮暗面颜色信息，由于三渲二不能在灯光中处理氛围，此方式在合成中可调性更高。</p>
 
 <p>注意：在输出AOV通道时，若自定义的AOV和Arnold渲染器自带的AOV一起渲染出图时，会导致Arnold渲染器自带的Aov渲染错误，不渲染出正确的信息，因此，自定义的AOV需要单独分层渲染。</p>
-<!-- 下面是评论界面 -->
-<div id="gitalk-container"></div>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
-<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
-<script type="text/javascript">
-var gitalk = new Gitalk({
-    id: '',
-    clientID: '',
-    clientSecret: '',
-    repo: 'gitalk',
-    owner: 'JairusTse',
-    admin: ['JairusTse'],
-    labels: ['Gitalk'],
-    perPage: 50
-})
-gitalk.render('gitalk-container')
-</script>
 
     
     
@@ -598,7 +581,7 @@ gitalk.render('gitalk-container')
     var gitment = new Gitment({
       id: "20220226134411",
       owner: 'MirrorCG',
-      repo: 'BlogComment',
+      repo: 'MirrorCG.github.io',
       oauth: {
         client_id: '1f5272e04699062eab57',
         client_secret: '0fe2bf0bd9a22cd81272296ca60ba6add0bdd5fb',
@@ -767,6 +750,14 @@ gitalk.render('gitalk-container')
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">合成</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">ACES</a>
               </li>
             
             <div class="clearfix"></div>
