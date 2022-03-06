@@ -6,24 +6,28 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://MirrorCG.github.io">
-  <title>Tag: OpenMaya | Mirror的个人博客</title>
+  <title>Deadline中的事件示例 | Mirror的个人博客</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="记录工作和学习中的成果，分享一些踩坑记录和代码">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Mirror的个人博客">
-<meta property="og:url" content="http://mirrorcg.github.io/tags/OpenMaya/index.html">
+  <meta name="description" content="此文章是记录Deadline农场管理软件中的消息事件插件编写的示例。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Deadline中的事件示例">
+<meta property="og:url" content="http://mirrorcg.github.io/2022/03/06/Deadline%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E7%A4%BA%E4%BE%8B/index.html">
 <meta property="og:site_name" content="Mirror的个人博客">
-<meta property="og:description" content="记录工作和学习中的成果，分享一些踩坑记录和代码">
+<meta property="og:description" content="此文章是记录Deadline农场管理软件中的消息事件插件编写的示例。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://mirrorcg.github.io/images/Deadline%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E7%A4%BA%E4%BE%8B/event%E9%A1%BA%E5%BA%8F%E4%BF%AE%E6%94%B9.png">
+<meta property="og:image" content="http://mirrorcg.github.io/images/Deadline%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E7%A4%BA%E4%BE%8B/event%E5%88%9B%E5%BB%BA%E4%BA%8B%E4%BB%B6%E6%96%87%E4%BB%B6%E5%A4%B9.png">
+<meta property="og:image" content="http://mirrorcg.github.io/images/Deadline%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E7%A4%BA%E4%BE%8B/event%E5%88%9B%E5%BB%BA%E4%BA%8B%E4%BB%B6%E8%84%9A%E6%9C%AC%E6%96%87%E4%BB%B6.png">
+<meta property="og:image" content="http://mirrorcg.github.io/images/Deadline%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E7%A4%BA%E4%BE%8B/event%E5%88%9B%E5%BB%BA%E4%BA%8B%E4%BB%B6%E5%8F%82%E6%95%B0%E6%96%87%E4%BB%B6.png">
+<meta property="og:image" content="http://mirrorcg.github.io/images/Deadline%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E7%A4%BA%E4%BE%8B/event%E4%BA%8B%E4%BB%B6%E6%8F%92%E4%BB%B6%E9%85%8D%E7%BD%AE.png">
+<meta property="article:published_time" content="2022-03-06T10:01:02.000Z">
+<meta property="article:modified_time" content="2022-03-06T15:44:12.504Z">
 <meta property="article:author" content="Mirror">
-<meta property="article:tag" content="python">
-<meta property="article:tag" content="Maya">
-<meta property="article:tag" content="Deadline">
-<meta property="article:tag" content="CG">
-<meta property="article:tag" content="个人博客">
+<meta property="article:tag" content="插件">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://mirrorcg.github.io/images/Deadline%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E7%A4%BA%E4%BE%8B/event%E9%A1%BA%E5%BA%8F%E4%BF%AE%E6%94%B9.png">
   
   
     <link rel="icon" href="/images/home/websiteIco.ico">
@@ -246,80 +250,297 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Deadline中的事件示例" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2022/02/28/Maya%E8%8E%B7%E5%8F%96%E9%80%89%E4%B8%AD%E7%9B%B8%E6%9C%BA%E8%A7%86%E8%A7%92%E4%B8%AD%E7%9A%84%E6%89%80%E6%9C%89%E5%87%A0%E4%BD%95%E4%BD%93/" class="archive-article-date">
-        <time datetime="2022-02-28T15:01:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-28</time>
-</a>
-
-        </div>
-    	 
+      <header class="article-header">
   
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2022/02/28/Maya%E8%8E%B7%E5%8F%96%E9%80%89%E4%B8%AD%E7%9B%B8%E6%9C%BA%E8%A7%86%E8%A7%92%E4%B8%AD%E7%9A%84%E6%89%80%E6%9C%89%E5%87%A0%E4%BD%95%E4%BD%93/" target="_blank">Maya获取选中相机视口中的对象</a>
   
+    <h1 class="article-title" itemprop="name">
+      Deadline中的事件示例
     </h1>
   
 
 
-        <div class="article-info info-on-right">
+  
+  
+        
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+<a href="/2022/03/06/Deadline%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E7%A4%BA%E4%BE%8B/" class="archive-article-date">
+        <time datetime="2022-03-06T10:01:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-06</time>
+</a>
+
+  
+  
+    
+<div style="margin-top:10px;">
+  <span class="post-time">
+    <span class="post-meta-item-icon">
+      <!-- fonts.scss -->
+      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
+      <i class="icon-statistics"></i>
+      <span class="post-meta-item-text"> 字数统计:</span>
+      <span class="post-count">1.2k字</span>
+    </span>
+  </span>
+
+  <span class="post-time">
+    &nbsp; | &nbsp;
+    <span class="post-meta-item-icon">
+      <i class="icon-book icon"></i>
+      <span class="post-meta-item-text"> 阅读时长≈</span>
+      <span class="post-count">5分</span>
+    </span>
+  </span>
+</div>
+
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+
+    
+
+    
+    <p>此文章是记录Deadline农场管理软件中的消息事件插件编写的示例。<span id="more"></span></p>
+<h3 id="事件插件的作用和执行顺序"><a href="#事件插件的作用和执行顺序" class="headerlink" title="事件插件的作用和执行顺序"></a>事件插件的作用和执行顺序</h3><p>Deadline 的所有插件都是Python写的，事件插件可用于更新新快照或任务的状态，或者可用于在一个作业状态更改时处理相关的作业。并且插件都是以非交互式的方式执行，编写插件时不应该包含阻塞操作(如无限循环)或需要用户输入的界面。当我们的事件插件被执行时，日志中会显示插件是从哪里加载的。<br>Deadline中有很多事件，事件插件的触发是按顺序的，并且顺序是可配置的：</p>
+<p><img src="/images/Deadline%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E7%A4%BA%E4%BE%8B/event%E9%A1%BA%E5%BA%8F%E4%BF%AE%E6%94%B9.png" alt="event顺序修改"></p>
+<h3 id="创建事件脚本"><a href="#创建事件脚本" class="headerlink" title="创建事件脚本"></a>创建事件脚本</h3><p>首先要在存储库的custom\events文件夹中创建一个文件夹，并为其命名您的事件插件，如：</p>
+<p><img src="/images/Deadline%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E7%A4%BA%E4%BE%8B/event%E5%88%9B%E5%BB%BA%E4%BA%8B%E4%BB%B6%E6%96%87%E4%BB%B6%E5%A4%B9.png" alt="event创建事件文件夹"></p>
+<p>创建好文件夹后，我们需要新建一个和该文件夹相同明明的 .py 文件，并在文件中写入相应的基本内容（导入deadline事件命名空间；GetDeadlineEventListener()函数获取MyEvent类的一个实例，没有会报错；MyEvent类将需要基于想要响应的事件实现某些回调；当不再使用该事件插件，CleanupDeadlineEventListener()函数进行自动清理。）：</p>
+<p><img src="/images/Deadline%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E7%A4%BA%E4%BE%8B/event%E5%88%9B%E5%BB%BA%E4%BA%8B%E4%BB%B6%E8%84%9A%E6%9C%AC%E6%96%87%E4%BB%B6.png" alt="event创建事件脚本文件"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Deadline.Events <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">GetDeadlineEventListener</span>():</span><br><span class="line">    <span class="string">&quot;&quot;&quot;This is the function that Deadline calls to get an instance of the</span></span><br><span class="line"><span class="string">    main DeadlineEventListener class.</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">return</span> MyEvent()</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">CleanupDeadlineEventListener</span>(<span class="params">deadlinePlugin</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;This is the function that Deadline calls when the event plugin is</span></span><br><span class="line"><span class="string">    no longer in use so that it can get cleaned up.</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    deadlinePlugin.Cleanup()</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyEvent</span>(<span class="title class_ inherited__">DeadlineEventListener</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;This is the main DeadlineEventListener class for MyEvent&quot;&quot;&quot;</span></span><br><span class="line">    <span class="comment"># <span class="doctag">TODO:</span> Place code here to replace &quot;pass&quot;</span></span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<p>当我们完成上述脚本文件的内容后，我们将会得到下面的脚本内容：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"><span class="comment"># @Auther: Mirror</span></span><br><span class="line"><span class="comment"># @Time: 2020/07/01</span></span><br><span class="line"><span class="comment"># =========================================</span></span><br><span class="line"><span class="keyword">from</span> System <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> System.Collections.Specialized <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> System.IO <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> System.Text <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> Deadline.Scripting <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> Deadline.Events <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">######################################################################</span></span><br><span class="line"><span class="comment">## This is the function that Deadline calls to get an instance of the</span></span><br><span class="line"><span class="comment">## main DeadlineEventListener class.</span></span><br><span class="line"><span class="comment">######################################################################</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">GetDeadlineEventListener</span>():</span><br><span class="line">    <span class="keyword">return</span> MyEvent()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">######################################################################</span></span><br><span class="line"><span class="comment">## This is the function that Deadline calls when the event plugin is</span></span><br><span class="line"><span class="comment">## no longer in use so that it can get cleaned up.</span></span><br><span class="line"><span class="comment">######################################################################</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">CleanupDeadlineEventListener</span>(<span class="params">deadlinePlugin</span>):</span><br><span class="line">    deadlinePlugin.Cleanup()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">######################################################################</span></span><br><span class="line"><span class="comment">## This is the main DeadlineEventListener class for MyEvent.</span></span><br><span class="line"><span class="comment">######################################################################</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyEvent</span>(<span class="title class_ inherited__">DeadlineEventListener</span>):</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="comment"># Set up the event callbacks here</span></span><br><span class="line">        self.OnJobFinishedCallback += self.OnJobFinished</span><br><span class="line">        self.OnJobFailedCallback += self.OnJobFailed</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">Cleanup</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">del</span> self.OnJobFinishedCallback</span><br><span class="line">        <span class="keyword">del</span> self.OnJobFailedCallback</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">OnJobFinished</span>(<span class="params">self, job</span>):</span><br><span class="line">        <span class="comment"># <span class="doctag">TODO:</span> Connect to pipeline site to notify it that the job for a particular</span></span><br><span class="line">        <span class="comment"># shot or task is complete.</span></span><br><span class="line">        job_name = job.JobName</span><br><span class="line">        job_mach = job.GetJobInfoKeyValue(<span class="string">&quot;MachineName&quot;</span>)</span><br><span class="line">        job_user = job.JobUserName</span><br><span class="line">        <span class="keyword">if</span> job_mach.lower() == <span class="string">&quot;renderfarm&quot;</span>:</span><br><span class="line">            slaves = <span class="literal">None</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            slaves = [job_mach]</span><br><span class="line">        <span class="keyword">if</span> slaves:</span><br><span class="line">            <span class="keyword">for</span> each <span class="keyword">in</span> slaves:</span><br><span class="line">                curr_time = time.strftime(<span class="string">&#x27;%Y-%m-%d&#x27;</span>, time.localtime(time.time()))</span><br><span class="line">                slave = each</span><br><span class="line">                massages = <span class="string">&quot;Cur_time:  &#123;curtime&#125;\nJob_user:  &#123;user&#125;\n\nmassages:  Job named \&#x27;&#123;jobname&#125;\&#x27; had been complate&quot;</span>.<span class="built_in">format</span>(</span><br><span class="line">                    curtime=curr_time, user=job_user, jobname=job_name)</span><br><span class="line">                self.sendmessages(slave, massages)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;================================================================================================&quot;</span>)</span><br><span class="line">        self.LogInfo(<span class="string">&quot;\&#x27;%s\&#x27; is complated&quot;</span> % job_name)</span><br><span class="line">        self.LogInfo(<span class="string">&quot;================================================================================================&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">OnJobFailed</span>(<span class="params">self, job</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        Deadline will to do sometion when job or task is faild</span></span><br><span class="line"><span class="string">        :param job: which Work being monitored</span></span><br><span class="line"><span class="string">        :return: None</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        job_name = job.JobName</span><br><span class="line">        job_mach = job.GetJobInfoKeyValue(<span class="string">&quot;MachineName&quot;</span>)</span><br><span class="line">        job_user = job.JobUserName</span><br><span class="line">        <span class="keyword">if</span> job_mach.lower() == <span class="string">&quot;renderfarm&quot;</span>:</span><br><span class="line">            slaves = [<span class="string">&quot;DESKTOP-Mirror&quot;</span>]</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">if</span> job_mach == <span class="string">&quot;DESKTOP-Mirror&quot;</span>:</span><br><span class="line">                slaves = [job_mach]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                slaves = [job_mach, <span class="string">&quot;DESKTOP-Mirror&quot;</span>]</span><br><span class="line">        <span class="keyword">for</span> each <span class="keyword">in</span> slaves:</span><br><span class="line">            curr_time = time.strftime(<span class="string">&#x27;%Y-%m-%d&#x27;</span>, time.localtime(time.time()))</span><br><span class="line">            slave = each</span><br><span class="line">            massages = <span class="string">&quot;Cur_time:  &#123;curtime&#125;\nJob_user:  &#123;user&#125;\nmassages:  Job named \&#x27;&#123;jobname&#125;\&#x27; had been failed&quot;</span>.<span class="built_in">format</span>(</span><br><span class="line">                curtime=curr_time, user=job_user, jobname=job_name)</span><br><span class="line">            self.sendmessages(slave, massages)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;================================================================================================&quot;</span>)</span><br><span class="line">        self.LogInfo(<span class="string">&quot;\&#x27;%s\&#x27; is failed&quot;</span> % job_name)</span><br><span class="line">        self.LogInfo(<span class="string">&quot;================================================================================================&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">sendmessages</span>(<span class="params">self, slaves, messages</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :param</span></span><br><span class="line"><span class="string">            slaves: machines`s machines name or IP address.</span></span><br><span class="line"><span class="string">            messages: the messages which is send by current serve]</span></span><br><span class="line"><span class="string">        :return</span></span><br><span class="line"><span class="string">            cmd is executed by system</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        args = StringCollection()</span><br><span class="line">        args.Add(<span class="string">&quot;-SendPopupMessage&quot;</span>)</span><br><span class="line">        args.Add(<span class="string">&quot;%s&quot;</span> % slaves)</span><br><span class="line">        args.Add(<span class="string">&quot;%s&quot;</span> % messages)</span><br><span class="line">        ClientUtils.ExecuteCommand(args)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="创建事件参数文件"><a href="#创建事件参数文件" class="headerlink" title="创建事件参数文件"></a>创建事件参数文件</h3><p>创建完事件插件的脚本后，我们需要在上述文件夹中为事件插件添加与文件夹同名的参数文件（.param）供 Deadline 进行读写：</p>
+<p><img src="/images/Deadline%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E7%A4%BA%E4%BE%8B/event%E5%88%9B%E5%BB%BA%E4%BA%8B%E4%BB%B6%E5%8F%82%E6%95%B0%E6%96%87%E4%BB%B6.png" alt="event创建事件参数文件"><br>参数文件内容：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[State]</span><br><span class="line">Type=Enum</span><br><span class="line">Items=Global Enabled;Opt-In;Disabled</span><br><span class="line">Category=Options</span><br><span class="line">CategoryOrder=0</span><br><span class="line">Index=0</span><br><span class="line">Label=State</span><br><span class="line">Default=Disabled</span><br><span class="line">Description=How this event plug-in should respond to events. If Global, all jobs and slaves will trigger the events for this plugin. If Opt-In, jobs and slaves can choose to trigger the events for this plugin. If Disabled, no events are triggered for this plugin.</span><br><span class="line"></span><br><span class="line">[EventCallbacks]</span><br><span class="line">Type=Label</span><br><span class="line">Description=The Event Callbacks that this Event Plugin subscribes to.</span><br><span class="line">Default=OnJobFailed</span><br></pre></td></tr></table></figure>
+
+<p>它将声明 Monitor 用来生成用户界面的属性，该用户界面用于修改数据库中的自定义设置，创建该文件后，打开监视器并进入超级用户模式。然后选择Tools -&gt; Configure Events，在左边的列表中查找该事件插件。</p>
+<p><img src="/images/Deadline%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E7%A4%BA%E4%BE%8B/event%E4%BA%8B%E4%BB%B6%E6%8F%92%E4%BB%B6%E9%85%8D%E7%BD%AE.png" alt="event事件插件配置"></p>
+<p>至此，在 Deadline 中创建自定义任务消息失败&#x2F;成功的事件已经完成，每当Deadline 中有任务失败时&#x2F;成功时，Deadline 会自动给任务的提交者发送一条相关的消息弹框，用于给制作人员反馈及时的渲染消息。</p>
+<p>注意：需要注意 Deadline 当前使用的 Python 版本，避免出现不兼容的情况</p>
+<p>咱们有空可以看看<a href="https://docs.thinkboxsoftware.com/products/deadline/10.1/1_User%20Manual/manual/event-plugins.html" title="" target="">官方文档</a>是怎么说的，里面有更加详细的内容哦。</p>
+
+    
+    
+    <div class="page-reward">
+      <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
+        <div class="tooltip tooltip-east">
+          <span class="tooltip-item">
+            赏
+          </span>
+          <span class="tooltip-content">
+            <span class="tooltip-text">
+              <span class="tooltip-inner">
+                <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i
+                    class="icon icon-quo-right"></i></p>
+                <div class="reward-box">
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/images/home/aliPay.jpg">
+                    <span class="reward-type">支付宝</span>
+                  </div>
+                  
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/images/home/winxinPay.jpg">
+                    <span class="reward-type">微信</span>
+                  </div>
+                  
+                </div>
+              </span>
+            </span>
+          </span>
+        </div>
+      </a>
+    </div>
+    
+
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          Mirror
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="http://MirrorCG.github.io/2022/03/06/Deadline中的事件示例/" title="Deadline中的事件示例" target="_blank">http://MirrorCG.github.io/2022/03/06/Deadline中的事件示例/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
           
+          本博客所有文章除特别声明外，均采用 <a href="https://github.com/JoeyBling/hexo-theme-yilia-plus/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
+        </li>
+        
+      </ul>
+    </div>
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">OpenMaya</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">插件</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+    
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Maya//" class="article-tag-list-link color5">Maya</a>
+        			<a href="/categories/Deadline//" class="article-tag-list-link color4">Deadline</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Maya/杂项//" class="article-tag-list-link color3">杂项</a>
+        			<a href="/categories/Deadline/插件//" class="article-tag-list-link color3">插件</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
+    
 
     
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=http://mirrorcg.github.io/2022/03/06/Deadline%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E7%A4%BA%E4%BE%8B/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+
+<nav id="article-nav">
+  
+  
+    <a href="/2022/03/02/%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">如何搭建个人博客</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+  
+  <div id="gitment-ctn"></div>
+  
+    <!-- 中文 -->
+    <link rel="stylesheet" href="/lib/gitment.css">
+    <script src="/lib/gitment.js"></script>
+  
+  <script>
+    <!-- id: "Deadline中的事件示例" -->
+    var gitment = new Gitment({
+      id: "20220306180102",
+      owner: 'MirrorCG',
+      repo: 'MirrorCG.github.io',
+      oauth: {
+        client_id: '1f5272e04699062eab57',
+        client_secret: '0fe2bf0bd9a22cd81272296ca60ba6add0bdd5fb',
+      },
+    })
+    gitment.render('gitment-ctn')
+  </script>
+
+
+  
+
 
 
           </div>
@@ -360,9 +581,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: true,
