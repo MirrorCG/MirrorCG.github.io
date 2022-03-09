@@ -303,10 +303,6 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-
-    
-
-    
     <p>Front_matter:文件最上方以 — 分隔的区域<br>这是文章摘要 <span id="more"></span>，下面是废话</p>
 <h2 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h2><p>首行缩进</p>
 <p style="text-indent:2em">内容</p>
@@ -373,6 +369,7 @@ gitalk.render('gitalk-container')
 </script>
 
     
+
     
     <div class="page-reward">
       <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
@@ -572,26 +569,21 @@ gitalk.render('gitalk-container')
 
 
 
-  
-  <div id="gitment-ctn"></div>
-  
-    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
-    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
-  
-  <script th:inline="javascript">
-    var gitment = new Gitment({
-      id: "20220220233048",
-      owner: 'MirrorCG',
-      repo: 'BlogComment',
-      oauth: {
-        client_id: '1f5272e04699062eab57',
-        client_secret: '1bc90244c33ab56db3f53a85ada61ba9bbea1024',
-      },
-    })
-    gitment.render('gitment-ctn')
-  </script>
-
-
+  <div id="gitment-ctn"></div> 
+<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: "http://MirrorCG.github.io/2022/02/20/%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0%E8%AF%AD%E6%B3%95%E7%A4%BA%E4%BE%8B/",
+  owner: 'MirrorCG',
+  repo: 'BlogComment',
+  oauth: {
+    client_id: '1f5272e04699062eab57',
+    client_secret: '1bc90244c33ab56db3f53a85ada61ba9bbea1024',
+  },
+})
+gitment.render('gitment-ctn')
+</script>
   
 
 
@@ -742,15 +734,15 @@ gitalk.render('gitalk-container')
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">插件</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Blog</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">插件</a>
               </li>
              
               <li class="article-tag-list-item">

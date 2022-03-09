@@ -297,16 +297,13 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-
-    
-
-    
     <p style="text-indent:2em">从Maya视图窗口中获取相机视角中所有的对象，可以利用OpenMaya和OpenMayaUI两个模块来完成此功能，<span id="more"></span>首先需要指定相机，并通过遍历相机视口，来获取相机视口中的对象：</p>
 
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"><span class="comment"># @Auth0r: Mirror</span></span><br><span class="line"><span class="comment"># @Time: ----</span></span><br><span class="line"><span class="comment"># =========================================</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> maya.cmds <span class="keyword">as</span> cmds</span><br><span class="line"><span class="keyword">import</span> maya.OpenMaya <span class="keyword">as</span> OpenMaya</span><br><span class="line"><span class="keyword">import</span> maya.OpenMayaUI <span class="keyword">as</span> OpenMayaUI</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">getObjInView</span>(<span class="params">cam</span>):</span><br><span class="line">    <span class="comment"># 添加相机到 MDagPath</span></span><br><span class="line">    mdag_path = OpenMaya.MDagPath()</span><br><span class="line">    sel = OpenMaya.MSelectionList()</span><br><span class="line">    sel.add(cam)</span><br><span class="line">    sel.getDagPath(<span class="number">0</span>, mdag_path)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 遍历视口</span></span><br><span class="line">    draw_traversal = OpenMayaUI.MDrawTraversal()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 创建视锥</span></span><br><span class="line">    draw_traversal.setFrustum(mdag_path, cmds.getAttr(<span class="string">&quot;defaultResolution.width&quot;</span>),cmds.getAttr(<span class="string">&quot;defaultResolution.height&quot;</span>))</span><br><span class="line">    draw_traversal.traverse()</span><br><span class="line">    frustum_objs = []</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Loop through obiects within frustum</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(draw_traversal.numberOfItems()):</span><br><span class="line">        <span class="comment"># 先返回shape, 所以需要先获取它的transforn</span></span><br><span class="line">        shape_dag_path = OpenMaya.MDagPath()</span><br><span class="line">        draw_traversal.itemPath(i, shape_dag_path)</span><br><span class="line">        transform_dag_path = OpenMaya.MDagPath()</span><br><span class="line">        OpenMaya.MDagPath.getAPathTo(shape_dag_path.transform(), transform_dag_path)</span><br><span class="line">        <span class="comment"># 获取物体的长名并且确保它是有效的transform</span></span><br><span class="line">        obj = transform_dag_path.fullPathName()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> cmds.objExists(obj):</span><br><span class="line">            frustum_objs.append(obj)</span><br><span class="line">            cmds.select(frustum_objs)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    <span class="comment"># 需要指定相机</span></span><br><span class="line">    cam = <span class="string">&#x27;persp&#x27;</span>  <span class="comment"># 指定相机</span></span><br><span class="line">    getObjInView(cam)</span><br></pre></td></tr></table></figure> 
 
 
     
+
     
     <div class="page-reward">
       <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
@@ -502,26 +499,21 @@
 
 
 
-  
-  <div id="gitment-ctn"></div>
-  
-    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
-    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
-  
-  <script th:inline="javascript">
-    var gitment = new Gitment({
-      id: "20220228230158",
-      owner: 'MirrorCG',
-      repo: 'BlogComment',
-      oauth: {
-        client_id: '1f5272e04699062eab57',
-        client_secret: '1bc90244c33ab56db3f53a85ada61ba9bbea1024',
-      },
-    })
-    gitment.render('gitment-ctn')
-  </script>
-
-
+  <div id="gitment-ctn"></div> 
+<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: "http://MirrorCG.github.io/2022/02/28/Maya%E8%8E%B7%E5%8F%96%E9%80%89%E4%B8%AD%E7%9B%B8%E6%9C%BA%E8%A7%86%E8%A7%92%E4%B8%AD%E7%9A%84%E6%89%80%E6%9C%89%E5%87%A0%E4%BD%95%E4%BD%93/",
+  owner: 'MirrorCG',
+  repo: 'BlogComment',
+  oauth: {
+    client_id: '1f5272e04699062eab57',
+    client_secret: '1bc90244c33ab56db3f53a85ada61ba9bbea1024',
+  },
+})
+gitment.render('gitment-ctn')
+</script>
   
 
 
@@ -672,15 +664,15 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">插件</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Blog</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">插件</a>
               </li>
              
               <li class="article-tag-list-item">

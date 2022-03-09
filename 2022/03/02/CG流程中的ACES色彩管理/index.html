@@ -308,10 +308,6 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-
-    
-
-    
     <p>构建CG流程中的ACES色彩管理流程 <span id="more"></span>,为什么要构建呢？因为：1.色域更高，能容纳更多的色彩，显示的色彩更丰富；2.能接受更高的灯光强度，画面比较不会过曝（不要调皮地将灯光强度调的特别高哦）;3.更物理更真实，颜色会随着亮度地提升，饱和度逐渐降低。相对的就会有些缺点：图片占用存储空间会变大。</p>
 <p>在CG流程中的大概过程就是，sRGB图片进入DCC软件被AECSCG线性转换函数转换编码到ACES色域中被管理&gt;渲染器处理贴图信息后生成ACES色域图片&gt;经过编码转换到视图中显示或输出为指定色域的图片用于存储(srgb或ACES)、进一步编辑（ACES）</p>
 <h4 id="测试环境"><a href="#测试环境" class="headerlink" title="测试环境"></a>测试环境</h4><pre><code>Substance painter 7.1 + Maya 2020.4 + Nukel2.3 + ACES1.1
@@ -349,6 +345,7 @@
 <h4 id="相关软件插件下载链接"><a href="#相关软件插件下载链接" class="headerlink" title="相关软件插件下载链接"></a>相关软件插件下载链接</h4><p>Substance Painter插件滤镜：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1FFpBeih902gMJWVQrzEwbw">https://pan.baidu.com/s/1FFpBeih902gMJWVQrzEwbw</a> 提取码: anqq<br>OCIO配置文件下载地址：<a target="_blank" rel="noopener" href="https://github.com/colour-science/OpenColorIO-Configs/tree/feature/aces-1.2-config">https://github.com/colour-science/OpenColorIO-Configs/tree/feature/aces-1.2-config</a></p>
 
     
+
     
     <div class="page-reward">
       <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
@@ -552,26 +549,21 @@
 
 
 
-  
-  <div id="gitment-ctn"></div>
-  
-    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
-    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
-  
-  <script th:inline="javascript">
-    var gitment = new Gitment({
-      id: "20220302010847",
-      owner: 'MirrorCG',
-      repo: 'BlogComment',
-      oauth: {
-        client_id: '1f5272e04699062eab57',
-        client_secret: '1bc90244c33ab56db3f53a85ada61ba9bbea1024',
-      },
-    })
-    gitment.render('gitment-ctn')
-  </script>
-
-
+  <div id="gitment-ctn"></div> 
+<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: "http://MirrorCG.github.io/2022/03/02/CG%E6%B5%81%E7%A8%8B%E4%B8%AD%E7%9A%84ACES%E8%89%B2%E5%BD%A9%E7%AE%A1%E7%90%86/",
+  owner: 'MirrorCG',
+  repo: 'BlogComment',
+  oauth: {
+    client_id: '1f5272e04699062eab57',
+    client_secret: '1bc90244c33ab56db3f53a85ada61ba9bbea1024',
+  },
+})
+gitment.render('gitment-ctn')
+</script>
   
 
 
@@ -722,15 +714,15 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">插件</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Blog</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">插件</a>
               </li>
              
               <li class="article-tag-list-item">

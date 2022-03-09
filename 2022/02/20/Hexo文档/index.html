@@ -298,10 +298,6 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-
-    
-
-    
     <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. <span id="more"></span>If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
 
@@ -317,6 +313,7 @@
 <p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 
     
+
     
     <div class="page-reward">
       <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
@@ -507,26 +504,21 @@
 
 
 
-  
-  <div id="gitment-ctn"></div>
-  
-    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
-    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
-  
-  <script th:inline="javascript">
-    var gitment = new Gitment({
-      id: "20220220230910",
-      owner: 'MirrorCG',
-      repo: 'BlogComment',
-      oauth: {
-        client_id: '1f5272e04699062eab57',
-        client_secret: '1bc90244c33ab56db3f53a85ada61ba9bbea1024',
-      },
-    })
-    gitment.render('gitment-ctn')
-  </script>
-
-
+  <div id="gitment-ctn"></div> 
+<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: "http://MirrorCG.github.io/2022/02/20/Hexo%E6%96%87%E6%A1%A3/",
+  owner: 'MirrorCG',
+  repo: 'BlogComment',
+  oauth: {
+    client_id: '1f5272e04699062eab57',
+    client_secret: '1bc90244c33ab56db3f53a85ada61ba9bbea1024',
+  },
+})
+gitment.render('gitment-ctn')
+</script>
   
 
 
@@ -677,15 +669,15 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">插件</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Blog</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">插件</a>
               </li>
              
               <li class="article-tag-list-item">
