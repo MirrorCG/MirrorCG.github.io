@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://mirrorcg.github.io/images/CG流程中的ACES色彩管理/Nuke中ACES输出EXR.png">
 <meta property="og:image" content="http://mirrorcg.github.io/images/CG流程中的ACES色彩管理/Nuke中ACES输出sRGB序列.png">
 <meta property="article:published_time" content="2022-03-01T17:08:47.000Z">
-<meta property="article:modified_time" content="2022-03-03T16:55:56.313Z">
+<meta property="article:modified_time" content="2022-03-07T15:08:47.000Z">
 <meta property="article:author" content="Mirror">
 <meta property="article:tag" content="灯光">
 <meta property="article:tag" content="合成">
@@ -288,7 +288,7 @@
       <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
       <i class="icon-statistics"></i>
       <span class="post-meta-item-text"> 字数统计:</span>
-      <span class="post-count">1.2k字</span>
+      <span class="post-count">1.4k字</span>
     </span>
   </span>
 
@@ -297,7 +297,7 @@
     <span class="post-meta-item-icon">
       <i class="icon-book icon"></i>
       <span class="post-meta-item-text"> 阅读时长≈</span>
-      <span class="post-count">4分</span>
+      <span class="post-count">5分</span>
     </span>
   </span>
 </div>
@@ -312,10 +312,11 @@
     
 
     
-    <p>构建CG流程中的ACES色彩管理流程 <span id="more"></span>,这里就不介绍概念了，直接开始。</p>
+    <p>构建CG流程中的ACES色彩管理流程 <span id="more"></span>,为什么要构建呢？因为：1.色域更高，能容纳更多的色彩，显示的色彩更丰富；2.能接受更高的灯光强度，画面比较不会过曝（不要调皮地将灯光强度调的特别高哦）;3.更物理更真实，颜色会随着亮度地提升，饱和度逐渐降低。相对的就会有些缺点：图片占用存储空间会变大。</p>
+<p>在CG流程中的大概过程就是，sRGB图片进入DCC软件被AECSCG线性转换函数转换编码到ACES色域中被管理&gt;渲染器处理贴图信息后生成ACES色域图片&gt;经过编码转换到视图中显示或输出为指定色域的图片用于存储(srgb或ACES)、进一步编辑（ACES）</p>
 <h4 id="测试环境"><a href="#测试环境" class="headerlink" title="测试环境"></a>测试环境</h4><pre><code>Substance painter 7.1 + Maya 2020.4 + Nukel2.3 + ACES1.1
 </code></pre>
-<h4 id="SP软件配置"><a href="#SP软件配置" class="headerlink" title="SP软件配置"></a>SP软件配置</h4><p style="text-indent:2em">由于SP要在7.4版本以后才支持 OCIO 配置文件，并且目前大部分资产贴图都采用sRGB色域编码，因此默认使用传统 SP(sRGB)到 MAYA(ACES) 中进行 sRGB 色域空间转换到 ACES 色域空间的方式。传统SP流程可以通过一个Lut(外视修改转换)文件用于显示（只是看起来和AECES差不多，但实除上还是SRGB色域的图片）具体方法是：file > import resource > 添加资源 > 选择Lut文件 > 修改定义为 colorLut > 导入到"工具架" > 导入，然后在显示设置中将 activate post effects恢复默认,勾选activate post effects，勾选activate post effects > tone mapping(色调映射),将 activate post effects > tone mapping > function(功能)设置为log(日志)，并勾选activate color porfile > porfile 修改为 ACES_Standard_log,white_Point 设置为默认值，此时我们从SP软件的视口中看见的色彩在视觉上基本等同ACES色域图显示的效果。</p>
+<h4 id="SP软件配置"><a href="#SP软件配置" class="headerlink" title="SP软件配置"></a>SP软件配置</h4><p style="text-indent:2em">由于SP要在7.4版本以后才支持 OCIO 配置文件，并且目前大部分资产贴图都采用sRGB色域编码，因此默认使用传统 SP(sRGB)到 MAYA(ACES) 中进行 sRGB 色域空间转换到 ACES 色域空间的方式。传统SP流程可以通过LMT(外观转换)的LUT(查找表)文件用于显示（只是看起来和AECES差不多，但实除上还是SRGB色域的图片）具体方法是：file > import resource > 添加资源 > 选择Lut文件 > 修改定义为 colorLut > 导入到"工具架" > 导入，然后在显示设置中将 activate post effects恢复默认,勾选activate post effects，勾选activate post effects > tone mapping(色调映射),将 activate post effects > tone mapping > function(功能)设置为log(日志)，并勾选activate color porfile > porfile 修改为 ACES_Standard_log,white_Point 设置为默认值，此时我们从SP软件的视口中看见的色彩在视觉上基本等同ACES色域图显示的效果。</p>
 
 <h4 id="May启动时配置-ACES-色彩管理"><a href="#May启动时配置-ACES-色彩管理" class="headerlink" title="May启动时配置 ACES 色彩管理"></a>May启动时配置 ACES 色彩管理</h4><p style="text-indent:2em">Maya中使用 ACES 色彩管理空间，在具备有效的 config.ocio 配置文件的情况下，为 Maya 设置环境变量"OCIO = 文件全路径",此时Maya中的色彩管理空间将使用 OCIO 配置文样中的设置，该设置会在基于ACES 色彩管理的基础上自动修改渲染预览界面和视图界面的色彩空间，我们在显示器中看到的色彩信息并非线性空间的色彩信息，Maya后台输出的图片也是经 ACES 色彩空间编码后的图片，此时将渲染图片放入使用相同 ACES 配置文件的 Nuke 软件中，即可直接对 ACES 图片进行线性数据的操作。</p>
 
@@ -703,10 +704,6 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">插件</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">USD</a>
               </li>
              
@@ -727,6 +724,10 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">插件</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Blog</a>
               </li>
              
@@ -739,15 +740,15 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">OpenMaya</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Aitoon</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">aiUserData</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">OpenMaya</a>
               </li>
              
               <li class="article-tag-list-item">
