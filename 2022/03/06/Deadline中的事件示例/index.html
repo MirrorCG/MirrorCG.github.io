@@ -303,6 +303,10 @@
   
   <div class="article-entry" itemprop="articleBody">
     
+
+    
+
+    
     <p>此文章是记录Deadline农场管理软件中的消息事件插件编写的示例。<span id="more"></span></p>
 <h3 id="事件插件的作用和执行顺序"><a href="#事件插件的作用和执行顺序" class="headerlink" title="事件插件的作用和执行顺序"></a>事件插件的作用和执行顺序</h3><p>Deadline 的所有插件都是Python写的，事件插件可用于更新新快照或任务的状态，或者可用于在一个作业状态更改时处理相关的作业。并且插件都是以非交互式的方式执行，编写插件时不应该包含阻塞操作(如无限循环)或需要用户输入的界面。当我们的事件插件被执行时，日志中会显示插件是从哪里加载的。<br>Deadline中有很多事件，事件插件的触发是按顺序的，并且顺序是可配置的：</p>
 <p><img src="/images/Deadline%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E7%A4%BA%E4%BE%8B/event%E9%A1%BA%E5%BA%8F%E4%BF%AE%E6%94%B9.png" alt="event顺序修改"></p>
@@ -327,7 +331,6 @@
 <p>咱们有空可以看看<a href="https://docs.thinkboxsoftware.com/products/deadline/10.1/1_User%20Manual/manual/event-plugins.html" title="" target="">官方文档</a>是怎么说的，里面有更加详细的内容哦。</p>
 
     
-
     
     <div class="page-reward">
       <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
@@ -688,6 +691,10 @@ gitment.render('gitment-ctn')
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">插件</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Blog</a>
               </li>
              
@@ -696,19 +703,11 @@ gitment.render('gitment-ctn')
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">插件</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">OpenMaya</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">向量计算</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
+                <a href="javascript:void(0)" class="js-tag color4">OpenMaya</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -717,6 +716,10 @@ gitment.render('gitment-ctn')
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">aiUserData</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
               </li>
              
               <li class="article-tag-list-item">

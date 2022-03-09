@@ -301,9 +301,51 @@
   
   <div class="article-entry" itemprop="articleBody">
     
+
+      
+      <!-- 这里也可用type去判断，categories分类页 -->
+        <hr>
+        <br>
+        <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Deadline/">Deadline</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Deadline/%E6%8F%92%E4%BB%B6/">插件</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Doc/">Doc</a><span class="category-list-count">3</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Doc/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a><span class="category-list-count">2</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maya/">Maya</a><span class="category-list-count">5</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Maya/Arnold/">Arnold</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Maya/%E6%9D%82%E9%A1%B9/">杂项</a><span class="category-list-count">3</span></li></ul></li></ul>
+
+        <!-- 这里也可以放进css文件中，这样阅读性好些 -->
+        <style>
+            .category-list li{
+                display: inline-block;
+                margin: 0 2em .9em 0;
+                padding: 11px;
+                border: 2px solid #fcbd12;
+                font-size: 1.2em;
+            }
+            .category-list a {
+                color: #000000;
+            }
+            .category-list-item {
+              background-color: rgb(0, 183, 255);
+              border-radius: 30%;
+              opacity:0.6; 
+            }
     
+            .category-list-item:hover a {
+                color: #fffb00;
+                text-decoration: none;
+                font-weight: bold;
+            }
+            .category-list-count {
+                margin-left: 40px;
+                font-size: 1em;
+                color: #000000;
+            }          
+            
+            .article-entry ul li:before{
+                display: none;
+            }
+        </style>
     
 
+    
+    
+    
     
     <div class="page-reward">
       <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
@@ -593,6 +635,10 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">插件</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Blog</a>
               </li>
              
@@ -601,19 +647,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">插件</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">OpenMaya</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">向量计算</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
+                <a href="javascript:void(0)" class="js-tag color4">OpenMaya</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -622,6 +660,10 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">aiUserData</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
               </li>
              
               <li class="article-tag-list-item">
