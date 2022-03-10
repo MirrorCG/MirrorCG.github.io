@@ -472,7 +472,7 @@
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          我的第一篇博客文章
+          博客文章语法示例
         
       </div>
     </a>
@@ -507,21 +507,37 @@
 
 
 
-  <div id="gitment-ctn"></div> 
-<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
-<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
+
+
+
+
+
+
+  <section id="comments" class="comments">
+    <style>
+      .comments{margin:30px;padding:10px;background:#fff}
+      @media screen and (max-width:800px){.comments{margin:auto;padding:10px;background:#fff}}
+    </style>
+    <div id="vcomment" class="comment"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
-var gitment = new Gitment({
-  id: "http://MirrorCG.github.io/2022/02/20/Hexo%E6%96%87%E6%A1%A3/",
-  owner: 'MirrorCG',
-  repo: 'BlogComment',
-  oauth: {
-    client_id: '1f5272e04699062eab57',
-    client_secret: '1bc90244c33ab56db3f53a85ada61ba9bbea1024',
-  },
-})
-gitment.render('gitment-ctn')
+    var notify = 'true' == true ? true : false;
+    var verify = 'false' == true ? true : false;
+    new Valine({
+        av: AV,
+        el: '#vcomment',
+        notify: notify,
+        app_id: "to35UwTutrjzG0XtFw6gXeKa-gzGzoHsz",
+        app_key: "z22QceD9W40R0XI8WjvtKEuw",
+        placeholder: "留下你来过的痕迹~",
+        avatar:"robohash",
+    });
 </script>
+
+
+    </section>
   
 
 
@@ -660,6 +676,10 @@ gitment.render('gitment-ctn')
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">插件</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">灯光</a>
               </li>
              
@@ -669,10 +689,6 @@ gitment.render('gitment-ctn')
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">ACES</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">插件</a>
               </li>
              
               <li class="article-tag-list-item">
