@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta charset="UTF-8">
+  <meta 
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta 
+    http-equiv="X-UA-Compatible" 
+    content="ie=edge">
+  <meta 
+    name="theme-color" 
+    content="#fff" 
+    id="theme-color">
+  <meta 
+    name="description" 
+    content="记录工作和学习中的成果，分享一些踩坑记录和代码">
+  <link 
+    rel="icon" 
+    href="/images/home/Myhead.jpg">
+  <title>关于Aitoon材质灯光分层的探索</title>
+  
+    
+      <meta 
+        property="og:title" 
+        content="关于Aitoon材质灯光分层的探索">
+    
+    
+      <meta 
+        property="og:url" 
+        content="http://mirrorcg.github.io/posts/20220226cl0o4pe18001h04z83wildh1h.html">
+    
+    
+      <meta 
+        property="og:img" 
+        content="/images/home/Myhead.jpg">
+    
+    
+      <meta 
+        property="og:img" 
+        content="&lt;h3 id=&#34;起因&#34;&gt;&lt;a href=&#34;#起因&#34; class=&#34;headerlink&#34; title=&#34;起因&#34;&gt;&lt;/a&gt;起因&lt;/h3&gt;&lt;p style=&#34;text-indent:2em&#34;&gt;前段时间，开始对在 Maya 中进行三渲二的渲染分层有了兴趣。于是，我就尝试自己探索一下：在 Maya 中使用 Aitoon 材质进行三渲二的灯光分层，以及在 Nuke中进行合成的流程。">
+    
+    
+      <meta 
+        property="og:type" 
+        content="article">
+      <meta 
+        property="og:article:published_time" 
+        content="2022-02-26">
+      <meta 
+        property="og:article:modified_time" 
+        content="2022-03-12">
+      <meta 
+        property="og:article:author" 
+        content="Mirror">
+      
+        
+          <meta 
+            property="og:article:tag" 
+            content="灯光">
+        
+          <meta 
+            property="og:article:tag" 
+            content="Aitoon">
+        
+          <meta 
+            property="og:article:tag" 
+            content="aiUserData">
+        
+      
+    
+  
+  <script>
+    function loadScript(url, cb) {
+      var script = document.createElement('script');
+      script.src = url;
+      if (cb) script.onload = cb;
+      script.async = true;
+      document.body.appendChild(script);
+    }
+    function loadCSS(href, data, attr) {
+      var sheet = document.createElement('link');
+      sheet.ref = 'stylesheet';
+      sheet.href = href;
+      sheet.dataset[data] = attr;
+      document.head.appendChild(sheet);
+    }
+    function changeCSS(cssFile, data, attr) {
+      var oldlink = document.querySelector(data);
+      var newlink = document.createElement("link");
+      newlink.setAttribute("rel", "stylesheet");
+      newlink.setAttribute("href", cssFile);
+      newlink.dataset.prism = attr;
+      document.head.replaceChild(newlink, oldlink);
+    }
+  </script>
+  
+    
+      
+      
+      
+      
+        
+        
+        
+        <script>
+          function prismThemeChange() {
+            if(document.getElementById('theme-color').dataset.mode === 'dark') {
+              if(document.querySelector('[data-prism]')) {
+                changeCSS('/js/lib/prism/prism-tomorrow.min.css', '[data-prism]', 'prism-tomorrow');
+              } else {
+                loadCSS('/js/lib/prism/prism-tomorrow.min.css', 'prism', 'prism-tomorrow');
+              }
+            } else {
+              if(document.querySelector('[data-prism]')) {
+                changeCSS('/js/lib/prism/prism.min.css', '[data-prism]', 'prism');
+              } else {
+                loadCSS('/js/lib/prism/prism.min.css', 'prism', 'prism');
+              }
+            }
+          }
+          prismThemeChange()
+        </script>
+      
+      
+        
+        <link rel="stylesheet" href="/js/lib/prism/prism-line-numbers.min.css">
+      
+    
+  
+  <script>
+    // control reverse button
+    var reverseDarkList = {
+      dark: 'light',
+      light: 'dark'
+    };
+    var themeColor = {
+      dark: '#1c1c1e',
+      light: '#fff'
+    }
+    // get the data of css prefers-color-scheme
+    var getCssMediaQuery = function() {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    };
+    // reverse current darkmode setting function
+    var reverseDarkModeSetting = function() {
+      var setting = localStorage.getItem('user-color-scheme');
+      if(reverseDarkList[setting]) {
+        setting = reverseDarkList[setting];
+      } else if(setting === null) {
+        setting = reverseDarkList[getCssMediaQuery()];
+      } else {
+        return;
+      }
+      localStorage.setItem('user-color-scheme', setting);
+      return setting;
+    };
+    // apply current darkmode setting
+  </script>
+  
+    <script>
+      var setDarkmode = function(mode) {
+      var setting = mode || localStorage.getItem('user-color-scheme');
+      if(setting === getCssMediaQuery()) {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[setting];
+        document.getElementById('theme-color').dataset.mode = setting;
+        prismThemeChange();
+      } else if(reverseDarkList[setting]) {
+        document.documentElement.setAttribute('data-user-color-scheme', setting);
+        document.getElementById('theme-color').content = themeColor[setting];
+        document.getElementById('theme-color').dataset.mode = setting;
+        prismThemeChange();
+      } else {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[getCssMediaQuery()];
+        document.getElementById('theme-color').dataset.mode = getCssMediaQuery();
+        prismThemeChange();
+      }
+    };
+    setDarkmode();
+    </script>
+  
+  
+  <link rel="preload" href="//at.alicdn.com/t/font_1946621_i1kgafibvw.css" as="style" >
+  <link rel="preload" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css" as="style" >
+  
+  
+    <link rel="preload" href="/js/lib/lightbox/baguetteBox.min.js" as="script">
+    <link rel="preload" href="/js/lib/lightbox/baguetteBox.min.css" as="style" >
+  
+  
+    <link rel="preload" href="/js/lib/lozad.min.js" as="script">
+  
+  
+  
+  
+  
+    
+    <link rel="prefetch" href="//unpkg.com/valine/dist/Valine.min.js" as="script">
+  
+  
+  
+  <link rel="stylesheet" href="/css/main.css">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1946621_i1kgafibvw.css">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css">
+  
+    <link rel="stylesheet" href="/js/lib/lightbox/baguetteBox.min.css">
+  
+<meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="Mirror的个人博客" type="application/atom+xml">
+</head>
+
+  <body>
+    <div class="wrapper">
+       
+      <nav class="navbar">
+  <div class="navbar-logo">
+    <span class="navbar-logo-main">
+      
+        <img 
+          class="navbar-logo-img"
+          width="32"
+          height="32"
+          src="/images/home/Myhead.jpg" 
+          alt="blog logo">
+      
+      <span class="navbar-logo-dsc">Mirror`s Blog</span>
+    </span>
+  </div>
+  <div class="navbar-menu">
+    
+      <a 
+        href="/" 
+        class="navbar-menu-item">
+        
+          首页
+        
+      </a>
+    
+      <a 
+        href="/archives" 
+        class="navbar-menu-item">
+        
+          归档
+        
+      </a>
+    
+      <a 
+        href="/tags" 
+        class="navbar-menu-item">
+        
+          标签
+        
+      </a>
+    
+      <a 
+        href="/categories" 
+        class="navbar-menu-item">
+        
+          分类
+        
+      </a>
+    
+      <a 
+        href="/links" 
+        class="navbar-menu-item">
+        
+          友链
+        
+      </a>
+    
+      <a 
+        href="/about" 
+        class="navbar-menu-item">
+        
+          关于
+        
+      </a>
+    
+    <a 
+      class="navbar-menu-item darknavbar" 
+      id="dark">
+      <i class="iconfont icon-weather"></i>
+    </a>
+    <a 
+      class="navbar-menu-item searchnavbar" 
+      id="search">
+      <i 
+        class="iconfont icon-search" 
+        style="font-size: 1.2rem; font-weight: 400;">
+      </i>
+    </a>
+  </div>
+</nav> 
+      
+      <div 
+        id="local-search" 
+        style="display: none">
+        <input
+          class="navbar-menu-item"
+          id="search-input"
+          placeholder="请输入搜索内容..." />
+        <div id="search-content"></div>
+      </div>
+      
+      <div class="section-wrap">
+        <div class="container">
+          <div class="columns">
+            <main class="main-column">
+<article class="card card-content">
+  <header>
+    <h1 class="post-title">
+      关于Aitoon材质灯光分层的探索
+    </h1>
+  </header>
+  <div class="post-meta post-show-meta">
+    <time datetime="2022-02-26T05:44:11.000Z">
+      <i 
+        class="iconfont icon-calendar" 
+        style="margin-right: 2px;">
+      </i>
+      <span>2022-02-26</span>
+    </time>
+    
+      <span class="dot"></span>
+      
+        <a 
+          href="/categories/Maya/" 
+          class="post-meta-link">
+          Maya
+        </a>
+      
+        <a 
+          href="/categories/Maya/Arnold/" 
+          class="post-meta-link">
+          Arnold
+        </a>
+      
+    
+    
+      <span class="dot"></span>
+      <span>1.8k 字</span>
+    
+  </div>
+  
+    <div 
+      class="post-meta post-show-meta" 
+      style="margin-top: -10px;">
+      <div style="display: flex; align-items: center;">
+        <i 
+          class="iconfont icon-biaoqian" 
+          style="margin-right: 2px; font-size: 1.15rem;">
+        </i>
+        
+          
+          <a 
+            href="/tags/%E7%81%AF%E5%85%89/" 
+            class="post-meta-link">
+            灯光
+          </a>
+        
+          
+            <span class="dot"></span>
+          
+          <a 
+            href="/tags/Aitoon/" 
+            class="post-meta-link">
+            Aitoon
+          </a>
+        
+          
+            <span class="dot"></span>
+          
+          <a 
+            href="/tags/aiUserData/" 
+            class="post-meta-link">
+            aiUserData
+          </a>
+        
+      </div>
+    </div>
+  
+  </header>
+  <div 
+    id="section" 
+    class="post-content">
+    <h3 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h3><p style="text-indent:2em">前段时间，开始对在 Maya 中进行三渲二的渲染分层有了兴趣。于是，我就尝试自己探索一下：在 Maya 中使用 Aitoon 材质进行三渲二的灯光分层，以及在 Nuke中进行合成的流程。<span id="more"></span>现在的三渲二影视作品普遍采用亮面、暗面加边缘光的方式进行灯光分层，部分镜头需要以亮面、灰面和暗面加边缘光的方式进行灯光分层，灯光师仅完成灯光角度的设计即可，最终画面氛围和效果需要合成师完成，这种分层方式使用aitoon材质球可以很容易地完成。</p>
+
+<p>测试环境:maya 2018.5+Arnold 6.0.1.0<br>测试角色:不要钱的派大星</p>
+<h3 id="一-材质相关"><a href="#一-材质相关" class="headerlink" title="一. 材质相关"></a>一. 材质相关</h3><p style="text-indent:2em">前期部门仅制作卡通材质，不需要在材质球中为rim、highlight 指定灯光。材质球的base 权重需要设定为1（下图1），关闭材质的能量守恒选项和间接反射（下图2），材质的baseTonemap属性都链接ramp节点并保持只有两个点。调节材质、线框效果与贴图的阴影融合等步骤需要前期部门调整到最终效果。如果做了材质阴影融合，材质部门需要提供另一套只带有阴影贴图的 aimatte 材质球用于切换，供灯光部门渲染阴影通道使用。</p>
+<table><tr>
+<td><img src="/images/关于Aitoon材质灯光分层的探索/图1-1.png" border=1 srcset="/images/home/Myhead.jpg" data-src="/images/关于Aitoon材质灯光分层的探索/图1-1.png" class="lozad post-image"></td>
+<td><img src="/images/关于Aitoon材质灯光分层的探索/图1-2.png" border=1 srcset="/images/home/Myhead.jpg" data-src="/images/关于Aitoon材质灯光分层的探索/图1-2.png" class="lozad post-image"></td>
+</tr></table>
+
+<h3 id="二．灯光环节流程"><a href="#二．灯光环节流程" class="headerlink" title="二．灯光环节流程"></a>二．灯光环节流程</h3><pre><code>1.灯光使用要求
+</code></pre>
+<p style="text-indent:2em">由于卡通材质的特殊性，灯光渲染需要至少一盏光源即可区分亮暗，根据官方介绍虽然 aitoon 材质并不挑剔灯光类型，但由于面光源和skydome等灯光的性质，可能会导致受光面的强度大于1，从而导致莫名的错误，灯光的要求使用平行光、点光源或者聚光灯，并且这三种光源对于风格化高光的形成效果较好，可控性更高。</p>
+    2.Aov及渲染分层
+<p style="text-indent:2em">通过对aitoon材质的渲染，我们可以获取Arnold提供的所有的Aov通道，但由于aitoon材质球并非基干物理的材质球，并不能按照LPE的方式进行分层，传统的分成方式需要考虑灯光的强度和颜色对贴图的影响以及材质之间的影响，而卡通渲染并不计算diffuse的灯光颜色信息，因此我们可以采用diffusealbedo+主光照射范围+暗部颜色+平面反射+透射的方式进行分层，此方法能保持合成的可调性的同时也最大限度保留了材质的效果。通过读取模型的材质信息，给模型添加附加属性，用aiuserdata节点传递已经记录的每个模型的材质球信息，即可确认模型被灯光照射的亮暗面的范围，最终输出通道，具体方式如下：</p>
+    (1)主光照射范围+暗部颜色
+<p style="text-indent:2em">给每一个材质为aitoon的物体添加Arnold额外属性(color1,color2.pos1,pos2.interpolation)用于记录数据（下图左一），该属性记录材质球的basetonemap中ramp 的信息（下图右一），其中颜色数据使用vector类型 ，位置数据使用float类型，ramp的过度类型使用int类型，这三种类型分别可对应用户数据节点的 aiUserDataColor、aiUserDataFloat、aiUserDatalnt。</p>
+<table><tr>
+<td><img src="/images/关于Aitoon材质灯光分层的探索/图2-1.png" border=0 srcset="/images/home/Myhead.jpg" data-src="/images/关于Aitoon材质灯光分层的探索/图2-1.png" class="lozad post-image"></td>
+<td><img src="/images/关于Aitoon材质灯光分层的探索/图2-2.png" border=0 srcset="/images/home/Myhead.jpg" data-src="/images/关于Aitoon材质灯光分层的探索/图2-2.png" class="lozad post-image"></td>
+</tr></table>
+<p style="text-indent:2em">以 toon_key 为例创建自定义 aov（下图左一），通过创建自定义的aov，将aov色器选择为新创建的 aitoon 卡通材质球 关闭该aitoon 材质球的能量守恒，边缘，高光。将basecolor调为1，并给basetonemap链接一个默认的ramp节点。创建2个aiUserDataColor2个aiUserDataFloat1个aiUserDatalnt节点，并将color1、color2分别填入aiUserDataColor，pos1、pos2分别填入aiUserDataFloat，interpolation填入aiUserDatalnt，将五个节点链接到上一步的ramp中即可渲染出，所需要的包含有灯光照射的两部范围信息的aov，该aov的色彩信息为仅为灯光照射的亮面（toon_key）(不含材质信息)，以此类推，可获得暗面的颜色（toon_env），渲染出的aov（下图右一）</p>
+<table><tr>
+<td><img src="/images/关于Aitoon材质灯光分层的探索/图2-3.png" border=0 srcset="/images/home/Myhead.jpg" data-src="/images/关于Aitoon材质灯光分层的探索/图2-3.png" class="lozad post-image"></td>
+<td><img src="/images/关于Aitoon材质灯光分层的探索/图2-4.png" border=0 srcset="/images/home/Myhead.jpg" data-src="/images/关于Aitoon材质灯光分层的探索/图2-4.png" class="lozad post-image"></td>
+</tr></table>
+<p>至此，我们获得需要的灯光层，该灯光层保留材质的 ramp 亮暗面信息和亮暗部区域(非aitoon 材质渲染为黑色。</p>
+    (2) Diffuse abedle、高光和透射
+<p style="text-indent:2em">材质本身的高光和透射可利用maya自身的aov输出，分别为specular direct、specular indirect，transmission direct， transmission indirect。</p>
+    (3) edge
+<p style="text-indent:2em">物体的边缘线输出，需要通过自定义edge aov进行输出，需要将aov的filter设定为 contour类型否则渲染不出线框（如下图）。</p>
+<table><tr>
+<td><img src="/images/关于Aitoon材质灯光分层的探索/图2-5.png" border=0 srcset="/images/home/Myhead.jpg" data-src="/images/关于Aitoon材质灯光分层的探索/图2-5.png" class="lozad post-image"></td>
+<td><img src="/images/关于Aitoon材质灯光分层的探索/图2-6.png" border=0 srcset="/images/home/Myhead.jpg" data-src="/images/关于Aitoon材质灯光分层的探索/图2-6.png" class="lozad post-image"></td>
+</tr></table>
+    (4) 边缘光和风格化高光
+<p style="text-indent:2em">为了便于调节，aitoon材质的rim边缘光和风格化高光可通过单独分层并对层中的物体进行材质覆盖的方式进行提取aov，单独分层也有利于控制效果。</p>
+    (5) 其他需要的aov
+<p style="text-indent:2em">除上述aov外,其他一些aov可根据需求添加，本文考虑使用的辅助aov包括:N、 fresnel、OCC、RBzd、P、crypto_matte(三种)、direct和indirect 可在含有非aitoon材质时输出，用于调整非aitoon材质物体。</p>
+    (6)文件分层
+<p style="text-indent:2em">文件的分层方式通过maya的renderSetup分层方式进行分层，最后以模板的形式导出渲染层，供流程使用。使用render Setup的方 式分层可以很方便地对模型进行材质覆盖、属性覆盖和导出自定义aov的操作，以边光和风格化层高光为例，为保持物体边缘光的统一性，需要整体赋予一个aitoon材质球，用于调整边缘光效果;而材质球的边缘光和风格化高光属性是没有填入对应灯光的shape名称的，因此可以在覆盖材质或者属性的基础上，统一给相关的模型覆盖属性或材质球，达到渲染效果。</p>
+
+<h3 id="三．合成"><a href="#三．合成" class="headerlink" title="三．合成"></a>三．合成</h3><p style="text-indent:2em">通过上面的方法，我们可以得到合成所需要的aov，通过合成树即可还原灯光渲染的效果（合成树中的图片不是本例的图片，此处仅做示范），并在此基础上由合成师进行环境氛围和灯光效果的调整即可（如下图）。</p>
+<table><tr>
+<td><img src="/images/关于Aitoon材质灯光分层的探索/图3-1.png" border=0 srcset="/images/home/Myhead.jpg" data-src="/images/关于Aitoon材质灯光分层的探索/图3-1.png" class="lozad post-image"></td>
+<td><img src="/images/关于Aitoon材质灯光分层的探索/图3-2.png" border=0 srcset="/images/home/Myhead.jpg" data-src="/images/关于Aitoon材质灯光分层的探索/图3-2.png" class="lozad post-image"></td>
+</tr></table>
+
+<h3 id="四．写在最后"><a href="#四．写在最后" class="headerlink" title="四．写在最后"></a>四．写在最后</h3><p style="text-indent:2em">此方法按照aitoon材质球的非基于物理渲染的特性，以basetonemap的ramp与贴图相乘得出最终颜色信息的特点，进行aov分层;它相对于单纯使用aitoon材质球对物体进行材质覆盖的方式进行亮暗部区分的优点在于，不以单一的材质覆盖的亮暗部过度信息、能更准确地保留材质的亮暗部范围和过度方式、能分别获取到材质的亮暗部rgb信息。相对于传统基于物理的分层方式，能单独调整亮暗面颜色信息，由于三渲二不能在灯光中处理氛围，此方式在合成中可调性更高。</p>
+
+<p>注意：在输出AOV通道时，若自定义的AOV和Arnold渲染器自带的AOV一起渲染出图时，会导致Arnold渲染器自带的Aov渲染错误，不渲染出正确的信息，因此，自定义的AOV需要单独分层渲染。</p>
+
+  </div>
+  <div>
+    
+      <div 
+        class="post-note note-warning copyright" 
+        style="margin-top: 42px">
+        <p>
+          <span style="font-weight: bold;">作者：</span><a 
+            target="_blank" 
+            rel="nofollow noopener noreferrer" 
+            href="/about">
+            Mirror
+          </a>
+        </p>
+        <p>
+          <span style="font-weight: bold;">文章链接：</span><a 
+            target="_blank" 
+            rel="nofollow noopener noreferrer" 
+            href="http://mirrorcg.github.io/posts/20220226cl0o4pe18001h04z83wildh1h.html">
+            http://mirrorcg.github.io/posts/20220226cl0o4pe18001h04z83wildh1h.html
+          </a>
+        </p>
+        <p><span style="font-weight: bold;">版权声明：</span>本博客所有文章除特别声明外，均采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0 协议</a>。转载请注明出处！</p>
+      </div>
+    
+  </div>
+</article>
+<div class="nav">
+  
+    <div class="nav-item-prev">
+      <a 
+        href="/posts/20220227cl0o4pe0t000b04z8fjune9y7.html" 
+        class="nav-link">
+        <i class="iconfont icon-left nav-prev-icon"></i>
+        <div>
+          <div class="nav-label">上一篇</div>
+          
+            <div class="nav-title">Maya获取指定物体到Camera焦点平面的距离 </div>
+          
+        </div>
+      </a>
+    </div>
+  
+  
+    <div class="nav-item-next">
+      <a 
+        href="/posts/20220220a1.html" 
+        class="nav-link">
+        <div>
+          <div class="nav-label">下一篇</div>
+          
+            <div class="nav-title">博客文章语法示例 </div>
+          
+        </div>
+        <i class="iconfont icon-right nav-next-icon"></i>
+      </a>
+    </div>
+  
+</div>
+
+  <div 
+    class="card card-content comment-card" 
+    style="margin-top: 16px;">
+    <div class="comment-card-title">评论</div>
+    
+  <div id="vcomments"></div>
+  
+  <script>
+    loadScript("//unpkg.com/valine/dist/Valine.min.js");
+    var oldLoadVa = window.onload;
+    window.onload = function () {
+      oldLoadVa && oldLoadVa();
+      new Valine({
+        el: '#vcomments',
+        appId: 'to35UwTutrjzG0XtFw6gXeKa-gzGzoHsz',
+        appKey: 'z22QceD9W40R0XI8WjvtKEuw',
+        placeholder: '有话直说，不必拘礼',
+        path: window.location.pathname,
+        avatar: 'robohash',
+        meta: ["nick","mail","link"],
+        pageSize: '10',
+        lang: '',
+        visitor: 'true',
+        highlight: true,
+        recordIP: true,
+        
+        
+        
+        enableQQ: 'true',
+        requiredFields: [],
+      });
+    };
+  </script>
+
+  </div>
+
+<div 
+  class="card card-content toc-card" 
+  id="mobiletoc">
+  <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B5%B7%E5%9B%A0"><span class="toc-number">1.</span> <span class="toc-text">起因</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80-%E6%9D%90%E8%B4%A8%E7%9B%B8%E5%85%B3"><span class="toc-number">2.</span> <span class="toc-text">一. 材质相关</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%EF%BC%8E%E7%81%AF%E5%85%89%E7%8E%AF%E8%8A%82%E6%B5%81%E7%A8%8B"><span class="toc-number">3.</span> <span class="toc-text">二．灯光环节流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%EF%BC%8E%E5%90%88%E6%88%90"><span class="toc-number">4.</span> <span class="toc-text">三．合成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%EF%BC%8E%E5%86%99%E5%9C%A8%E6%9C%80%E5%90%8E"><span class="toc-number">5.</span> <span class="toc-text">四．写在最后</span></a></li></ol>
+</div></main>
+            <aside class="left-column">
+              
+              <div class="card card-author">
+                
+  <img 
+    src="/images/home/Myhead.jpg" 
+    class="author-img"
+    width="88"
+    height="88"
+    alt="author avatar">
+
+<p class="author-name">Mirror</p>
+<p class="author-description">一个默默写博客的人,记录工作踩坑和学习过程</p>
+<div class="author-message">
+  <a 
+    class="author-posts-count" 
+    href="/archives">
+    <span>9</span>
+    <span>文章</span>
+  </a>
+  <a 
+    class="author-categories-count" 
+    href="/categories">
+    <span>7</span>
+    <span>分类</span>
+  </a>
+  <a 
+    class="author-tags-count" 
+    href="/tags">
+    <span>14</span>
+    <span>标签</span>
+  </a>
+</div>
+
+  <div class="author-card-society">
+    
+      <div class="author-card-society-icon">
+        <a target="_blank" rel="noopener" href="https://github.com/MirrorCG">
+          <i class="iconfont icon-github society-icon"></i>
+        </a>
+      </div>
+    
+      <div class="author-card-society-icon">
+        <a href="/images/home/QQ.jpg">
+          <i class="iconfont icon-mail society-icon"></i>
+        </a>
+      </div>
+    
+      <div class="author-card-society-icon">
+        <a href="/images/home/weixin.jpg">
+          <i class="iconfont icon-wechat society-icon"></i>
+        </a>
+      </div>
+    
+  </div>
+
+              </div>
+               <div class="sticky-tablet">
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+    <div id="aplayer"></div>
+    <div id="aplayer" style="position:absolute;left;0;bottom:0;"></div>
+    <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/color-thief-don@2.0.2/src/color-thief.js"></script>
+    <script>
+      const ap = new APlayer({
+        container: document.getElementById('aplayer'),
+        autoplay: true, //自动播放
+        listFolded: true, //播放列表默认折叠
+        listMaxHeight: 90, //播放列表最大高度
+        order: 'random', //音频循环顺序, 可选值: 'list', 'random'
+        loop: 'all', //音频循环播放, 可选值: 'all', 'one', 'none'
+        theme: '#e9e9e9', //切换音频时的主题色，优先级低于audio.theme
+        preload: 'none', //音频预加载，可选值: 'none', 'metadata', 'auto'
+        mutex: true, //互斥，阻止多个播放器同时播放，当前播放器播放时暂停其他播放器
+        lrcType: 3, //歌词格式，可选值：3（LRC文件歌词格式），1（JS字符串歌词格式）
+        volume: 0.7, //默认音量，请注意播放器会记忆用户设置，用户手动设置音量后默认音量即失效
+        fixed: false, //吸底模式（fixed:true），迷你模式（mini:true），普通模式（注释此行或者设置fixed:false）
+        audio: [{// https://music.liuzhijin.cn/ 这是歌曲查询网站
+            name: '浪漫过敏',
+            artist: '福合埕在逃牛肉丸',
+            lrc: '',
+            cover: '/images/themes/G.png',
+            url: 'http://music.163.com/song/media/outer/url?id=1921676493.mp3'
+          },
+          {
+            name: '日暮里',
+            artist: 'JINBAO',
+            lrc: '',
+            cover: '/images/themes/M.png',
+            url: 'http://music.163.com/song/media/outer/url?id=1351183637.mp3'
+          },
+          {
+            name: '今晚有雨',
+            artist: '福合埕在逃牛肉丸',
+            lrc: '',
+            cover: '/images/themes/J.png',
+            url: 'http://music.163.com/song/media/outer/url?id=1921683713.mp3'
+          },
+          {
+            name: '漫步于星云之中',
+            artist: 'UM,Relimax,snxsn',
+            lrc: '',
+            cover: '/images/themes/L.png',
+            url: 'http://music.163.com/song/media/outer/url?id=1914485227.mp3'
+          }
+        ]
+      });
+    
+      //实现切换音频时，根据音频的封面图片自适应主题色
+      const colorThief = new ColorThief();
+      const setTheme = (index) => {
+        if (!ap.list.audios[index].theme) {
+          colorThief.getColorAsync(ap.list.audios[index].cover, function(color) {
+            ap.theme(`rgb(${color[0]}, ${color[1]}, ${color[2]})`, index);
+          });
+        }
+      };
+      setTheme(ap.list.index);
+      ap.on('listswitch', (data) => {
+        setTheme(data.index);
+      });
+    </script>
+    
+
+
+
+
+   
+  
+    <article class="display-when-two-columns spacer">
+      <div class="card card-content toc-card">
+        <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B5%B7%E5%9B%A0"><span class="toc-number">1.</span> <span class="toc-text">起因</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80-%E6%9D%90%E8%B4%A8%E7%9B%B8%E5%85%B3"><span class="toc-number">2.</span> <span class="toc-text">一. 材质相关</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%EF%BC%8E%E7%81%AF%E5%85%89%E7%8E%AF%E8%8A%82%E6%B5%81%E7%A8%8B"><span class="toc-number">3.</span> <span class="toc-text">二．灯光环节流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%EF%BC%8E%E5%90%88%E6%88%90"><span class="toc-number">4.</span> <span class="toc-text">三．合成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%EF%BC%8E%E5%86%99%E5%9C%A8%E6%9C%80%E5%90%8E"><span class="toc-number">5.</span> <span class="toc-text">四．写在最后</span></a></li></ol>
+      </div>
+    </article>
+  
+  
+  <article class="card card-content categories-widget">
+    <div class="categories-card">
+  <div class="categories-header">
+    <i 
+      class="iconfont icon-fenlei" 
+      style="padding-right: 2px;">
+    </i>分类
+  </div>
+  <div class="categories-list">
+    
+      <a href="/categories/Maya/">
+        <div class="categories-list-item">
+          Maya
+          <span class="categories-list-item-badge">5</span>
+        </div>
+      </a>
+    
+      <a href="/categories/Deadline/">
+        <div class="categories-list-item">
+          Deadline
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/categories/Doc/">
+        <div class="categories-list-item">
+          Doc
+          <span class="categories-list-item-badge">3</span>
+        </div>
+      </a>
+    
+      <a href="/categories/Maya/%E6%9D%82%E9%A1%B9/">
+        <div class="categories-list-item">
+          Maya/杂项
+          <span class="categories-list-item-badge">3</span>
+        </div>
+      </a>
+    
+      <a href="/categories/Maya/Arnold/">
+        <div class="categories-list-item">
+          Maya/Arnold
+          <span class="categories-list-item-badge">2</span>
+        </div>
+      </a>
+    
+      <a href="/categories/Deadline/%E6%8F%92%E4%BB%B6/">
+        <div class="categories-list-item">
+          Deadline/插件
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/categories/Doc/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+        <div class="categories-list-item">
+          Doc/学习笔记
+          <span class="categories-list-item-badge">2</span>
+        </div>
+      </a>
+    
+  </div>
+</div>
+  </article>
+  
+  <article class="card card-content tags-widget">
+    <div class="tags-card">
+  <div class="tags-header">
+    <i 
+      class="iconfont icon-biaoqian" 
+      style="padding-right: 2px;">
+    </i>热门标签
+  </div>
+  <div class="tags-list">
+    
+      <a 
+        href="/tags/Blog/" 
+        title="Blog">
+        <div class="tags-list-item">Blog</div>
+      </a>
+    
+      <a 
+        href="/tags/%E7%81%AF%E5%85%89/" 
+        title="灯光">
+        <div class="tags-list-item">灯光</div>
+      </a>
+    
+      <a 
+        href="/tags/Hexo/" 
+        title="Hexo">
+        <div class="tags-list-item">Hexo</div>
+      </a>
+    
+      <a 
+        href="/tags/github/" 
+        title="github">
+        <div class="tags-list-item">github</div>
+      </a>
+    
+      <a 
+        href="/tags/Markdown/" 
+        title="Markdown">
+        <div class="tags-list-item">Markdown</div>
+      </a>
+    
+      <a 
+        href="/tags/aiUserData/" 
+        title="aiUserData">
+        <div class="tags-list-item">aiUserData</div>
+      </a>
+    
+      <a 
+        href="/tags/Aitoon/" 
+        title="Aitoon">
+        <div class="tags-list-item">Aitoon</div>
+      </a>
+    
+      <a 
+        href="/tags/OpenMaya/" 
+        title="OpenMaya">
+        <div class="tags-list-item">OpenMaya</div>
+      </a>
+    
+      <a 
+        href="/tags/%E5%90%91%E9%87%8F%E8%AE%A1%E7%AE%97/" 
+        title="向量计算">
+        <div class="tags-list-item">向量计算</div>
+      </a>
+    
+      <a 
+        href="/tags/%E6%8F%92%E4%BB%B6/" 
+        title="插件">
+        <div class="tags-list-item">插件</div>
+      </a>
+    
+      <a 
+        href="/tags/ACES/" 
+        title="ACES">
+        <div class="tags-list-item">ACES</div>
+      </a>
+    
+      <a 
+        href="/tags/%E5%90%88%E6%88%90/" 
+        title="合成">
+        <div class="tags-list-item">合成</div>
+      </a>
+    
+      <a 
+        href="/tags/pipeline/" 
+        title="pipeline">
+        <div class="tags-list-item">pipeline</div>
+      </a>
+    
+      <a 
+        href="/tags/USD/" 
+        title="USD">
+        <div class="tags-list-item">USD</div>
+      </a>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+            </aside>
+            <aside class="right-column">
+              <div class="sticky-widescreen">
+  
+  
+    <article class="card card-content toc-card">
+      <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B5%B7%E5%9B%A0"><span class="toc-number">1.</span> <span class="toc-text">起因</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80-%E6%9D%90%E8%B4%A8%E7%9B%B8%E5%85%B3"><span class="toc-number">2.</span> <span class="toc-text">一. 材质相关</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%EF%BC%8E%E7%81%AF%E5%85%89%E7%8E%AF%E8%8A%82%E6%B5%81%E7%A8%8B"><span class="toc-number">3.</span> <span class="toc-text">二．灯光环节流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%EF%BC%8E%E5%90%88%E6%88%90"><span class="toc-number">4.</span> <span class="toc-text">三．合成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%EF%BC%8E%E5%86%99%E5%9C%A8%E6%9C%80%E5%90%8E"><span class="toc-number">5.</span> <span class="toc-text">四．写在最后</span></a></li></ol>
+    </article>
+  
+  
+  <article class="card card-content">
+    <div class="recent-posts-card">
+  <div class="recent-posts-header">
+    <i 
+      class="iconfont icon-wenzhang_huaban" 
+      style="padding-right: 2px;">
+    </i>最近文章
+  </div>
+  <div class="recent-posts-list">
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-03-07</div>
+        <a href="/posts/20220307cl0o4pe0j000104z85tj7fagd.html"><div class="recent-posts-item-content">USD流程的探索与运用</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-03-06</div>
+        <a href="/posts/20220306cl0o4pe0r000704z83cpodxzm.html"><div class="recent-posts-item-content">Deadline中的事件示例</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-03-02</div>
+        <a href="/posts/20220302cl0o4pe1a001k04z84ikz0bt5.html"><div class="recent-posts-item-content">如何搭建个人博客</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-03-02</div>
+        <a href="/posts/20220302cl0o4pe0n000304z8gqfm9cw4.html"><div class="recent-posts-item-content">CG流程中使用ACES色彩管理</div></a>
+      </div>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </div>
+     
+    <footer class="footer">
+  <div class="footer-container">
+    <div>
+      <div class="footer-dsc">
+        <span>
+          Copyright ©
+          
+            2022 -
+          
+          2022
+        </span>
+        &nbsp;
+        <a 
+          href="/" 
+          class="footer-link">
+          Mirror`s Blog
+        </a>
+      </div>
+    </div>
+
+    
+      <div class="footer-dsc">
+        
+          Powered by
+          <a 
+            href="https://hexo.io/" 
+            class="footer-link" 
+            target="_blank" 
+            rel="nofollow noopener noreferrer">
+            &nbsp;Hexo
+          </a>
+        
+        
+          <span>&nbsp;|&nbsp;</span>
+        
+        
+          Theme -
+          <a 
+            href="https://github.com/theme-kaze" 
+            class="footer-link" 
+            target="_blank"
+            rel="nofollow noopener noreferrer">
+            &nbsp;Kaze
+          </a>
+        
+      </div>
+    
+    
+    
+    
+      <div class="footer-dsc">
+        
+          小站被客官们总光顾<span id="busuanzi_value_site_pv"></span>次
+        
+        
+          <span>&nbsp;|&nbsp;</span>
+        
+        
+          小站总接待客官<span id="busuanzi_value_site_uv"></span>人
+        
+      </div>
+      
+    
+</footer> 
+    
+  <a 
+    role="button" 
+    id="scrollbutton" 
+    class="basebutton" 
+    aria-label="回到顶部">
+    <i class="iconfont icon-arrowleft button-icon"></i>
+  </a>
+
+<a 
+  role="button" 
+  id="menubutton"
+  aria-label="menu button"
+  class="basebutton">
+  <i class="iconfont icon-menu button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="popbutton" 
+  class="basebutton" 
+  aria-label="控制中心">
+  <i class="iconfont icon-expand button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="darkbutton" 
+  class="basebutton darkwidget" 
+  aria-label="夜色模式">
+  <i class="iconfont icon-weather button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="searchbutton" 
+  class="basebutton searchwidget" 
+  aria-label="搜索">
+  <i class="iconfont icon-search button-icon"></i>
+</a> 
+     
+     
+     
+      <script>
+  var addImgLayout = function () {
+    var img = document.querySelectorAll('.post-content img')
+    var i
+    for (i = 0; i < img.length; i++) {
+      var wrapper = document.createElement('a')
+      wrapper.setAttribute('href', img[i].getAttribute('data-src'))
+      wrapper.setAttribute('aria-label', 'illustration')
+      wrapper.style.cssText =
+        'width: 100%; display: flex; justify-content: center;'
+      if (img[i].alt) wrapper.dataset.caption = img[i].alt
+      wrapper.dataset.nolink = true
+      img[i].before(wrapper)
+      wrapper.append(img[i])
+      var divWrap = document.createElement('div')
+      divWrap.classList.add('gallery')
+      wrapper.before(divWrap)
+      divWrap.append(wrapper)
+    }
+    baguetteBox.run('.gallery')
+  }
+</script>
+<script>
+  loadScript(
+    "/js/lib/lightbox/baguetteBox.min.js",
+    addImgLayout
+  )
+</script>
+ 
+     
+     
+    <script src="/js/main.js"></script> 
+    
+      <script> 
+        loadScript('/js/lib/busuanzi.min.js') 
+      </script>
+     
+    
+      <script>
+        var addLazyload = function () {
+          var observer = lozad('.lozad', {
+            load: function (el) {
+              el.srcset = el.getAttribute('data-src')
+            },
+            loaded: function (el) {
+              el.classList.add('loaded')
+            },
+          })
+          observer.observe()
+        }
+      </script>
+      <script>
+        loadScript('/js/lib/lozad.min.js', addLazyload)
+      </script>
+     
+    
+    
+      <script>
+        setTimeout(() => {localSearch("search.json")}, 0)
+      </script>
+    
+  </body>
+</html>
