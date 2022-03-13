@@ -151,27 +151,6 @@
   </url>
   
   <url>
-    <loc>http://mirrorcg.github.io/tags/%E7%81%AF%E5%85%89/</loc>
-    <lastmod>2022-03-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://mirrorcg.github.io/tags/%E5%90%88%E6%88%90/</loc>
-    <lastmod>2022-03-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://mirrorcg.github.io/tags/ACES/</loc>
-    <lastmod>2022-03-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>http://mirrorcg.github.io/tags/%E6%8F%92%E4%BB%B6/</loc>
     <lastmod>2022-03-13</lastmod>
     <changefreq>weekly</changefreq>
@@ -193,7 +172,21 @@
   </url>
   
   <url>
-    <loc>http://mirrorcg.github.io/tags/%E5%90%91%E9%87%8F%E8%AE%A1%E7%AE%97/</loc>
+    <loc>http://mirrorcg.github.io/tags/%E7%81%AF%E5%85%89/</loc>
+    <lastmod>2022-03-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://mirrorcg.github.io/tags/%E5%90%88%E6%88%90/</loc>
+    <lastmod>2022-03-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://mirrorcg.github.io/tags/ACES/</loc>
     <lastmod>2022-03-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -201,6 +194,13 @@
   
   <url>
     <loc>http://mirrorcg.github.io/tags/OpenMaya/</loc>
+    <lastmod>2022-03-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://mirrorcg.github.io/tags/%E5%90%91%E9%87%8F%E8%AE%A1%E7%AE%97/</loc>
     <lastmod>2022-03-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
