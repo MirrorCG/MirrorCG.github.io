@@ -18,17 +18,17 @@
   <link 
     rel="icon" 
     href="/images/home/Myhead.jpg">
-  <title>关于Aitoon材质灯光分层的探索</title>
+  <title>Hexo文档</title>
   
     
       <meta 
         property="og:title" 
-        content="关于Aitoon材质灯光分层的探索">
+        content="Hexo文档">
     
     
       <meta 
         property="og:url" 
-        content="http://mirrorcg.github.io/posts/20220226cl0o4pe18001h04z83wildh1h.html">
+        content="http://mirrorcg.github.io/posts/20220220cl0ouubal0009akz8f8reawlf.html">
     
     
       <meta 
@@ -38,7 +38,7 @@
     
       <meta 
         property="og:img" 
-        content="&lt;h3 id=&#34;起因&#34;&gt;&lt;a href=&#34;#起因&#34; class=&#34;headerlink&#34; title=&#34;起因&#34;&gt;&lt;/a&gt;起因&lt;/h3&gt;&lt;p style=&#34;text-indent:2em&#34;&gt;前段时间，开始对在 Maya 中进行三渲二的渲染分层有了兴趣。于是，我就尝试自己探索一下：在 Maya 中使用 Aitoon 材质进行三渲二的灯光分层，以及在 Nuke中进行合成的流程。">
+        content="&lt;p&gt;Welcome to &lt;a href=&#34;https://hexo.io/&#34;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&#34;https://hexo.io/docs/&#34;&gt;documentation&lt;/a&gt; for more info.">
     
     
       <meta 
@@ -46,7 +46,7 @@
         content="article">
       <meta 
         property="og:article:published_time" 
-        content="2022-02-26">
+        content="2022-02-20">
       <meta 
         property="og:article:modified_time" 
         content="2022-03-12">
@@ -57,15 +57,11 @@
         
           <meta 
             property="og:article:tag" 
-            content="灯光">
+            content="Blog">
         
           <meta 
             property="og:article:tag" 
-            content="Aitoon">
-        
-          <meta 
-            property="og:article:tag" 
-            content="aiUserData">
+            content="Hexo">
         
       
     
@@ -277,7 +273,7 @@
         href="/about" 
         class="navbar-menu-item">
         
-          关于
+          关于我
         
       </a>
     
@@ -314,36 +310,30 @@
 <article class="card card-content">
   <header>
     <h1 class="post-title">
-      关于Aitoon材质灯光分层的探索
+      Hexo文档
     </h1>
   </header>
   <div class="post-meta post-show-meta">
-    <time datetime="2022-02-26T05:44:11.000Z">
+    <time datetime="2022-02-20T15:09:10.737Z">
       <i 
         class="iconfont icon-calendar" 
         style="margin-right: 2px;">
       </i>
-      <span>2022-02-26</span>
+      <span>2022-02-20</span>
     </time>
     
       <span class="dot"></span>
       
         <a 
-          href="/categories/Maya/" 
+          href="/categories/Doc/" 
           class="post-meta-link">
-          Maya
-        </a>
-      
-        <a 
-          href="/categories/Maya/Arnold/" 
-          class="post-meta-link">
-          Arnold
+          Doc
         </a>
       
     
     
       <span class="dot"></span>
-      <span>1.8k 字</span>
+      <span>73 字</span>
     
   </div>
   
@@ -358,27 +348,18 @@
         
           
           <a 
-            href="/tags/%E7%81%AF%E5%85%89/" 
+            href="/tags/Blog/" 
             class="post-meta-link">
-            灯光
+            Blog
           </a>
         
           
             <span class="dot"></span>
           
           <a 
-            href="/tags/Aitoon/" 
+            href="/tags/Hexo/" 
             class="post-meta-link">
-            Aitoon
-          </a>
-        
-          
-            <span class="dot"></span>
-          
-          <a 
-            href="/tags/aiUserData/" 
-            class="post-meta-link">
-            aiUserData
+            Hexo
           </a>
         
       </div>
@@ -388,56 +369,19 @@
   <div 
     id="section" 
     class="post-content">
-    <h3 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h3><p style="text-indent:2em">前段时间，开始对在 Maya 中进行三渲二的渲染分层有了兴趣。于是，我就尝试自己探索一下：在 Maya 中使用 Aitoon 材质进行三渲二的灯光分层，以及在 Nuke中进行合成的流程。<span id="more"></span>现在的三渲二影视作品普遍采用亮面、暗面加边缘光的方式进行灯光分层，部分镜头需要以亮面、灰面和暗面加边缘光的方式进行灯光分层，灯光师仅完成灯光角度的设计即可，最终画面氛围和效果需要合成师完成，这种分层方式使用aitoon材质球可以很容易地完成。</p>
+    <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. <span id="more"></span>If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo new <span class="token string">"My New Post"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p>测试环境:maya 2018.5+Arnold 6.0.1.0<br>测试角色:不要钱的派大星</p>
-<h3 id="一-材质相关"><a href="#一-材质相关" class="headerlink" title="一. 材质相关"></a>一. 材质相关</h3><p style="text-indent:2em">前期部门仅制作卡通材质，不需要在材质球中为rim、highlight 指定灯光。材质球的base 权重需要设定为1（下图1），关闭材质的能量守恒选项和间接反射（下图2），材质的baseTonemap属性都链接ramp节点并保持只有两个点。调节材质、线框效果与贴图的阴影融合等步骤需要前期部门调整到最终效果。如果做了材质阴影融合，材质部门需要提供另一套只带有阴影贴图的 aimatte 材质球用于切换，供灯光部门渲染阴影通道使用。</p>
-<table><tr>
-<td><img src="/images/关于Aitoon材质灯光分层的探索/图1-1.png" border=1 srcset="/images/home/Myhead.jpg" data-src="/images/关于Aitoon材质灯光分层的探索/图1-1.png" class="lozad post-image"></td>
-<td><img src="/images/关于Aitoon材质灯光分层的探索/图1-2.png" border=1 srcset="/images/home/Myhead.jpg" data-src="/images/关于Aitoon材质灯光分层的探索/图1-2.png" class="lozad post-image"></td>
-</tr></table>
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<h3 id="二．灯光环节流程"><a href="#二．灯光环节流程" class="headerlink" title="二．灯光环节流程"></a>二．灯光环节流程</h3><pre><code>1.灯光使用要求
-</code></pre>
-<p style="text-indent:2em">由于卡通材质的特殊性，灯光渲染需要至少一盏光源即可区分亮暗，根据官方介绍虽然 aitoon 材质并不挑剔灯光类型，但由于面光源和skydome等灯光的性质，可能会导致受光面的强度大于1，从而导致莫名的错误，灯光的要求使用平行光、点光源或者聚光灯，并且这三种光源对于风格化高光的形成效果较好，可控性更高。</p>
-    2.Aov及渲染分层
-<p style="text-indent:2em">通过对aitoon材质的渲染，我们可以获取Arnold提供的所有的Aov通道，但由于aitoon材质球并非基干物理的材质球，并不能按照LPE的方式进行分层，传统的分成方式需要考虑灯光的强度和颜色对贴图的影响以及材质之间的影响，而卡通渲染并不计算diffuse的灯光颜色信息，因此我们可以采用diffusealbedo+主光照射范围+暗部颜色+平面反射+透射的方式进行分层，此方法能保持合成的可调性的同时也最大限度保留了材质的效果。通过读取模型的材质信息，给模型添加附加属性，用aiuserdata节点传递已经记录的每个模型的材质球信息，即可确认模型被灯光照射的亮暗面的范围，最终输出通道，具体方式如下：</p>
-    (1)主光照射范围+暗部颜色
-<p style="text-indent:2em">给每一个材质为aitoon的物体添加Arnold额外属性(color1,color2.pos1,pos2.interpolation)用于记录数据（下图左一），该属性记录材质球的basetonemap中ramp 的信息（下图右一），其中颜色数据使用vector类型 ，位置数据使用float类型，ramp的过度类型使用int类型，这三种类型分别可对应用户数据节点的 aiUserDataColor、aiUserDataFloat、aiUserDatalnt。</p>
-<table><tr>
-<td><img src="/images/关于Aitoon材质灯光分层的探索/图2-1.png" border=0 srcset="/images/home/Myhead.jpg" data-src="/images/关于Aitoon材质灯光分层的探索/图2-1.png" class="lozad post-image"></td>
-<td><img src="/images/关于Aitoon材质灯光分层的探索/图2-2.png" border=0 srcset="/images/home/Myhead.jpg" data-src="/images/关于Aitoon材质灯光分层的探索/图2-2.png" class="lozad post-image"></td>
-</tr></table>
-<p style="text-indent:2em">以 toon_key 为例创建自定义 aov（下图左一），通过创建自定义的aov，将aov色器选择为新创建的 aitoon 卡通材质球 关闭该aitoon 材质球的能量守恒，边缘，高光。将basecolor调为1，并给basetonemap链接一个默认的ramp节点。创建2个aiUserDataColor2个aiUserDataFloat1个aiUserDatalnt节点，并将color1、color2分别填入aiUserDataColor，pos1、pos2分别填入aiUserDataFloat，interpolation填入aiUserDatalnt，将五个节点链接到上一步的ramp中即可渲染出，所需要的包含有灯光照射的两部范围信息的aov，该aov的色彩信息为仅为灯光照射的亮面（toon_key）(不含材质信息)，以此类推，可获得暗面的颜色（toon_env），渲染出的aov（下图右一）</p>
-<table><tr>
-<td><img src="/images/关于Aitoon材质灯光分层的探索/图2-3.png" border=0 srcset="/images/home/Myhead.jpg" data-src="/images/关于Aitoon材质灯光分层的探索/图2-3.png" class="lozad post-image"></td>
-<td><img src="/images/关于Aitoon材质灯光分层的探索/图2-4.png" border=0 srcset="/images/home/Myhead.jpg" data-src="/images/关于Aitoon材质灯光分层的探索/图2-4.png" class="lozad post-image"></td>
-</tr></table>
-<p>至此，我们获得需要的灯光层，该灯光层保留材质的 ramp 亮暗面信息和亮暗部区域(非aitoon 材质渲染为黑色。</p>
-    (2) Diffuse abedle、高光和透射
-<p style="text-indent:2em">材质本身的高光和透射可利用maya自身的aov输出，分别为specular direct、specular indirect，transmission direct， transmission indirect。</p>
-    (3) edge
-<p style="text-indent:2em">物体的边缘线输出，需要通过自定义edge aov进行输出，需要将aov的filter设定为 contour类型否则渲染不出线框（如下图）。</p>
-<table><tr>
-<td><img src="/images/关于Aitoon材质灯光分层的探索/图2-5.png" border=0 srcset="/images/home/Myhead.jpg" data-src="/images/关于Aitoon材质灯光分层的探索/图2-5.png" class="lozad post-image"></td>
-<td><img src="/images/关于Aitoon材质灯光分层的探索/图2-6.png" border=0 srcset="/images/home/Myhead.jpg" data-src="/images/关于Aitoon材质灯光分层的探索/图2-6.png" class="lozad post-image"></td>
-</tr></table>
-    (4) 边缘光和风格化高光
-<p style="text-indent:2em">为了便于调节，aitoon材质的rim边缘光和风格化高光可通过单独分层并对层中的物体进行材质覆盖的方式进行提取aov，单独分层也有利于控制效果。</p>
-    (5) 其他需要的aov
-<p style="text-indent:2em">除上述aov外,其他一些aov可根据需求添加，本文考虑使用的辅助aov包括:N、 fresnel、OCC、RBzd、P、crypto_matte(三种)、direct和indirect 可在含有非aitoon材质时输出，用于调整非aitoon材质物体。</p>
-    (6)文件分层
-<p style="text-indent:2em">文件的分层方式通过maya的renderSetup分层方式进行分层，最后以模板的形式导出渲染层，供流程使用。使用render Setup的方 式分层可以很方便地对模型进行材质覆盖、属性覆盖和导出自定义aov的操作，以边光和风格化层高光为例，为保持物体边缘光的统一性，需要整体赋予一个aitoon材质球，用于调整边缘光效果;而材质球的边缘光和风格化高光属性是没有填入对应灯光的shape名称的，因此可以在覆盖材质或者属性的基础上，统一给相关的模型覆盖属性或材质球，达到渲染效果。</p>
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo generate<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<h3 id="三．合成"><a href="#三．合成" class="headerlink" title="三．合成"></a>三．合成</h3><p style="text-indent:2em">通过上面的方法，我们可以得到合成所需要的aov，通过合成树即可还原灯光渲染的效果（合成树中的图片不是本例的图片，此处仅做示范），并在此基础上由合成师进行环境氛围和灯光效果的调整即可（如下图）。</p>
-<table><tr>
-<td><img src="/images/关于Aitoon材质灯光分层的探索/图3-1.png" border=0 srcset="/images/home/Myhead.jpg" data-src="/images/关于Aitoon材质灯光分层的探索/图3-1.png" class="lozad post-image"></td>
-<td><img src="/images/关于Aitoon材质灯光分层的探索/图3-2.png" border=0 srcset="/images/home/Myhead.jpg" data-src="/images/关于Aitoon材质灯光分层的探索/图3-2.png" class="lozad post-image"></td>
-</tr></table>
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo deploy<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<h3 id="四．写在最后"><a href="#四．写在最后" class="headerlink" title="四．写在最后"></a>四．写在最后</h3><p style="text-indent:2em">此方法按照aitoon材质球的非基于物理渲染的特性，以basetonemap的ramp与贴图相乘得出最终颜色信息的特点，进行aov分层;它相对于单纯使用aitoon材质球对物体进行材质覆盖的方式进行亮暗部区分的优点在于，不以单一的材质覆盖的亮暗部过度信息、能更准确地保留材质的亮暗部范围和过度方式、能分别获取到材质的亮暗部rgb信息。相对于传统基于物理的分层方式，能单独调整亮暗面颜色信息，由于三渲二不能在灯光中处理氛围，此方式在合成中可调性更高。</p>
-
-<p>注意：在输出AOV通道时，若自定义的AOV和Arnold渲染器自带的AOV一起渲染出图时，会导致Arnold渲染器自带的Aov渲染错误，不渲染出正确的信息，因此，自定义的AOV需要单独分层渲染。</p>
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 
   </div>
   <div>
@@ -457,8 +401,8 @@
           <span style="font-weight: bold;">文章链接：</span><a 
             target="_blank" 
             rel="nofollow noopener noreferrer" 
-            href="http://mirrorcg.github.io/posts/20220226cl0o4pe18001h04z83wildh1h.html">
-            http://mirrorcg.github.io/posts/20220226cl0o4pe18001h04z83wildh1h.html
+            href="http://mirrorcg.github.io/posts/20220220cl0ouubal0009akz8f8reawlf.html">
+            http://mirrorcg.github.io/posts/20220220cl0ouubal0009akz8f8reawlf.html
           </a>
         </p>
         <p><span style="font-weight: bold;">版权声明：</span>本博客所有文章除特别声明外，均采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0 协议</a>。转载请注明出处！</p>
@@ -470,32 +414,18 @@
   
     <div class="nav-item-prev">
       <a 
-        href="/posts/20220227cl0o4pe0t000b04z8fjune9y7.html" 
+        href="/posts/20220220a1.html" 
         class="nav-link">
         <i class="iconfont icon-left nav-prev-icon"></i>
         <div>
           <div class="nav-label">上一篇</div>
           
-            <div class="nav-title">Maya获取指定物体到Camera焦点平面的距离 </div>
-          
-        </div>
-      </a>
-    </div>
-  
-  
-    <div class="nav-item-next">
-      <a 
-        href="/posts/20220220a1.html" 
-        class="nav-link">
-        <div>
-          <div class="nav-label">下一篇</div>
-          
             <div class="nav-title">博客文章语法示例 </div>
           
         </div>
-        <i class="iconfont icon-right nav-next-icon"></i>
       </a>
     </div>
+  
   
 </div>
 
@@ -544,7 +474,7 @@
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B5%B7%E5%9B%A0"><span class="toc-number">1.</span> <span class="toc-text">起因</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80-%E6%9D%90%E8%B4%A8%E7%9B%B8%E5%85%B3"><span class="toc-number">2.</span> <span class="toc-text">一. 材质相关</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%EF%BC%8E%E7%81%AF%E5%85%89%E7%8E%AF%E8%8A%82%E6%B5%81%E7%A8%8B"><span class="toc-number">3.</span> <span class="toc-text">二．灯光环节流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%EF%BC%8E%E5%90%88%E6%88%90"><span class="toc-number">4.</span> <span class="toc-text">三．合成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%EF%BC%8E%E5%86%99%E5%9C%A8%E6%9C%80%E5%90%8E"><span class="toc-number">5.</span> <span class="toc-text">四．写在最后</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-number">1.</span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-number">1.1.</span> <span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-number">1.2.</span> <span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-number">1.3.</span> <span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-number">1.4.</span> <span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
 </div></main>
             <aside class="left-column">
               
@@ -684,7 +614,7 @@
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B5%B7%E5%9B%A0"><span class="toc-number">1.</span> <span class="toc-text">起因</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80-%E6%9D%90%E8%B4%A8%E7%9B%B8%E5%85%B3"><span class="toc-number">2.</span> <span class="toc-text">一. 材质相关</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%EF%BC%8E%E7%81%AF%E5%85%89%E7%8E%AF%E8%8A%82%E6%B5%81%E7%A8%8B"><span class="toc-number">3.</span> <span class="toc-text">二．灯光环节流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%EF%BC%8E%E5%90%88%E6%88%90"><span class="toc-number">4.</span> <span class="toc-text">三．合成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%EF%BC%8E%E5%86%99%E5%9C%A8%E6%9C%80%E5%90%8E"><span class="toc-number">5.</span> <span class="toc-text">四．写在最后</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-number">1.</span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-number">1.1.</span> <span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-number">1.2.</span> <span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-number">1.3.</span> <span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-number">1.4.</span> <span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
       </div>
     </article>
   
@@ -727,17 +657,17 @@
         </div>
       </a>
     
-      <a href="/categories/Maya/Arnold/">
-        <div class="categories-list-item">
-          Maya/Arnold
-          <span class="categories-list-item-badge">2</span>
-        </div>
-      </a>
-    
       <a href="/categories/Deadline/%E6%8F%92%E4%BB%B6/">
         <div class="categories-list-item">
           Deadline/插件
           <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/categories/Maya/Arnold/">
+        <div class="categories-list-item">
+          Maya/Arnold
+          <span class="categories-list-item-badge">2</span>
         </div>
       </a>
     
@@ -793,6 +723,12 @@
       </a>
     
       <a 
+        href="/tags/%E5%90%91%E9%87%8F%E8%AE%A1%E7%AE%97/" 
+        title="向量计算">
+        <div class="tags-list-item">向量计算</div>
+      </a>
+    
+      <a 
         href="/tags/aiUserData/" 
         title="aiUserData">
         <div class="tags-list-item">aiUserData</div>
@@ -808,12 +744,6 @@
         href="/tags/OpenMaya/" 
         title="OpenMaya">
         <div class="tags-list-item">OpenMaya</div>
-      </a>
-    
-      <a 
-        href="/tags/%E5%90%91%E9%87%8F%E8%AE%A1%E7%AE%97/" 
-        title="向量计算">
-        <div class="tags-list-item">向量计算</div>
       </a>
     
       <a 
@@ -864,7 +794,7 @@
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B5%B7%E5%9B%A0"><span class="toc-number">1.</span> <span class="toc-text">起因</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80-%E6%9D%90%E8%B4%A8%E7%9B%B8%E5%85%B3"><span class="toc-number">2.</span> <span class="toc-text">一. 材质相关</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%EF%BC%8E%E7%81%AF%E5%85%89%E7%8E%AF%E8%8A%82%E6%B5%81%E7%A8%8B"><span class="toc-number">3.</span> <span class="toc-text">二．灯光环节流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%EF%BC%8E%E5%90%88%E6%88%90"><span class="toc-number">4.</span> <span class="toc-text">三．合成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%EF%BC%8E%E5%86%99%E5%9C%A8%E6%9C%80%E5%90%8E"><span class="toc-number">5.</span> <span class="toc-text">四．写在最后</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-number">1.</span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-number">1.1.</span> <span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-number">1.2.</span> <span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-number">1.3.</span> <span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-number">1.4.</span> <span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
     </article>
   
   
@@ -880,22 +810,22 @@
     
       <div class="recent-posts-item">
         <div class="recent-posts-item-title">2022-03-07</div>
-        <a href="/posts/20220307cl0o4pe0j000104z85tj7fagd.html"><div class="recent-posts-item-content">USD流程的探索与运用</div></a>
+        <a href="/posts/20220307cl0ouubac0001akz81yo9gmfn.html"><div class="recent-posts-item-content">USD流程的探索与运用</div></a>
       </div>
     
       <div class="recent-posts-item">
         <div class="recent-posts-item-title">2022-03-06</div>
-        <a href="/posts/20220306cl0o4pe0r000704z83cpodxzm.html"><div class="recent-posts-item-content">Deadline中的事件示例</div></a>
+        <a href="/posts/20220306cl0ouubaj0007akz848t0058u.html"><div class="recent-posts-item-content">Deadline中的事件示例</div></a>
       </div>
     
       <div class="recent-posts-item">
         <div class="recent-posts-item-title">2022-03-02</div>
-        <a href="/posts/20220302cl0o4pe1a001k04z84ikz0bt5.html"><div class="recent-posts-item-content">如何搭建个人博客</div></a>
+        <a href="/posts/20220302cl0ouubb2001aakz83dj23xnr.html"><div class="recent-posts-item-content">如何搭建个人博客</div></a>
       </div>
     
       <div class="recent-posts-item">
         <div class="recent-posts-item-title">2022-03-02</div>
-        <a href="/posts/20220302cl0o4pe0n000304z8gqfm9cw4.html"><div class="recent-posts-item-content">CG流程中使用ACES色彩管理</div></a>
+        <a href="/posts/20220302cl0ouubaf0003akz86prvf904.html"><div class="recent-posts-item-content">CG流程中使用ACES色彩管理</div></a>
       </div>
     
   </div>
@@ -1075,5 +1005,11 @@
         setTimeout(() => {localSearch("search.json")}, 0)
       </script>
     
+
+
+
+  
+
+
   </body>
 </html>
