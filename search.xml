@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>rez安装使用</title>
+      <link href="/posts/20220314a1.html"/>
+      <url>/posts/20220314a1.html</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>Rez 是一个跨平台程序包管理器，通过它可以给程序配置独立的环境<span id="more"></span>,每个独立环境中只是引用了这些包。所以它的环境配置是轻量级的，与其它程序包环境管理不同的是，所有的程序包的安装都在一个中央统一的位置，尽管有几百个包，通常也只需要几秒就可以进行配置。将 Rez 作为工作室 DCC 软件启动器依赖项是个不错的选择。下面将简单介绍 Windows环境下，Rez 包管理器如何安装使用。</p><h4 id="下载安装包"><a href="#下载安装包" class="headerlink" title="下载安装包"></a>下载安装包</h4><p>从 GitHub 上拉取 <a href="https://github.com/nerdvegas/rez" title="" target="">Rez 原项目的的相关仓库</a>，然后打开CMD<br>进入拉取仓库所在的目录中执行：</p><pre class="language-cmd" data-language="cmd"><code class="language-cmd">python .&#x2F;install.py </code></pre><p>这将会把包安装在当前位置的 &#x2F;opt&#x2F;rez 目录下<br>也可以使用Pip进行安装：</p><pre class="language-cmd" data-language="cmd"><code class="language-cmd">pip install rez</code></pre><p>但使用 pip 的安装方式并不能很好的用在生产环境中,使用 install 脚本安装是推荐的方法，它可以保证 Rez 拥有独立 python 于的环境独立运行。</p><h4 id="创建基本的-Rez-包"><a href="#创建基本的-Rez-包" class="headerlink" title="创建基本的 Rez 包"></a>创建基本的 Rez 包</h4><p>这里需要使用管理员权限去安装包，rez-bind 工具创建基于已安装在系统上的软件的 Rez 包：（–quickstart是以标准形式安装包）</p><pre class="language-cmd" data-language="cmd"><code class="language-cmd">rez-bind --quickstart</code></pre><p>你也可以分开安装</p><pre class="language-cmd" data-language="cmd"><code class="language-cmd">rez-bind platformrez-bind archrez-bind osrez-bind python</code></pre><p>安装好之后，会在 %userprofile%&#x2F;packages 目录下找到已经安装的 Rez 包</p><h4 id="验证安装结果"><a href="#验证安装结果" class="headerlink" title="验证安装结果"></a>验证安装结果</h4><p>为了验证是否安装成功，可以使用下面的命令：（其中 “which python”是你的python版本）</p><pre class="language-cmd" data-language="cmd"><code class="language-cmd">rez-env python-which python</code></pre><p>使用 exit 退出环境。</p><h4 id="构建第一个包"><a href="#构建第一个包" class="headerlink" title="构建第一个包"></a>构建第一个包</h4><p>.需要确认%userprofile%&#x2F;packages 存在且可写入<br>.需要确认cmake 工具安装且可用（注：官方文档中会使用这个工具在ios系统上安装下面的包，但我还未在Windows系统上成功安装，但好像不影响使用，正在找求证正中）<br>rez-build 工具用于构建包并在本地安装它们（%userprofile%&#x2F;packages下）。 完成后，您可以通过 rez-env 使用它们，就像任何其他软件包一样：</p><pre class="language-cmd" data-language="cmd"><code class="language-cmd">cd example_packages&#x2F;hello_worldrez-build --install</code></pre><h4 id="测试构建的包"><a href="#测试构建的包" class="headerlink" title="测试构建的包"></a>测试构建的包</h4><p>使用rez-env命令来请求一个（或多个）你已经安装的软件包环境</p><pre class="language-cmd" data-language="cmd"><code class="language-cmd">rez-env hello_world</code></pre><p>提示符前的插入符号 (&gt;) 是一个视觉提示，告诉你现在位于 rez 配置的子 shell 中。 Rez 不会更新当前环境，而是配置一个子shell 并将你置于其中。<br>如果你已经在rez shell的配置环境中，并且忘记了当前可用的软件包列表。可以使用 rez-context 工具查看：</p><pre class="language-cmd" data-language="cmd"><code class="language-cmd">rez-context</code></pre><p>退出这个环境，使用exit命令。</p><p>你还可以创建一个已配置的环境并在其中运行一个命令，只需一个命令。 当您使用这种形式时，shell 会在命令运行后立即退出：</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Rez </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Pipeline </tag>
+            
+            <tag> 包管理 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>USD流程的探索与运用</title>
       <link href="/posts/20220307a1.html"/>
       <url>/posts/20220307a1.html</url>
@@ -24,7 +51,7 @@
             
             <tag> USD </tag>
             
-            <tag> pipeline </tag>
+            <tag> Pipeline </tag>
             
         </tags>
       
