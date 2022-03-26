@@ -49,7 +49,7 @@
         content="2022-03-14">
       <meta 
         property="og:article:modified_time" 
-        content="2022-03-17">
+        content="2022-03-26">
       <meta 
         property="og:article:author" 
         content="Mirror">
@@ -333,7 +333,7 @@
     
     
       <span class="dot"></span>
-      <span>760 字</span>
+      <span>771 字</span>
     
   </div>
   
@@ -369,7 +369,7 @@
   <div 
     id="section" 
     class="post-content">
-    <p>Rez 是一个跨平台程序包管理器，通过它可以给程序配置独立的环境<span id="more"></span>,每个独立环境中只是引用了这些包。所以它的环境配置是轻量级的，与其它程序包环境管理不同的是，所有的程序包的安装都在一个中央统一的位置，尽管有几百个包，通常也只需要几秒就可以进行配置。将 Rez 作为工作室 DCC 软件启动器依赖项是个不错的选择。下面将简单介绍 Windows环境下，Rez 包管理器如何安装使用。</p>
+    <p>Rez 是一个跨平台程序包管理器，通过它可以给程序配置独立的环境<span id="more"></span>，每个独立环境中只是引用了这些包。所以它的环境配置是轻量级的，与其它程序包环境管理不同的是，所有的程序包都安装在一个中央统一的位置，尽管有几百个包，通常也只需要几秒就可以进行配置。将 Rez 作为工作室 DCC 软件启动器依赖项，是个不错的选择。下面将简单介绍 Windows 环境下，Rez 包管理器如何安装使用。</p>
 <h4 id="下载安装包"><a href="#下载安装包" class="headerlink" title="下载安装包"></a>下载安装包</h4><p>从 GitHub 上拉取 <a href="https://github.com/nerdvegas/rez" title="" target="">Rez 原项目的的相关仓库</a>，然后打开CMD<br>进入拉取仓库所在的目录中执行：</p>
 <pre class="language-cmd" data-language="cmd"><code class="language-cmd">python .&#x2F;install.py </code></pre>
 <p>这将会把包安装在当前位置的 &#x2F;opt&#x2F;rez 目录下<br>也可以使用Pip进行安装：</p>
@@ -386,7 +386,7 @@ rez-bind python</code></pre>
 <h4 id="验证安装结果"><a href="#验证安装结果" class="headerlink" title="验证安装结果"></a>验证安装结果</h4><p>为了验证是否安装成功，可以使用下面的命令：（其中 “which python”是你的python版本）</p>
 <pre class="language-cmd" data-language="cmd"><code class="language-cmd">rez-env python-which python</code></pre>
 <p>使用 exit 退出环境。</p>
-<h4 id="构建第一个包"><a href="#构建第一个包" class="headerlink" title="构建第一个包"></a>构建第一个包</h4><p>.需要确认%userprofile%&#x2F;packages 存在且可写入<br>.需要确认cmake 工具安装且可用（注：官方文档中会使用这个工具在ios系统上安装下面的包，但我还未在Windows系统上成功安装，但好像不影响使用，正在找求证正中）<br>rez-build 工具用于构建包并在本地安装它们（%userprofile%&#x2F;packages下）。 完成后，您可以通过 rez-env 使用它们，就像任何其他软件包一样：</p>
+<h4 id="构建第一个包"><a href="#构建第一个包" class="headerlink" title="构建第一个包"></a>构建第一个包</h4><p>.需要确认%userprofile%&#x2F;packages 存在且可写入<br>.需要确认cmake 工具安装且可用（注：官方文档中会使用这个工具在ios系统上安装下面的包，但我还未在Windows10系统上成功安装该包，似乎有些依赖包的冲突问题，但好像不影响使用，正在求证中。。。）<br>rez-build 工具用于构建包并在本地安装它们（%userprofile%&#x2F;packages下）。 完成后，您可以通过 rez-env 使用它们，就像任何其他软件包一样：</p>
 <pre class="language-cmd" data-language="cmd"><code class="language-cmd">cd example_packages&#x2F;hello_world
 rez-build --install</code></pre>
 
@@ -425,6 +425,20 @@ rez-build --install</code></pre>
   </div>
 </article>
 <div class="nav">
+  
+    <div class="nav-item-prev">
+      <a 
+        href="/posts/20220326a1.html" 
+        class="nav-link">
+        <i class="iconfont icon-left nav-prev-icon"></i>
+        <div>
+          <div class="nav-label">上一篇</div>
+          
+            <div class="nav-title">QT中QToolButton的双击事件 </div>
+          
+        </div>
+      </a>
+    </div>
   
   
     <div class="nav-item-next">
@@ -507,19 +521,19 @@ rez-build --install</code></pre>
   <a 
     class="author-posts-count" 
     href="/archives">
-    <span>10</span>
+    <span>12</span>
     <span>文章</span>
   </a>
   <a 
     class="author-categories-count" 
     href="/categories">
-    <span>8</span>
+    <span>10</span>
     <span>分类</span>
   </a>
   <a 
     class="author-tags-count" 
     href="/tags">
-    <span>15</span>
+    <span>18</span>
     <span>标签</span>
   </a>
 </div>
@@ -678,10 +692,10 @@ rez-build --install</code></pre>
         </div>
       </a>
     
-      <a href="/categories/Rez/">
+      <a href="/categories/Qt/">
         <div class="categories-list-item">
-          Rez
-          <span class="categories-list-item-badge">1</span>
+          Qt
+          <span class="categories-list-item-badge">2</span>
         </div>
       </a>
     
@@ -689,6 +703,20 @@ rez-build --install</code></pre>
         <div class="categories-list-item">
           Deadline/插件
           <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/categories/Rez/">
+        <div class="categories-list-item">
+          Rez
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/categories/Qt/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+        <div class="categories-list-item">
+          Qt/学习笔记
+          <span class="categories-list-item-badge">2</span>
         </div>
       </a>
     
@@ -723,6 +751,12 @@ rez-build --install</code></pre>
         href="/tags/%E7%81%AF%E5%85%89/" 
         title="灯光">
         <div class="tags-list-item">灯光</div>
+      </a>
+    
+      <a 
+        href="/tags/QT%E4%BA%8B%E4%BB%B6/" 
+        title="QT事件">
+        <div class="tags-list-item">QT事件</div>
       </a>
     
       <a 
@@ -768,6 +802,18 @@ rez-build --install</code></pre>
       </a>
     
       <a 
+        href="/tags/%E5%BC%82%E5%BD%A2%E7%AA%97%E5%8F%A3/" 
+        title="异形窗口">
+        <div class="tags-list-item">异形窗口</div>
+      </a>
+    
+      <a 
+        href="/tags/%E4%BF%A1%E5%8F%B7-%E6%A7%BD/" 
+        title="信号&槽">
+        <div class="tags-list-item">信号&amp;槽</div>
+      </a>
+    
+      <a 
         href="/tags/OpenMaya/" 
         title="OpenMaya">
         <div class="tags-list-item">OpenMaya</div>
@@ -789,18 +835,6 @@ rez-build --install</code></pre>
         href="/tags/ACES/" 
         title="ACES">
         <div class="tags-list-item">ACES</div>
-      </a>
-    
-      <a 
-        href="/tags/%E5%90%88%E6%88%90/" 
-        title="合成">
-        <div class="tags-list-item">合成</div>
-      </a>
-    
-      <a 
-        href="/tags/USD/" 
-        title="USD">
-        <div class="tags-list-item">USD</div>
       </a>
     
   </div>
@@ -836,6 +870,16 @@ rez-build --install</code></pre>
   <div class="recent-posts-list">
     
       <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-03-26</div>
+        <a href="/posts/20220326a2.html"><div class="recent-posts-item-content">Qt中的异形窗口</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-03-26</div>
+        <a href="/posts/20220326a1.html"><div class="recent-posts-item-content">QT中QToolButton的双击事件</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
         <div class="recent-posts-item-title">2022-03-14</div>
         <a href="/posts/20220314a1.html"><div class="recent-posts-item-content">rez安装使用</div></a>
       </div>
@@ -843,16 +887,6 @@ rez-build --install</code></pre>
       <div class="recent-posts-item">
         <div class="recent-posts-item-title">2022-03-07</div>
         <a href="/posts/20220307a1.html"><div class="recent-posts-item-content">USD流程的探索与运用</div></a>
-      </div>
-    
-      <div class="recent-posts-item">
-        <div class="recent-posts-item-title">2022-03-06</div>
-        <a href="/posts/20220306a1.html"><div class="recent-posts-item-content">Deadline中的事件示例</div></a>
-      </div>
-    
-      <div class="recent-posts-item">
-        <div class="recent-posts-item-title">2022-03-02</div>
-        <a href="/posts/20220302a1.html"><div class="recent-posts-item-content">如何搭建个人博客</div></a>
       </div>
     
   </div>

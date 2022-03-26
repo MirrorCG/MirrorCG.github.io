@@ -49,7 +49,7 @@
         content="2022-02-27">
       <meta 
         property="og:article:modified_time" 
-        content="2022-03-13">
+        content="2022-03-26">
       <meta 
         property="og:article:author" 
         content="Mirror">
@@ -376,7 +376,7 @@
     id="section" 
     class="post-content">
     <h3 id="文章介绍"><a href="#文章介绍" class="headerlink" title="文章介绍"></a>文章介绍</h3><p style="text-indent:2em">在Maya中获取物体到相机焦点所在平面的距离，并将获取到的距离写入相机的焦距属性，使用Arnold渲染。<span id="more"></span></p>
-<p style="text-indent:2em">本文介绍两种获取相机焦距的方法提供参考：一种是利用向量的办法计算向量之间的投射长度获取焦距，另一种是使用约束的方式获取焦距。</p>
+<p style="text-indent:2em">本文介绍两种获取相机焦距的方法提供参考：一种是利用向量计算的办法计算向量之间的投射长度获取焦距，另一种是使用约束的方式获取焦距。</p>
 
 <h3 id="方法一：计算向量"><a href="#方法一：计算向量" class="headerlink" title="方法一：计算向量"></a>方法一：计算向量</h3><p style="text-indent:2em">在三维空间中，已知相机单位向量、位置和物体坐标，可计算出相机焦点到物体的距离（该距离并非我们所要求的焦点平面到物体的距离），得到一个空间中存在的长方体，经过对物体和相机两点之间构成的向量投射到相机单位向量方向上的投影长度，即我们所求的相机焦点平面到物体的距离。如下图所示，空间中，我们需要获取线段ob之间的距离，其中线段oa之间的距离可根据相机和物体的坐标计算得出，相机法向量v可从相机中获取，由此我们可计算得出线段oa在向量v方向的投影。</p>
 
@@ -862,19 +862,19 @@ cameraShape1<span class="token punctuation">.</span>focusDistance <span class="t
   <a 
     class="author-posts-count" 
     href="/archives">
-    <span>10</span>
+    <span>12</span>
     <span>文章</span>
   </a>
   <a 
     class="author-categories-count" 
     href="/categories">
-    <span>8</span>
+    <span>10</span>
     <span>分类</span>
   </a>
   <a 
     class="author-tags-count" 
     href="/tags">
-    <span>15</span>
+    <span>18</span>
     <span>标签</span>
   </a>
 </div>
@@ -1033,10 +1033,10 @@ cameraShape1<span class="token punctuation">.</span>focusDistance <span class="t
         </div>
       </a>
     
-      <a href="/categories/Rez/">
+      <a href="/categories/Qt/">
         <div class="categories-list-item">
-          Rez
-          <span class="categories-list-item-badge">1</span>
+          Qt
+          <span class="categories-list-item-badge">2</span>
         </div>
       </a>
     
@@ -1044,6 +1044,20 @@ cameraShape1<span class="token punctuation">.</span>focusDistance <span class="t
         <div class="categories-list-item">
           Deadline/插件
           <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/categories/Rez/">
+        <div class="categories-list-item">
+          Rez
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/categories/Qt/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+        <div class="categories-list-item">
+          Qt/学习笔记
+          <span class="categories-list-item-badge">2</span>
         </div>
       </a>
     
@@ -1078,6 +1092,12 @@ cameraShape1<span class="token punctuation">.</span>focusDistance <span class="t
         href="/tags/%E7%81%AF%E5%85%89/" 
         title="灯光">
         <div class="tags-list-item">灯光</div>
+      </a>
+    
+      <a 
+        href="/tags/QT%E4%BA%8B%E4%BB%B6/" 
+        title="QT事件">
+        <div class="tags-list-item">QT事件</div>
       </a>
     
       <a 
@@ -1123,6 +1143,18 @@ cameraShape1<span class="token punctuation">.</span>focusDistance <span class="t
       </a>
     
       <a 
+        href="/tags/%E5%BC%82%E5%BD%A2%E7%AA%97%E5%8F%A3/" 
+        title="异形窗口">
+        <div class="tags-list-item">异形窗口</div>
+      </a>
+    
+      <a 
+        href="/tags/%E4%BF%A1%E5%8F%B7-%E6%A7%BD/" 
+        title="信号&槽">
+        <div class="tags-list-item">信号&amp;槽</div>
+      </a>
+    
+      <a 
         href="/tags/OpenMaya/" 
         title="OpenMaya">
         <div class="tags-list-item">OpenMaya</div>
@@ -1144,18 +1176,6 @@ cameraShape1<span class="token punctuation">.</span>focusDistance <span class="t
         href="/tags/ACES/" 
         title="ACES">
         <div class="tags-list-item">ACES</div>
-      </a>
-    
-      <a 
-        href="/tags/%E5%90%88%E6%88%90/" 
-        title="合成">
-        <div class="tags-list-item">合成</div>
-      </a>
-    
-      <a 
-        href="/tags/USD/" 
-        title="USD">
-        <div class="tags-list-item">USD</div>
       </a>
     
   </div>
@@ -1191,6 +1211,16 @@ cameraShape1<span class="token punctuation">.</span>focusDistance <span class="t
   <div class="recent-posts-list">
     
       <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-03-26</div>
+        <a href="/posts/20220326a2.html"><div class="recent-posts-item-content">Qt中的异形窗口</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-03-26</div>
+        <a href="/posts/20220326a1.html"><div class="recent-posts-item-content">QT中QToolButton的双击事件</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
         <div class="recent-posts-item-title">2022-03-14</div>
         <a href="/posts/20220314a1.html"><div class="recent-posts-item-content">rez安装使用</div></a>
       </div>
@@ -1198,16 +1228,6 @@ cameraShape1<span class="token punctuation">.</span>focusDistance <span class="t
       <div class="recent-posts-item">
         <div class="recent-posts-item-title">2022-03-07</div>
         <a href="/posts/20220307a1.html"><div class="recent-posts-item-content">USD流程的探索与运用</div></a>
-      </div>
-    
-      <div class="recent-posts-item">
-        <div class="recent-posts-item-title">2022-03-06</div>
-        <a href="/posts/20220306a1.html"><div class="recent-posts-item-content">Deadline中的事件示例</div></a>
-      </div>
-    
-      <div class="recent-posts-item">
-        <div class="recent-posts-item-title">2022-03-02</div>
-        <a href="/posts/20220302a1.html"><div class="recent-posts-item-content">如何搭建个人博客</div></a>
       </div>
     
   </div>

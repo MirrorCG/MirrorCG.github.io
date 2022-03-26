@@ -388,8 +388,8 @@
   <div 
     id="section" 
     class="post-content">
-    <p>构建CG流程中的ACES色彩管理流程 <span id="more"></span>,为什么要构建呢？因为：1.色域更高，能容纳更多的色彩，显示的色彩更丰富；2.能接受更高的灯光强度，画面比较不会过曝（不要调皮地将灯光强度调的特别高哦）;3.更物理更真实，颜色会随着亮度地提升，饱和度逐渐降低。相对的就会有些缺点：图片占用存储空间会变大。</p>
-<p>在CG流程中的大概过程就是，sRGB图片进入DCC软件被AECSCG线性转换函数转换编码到ACES色域中被管理&gt;渲染器处理贴图信息后生成ACES色域图片&gt;经过编码转换到视图中显示或输出为指定色域的图片用于存储(srgb或ACES)、进一步编辑（ACES）</p>
+    <p>构建CG流程中的ACES色彩管理流程 <span id="more"></span>,为什么要构建呢？因为：1.色域更高，能容纳更多的色彩，显示的色彩更丰富；2.能接受更高的灯光强度，画面比较不会过曝（不要调皮地将灯光强度调的特别高哦）;3.更物理更真实，颜色会随着亮度地提升，饱和度逐渐降低。相对的就会有些缺点：图片占用存储空间会变大(对影视动画没什么影响)。</p>
+<p>在CG流程中的大概过程就是，sRGB图片进入DCC软件被AECScg线性转换函数转换编码到ACES色域中被管理&gt;渲染器处理贴图信息后生成ACES色域图片&gt;经过编码转换到视图中显示或输出为指定色域的图片用于存储(srgb或ACES)、进一步编辑（ACES）</p>
 <h4 id="测试环境"><a href="#测试环境" class="headerlink" title="测试环境"></a>测试环境</h4><pre><code>Substance painter 7.1 + Maya 2020.4 + Nukel2.3 + ACES1.1
 </code></pre>
 <h4 id="SP软件配置"><a href="#SP软件配置" class="headerlink" title="SP软件配置"></a>SP软件配置</h4><p style="text-indent:2em">由于SP要在7.4版本以后才支持 OCIO 配置文件，并且目前大部分资产贴图都采用sRGB色域编码，因此默认使用传统 SP(sRGB)到 MAYA(ACES) 中进行 sRGB 色域空间转换到 ACES 色域空间的方式。传统SP流程可以通过LMT(外观转换)的LUT(查找表)文件用于显示（只是看起来和AECES差不多，但实除上还是SRGB色域的图片）具体方法是：file > import resource > 添加资源 > 选择Lut文件 > 修改定义为 colorLut > 导入到"工具架" > 导入，然后在显示设置中将 activate post effects恢复默认,勾选activate post effects，勾选activate post effects > tone mapping(色调映射),将 activate post effects > tone mapping > function(功能)设置为log(日志)，并勾选activate color porfile > porfile 修改为 ACES_Standard_log,white_Point 设置为默认值，此时我们从SP软件的视口中看见的色彩在视觉上基本等同ACES色域图显示的效果。</p>
@@ -455,7 +455,7 @@
   
     <div class="nav-item-prev">
       <a 
-        href="/posts/20220302a1.html" 
+        href="/posts/20220302a2.html" 
         class="nav-link">
         <i class="iconfont icon-left nav-prev-icon"></i>
         <div>
@@ -548,19 +548,19 @@
   <a 
     class="author-posts-count" 
     href="/archives">
-    <span>10</span>
+    <span>12</span>
     <span>文章</span>
   </a>
   <a 
     class="author-categories-count" 
     href="/categories">
-    <span>8</span>
+    <span>10</span>
     <span>分类</span>
   </a>
   <a 
     class="author-tags-count" 
     href="/tags">
-    <span>15</span>
+    <span>18</span>
     <span>标签</span>
   </a>
 </div>
@@ -719,10 +719,10 @@
         </div>
       </a>
     
-      <a href="/categories/Rez/">
+      <a href="/categories/Qt/">
         <div class="categories-list-item">
-          Rez
-          <span class="categories-list-item-badge">1</span>
+          Qt
+          <span class="categories-list-item-badge">2</span>
         </div>
       </a>
     
@@ -730,6 +730,20 @@
         <div class="categories-list-item">
           Deadline/插件
           <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/categories/Rez/">
+        <div class="categories-list-item">
+          Rez
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/categories/Qt/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+        <div class="categories-list-item">
+          Qt/学习笔记
+          <span class="categories-list-item-badge">2</span>
         </div>
       </a>
     
@@ -764,6 +778,12 @@
         href="/tags/%E7%81%AF%E5%85%89/" 
         title="灯光">
         <div class="tags-list-item">灯光</div>
+      </a>
+    
+      <a 
+        href="/tags/QT%E4%BA%8B%E4%BB%B6/" 
+        title="QT事件">
+        <div class="tags-list-item">QT事件</div>
       </a>
     
       <a 
@@ -809,6 +829,18 @@
       </a>
     
       <a 
+        href="/tags/%E5%BC%82%E5%BD%A2%E7%AA%97%E5%8F%A3/" 
+        title="异形窗口">
+        <div class="tags-list-item">异形窗口</div>
+      </a>
+    
+      <a 
+        href="/tags/%E4%BF%A1%E5%8F%B7-%E6%A7%BD/" 
+        title="信号&槽">
+        <div class="tags-list-item">信号&amp;槽</div>
+      </a>
+    
+      <a 
         href="/tags/OpenMaya/" 
         title="OpenMaya">
         <div class="tags-list-item">OpenMaya</div>
@@ -830,18 +862,6 @@
         href="/tags/ACES/" 
         title="ACES">
         <div class="tags-list-item">ACES</div>
-      </a>
-    
-      <a 
-        href="/tags/%E5%90%88%E6%88%90/" 
-        title="合成">
-        <div class="tags-list-item">合成</div>
-      </a>
-    
-      <a 
-        href="/tags/USD/" 
-        title="USD">
-        <div class="tags-list-item">USD</div>
       </a>
     
   </div>
@@ -877,6 +897,16 @@
   <div class="recent-posts-list">
     
       <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-03-26</div>
+        <a href="/posts/20220326a2.html"><div class="recent-posts-item-content">Qt中的异形窗口</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-03-26</div>
+        <a href="/posts/20220326a1.html"><div class="recent-posts-item-content">QT中QToolButton的双击事件</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
         <div class="recent-posts-item-title">2022-03-14</div>
         <a href="/posts/20220314a1.html"><div class="recent-posts-item-content">rez安装使用</div></a>
       </div>
@@ -884,16 +914,6 @@
       <div class="recent-posts-item">
         <div class="recent-posts-item-title">2022-03-07</div>
         <a href="/posts/20220307a1.html"><div class="recent-posts-item-content">USD流程的探索与运用</div></a>
-      </div>
-    
-      <div class="recent-posts-item">
-        <div class="recent-posts-item-title">2022-03-06</div>
-        <a href="/posts/20220306a1.html"><div class="recent-posts-item-content">Deadline中的事件示例</div></a>
-      </div>
-    
-      <div class="recent-posts-item">
-        <div class="recent-posts-item-title">2022-03-02</div>
-        <a href="/posts/20220302a1.html"><div class="recent-posts-item-content">如何搭建个人博客</div></a>
       </div>
     
   </div>
