@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://mirrorcg.github.io/posts/20220226a2.html</loc>
+    
+    <lastmod>2022-05-03</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://mirrorcg.github.io/posts/20220503a6.html</loc>
     
     <lastmod>2022-05-03</lastmod>
@@ -164,15 +173,6 @@
   </url>
   
   <url>
-    <loc>http://mirrorcg.github.io/posts/20220226a1.html</loc>
-    
-    <lastmod>2022-03-13</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://mirrorcg.github.io/about/index.html</loc>
     
     <lastmod>2022-03-13</lastmod>
@@ -245,20 +245,6 @@
 
   
   <url>
-    <loc>http://mirrorcg.github.io/tags/USD/</loc>
-    <lastmod>2022-05-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://mirrorcg.github.io/tags/Pipeline/</loc>
-    <lastmod>2022-05-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>http://mirrorcg.github.io/tags/%E7%81%AF%E5%85%89/</loc>
     <lastmod>2022-05-03</lastmod>
     <changefreq>weekly</changefreq>
@@ -280,7 +266,14 @@
   </url>
   
   <url>
-    <loc>http://mirrorcg.github.io/tags/%E6%8F%92%E4%BB%B6/</loc>
+    <loc>http://mirrorcg.github.io/tags/USD/</loc>
+    <lastmod>2022-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://mirrorcg.github.io/tags/Pipeline/</loc>
     <lastmod>2022-05-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -301,7 +294,7 @@
   </url>
   
   <url>
-    <loc>http://mirrorcg.github.io/tags/%E6%A3%80%E6%9F%A5/</loc>
+    <loc>http://mirrorcg.github.io/tags/%E6%8F%92%E4%BB%B6/</loc>
     <lastmod>2022-05-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -309,6 +302,13 @@
   
   <url>
     <loc>http://mirrorcg.github.io/tags/%E5%90%91%E9%87%8F%E8%AE%A1%E7%AE%97/</loc>
+    <lastmod>2022-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://mirrorcg.github.io/tags/%E6%A3%80%E6%9F%A5/</loc>
     <lastmod>2022-05-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -357,14 +357,14 @@
   </url>
   
   <url>
-    <loc>http://mirrorcg.github.io/tags/%E5%8C%85%E7%AE%A1%E7%90%86/</loc>
+    <loc>http://mirrorcg.github.io/tags/%E7%BD%91%E7%AB%99%E6%8E%A8%E8%8D%90/</loc>
     <lastmod>2022-05-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://mirrorcg.github.io/tags/%E7%BD%91%E7%AB%99%E6%8E%A8%E8%8D%90/</loc>
+    <loc>http://mirrorcg.github.io/tags/%E5%8C%85%E7%AE%A1%E7%90%86/</loc>
     <lastmod>2022-05-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -392,14 +392,14 @@
   </url>
   
   <url>
-    <loc>http://mirrorcg.github.io/tags/github/</loc>
+    <loc>http://mirrorcg.github.io/tags/UV/</loc>
     <lastmod>2022-05-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://mirrorcg.github.io/tags/UV/</loc>
+    <loc>http://mirrorcg.github.io/tags/github/</loc>
     <lastmod>2022-05-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -408,14 +408,14 @@
 
   
   <url>
-    <loc>http://mirrorcg.github.io/categories/Doc/</loc>
+    <loc>http://mirrorcg.github.io/categories/Maya/</loc>
     <lastmod>2022-05-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://mirrorcg.github.io/categories/Maya/</loc>
+    <loc>http://mirrorcg.github.io/categories/Doc/</loc>
     <lastmod>2022-05-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -429,7 +429,7 @@
   </url>
   
   <url>
-    <loc>http://mirrorcg.github.io/categories/Doc/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
+    <loc>http://mirrorcg.github.io/categories/Maya/%E6%9D%82%E9%A1%B9/</loc>
     <lastmod>2022-05-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -443,7 +443,7 @@
   </url>
   
   <url>
-    <loc>http://mirrorcg.github.io/categories/Maya/%E6%9D%82%E9%A1%B9/</loc>
+    <loc>http://mirrorcg.github.io/categories/Doc/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2022-05-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
