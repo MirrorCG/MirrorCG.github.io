@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>Deadline如何使用PythonAPI</title>
+      <link href="/posts/20220505a1.html"/>
+      <url>/posts/20220505a1.html</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p style="text-indent:2em">本文介绍如何使用 Deadline 的 Python API 操作Deadline。<span id="more"></span>通过 Python API 可在 Python 中与 HTTP API 通信。</p><h4 id="拷贝-PythonAPI-模块"><a href="#拷贝-PythonAPI-模块" class="headerlink" title="拷贝 PythonAPI 模块"></a>拷贝 PythonAPI 模块</h4><p style="text-indent:2em">首先在使用 API 之前，需要配置python环境使我们可以调用到 API。我们需要安装和使用 python2.7.9或 3.7 以上的python版本，然后将 Deadline 储存库路径（//your/repository/api/python）下的整个“Deadline”文件夹复制到Python 安装路径下的的“site-packages”文件夹，API 即可调用。</p><p><img src="/images/Deadline%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8PythonAPI/Deadline%E6%8B%B7%E8%B4%9DPythonAPI.png" alt="Deadline拷贝PythonAPI" srcset="/images/home/Myhead.jpg" data-src="/images/Deadline%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8PythonAPI/Deadline%E6%8B%B7%E8%B4%9DPythonAPI.png" class="lozad post-image"></p><h4 id="开启-WebService-服务"><a href="#开启-WebService-服务" class="headerlink" title="开启 WebService 服务"></a>开启 WebService 服务</h4><p style="text-indent:2em">我们还需要通过 WebService 通信以发送和接收请求，因此，还要在 Deadline 管理的局域网中的任何一台可见的设备上运行 WebService服务，该服务为“C:\Program Files\Thinkbox\Deadline10\bin\deadlinewebservice.exe”，打开后，我们就可以通过该设备的设备名称或者Ip地址进行通讯，API访问的端口默认情况下为8082。</p><p><img src="/images/Deadline%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8PythonAPI/DeadlineWebServer.png" alt="DeadlineWebServer" srcset="/images/home/Myhead.jpg" data-src="/images/Deadline%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8PythonAPI/DeadlineWebServer.png" class="lozad post-image"></p><h4 id="使用-PythonAPI"><a href="#使用-PythonAPI" class="headerlink" title="使用 PythonAPI"></a>使用 PythonAPI</h4><p style="text-indent:2em">使用时，必须创建一个 DeadlineCon 对象。该对象用于与 WebService 通信以发送和接收请求，该对象需要两个参数：“运行 WebService 服务的设备名或IP地址”、“该设备上允许 WebService 通信的端口号（默认为8082）”，这两个参数可以从已经运行的 WebService 通讯服务上找到。</p><p><img src="/images/Deadline%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8PythonAPI/Deadline%E8%AE%BE%E5%A4%87%E5%90%8D%E7%A7%B0%E5%92%8C%E7%AB%AF%E5%8F%A3%E5%8F%B7.png" alt="Deadline设备名称和端口号" srcset="/images/home/Myhead.jpg" data-src="/images/Deadline%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8PythonAPI/Deadline%E8%AE%BE%E5%A4%87%E5%90%8D%E7%A7%B0%E5%92%8C%E7%AB%AF%E5%8F%A3%E5%8F%B7.png" class="lozad post-image"></p><p>然后我们就可以使用API创建一个连接对象“connectionObject &#x3D; Deadline.DeadlineConnect.DeadlineCon(‘WebServiceName’, WebServicePortNumber)”， 通过该对象，我们可以查询、修改 Deadline 上的大部分信息。</p><p>示例代码1：查询作业组、暂停指定作业</p><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> Deadline<span class="token punctuation">.</span>DeadlineConnect <span class="token keyword">as</span> Connect  <span class="token comment"># 导入 Deadline.DeadlineConnect 作为连接</span>connectionObject <span class="token operator">=</span> Connect<span class="token punctuation">.</span>DeadlineCon<span class="token punctuation">(</span><span class="token string">'DESKTOP-Mirror'</span><span class="token punctuation">,</span> <span class="token number">8082</span><span class="token punctuation">)</span><span class="token keyword">print</span><span class="token punctuation">(</span>connectionObject<span class="token punctuation">.</span>Groups<span class="token punctuation">.</span>GetGroupNames<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token comment">#["group1","group2","group3"]</span>jobId <span class="token operator">=</span> <span class="token string">"622c38262812473ba4c08eca"</span>  <span class="token comment">#(有效的job ID号)</span><span class="token keyword">print</span><span class="token punctuation">(</span>connectionObject<span class="token punctuation">.</span>Jobs<span class="token punctuation">.</span>SuspendJob<span class="token punctuation">(</span>jobId<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token comment"># 'Success'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>示例代码2：提交作业</p><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> Deadline<span class="token punctuation">.</span>DeadlineConnect <span class="token keyword">as</span> ConnectDeadline <span class="token operator">=</span> Connect<span class="token punctuation">.</span>DeadlineCon<span class="token punctuation">(</span><span class="token string">'DESKTOP-Mirror'</span><span class="token punctuation">,</span> <span class="token number">8082</span><span class="token punctuation">)</span>JobInfo <span class="token operator">=</span> <span class="token punctuation">&#123;</span>    <span class="token string">"Name"</span><span class="token punctuation">:</span> <span class="token string">"Submitted via Python"</span><span class="token punctuation">,</span>    <span class="token string">"UserName"</span><span class="token punctuation">:</span> <span class="token string">"UserName"</span><span class="token punctuation">,</span>    <span class="token string">"Frames"</span><span class="token punctuation">:</span> <span class="token string">"0-1"</span><span class="token punctuation">,</span>    <span class="token string">"Plugin"</span><span class="token punctuation">:</span> <span class="token string">"VraySpawner"</span><span class="token punctuation">&#125;</span>PluginInfo <span class="token operator">=</span> <span class="token punctuation">&#123;</span>    <span class="token string">"Version"</span><span class="token punctuation">:</span> <span class="token string">"Max2014"</span><span class="token punctuation">&#125;</span><span class="token keyword">try</span><span class="token punctuation">:</span>    newJob <span class="token operator">=</span> connectionObject<span class="token punctuation">.</span>Jobs<span class="token punctuation">.</span>SubmitJob<span class="token punctuation">(</span>JobInfo<span class="token punctuation">,</span> PluginInfo<span class="token punctuation">)</span>    <span class="token keyword">print</span><span class="token punctuation">(</span>newJob<span class="token punctuation">)</span><span class="token keyword">except</span><span class="token punctuation">:</span>    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Sorry, Web Service is currently down!"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><ul><li>官方说明：<a href="https://docs.thinkboxsoftware.com/products/deadline/10.1/3_Python%20Reference/index.html#intro_sec">https://docs.thinkboxsoftware.com/products/deadline/10.1/3_Python%20Reference/index.html#intro_sec</a></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Deadline </category>
+          
+          <category> 插件 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 插件 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Maya中材质文件和缓存文件相结合进行渲染的几种方式</title>
       <link href="/posts/20220503a6.html"/>
       <url>/posts/20220503a6.html</url>
@@ -22,9 +49,9 @@
       
         <tags>
             
-            <tag> 灯光 </tag>
-            
             <tag> Pipeline </tag>
+            
+            <tag> 灯光 </tag>
             
         </tags>
       
