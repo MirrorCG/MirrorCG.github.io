@@ -502,7 +502,7 @@
     
     <category term="Maya" scheme="http://mirrorcg.github.io/categories/Maya/"/>
     
-    <category term="Arnold" scheme="http://mirrorcg.github.io/categories/Maya/Arnold/"/>
+    <category term="arnold" scheme="http://mirrorcg.github.io/categories/Maya/arnold/"/>
     
     
     <category term="灯光" scheme="http://mirrorcg.github.io/tags/%E7%81%AF%E5%85%89/"/>
