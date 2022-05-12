@@ -6,7 +6,7 @@
   <link href="http://mirrorcg.github.io/atom.xml" rel="self"/>
   
   <link href="http://mirrorcg.github.io/"/>
-  <updated>2022-05-05T12:46:35.000Z</updated>
+  <updated>2022-05-10T05:01:00.000Z</updated>
   <id>http://mirrorcg.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Windows任务计划</title>
+    <link href="http://mirrorcg.github.io/posts/20220510a1.html"/>
+    <id>http://mirrorcg.github.io/posts/20220510a1.html</id>
+    <published>2022-05-10T04:51:16.000Z</published>
+    <updated>2022-05-10T05:01:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>工作中有时需要定时执行一些规律性的脚本操作<span id="more"></span>，比如，清除磁盘垃圾、定时下载任务等。这些任务执行虽然简单，但是需要人力进行日常维护。通常有两种方式可以方便处理这类型任务：</p><ol><li>以本机作为脚本任务的执行者，开启电脑后，通过ide运行任务，但是每次开机都需要手动执行，或者将程序打包成exe程序再放入启动文件夹。</li><li>以本机作为服务器，通过任务计划的触发器，自动执行指定任务，不需要每次开机后再手动执行。</li></ol><p>下面将介绍第二种方式——任务计划</p><ul><li><p>打开计划任务程序</p><table><tr><td><img src="/images/Windows任务计划/打开管理工具.png" border=0 srcset="/images/home/Myhead.jpg" data-src="/images/Windows任务计划/打开管理工具.png" class="lozad post-image"></td><td><img src="/images/Windows任务计划/任务计划程序.png" border=0 srcset="/images/home/Myhead.jpg" data-src="/images/Windows任务计划/任务计划程序.png" class="lozad post-image"></td></tr></table></li><li><p>创建一个新的任务计划文件夹（推荐）或在“任务计划程序库”中创建基本任务:提一下”创建基本任务”和”创建任务”的区别是一个有引导界面，一个直接弹出设置界面直接设置。</p></li></ul><p><img src="/images/Windows%E4%BB%BB%E5%8A%A1%E8%AE%A1%E5%88%92/%E5%88%9B%E5%BB%BA%E5%9F%BA%E6%9C%AC%E4%BB%BB%E5%8A%A1.png" alt="创建基本任务 png" srcset="/images/home/Myhead.jpg" data-src="/images/Windows%E4%BB%BB%E5%8A%A1%E8%AE%A1%E5%88%92/%E5%88%9B%E5%BB%BA%E5%9F%BA%E6%9C%AC%E4%BB%BB%E5%8A%A1.png" class="lozad post-image">  </p><ul><li>输入任务名称和描述。</li></ul><p><img src="/images/Windows%E4%BB%BB%E5%8A%A1%E8%AE%A1%E5%88%92/%E8%BE%93%E5%85%A5%E4%BB%BB%E5%8A%A1%E5%90%8D%E7%A7%B0%E5%92%8C%E6%8F%8F%E8%BF%B0.png" alt="输入任务名称和描述 png" srcset="/images/home/Myhead.jpg" data-src="/images/Windows%E4%BB%BB%E5%8A%A1%E8%AE%A1%E5%88%92/%E8%BE%93%E5%85%A5%E4%BB%BB%E5%8A%A1%E5%90%8D%E7%A7%B0%E5%92%8C%E6%8F%8F%E8%BF%B0.png" class="lozad post-image">  </p><ul><li>选择触发器，修改触发器触发的时间和间隔，这里暂时只能创建一个触发器，我们可以创建完任务计划后进行添加或修改触发器。</li></ul><p><img src="/images/Windows%E4%BB%BB%E5%8A%A1%E8%AE%A1%E5%88%92/%E9%80%89%E6%8B%A9%E8%A7%A6%E5%8F%91%E5%99%A8.png" alt="选择触发器 png" srcset="/images/home/Myhead.jpg" data-src="/images/Windows%E4%BB%BB%E5%8A%A1%E8%AE%A1%E5%88%92/%E9%80%89%E6%8B%A9%E8%A7%A6%E5%8F%91%E5%99%A8.png" class="lozad post-image"><br><img src="/images/Windows%E4%BB%BB%E5%8A%A1%E8%AE%A1%E5%88%92/%E4%BF%AE%E6%94%B9%E8%A7%A6%E5%8F%91%E5%99%A8%E9%80%89%E9%A1%B9.png" alt="修改触发器选项 png" srcset="/images/home/Myhead.jpg" data-src="/images/Windows%E4%BB%BB%E5%8A%A1%E8%AE%A1%E5%88%92/%E4%BF%AE%E6%94%B9%E8%A7%A6%E5%8F%91%E5%99%A8%E9%80%89%E9%A1%B9.png" class="lozad post-image"> </p><ul><li>选择任务操作，并填入相关参数，这里很重要，它可以决定你的任务计划是否正常执行，原则上越简单越好（后面会进行详解）；然后点击完成。</li></ul><p><img src="/images/Windows%E4%BB%BB%E5%8A%A1%E8%AE%A1%E5%88%92/%E9%80%89%E6%8B%A9%E4%BB%BB%E5%8A%A1%E6%93%8D%E4%BD%9C.png" alt="选择任务操作 png" srcset="/images/home/Myhead.jpg" data-src="/images/Windows%E4%BB%BB%E5%8A%A1%E8%AE%A1%E5%88%92/%E9%80%89%E6%8B%A9%E4%BB%BB%E5%8A%A1%E6%93%8D%E4%BD%9C.png" class="lozad post-image"><br><img src="/images/Windows%E4%BB%BB%E5%8A%A1%E8%AE%A1%E5%88%92/%E8%AE%BE%E7%BD%AE%E5%90%AF%E5%8A%A8%E7%A8%8B%E5%BA%8F%E7%9A%84%E8%84%9A%E6%9C%AC.png" alt="设置启动程序的脚本 png" srcset="/images/home/Myhead.jpg" data-src="/images/Windows%E4%BB%BB%E5%8A%A1%E8%AE%A1%E5%88%92/%E8%AE%BE%E7%BD%AE%E5%90%AF%E5%8A%A8%E7%A8%8B%E5%BA%8F%E7%9A%84%E8%84%9A%E6%9C%AC.png" class="lozad post-image"><br><img src="/images/Windows%E4%BB%BB%E5%8A%A1%E8%AE%A1%E5%88%92/%E5%AE%8C%E6%88%90%E5%88%9B%E5%BB%BA%E4%BB%BB%E5%8A%A1.png" alt="完成创建任务 png" srcset="/images/home/Myhead.jpg" data-src="/images/Windows%E4%BB%BB%E5%8A%A1%E8%AE%A1%E5%88%92/%E5%AE%8C%E6%88%90%E5%88%9B%E5%BB%BA%E4%BB%BB%E5%8A%A1.png" class="lozad post-image"> </p><ul><li>“创建基本任务”完成后，我们还需要对其进行一些的修改；选择任务点击属性对任务进行修改。</li></ul><p><img src="/images/Windows%E4%BB%BB%E5%8A%A1%E8%AE%A1%E5%88%92/%E5%B8%B8%E8%A7%84%E8%AE%BE%E7%BD%AE.jpg" alt="常规设置 jpg" srcset="/images/home/Myhead.jpg" data-src="/images/Windows%E4%BB%BB%E5%8A%A1%E8%AE%A1%E5%88%92/%E5%B8%B8%E8%A7%84%E8%AE%BE%E7%BD%AE.jpg" class="lozad post-image"><br><img src="/images/Windows%E4%BB%BB%E5%8A%A1%E8%AE%A1%E5%88%92/%E8%A7%A6%E5%8F%91%E5%99%A8.png" alt="触发器 png" srcset="/images/home/Myhead.jpg" data-src="/images/Windows%E4%BB%BB%E5%8A%A1%E8%AE%A1%E5%88%92/%E8%A7%A6%E5%8F%91%E5%99%A8.png" class="lozad post-image"><br>  “操作”项暂不做修改；”条件”项也比较简单，都是字面意思，这里不做讲解；<br><img src="/images/Windows%E4%BB%BB%E5%8A%A1%E8%AE%A1%E5%88%92/%E8%AE%BE%E7%BD%AE%E8%AE%BE%E7%BD%AE.jpg" alt="设置设置 jpg" srcset="/images/home/Myhead.jpg" data-src="/images/Windows%E4%BB%BB%E5%8A%A1%E8%AE%A1%E5%88%92/%E8%AE%BE%E7%BD%AE%E8%AE%BE%E7%BD%AE.jpg" class="lozad post-image"><br>  note：每次手动运行任务后，若任务状态没有更改成预期状态，可通过右键任务选择“刷新”选项进行任务状态的刷新。</p><ul><li>关于”操作”项中的设置需要注意：由于我们使用的是.bat脚本中通过python程序调用.py脚本，因此这里的”程序或脚本”填入 XXX\test.bat(不加引号)，”添加参数（可选）”为空，“起始于（可选）”则是.py文件所在的目录，而不是执行程序或者.bat脚本所在的目录，否则执行的结果会出错；若不填(缺省状态)，那么自动将该处的目录位置定位到”程序或脚本”的目录位置。并且调用的程序需要传入参数，例如”程序或脚本”填入Python编译器路径 C:\Python27\python.exe ，而”添加参数（可选）”为.py文件，那么“起始于（可选）”则是.py文件所在的目录。</li></ul><h4 id="实践踩坑和解决办法"><a href="#实践踩坑和解决办法" class="headerlink" title="实践踩坑和解决办法"></a>实践踩坑和解决办法</h4><p style="text-indent:2em">在工作中由于需要每天调用pythonAPI对程序的服务端进行调整，因此使用了任务计划调用bat脚本的方式执行任务。该bat脚本中，仅简单的一句'XXX/python.exe XXX/XXX/xxx.py'---使用编译器编译python脚本，该任务在我本机上执行没有任务问题，于是将任务计划部署到农场机器上，此时任务就出现了问题：创建的任务不会成功执行，或者执行结果不为'成功执行（0X0）',要么执行结果为'成功执行（0X1）'（失败状态）或者直接失败，找了很久的原因，排除几乎所有的可能性（计算机休眠、计算机系统配置不对、任务权限不够、bat脚本有问题、.py脚本有问题、任务手动运行后状态没有及时切换导致新实例不能创建等、不能访问网络盘资源、脚本“起始于（可选）”参数不对、执行程序带引号等等）。最后本着"越简单越好"的原则，直接将bat脚本拆开，将python编译器的位置填入"程序或脚本"，"添加参数（可选）"填入.py脚本，“起始于（可选）”填入.py脚本路径，问题才得到解决。</p><p style="text-indent:2em">猜测和计算机系统有关，由于我本机使用的是Windows10 的操作系统，而农场机使用的是Windows server2012 的操作系统。</p><h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p>官方介绍：<a href="https://forsenergy.com/zh-cn/gpmc/html/688d2d42-454a-4e2e-90c0-557f959d49b0.htm">https://forsenergy.com/zh-cn/gpmc/html/688d2d42-454a-4e2e-90c0-557f959d49b0.htm</a><br>参考文章：<a href="https://www.jianshu.com/p/c627c77f6ea3">https://www.jianshu.com/p/c627c77f6ea3</a></p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;工作中有时需要定时执行一些规律性的脚本操作</summary>
+    
+    
+    
+    <category term="Doc" scheme="http://mirrorcg.github.io/categories/Doc/"/>
+    
+    
+    <category term="windows" scheme="http://mirrorcg.github.io/tags/windows/"/>
+    
+    <category term="排错记录" scheme="http://mirrorcg.github.io/tags/%E6%8E%92%E9%94%99%E8%AE%B0%E5%BD%95/"/>
+    
+  </entry>
   
   <entry>
     <title>Deadline如何使用PythonAPI</title>
@@ -483,33 +506,6 @@
     <category term="灯光" scheme="http://mirrorcg.github.io/tags/%E7%81%AF%E5%85%89/"/>
     
     <category term="向量计算" scheme="http://mirrorcg.github.io/tags/%E5%90%91%E9%87%8F%E8%AE%A1%E7%AE%97/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>关于Aitoon材质灯光分层的探索</title>
-    <link href="http://mirrorcg.github.io/posts/20220226a2.html"/>
-    <id>http://mirrorcg.github.io/posts/20220226a2.html</id>
-    <published>2022-02-26T05:44:11.000Z</published>
-    <updated>2022-05-03T09:44:11.000Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h3><p style="text-indent:2em">前段时间，开始对在 Maya 中进行三渲二的渲染分层有了兴趣。于是，我就尝试自己探索一下：在 Maya 中使用 Aitoon 材质进行三渲二的灯光分层，以及在 Nuke中进行合成的流程。<span id="more"></span>现在的三渲二影视作品普遍采用亮面、暗面加边缘光的方式进行灯光分层，部分镜头需要以亮面、灰面和暗面加边缘光的方式进行灯光分层，灯光师仅完成灯光角度的设计即可，最终画面氛围和效果需要合成师完成，这种分层方式使用aitoon材质球可以很容易地完成。</p><p>测试环境:maya 2018.5+Arnold 6.0.1.0<br>测试角色:不要钱的派大星</p><h3 id="一-材质相关"><a href="#一-材质相关" class="headerlink" title="一. 材质相关"></a>一. 材质相关</h3><p style="text-indent:2em">前期部门仅制作卡通材质，不需要在材质球中为rim、highlight 指定灯光。材质球的base 权重需要设定为1（下图1），关闭材质的能量守恒选项和间接反射（下图2），材质的baseTonemap属性都链接ramp节点并保持只有两个点。调节材质、线框效果与贴图的阴影融合等步骤需要前期部门调整到最终效果。如果做了材质阴影融合，材质部门需要提供另一套只带有阴影贴图的 aimatte 材质球用于切换，供灯光部门渲染阴影通道使用。</p><table><tr><td><img src="/images/关于Aitoon材质灯光分层的探索/图1-1.png" border=1 srcset="/images/home/Myhead.jpg" data-src="/images/关于Aitoon材质灯光分层的探索/图1-1.png" class="lozad post-image"></td><td><img src="/images/关于Aitoon材质灯光分层的探索/图1-2.png" border=1 srcset="/images/home/Myhead.jpg" data-src="/images/关于Aitoon材质灯光分层的探索/图1-2.png" class="lozad post-image"></td></tr></table><h3 id="二．灯光环节流程"><a href="#二．灯光环节流程" class="headerlink" title="二．灯光环节流程"></a>二．灯光环节流程</h3><pre><code>1.灯光使用要求</code></pre><p style="text-indent:2em">由于卡通材质的特殊性，灯光渲染需要至少一盏光源即可区分亮暗，根据官方介绍虽然 aitoon 材质并不挑剔灯光类型，但由于面光源和skydome等灯光的性质，可能会导致受光面的强度大于1，从而导致莫名的错误，灯光的要求使用平行光、点光源或者聚光灯，并且这三种光源对于风格化高光的形成效果较好，可控性更高。</p>    2.Aov及渲染分层<p style="text-indent:2em">通过对aitoon材质的渲染，我们可以获取Arnold提供的所有的Aov通道，但由于aitoon材质球并非基干物理的材质球，并不能按照LPE的方式进行分层，传统的分成方式需要考虑灯光的强度和颜色对贴图的影响以及材质之间的影响，而卡通渲染并不计算diffuse的灯光颜色信息，因此我们可以采用diffusealbedo+主光照射范围+暗部颜色+平面反射+透射的方式进行分层，此方法能保持合成的可调性的同时也最大限度保留了材质的效果。通过读取模型的材质信息，给模型添加附加属性，用aiuserdata节点传递已经记录的每个模型的材质球信息，即可确认模型被灯光照射的亮暗面的范围，最终输出通道，具体方式如下：</p>    (1)主光照射范围+暗部颜色<p style="text-indent:2em">给每一个材质为aitoon的物体添加Arnold额外属性(color1,color2.pos1,pos2.interpolation)用于记录数据（下图左一），该属性记录材质球的basetonemap中ramp 的信息（下图右一），其中颜色数据使用vector类型 ，位置数据使用float类型，ramp的过度类型使用int类型，这三种类型分别可对应用户数据节点的 aiUserDataColor、aiUserDataFloat、aiUserDatalnt。</p><table><tr><td><img src="/images/关于Aitoon材质灯光分层的探索/图2-1.png" border=0 srcset="/images/home/Myhead.jpg" data-src="/images/关于Aitoon材质灯光分层的探索/图2-1.png" class="lozad post-image"></td><td><img src="/images/关于Aitoon材质灯光分层的探索/图2-2.png" border=0 srcset="/images/home/Myhead.jpg" data-src="/images/关于Aitoon材质灯光分层的探索/图2-2.png" class="lozad post-image"></td></tr></table><p style="text-indent:2em">以 toon_key 为例创建自定义 aov（下图左一），通过创建自定义的aov，将aov色器选择为新创建的 aitoon 卡通材质球 关闭该aitoon 材质球的能量守恒，边缘，高光。将basecolor调为1，并给basetonemap链接一个默认的ramp节点。创建2个aiUserDataColor2个aiUserDataFloat1个aiUserDatalnt节点，并将color1、color2分别填入aiUserDataColor，pos1、pos2分别填入aiUserDataFloat，interpolation填入aiUserDatalnt，将五个节点链接到上一步的ramp中即可渲染出，所需要的包含有灯光照射的两部范围信息的aov，该aov的色彩信息为仅为灯光照射的亮面（toon_key）(不含材质信息)，以此类推，可获得暗面的颜色（toon_env），渲染出的aov（下图右一）</p><table><tr><td><img src="/images/关于Aitoon材质灯光分层的探索/图2-3.png" border=0 srcset="/images/home/Myhead.jpg" data-src="/images/关于Aitoon材质灯光分层的探索/图2-3.png" class="lozad post-image"></td><td><img src="/images/关于Aitoon材质灯光分层的探索/图2-4.png" border=0 srcset="/images/home/Myhead.jpg" data-src="/images/关于Aitoon材质灯光分层的探索/图2-4.png" class="lozad post-image"></td></tr></table><p>至此，我们获得需要的灯光层，该灯光层保留材质的 ramp 亮暗面信息和亮暗部区域(非aitoon 材质渲染为黑色。</p>    (2) Diffuse abedle、高光和透射<p style="text-indent:2em">材质本身的高光和透射可利用maya自身的aov输出，分别为specular direct、specular indirect，transmission direct， transmission indirect。</p>    (3) edge<p style="text-indent:2em">物体的边缘线输出，需要通过自定义edge aov进行输出，需要将aov的filter设定为 contour类型否则渲染不出线框（如下图）。</p><table><tr><td><img src="/images/关于Aitoon材质灯光分层的探索/图2-5.png" border=0 srcset="/images/home/Myhead.jpg" data-src="/images/关于Aitoon材质灯光分层的探索/图2-5.png" class="lozad post-image"></td><td><img src="/images/关于Aitoon材质灯光分层的探索/图2-6.png" border=0 srcset="/images/home/Myhead.jpg" data-src="/images/关于Aitoon材质灯光分层的探索/图2-6.png" class="lozad post-image"></td></tr></table>    (4) 边缘光和风格化高光<p style="text-indent:2em">为了便于调节，aitoon材质的rim边缘光和风格化高光可通过单独分层并对层中的物体进行材质覆盖的方式进行提取aov，单独分层也有利于控制效果。</p>    (5) 其他需要的aov<p style="text-indent:2em">除上述aov外,其他一些aov可根据需求添加，本文考虑使用的辅助aov包括:N、 fresnel、OCC、RBzd、P、crypto_matte(三种)、direct和indirect 可在含有非aitoon材质时输出，用于调整非aitoon材质物体。</p>    (6)文件分层<p style="text-indent:2em">文件的分层方式通过maya的renderSetup分层方式进行分层，最后以模板的形式导出渲染层，供流程使用。使用render Setup的方 式分层可以很方便地对模型进行材质覆盖、属性覆盖和导出自定义aov的操作，以边光和风格化层高光为例，为保持物体边缘光的统一性，需要整体赋予一个aitoon材质球，用于调整边缘光效果;而材质球的边缘光和风格化高光属性是没有填入对应灯光的shape名称的，因此可以在覆盖材质或者属性的基础上，统一给相关的模型覆盖属性或材质球，达到渲染效果。</p><h3 id="三．合成"><a href="#三．合成" class="headerlink" title="三．合成"></a>三．合成</h3><p style="text-indent:2em">通过上面的方法，我们可以得到合成所需要的aov，通过合成树即可还原灯光渲染的效果（合成树中的图片不是本例的图片，此处仅做示范），并在此基础上由合成师进行环境氛围和灯光效果的调整即可（如下图）。</p><table><tr><td><img src="/images/关于Aitoon材质灯光分层的探索/图3-1.png" border=0 srcset="/images/home/Myhead.jpg" data-src="/images/关于Aitoon材质灯光分层的探索/图3-1.png" class="lozad post-image"></td><td><img src="/images/关于Aitoon材质灯光分层的探索/图3-2.png" border=0 srcset="/images/home/Myhead.jpg" data-src="/images/关于Aitoon材质灯光分层的探索/图3-2.png" class="lozad post-image"></td></tr></table><h3 id="四．写在最后"><a href="#四．写在最后" class="headerlink" title="四．写在最后"></a>四．写在最后</h3><p style="text-indent:2em">此方法按照aitoon材质球的非基于物理渲染的特性，以basetonemap的ramp与贴图相乘得出最终颜色信息的特点，进行aov分层;它相对于单纯使用aitoon材质球对物体进行材质覆盖的方式进行亮暗部区分的优点在于，不以单一的材质覆盖的亮暗部过度信息、能更准确地保留材质的亮暗部范围和过度方式、能分别获取到材质的亮暗部rgb信息。相对于传统基于物理的分层方式，能单独调整亮暗面颜色信息，由于三渲二不能在灯光中处理氛围，此方式在合成中可调性更高。</p><p>注意：在输出AOV通道时，若自定义的AOV和Arnold渲染器自带的AOV一起渲染出图时，会导致Arnold渲染器自带的Aov渲染错误，不渲染出正确的信息，因此，自定义的AOV需要单独分层渲染。</p>]]></content>
-    
-    
-    <summary type="html">&lt;h3 id=&quot;起因&quot;&gt;&lt;a href=&quot;#起因&quot; class=&quot;headerlink&quot; title=&quot;起因&quot;&gt;&lt;/a&gt;起因&lt;/h3&gt;&lt;p style=&quot;text-indent:2em&quot;&gt;前段时间，开始对在 Maya 中进行三渲二的渲染分层有了兴趣。于是，我就尝试自己探索一下：在 Maya 中使用 Aitoon 材质进行三渲二的灯光分层，以及在 Nuke中进行合成的流程。</summary>
-    
-    
-    
-    <category term="Maya" scheme="http://mirrorcg.github.io/categories/Maya/"/>
-    
-    <category term="arnold" scheme="http://mirrorcg.github.io/categories/Maya/arnold/"/>
-    
-    
-    <category term="灯光" scheme="http://mirrorcg.github.io/tags/%E7%81%AF%E5%85%89/"/>
-    
-    <category term="Aitoon" scheme="http://mirrorcg.github.io/tags/Aitoon/"/>
-    
-    <category term="aiUserData" scheme="http://mirrorcg.github.io/tags/aiUserData/"/>
     
   </entry>
   

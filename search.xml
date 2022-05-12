@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>Windows任务计划</title>
+      <link href="/posts/20220510a1.html"/>
+      <url>/posts/20220510a1.html</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>工作中有时需要定时执行一些规律性的脚本操作<span id="more"></span>，比如，清除磁盘垃圾、定时下载任务等。这些任务执行虽然简单，但是需要人力进行日常维护。通常有两种方式可以方便处理这类型任务：</p><ol><li>以本机作为脚本任务的执行者，开启电脑后，通过ide运行任务，但是每次开机都需要手动执行，或者将程序打包成exe程序再放入启动文件夹。</li><li>以本机作为服务器，通过任务计划的触发器，自动执行指定任务，不需要每次开机后再手动执行。</li></ol><p>下面将介绍第二种方式——任务计划</p><ul><li><p>打开计划任务程序</p><table><tr><td><img src="/images/Windows任务计划/打开管理工具.png" border=0 srcset="/images/home/Myhead.jpg" data-src="/images/Windows任务计划/打开管理工具.png" class="lozad post-image"></td><td><img src="/images/Windows任务计划/任务计划程序.png" border=0 srcset="/images/home/Myhead.jpg" data-src="/images/Windows任务计划/任务计划程序.png" class="lozad post-image"></td></tr></table></li><li><p>创建一个新的任务计划文件夹（推荐）或在“任务计划程序库”中创建基本任务:提一下”创建基本任务”和”创建任务”的区别是一个有引导界面，一个直接弹出设置界面直接设置。</p></li></ul><p><img src="/images/Windows%E4%BB%BB%E5%8A%A1%E8%AE%A1%E5%88%92/%E5%88%9B%E5%BB%BA%E5%9F%BA%E6%9C%AC%E4%BB%BB%E5%8A%A1.png" alt="创建基本任务 png" srcset="/images/home/Myhead.jpg" data-src="/images/Windows%E4%BB%BB%E5%8A%A1%E8%AE%A1%E5%88%92/%E5%88%9B%E5%BB%BA%E5%9F%BA%E6%9C%AC%E4%BB%BB%E5%8A%A1.png" class="lozad post-image">  </p><ul><li>输入任务名称和描述。</li></ul><p><img src="/images/Windows%E4%BB%BB%E5%8A%A1%E8%AE%A1%E5%88%92/%E8%BE%93%E5%85%A5%E4%BB%BB%E5%8A%A1%E5%90%8D%E7%A7%B0%E5%92%8C%E6%8F%8F%E8%BF%B0.png" alt="输入任务名称和描述 png" srcset="/images/home/Myhead.jpg" data-src="/images/Windows%E4%BB%BB%E5%8A%A1%E8%AE%A1%E5%88%92/%E8%BE%93%E5%85%A5%E4%BB%BB%E5%8A%A1%E5%90%8D%E7%A7%B0%E5%92%8C%E6%8F%8F%E8%BF%B0.png" class="lozad post-image">  </p><ul><li>选择触发器，修改触发器触发的时间和间隔，这里暂时只能创建一个触发器，我们可以创建完任务计划后进行添加或修改触发器。</li></ul><p><img src="/images/Windows%E4%BB%BB%E5%8A%A1%E8%AE%A1%E5%88%92/%E9%80%89%E6%8B%A9%E8%A7%A6%E5%8F%91%E5%99%A8.png" alt="选择触发器 png" srcset="/images/home/Myhead.jpg" data-src="/images/Windows%E4%BB%BB%E5%8A%A1%E8%AE%A1%E5%88%92/%E9%80%89%E6%8B%A9%E8%A7%A6%E5%8F%91%E5%99%A8.png" class="lozad post-image"><br><img src="/images/Windows%E4%BB%BB%E5%8A%A1%E8%AE%A1%E5%88%92/%E4%BF%AE%E6%94%B9%E8%A7%A6%E5%8F%91%E5%99%A8%E9%80%89%E9%A1%B9.png" alt="修改触发器选项 png" srcset="/images/home/Myhead.jpg" data-src="/images/Windows%E4%BB%BB%E5%8A%A1%E8%AE%A1%E5%88%92/%E4%BF%AE%E6%94%B9%E8%A7%A6%E5%8F%91%E5%99%A8%E9%80%89%E9%A1%B9.png" class="lozad post-image"> </p><ul><li>选择任务操作，并填入相关参数，这里很重要，它可以决定你的任务计划是否正常执行，原则上越简单越好（后面会进行详解）；然后点击完成。</li></ul><p><img src="/images/Windows%E4%BB%BB%E5%8A%A1%E8%AE%A1%E5%88%92/%E9%80%89%E6%8B%A9%E4%BB%BB%E5%8A%A1%E6%93%8D%E4%BD%9C.png" alt="选择任务操作 png" srcset="/images/home/Myhead.jpg" data-src="/images/Windows%E4%BB%BB%E5%8A%A1%E8%AE%A1%E5%88%92/%E9%80%89%E6%8B%A9%E4%BB%BB%E5%8A%A1%E6%93%8D%E4%BD%9C.png" class="lozad post-image"><br><img src="/images/Windows%E4%BB%BB%E5%8A%A1%E8%AE%A1%E5%88%92/%E8%AE%BE%E7%BD%AE%E5%90%AF%E5%8A%A8%E7%A8%8B%E5%BA%8F%E7%9A%84%E8%84%9A%E6%9C%AC.png" alt="设置启动程序的脚本 png" srcset="/images/home/Myhead.jpg" data-src="/images/Windows%E4%BB%BB%E5%8A%A1%E8%AE%A1%E5%88%92/%E8%AE%BE%E7%BD%AE%E5%90%AF%E5%8A%A8%E7%A8%8B%E5%BA%8F%E7%9A%84%E8%84%9A%E6%9C%AC.png" class="lozad post-image"><br><img src="/images/Windows%E4%BB%BB%E5%8A%A1%E8%AE%A1%E5%88%92/%E5%AE%8C%E6%88%90%E5%88%9B%E5%BB%BA%E4%BB%BB%E5%8A%A1.png" alt="完成创建任务 png" srcset="/images/home/Myhead.jpg" data-src="/images/Windows%E4%BB%BB%E5%8A%A1%E8%AE%A1%E5%88%92/%E5%AE%8C%E6%88%90%E5%88%9B%E5%BB%BA%E4%BB%BB%E5%8A%A1.png" class="lozad post-image"> </p><ul><li>“创建基本任务”完成后，我们还需要对其进行一些的修改；选择任务点击属性对任务进行修改。</li></ul><p><img src="/images/Windows%E4%BB%BB%E5%8A%A1%E8%AE%A1%E5%88%92/%E5%B8%B8%E8%A7%84%E8%AE%BE%E7%BD%AE.jpg" alt="常规设置 jpg" srcset="/images/home/Myhead.jpg" data-src="/images/Windows%E4%BB%BB%E5%8A%A1%E8%AE%A1%E5%88%92/%E5%B8%B8%E8%A7%84%E8%AE%BE%E7%BD%AE.jpg" class="lozad post-image"><br><img src="/images/Windows%E4%BB%BB%E5%8A%A1%E8%AE%A1%E5%88%92/%E8%A7%A6%E5%8F%91%E5%99%A8.png" alt="触发器 png" srcset="/images/home/Myhead.jpg" data-src="/images/Windows%E4%BB%BB%E5%8A%A1%E8%AE%A1%E5%88%92/%E8%A7%A6%E5%8F%91%E5%99%A8.png" class="lozad post-image"><br>  “操作”项暂不做修改；”条件”项也比较简单，都是字面意思，这里不做讲解；<br><img src="/images/Windows%E4%BB%BB%E5%8A%A1%E8%AE%A1%E5%88%92/%E8%AE%BE%E7%BD%AE%E8%AE%BE%E7%BD%AE.jpg" alt="设置设置 jpg" srcset="/images/home/Myhead.jpg" data-src="/images/Windows%E4%BB%BB%E5%8A%A1%E8%AE%A1%E5%88%92/%E8%AE%BE%E7%BD%AE%E8%AE%BE%E7%BD%AE.jpg" class="lozad post-image"><br>  note：每次手动运行任务后，若任务状态没有更改成预期状态，可通过右键任务选择“刷新”选项进行任务状态的刷新。</p><ul><li>关于”操作”项中的设置需要注意：由于我们使用的是.bat脚本中通过python程序调用.py脚本，因此这里的”程序或脚本”填入 XXX\test.bat(不加引号)，”添加参数（可选）”为空，“起始于（可选）”则是.py文件所在的目录，而不是执行程序或者.bat脚本所在的目录，否则执行的结果会出错；若不填(缺省状态)，那么自动将该处的目录位置定位到”程序或脚本”的目录位置。并且调用的程序需要传入参数，例如”程序或脚本”填入Python编译器路径 C:\Python27\python.exe ，而”添加参数（可选）”为.py文件，那么“起始于（可选）”则是.py文件所在的目录。</li></ul><h4 id="实践踩坑和解决办法"><a href="#实践踩坑和解决办法" class="headerlink" title="实践踩坑和解决办法"></a>实践踩坑和解决办法</h4><p style="text-indent:2em">在工作中由于需要每天调用pythonAPI对程序的服务端进行调整，因此使用了任务计划调用bat脚本的方式执行任务。该bat脚本中，仅简单的一句'XXX/python.exe XXX/XXX/xxx.py'---使用编译器编译python脚本，该任务在我本机上执行没有任务问题，于是将任务计划部署到农场机器上，此时任务就出现了问题：创建的任务不会成功执行，或者执行结果不为'成功执行（0X0）',要么执行结果为'成功执行（0X1）'（失败状态）或者直接失败，找了很久的原因，排除几乎所有的可能性（计算机休眠、计算机系统配置不对、任务权限不够、bat脚本有问题、.py脚本有问题、任务手动运行后状态没有及时切换导致新实例不能创建等、不能访问网络盘资源、脚本“起始于（可选）”参数不对、执行程序带引号等等）。最后本着"越简单越好"的原则，直接将bat脚本拆开，将python编译器的位置填入"程序或脚本"，"添加参数（可选）"填入.py脚本，“起始于（可选）”填入.py脚本路径，问题才得到解决。</p><p style="text-indent:2em">猜测和计算机系统有关，由于我本机使用的是Windows10 的操作系统，而农场机使用的是Windows server2012 的操作系统。</p><h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p>官方介绍：<a href="https://forsenergy.com/zh-cn/gpmc/html/688d2d42-454a-4e2e-90c0-557f959d49b0.htm">https://forsenergy.com/zh-cn/gpmc/html/688d2d42-454a-4e2e-90c0-557f959d49b0.htm</a><br>参考文章：<a href="https://www.jianshu.com/p/c627c77f6ea3">https://www.jianshu.com/p/c627c77f6ea3</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Doc </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> windows </tag>
+            
+            <tag> 排错记录 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Deadline如何使用PythonAPI</title>
       <link href="/posts/20220505a1.html"/>
       <url>/posts/20220505a1.html</url>
