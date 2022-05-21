@@ -335,7 +335,7 @@
     
     
       <span class="dot"></span>
-      <span>479 字</span>
+      <span>687 字</span>
     
   </div>
   
@@ -382,7 +382,10 @@
 <li><p>贴图文件正在上传或修改。日志出现：File“*******”was modified after being opened by OIIO，这是因为文件在渲染的时候，被文件IO读取的贴图文件还在上传或更新中<br> 解决办法：等待贴图上传完成后再渲染文件</p>
 </li>
 <li><p>盘符掉了或没有输出磁盘：<br> 解决办法：映射一个盘符</p>
- <pre class="line-numbers language-doc" data-language="doc"><code class="language-doc">subst D: C:\D  ::映射D盘盘符到C盘的D文件夹<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+ <pre class="line-numbers language-doc" data-language="doc"><code class="language-doc">subst D: C:\D  ::映射D盘盘符到C盘的D文件夹<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>Deadline农场渲染报错“defaultRenderLayer” is a layer from a referenced and is not allowed to be the current layer ,其可能是之一是：maya 的 renderLayerManage节点被改名导致 maya 不能生成默认的master layer渲染层（在.ma文件中的名称为defaultRenderLayer），因此可以将文件保存为.ma格式的文件，用文本的方式打开，将renderLayerManager节点的名称改为默认的’renderLayerManager’(没有任何修饰)，同时由于默认的renderLayerManager节点已经被修改过，默认的渲染层名称也发生了改变，导致渲染程序在调用的代码中，该层被判定为非默认的渲染层而报错“unable to modify overrides to the default layer”,因此，还需要将文件中的 defaultRenderLayer节点 (本问题记录时该节点名称为 defaultRenderLayer1 ),改为默认的名称defaultRenderLayer，即可。</p>
+</li>
 </ol>
 
   </div>
@@ -803,12 +806,6 @@
       </a>
     
       <a 
-        href="/tags/Markdown/" 
-        title="Markdown">
-        <div class="tags-list-item">Markdown</div>
-      </a>
-    
-      <a 
         href="/tags/aiUserData/" 
         title="aiUserData">
         <div class="tags-list-item">aiUserData</div>
@@ -818,6 +815,12 @@
         href="/tags/Aitoon/" 
         title="Aitoon">
         <div class="tags-list-item">Aitoon</div>
+      </a>
+    
+      <a 
+        href="/tags/Markdown/" 
+        title="Markdown">
+        <div class="tags-list-item">Markdown</div>
       </a>
     
       <a 

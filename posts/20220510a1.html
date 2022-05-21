@@ -403,9 +403,9 @@
 </ul>
 <p><img src="/images/Windows%E4%BB%BB%E5%8A%A1%E8%AE%A1%E5%88%92/%E5%B8%B8%E8%A7%84%E8%AE%BE%E7%BD%AE.jpg" alt="常规设置 jpg" srcset="/images/home/Myhead.jpg" data-src="/images/Windows%E4%BB%BB%E5%8A%A1%E8%AE%A1%E5%88%92/%E5%B8%B8%E8%A7%84%E8%AE%BE%E7%BD%AE.jpg" class="lozad post-image"><br><img src="/images/Windows%E4%BB%BB%E5%8A%A1%E8%AE%A1%E5%88%92/%E8%A7%A6%E5%8F%91%E5%99%A8.png" alt="触发器 png" srcset="/images/home/Myhead.jpg" data-src="/images/Windows%E4%BB%BB%E5%8A%A1%E8%AE%A1%E5%88%92/%E8%A7%A6%E5%8F%91%E5%99%A8.png" class="lozad post-image"><br>  “操作”项暂不做修改；”条件”项也比较简单，都是字面意思，这里不做讲解；<br><img src="/images/Windows%E4%BB%BB%E5%8A%A1%E8%AE%A1%E5%88%92/%E8%AE%BE%E7%BD%AE%E8%AE%BE%E7%BD%AE.jpg" alt="设置设置 jpg" srcset="/images/home/Myhead.jpg" data-src="/images/Windows%E4%BB%BB%E5%8A%A1%E8%AE%A1%E5%88%92/%E8%AE%BE%E7%BD%AE%E8%AE%BE%E7%BD%AE.jpg" class="lozad post-image"><br>  note：每次手动运行任务后，若任务状态没有更改成预期状态，可通过右键任务选择“刷新”选项进行任务状态的刷新。</p>
 <ul>
-<li>关于”操作”项中的设置需要注意：由于我们使用的是.bat脚本中通过python程序调用.py脚本，因此这里的”程序或脚本”填入 XXX\test.bat(不加引号)，”添加参数（可选）”为空，“起始于（可选）”则是.py文件所在的目录，而不是执行程序或者.bat脚本所在的目录，否则执行的结果会出错；若不填(缺省状态)，那么自动将该处的目录位置定位到”程序或脚本”的目录位置。并且调用的程序需要传入参数，例如”程序或脚本”填入Python编译器路径 C:\Python27\python.exe ，而”添加参数（可选）”为.py文件，那么“起始于（可选）”则是.py文件所在的目录。</li>
+<li>关于”操作”项中的设置需要注意：由于我们使用的是.bat脚本中通过python程序调用.py脚本，因此这里的”程序或脚本”填入 XXX\test.bat(不加引号)，”添加参数（可选）”为空，“起始于（可选）”则是.py文件所在的目录，而不是执行程序或者.bat脚本所在的目录，否则执行的结果会出错；若不填(缺省状态)，那么自动将该处的目录位置定位到”程序或脚本”的目录位置。并且调用的程序需要传入参数，例如”程序或脚本”填入Python编译器路径 C:\Python27\python.exe ，而”添加参数（可选）”为.py文件，那么“起始于（可选）”则是.py文件所在的目录。最后说一下，任务计划中所用到的所有的文件最好放置在本地路径。</li>
 </ul>
-<h4 id="实践踩坑和解决办法"><a href="#实践踩坑和解决办法" class="headerlink" title="实践踩坑和解决办法"></a>实践踩坑和解决办法</h4><p style="text-indent:2em">在工作中由于需要每天调用pythonAPI对程序的服务端进行调整，因此使用了任务计划调用bat脚本的方式执行任务。该bat脚本中，仅简单的一句'XXX/python.exe XXX/XXX/xxx.py'---使用编译器编译python脚本，该任务在我本机上执行没有任务问题，于是将任务计划部署到农场机器上，此时任务就出现了问题：创建的任务不会成功执行，或者执行结果不为'成功执行（0X0）',要么执行结果为'成功执行（0X1）'（失败状态）或者直接失败，找了很久的原因，排除几乎所有的可能性（计算机休眠、计算机系统配置不对、任务权限不够、bat脚本有问题、.py脚本有问题、任务手动运行后状态没有及时切换导致新实例不能创建等、不能访问网络盘资源、脚本“起始于（可选）”参数不对、执行程序带引号等等）。最后本着"越简单越好"的原则，直接将bat脚本拆开，将python编译器的位置填入"程序或脚本"，"添加参数（可选）"填入.py脚本，“起始于（可选）”填入.py脚本路径，问题才得到解决。</p>
+<h4 id="实践踩坑和解决办法"><a href="#实践踩坑和解决办法" class="headerlink" title="实践踩坑和解决办法"></a>实践踩坑和解决办法</h4><p style="text-indent:2em">在这次工作中由于需要每天调用pythonAPI对程序的服务端进行调整，因此使用了任务计划调用bat脚本的方式执行任务。该bat脚本中，仅简单的一句'XXX/python.exe XXX/XXX/xxx.py'---使用编译器编译python脚本，该任务在我本机上执行没有任务问题，于是将任务计划部署到农场机器上，此时任务就出现了问题：创建的任务不会成功执行，或者执行结果不为'成功执行（0X0）',或者执行结果为'成功执行（0X1）'（失败状态）或者直接失败，找了很久的原因，排除几乎所有的可能性（计算机休眠、计算机系统配置不对、任务权限不够、bat脚本有问题、.py脚本有问题、任务手动运行后状态没有及时切换导致新实例不能创建、不能访问网络盘资源、脚本“起始于（可选）”参数不对、执行程序带引号等等）。最后本着"越简单越好"的原则，直接将bat脚本拆开，将python编译器的位置填入"程序或脚本"，"添加参数（可选）"填入.py脚本，“起始于（可选）”填入.py脚本路径，问题才得到解决。</p>
 <p style="text-indent:2em">猜测和计算机系统有关，由于我本机使用的是Windows10 的操作系统，而农场机使用的是Windows server2012 的操作系统。</p>
 
 
@@ -818,12 +818,6 @@
       </a>
     
       <a 
-        href="/tags/Markdown/" 
-        title="Markdown">
-        <div class="tags-list-item">Markdown</div>
-      </a>
-    
-      <a 
         href="/tags/aiUserData/" 
         title="aiUserData">
         <div class="tags-list-item">aiUserData</div>
@@ -833,6 +827,12 @@
         href="/tags/Aitoon/" 
         title="Aitoon">
         <div class="tags-list-item">Aitoon</div>
+      </a>
+    
+      <a 
+        href="/tags/Markdown/" 
+        title="Markdown">
+        <div class="tags-list-item">Markdown</div>
       </a>
     
       <a 

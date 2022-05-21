@@ -335,7 +335,7 @@
     
     
       <span class="dot"></span>
-      <span>369 字</span>
+      <span>516 字</span>
     
   </div>
   
@@ -409,8 +409,27 @@ aovs<span class="token punctuation">.</span>AOVInterface<span class="token punct
 <span class="token comment"># 列出活动状态的aovs</span>
 aovs<span class="token punctuation">.</span>AOVInterface<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>getAOVs<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
-<li><p>查看 mel 函数帮助：<br> 使用 “whatIs ‘mel命令’;” 可以查看mel函数帮助。</p>
+<li><p>Arnold代码加载arnold渲染器并创建默认节点：</p>
+ <pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> maya<span class="token punctuation">.</span>cmds <span class="token keyword">as</span> mc
+<span class="token keyword">import</span> mtoa<span class="token punctuation">.</span>core
+mc<span class="token punctuation">.</span>setAttr<span class="token punctuation">(</span><span class="token string">"defaultRenderGlobals.currentRenderer"</span><span class="token punctuation">,</span><span class="token string">"arnold"</span><span class="token punctuation">,</span>typ<span class="token operator">=</span><span class="token string">"string"</span><span class="token punctuation">)</span>
+mtoa<span class="token punctuation">.</span>core<span class="token punctuation">.</span>createOptions<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment"># 创建ar默认节点网络</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
+<li><p>查看 mel 函数帮助：<br>使用 “whatIs ‘mel命令’;” 可以查看mel函数帮助。</p>
+</li>
+<li><p>设置maya视图窗口为非显卡（不使用显卡）支持的窗口模式：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> maya<span class="token punctuation">.</span>cmds <span class="token keyword">as</span> mc
+<span class="token keyword">def</span> <span class="token function">switch_preview</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    all_model_panel <span class="token operator">=</span> mc<span class="token punctuation">.</span>getPanel<span class="token punctuation">(</span>typ<span class="token operator">=</span><span class="token string">"modelPanel"</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> each <span class="token keyword">in</span> all_model_panel<span class="token punctuation">:</span>
+        mc<span class="token punctuation">.</span>modelEditor<span class="token punctuation">(</span>each<span class="token punctuation">,</span>e<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span>rnm<span class="token operator">=</span><span class="token string">"base_OpenGL_Renderer"</span><span class="token punctuation">)</span>  <span class="token comment"># 查询可用的渲染器名称 mc.modelEditor(each,q=True,rendererList=True) </span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>Xgen相关:</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> xgenm<span class="token punctuation">.</span>xmaya<span class="token punctuation">.</span>xgmExternalAPI <span class="token keyword">as</span> xgenmExternalAPI
+<span class="token keyword">import</span> xgenm <span class="token keyword">as</span> xg
+palettes <span class="token operator">=</span> xg<span class="token punctuation">.</span>palettes<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment"># 获取Xgen 所有描述</span>
+<span class="token keyword">if</span> <span class="token keyword">not</span> <span class="token punctuation">(</span>xgenmExternalAPI<span class="token punctuation">.</span>xgg<span class="token punctuation">.</span>DescriptionEditor <span class="token keyword">is</span> <span class="token boolean">None</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    xgenmExternalAPI<span class="token punctuation">.</span>xgg<span class="token punctuation">.</span>DescriptionEditor<span class="token punctuation">.</span>refresh<span class="token punctuation">(</span><span class="token string">"Full"</span><span class="token punctuation">)</span>  <span class="token comment"># 刷新所有Xgen面板</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ol>
 
   </div>
@@ -831,12 +850,6 @@ aovs<span class="token punctuation">.</span>AOVInterface<span class="token punct
       </a>
     
       <a 
-        href="/tags/Markdown/" 
-        title="Markdown">
-        <div class="tags-list-item">Markdown</div>
-      </a>
-    
-      <a 
         href="/tags/aiUserData/" 
         title="aiUserData">
         <div class="tags-list-item">aiUserData</div>
@@ -846,6 +859,12 @@ aovs<span class="token punctuation">.</span>AOVInterface<span class="token punct
         href="/tags/Aitoon/" 
         title="Aitoon">
         <div class="tags-list-item">Aitoon</div>
+      </a>
+    
+      <a 
+        href="/tags/Markdown/" 
+        title="Markdown">
+        <div class="tags-list-item">Markdown</div>
       </a>
     
       <a 
