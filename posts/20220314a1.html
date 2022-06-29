@@ -370,7 +370,7 @@
     id="section" 
     class="post-content">
     <p>Rez 是一个跨平台程序包管理器，通过它可以给程序配置独立的环境<span id="more"></span>，每个独立环境中只是引用了这些包。所以它的环境配置是轻量级的，与其它程序包环境管理不同的是，所有的程序包都安装在一个中央统一的位置，尽管有几百个包，通常也只需要几秒就可以进行配置。将 Rez 作为工作室 DCC 软件启动器依赖项，是个不错的选择。下面将简单介绍 Windows 环境下，Rez 包管理器如何安装使用。</p>
-<h4 id="下载安装包"><a href="#下载安装包" class="headerlink" title="下载安装包"></a>下载安装包</h4><p>从 GitHub 上拉取 <a href="https://github.com/nerdvegas/rez" title="" target="">Rez 原项目的的相关仓库</a>，然后打开CMD<br>进入拉取仓库所在的目录中执行：</p>
+<h4 id="下载安装包"><a href="#下载安装包" class="headerlink" title="下载安装包"></a>下载安装包</h4><p>从 GitHub 上拉取 <a href="https://github.com/nerdvegas/rez" title="" target="">Rez 原项目的的相关仓库</a>，然后打开CMD<br>进入拉取仓库所在的目录中执行(建议在C盘根目录)：</p>
 <pre class="language-cmd" data-language="cmd"><code class="language-cmd">python .&#x2F;install.py </code></pre>
 <p>这将会把包安装在当前位置的 &#x2F;opt&#x2F;rez 目录下<br>也可以使用Pip进行安装：</p>
 <pre class="language-cmd" data-language="cmd"><code class="language-cmd">pip install rez</code></pre>
@@ -405,7 +405,7 @@ rez-build --install</code></pre>
 <p>查看当前配置环境：</p>
 <pre class="language-cmd" data-language="cmd"><code class="language-cmd">rez-context</code></pre>
 
-<p>修改软件包路径的方法：设置REZ_PACKAGES_PATH环境变量；</p>
+
 <h4 id="在共享路径下搜索插件包"><a href="#在共享路径下搜索插件包" class="headerlink" title="在共享路径下搜索插件包"></a>在共享路径下搜索插件包</h4><p>首先，需要为系统设置配置文件的用户环境变量 REZ_CONFIG_FILE 指向 rezconfig.py文件；为系统用户的环境变量中添加环境变量 REZ_CONFIG_FILE ，并且值为”S:\opt\rez\Lib\site-packages\rez\rezconfig.py”(本文将 rez安装在S盘，对应安装的根目录即可)，然后添加插件包的存放路径即可，若不添加环境变量，则默认从安装路径获取配置文件信息。<br>下面是配置文件中，获取共享路径中的插件路径：</p>
 <pre class="language-python" data-language="python"><code class="language-python"># The package search path. Rez uses this to find packages. A package with the
 # same name and version in an earlier path takes precedence.
@@ -824,21 +824,27 @@ packages_path &#x3D; [
       </a>
     
       <a 
-        href="/tags/github/" 
-        title="github">
-        <div class="tags-list-item">github</div>
-      </a>
-    
-      <a 
         href="/tags/UV/" 
         title="UV">
         <div class="tags-list-item">UV</div>
       </a>
     
       <a 
+        href="/tags/github/" 
+        title="github">
+        <div class="tags-list-item">github</div>
+      </a>
+    
+      <a 
         href="/tags/Markdown/" 
         title="Markdown">
         <div class="tags-list-item">Markdown</div>
+      </a>
+    
+      <a 
+        href="/tags/%E7%BD%91%E7%AB%99%E6%8E%A8%E8%8D%90/" 
+        title="网站推荐">
+        <div class="tags-list-item">网站推荐</div>
       </a>
     
       <a 
@@ -854,15 +860,9 @@ packages_path &#x3D; [
       </a>
     
       <a 
-        href="/tags/%E7%BD%91%E7%AB%99%E6%8E%A8%E8%8D%90/" 
-        title="网站推荐">
-        <div class="tags-list-item">网站推荐</div>
-      </a>
-    
-      <a 
-        href="/tags/%E5%8C%85%E7%AE%A1%E7%90%86/" 
-        title="包管理">
-        <div class="tags-list-item">包管理</div>
+        href="/tags/%E6%8E%92%E9%94%99%E8%AE%B0%E5%BD%95/" 
+        title="排错记录">
+        <div class="tags-list-item">排错记录</div>
       </a>
     
   </div>
