@@ -335,7 +335,7 @@
     
     
       <span class="dot"></span>
-      <span>687 字</span>
+      <span>1.6k 字</span>
     
   </div>
   
@@ -365,7 +365,10 @@
     <ol>
 <li><p>渲染崩溃可能的问题：</p>
 <ul>
-<li>被赋予Arnold材质3s散射的物体是片，导致散射时不是在物体内部散射，而是在整个场景中散射，计算量特别大从而崩溃</li>
+<li>被赋予Arnold材质3s散射的物体是片，导致散射时不是在物体内部散射，而是在整个场景中散射，计算量特别大从而崩溃。</li>
+<li>文件中毛发的密度太大导致渲染机内存不够用。</li>
+<li>文件本身有问题。</li>
+<li>具体问题，具体分析。</li>
 </ul>
 </li>
 <li><p>Redshift:提示：’Mesh pCubeShape1 is instanced and uses adaptive tessellation, which isn’t supported. Disabling tessellation. If you need tessellation, please use fixed tessellation settings: i.e. disable ‘screen space adaptive’ and set ‘min edge length’ to zero to force a maximum tessellation level’。对象细分后在实例错误提示：对象在实例化后细分，被实例化对象在屏幕自适应时找不到细分对象，就不会进行细分。如果需要细分，就关闭屏幕自适应，并把最小边缘强度设置为零，以强制使用最大边缘强度，如图：</p>
@@ -373,7 +376,7 @@
 </li>
 <li><p>农场机提示找不到可执行渲染的文件：“Katana render executable was not found in the semicolon separated list”（在分号分隔的列表中没有找到Katana渲染的可执行文件），该机器上没有安装相应的软件，或软件没有安装在默认的路径。</p>
 </li>
-<li><p>Cannot find procedure “pgYetiVRayPreRender”报错导致渲染暂停：渲染文件中没有Yeti毛发节点，却在渲染文件的渲染设置中填入了“pgYetiVRayPreRender”代码，导致渲染器找不到对应的节点而报错，我们只需要打开文件，删除渲染设置中的以下代码就行了（Render Settings &gt; Common &gt; Render Options，删除报错的MEL，一般情况下也可以全部删除）：</p>
+<li><p>Cannot find procedure “pgYetiVRayPreRender”（或”pgYetiPreRender”）报错导致渲染暂停：渲染文件中没有Yeti毛发节点，却在渲染文件的渲染设置中填入了“pgYetiVRayPreRender”（或”pgYetiPreRender”）代码，导致渲染器找不到对应的节点而报错，我们只需要打开文件，删除渲染设置中的以下代码就行了（Render Settings &gt; Common &gt; Render Options，删除报错的MEL，一般情况下也可以全部删除）：</p>
  <table><tr>
  <td><img src="/images/Maya软件渲染问题集锦/Yeti报错.png" border=0 srcset="/images/home/Myhead.jpg" data-src="/images/Maya软件渲染问题集锦/Yeti报错.png" class="lozad post-image"></td>
  <td><img src="/images/Maya软件渲染问题集锦/删除Yeti报错设置.png" border=0 srcset="/images/home/Myhead.jpg" data-src="/images/Maya软件渲染问题集锦/删除Yeti报错设置.png" class="lozad post-image"></td>
@@ -385,6 +388,38 @@
  <pre class="line-numbers language-doc" data-language="doc"><code class="language-doc">subst D: C:\D  ::映射D盘盘符到C盘的D文件夹<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 </li>
 <li><p>Deadline农场渲染报错“defaultRenderLayer” is a layer from a referenced and is not allowed to be the current layer ,其可能是之一是：maya 的 renderLayerManage节点被改名导致 maya 不能生成默认的master layer渲染层（在.ma文件中的名称为defaultRenderLayer），因此可以将文件保存为.ma格式的文件，用文本的方式打开，将renderLayerManager节点的名称改为默认的’renderLayerManager’(没有任何修饰)，同时由于默认的renderLayerManager节点已经被修改过，默认的渲染层名称也发生了改变，导致渲染程序在调用的代码中，该层被判定为非默认的渲染层而报错“unable to modify overrides to the default layer”,因此，还需要将文件中的 defaultRenderLayer节点 (本问题记录时该节点名称为 defaultRenderLayer1 ),改为默认的名称defaultRenderLayer，即可。</p>
+</li>
+<li><p>maya动画文件直渲，后台批量渲染时，角色控制器带动角色模型不规则抖动的可能原因：这是旧版绑定系统的问题，这种问题一般可通过走 abc 流程规避，否则需要更新绑定的 cluster 节点选项。禁用”cluster.relative”，并将”cluster.angleInterpolation”的值设置为3，代码如下：</p>
+ <pre class="line-numbers language-doc" data-language="doc"><code class="language-doc">import maya.cmds as mc
+for each in mc.ls(typ&#x3D;&quot;cluster&quot;):
+mc.setAttr(&quot;cluster1.relative&quot;, 0)
+mc.setAttr(&quot;cluster1.angleInterpolation&quot;, 3)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>maya动画文件直渲，后台批渲时，动画文件中的约束失效，例如角色对道具的约束丢失或者效果不对；可能原因：</p>
+<ul>
+<li>动画文件后台渲染其中的动力学不出缓存，会重新计算。</li>
+<li>动画文件后台渲染时表达式会失效。<br>解决办法：（1）烘焙动画曲线：选择绑定组大组执行 Animation &gt; Key &gt; Bake Simulation 等待读条完成后会将控制器的每一帧都K上关键帧，然后再提交渲染即可；（2）在Premel中填入可拖动时间滑块到当前帧的mel表达式，该表达式会在渲染开始前对镜头中的帧进行切换，从开始帧逐渐切换至当前帧，相当于对文件中的控制器进行了一次”脏”运算。达到数据正确的目的。（3）走 abc 流程。</li>
+</ul>
+</li>
+<li><p>maya 创建polygon报错：error line0:connection not made :”****.instObjGroup[0]”-initalShaderGroup.dagSetMembers[-1].destination is locked:可能原因：</p>
+<ul>
+<li>相关节点被锁</li>
+<li>相关属性被锁<br>解决办法：解锁相关节点或相关属性，或者重启 Maya 可解决问题。</li>
+</ul>
+</li>
+<li><p>后台渲染丢材质报错：[mtoa][translator polymesh] ShadingGroup ******:*****SG has no faceShader input …。可能原因：材质没有连接上对应模型或制作过程中切换过不同的渲染器，导致材质与物体mesh的链接断开；<br>解决办法：修改材质文件中的材质链接或重新连接材质，注意查看材质文件的材质、渲染器输出信息；或先赋予Lambert材质,再重新赋予原来的材质。</p>
+</li>
+<li><p>后台渲染和前台渲染的exr图片颜色空间不一致，或颜色不一致。可能原因：</p>
+<ol>
+<li>首选项中勾选了的 Preferences &gt; Output color preferences &gt; Apply Output Transform to Render ，并将Output Transform 设置为 Use View Transform ,该选项会应用 Preferences &gt; Color Transform Preferences 中的 View Transform 值到输出图片，该选项的作用是将渲染预览的结果转换并应用到输出图片（包括色彩空间），如果渲染预览的图片为sRGB编码的色彩空间图，则输出图片也会转换为sRGB色彩空间的图（如下图左1）。</li>
+<li>渲染器驱动节点的”defaultArnoldDriver.colorManagement”渲染设置为了 Use View Transform ，其默认值为 Use Output Transform，原因和 1 一致（正确设置如下图右1所示）。<br>选中驱动节点代码：<pre class="line-numbers language-doc" data-language="doc"><code class="language-doc">mc.select(&quot;defaultArnoldDriver.colorManagement&quot;)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<table><tr>
+<td><img src="/images/Maya软件渲染问题集锦/渲染空间不一致首选项设置 .png" border=0 srcset="/images/home/Myhead.jpg" data-src="/images/Maya软件渲染问题集锦/渲染空间不一致首选项设置 .png" class="lozad post-image"></td>
+<td><img src="/images/Maya软件渲染问题集锦/渲染空间不一致节点选项设置.png" border=0 srcset="/images/home/Myhead.jpg" data-src="/images/Maya软件渲染问题集锦/渲染空间不一致节点选项设置.png" class="lozad post-image"></td>
+</tr></table></li>
+</ol>
+</li>
+<li><p>同一个场景代理文件，渲染颜色不一致、闪烁，可能原因：代理文件导入maya后，其材质网络被修改过，使两个aistand_in使用相同的代理颜色却不一样，从而产生错误（原因未知）。解决办法：1.改会原来的材质。2.修改使用两个不同的代理文件。</p>
 </li>
 </ol>
 
@@ -512,7 +547,7 @@
   <a 
     class="author-posts-count" 
     href="/archives">
-    <span>23</span>
+    <span>24</span>
     <span>文章</span>
   </a>
   <a 
@@ -524,7 +559,7 @@
   <a 
     class="author-tags-count" 
     href="/tags">
-    <span>25</span>
+    <span>26</span>
     <span>标签</span>
   </a>
 </div>
@@ -658,7 +693,7 @@
       <a href="/categories/Maya/">
         <div class="categories-list-item">
           Maya
-          <span class="categories-list-item-badge">10</span>
+          <span class="categories-list-item-badge">11</span>
         </div>
       </a>
     
@@ -679,7 +714,7 @@
       <a href="/categories/Maya/%E6%9D%82%E9%A1%B9/">
         <div class="categories-list-item">
           Maya/杂项
-          <span class="categories-list-item-badge">6</span>
+          <span class="categories-list-item-badge">7</span>
         </div>
       </a>
     
@@ -806,6 +841,12 @@
       </a>
     
       <a 
+        href="/tags/Markdown/" 
+        title="Markdown">
+        <div class="tags-list-item">Markdown</div>
+      </a>
+    
+      <a 
         href="/tags/aiUserData/" 
         title="aiUserData">
         <div class="tags-list-item">aiUserData</div>
@@ -815,12 +856,6 @@
         href="/tags/Aitoon/" 
         title="Aitoon">
         <div class="tags-list-item">Aitoon</div>
-      </a>
-    
-      <a 
-        href="/tags/Markdown/" 
-        title="Markdown">
-        <div class="tags-list-item">Markdown</div>
       </a>
     
       <a 
@@ -868,6 +903,11 @@
   <div class="recent-posts-list">
     
       <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-05-21</div>
+        <a href="/posts/20220521a1.html"><div class="recent-posts-item-content">Maya中常用的部分环境变量</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
         <div class="recent-posts-item-title">2022-05-10</div>
         <a href="/posts/20220510a1.html"><div class="recent-posts-item-content">Windows任务计划</div></a>
       </div>
@@ -880,11 +920,6 @@
       <div class="recent-posts-item">
         <div class="recent-posts-item-title">2022-05-03</div>
         <a href="/posts/20220503a6.html"><div class="recent-posts-item-content">Maya中材质文件和缓存文件相结合进行渲染的几种方式</div></a>
-      </div>
-    
-      <div class="recent-posts-item">
-        <div class="recent-posts-item-title">2022-05-03</div>
-        <a href="/posts/20220503a5.html"><div class="recent-posts-item-content">Maya软件渲染问题集锦</div></a>
       </div>
     
   </div>

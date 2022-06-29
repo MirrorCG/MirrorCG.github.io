@@ -333,7 +333,7 @@
     
     
       <span class="dot"></span>
-      <span>771 字</span>
+      <span>828 字</span>
     
   </div>
   
@@ -374,7 +374,7 @@
 <pre class="language-cmd" data-language="cmd"><code class="language-cmd">python .&#x2F;install.py </code></pre>
 <p>这将会把包安装在当前位置的 &#x2F;opt&#x2F;rez 目录下<br>也可以使用Pip进行安装：</p>
 <pre class="language-cmd" data-language="cmd"><code class="language-cmd">pip install rez</code></pre>
-<p>但使用 pip 的安装方式并不能很好的用在生产环境中,使用 install 脚本安装是推荐的方法，它可以保证 Rez 拥有独立 python 于的环境独立运行。</p>
+<p>但使用 pip 的安装方式并不能很好的用在生产环境中,使用 install 脚本安装是推荐的方法，它可以保证 Rez 拥有独立 python 于的环境独立运行。<br>安装完成后，cmd中会出现提示信息。然后，需要在环境变量 PATH 中添加值 ‘安装rez的路径’&#x2F;opt&#x2F;rez&#x2F;bin&#x2F;rez。</p>
 <h4 id="创建基本的-Rez-包"><a href="#创建基本的-Rez-包" class="headerlink" title="创建基本的 Rez 包"></a>创建基本的 Rez 包</h4><p>这里需要使用管理员权限去安装包，rez-bind 工具创建基于已安装在系统上的软件的 Rez 包：（–quickstart是以标准形式安装包）</p>
 <pre class="language-cmd" data-language="cmd"><code class="language-cmd">rez-bind --quickstart</code></pre>
 <p>你也可以分开安装</p>
@@ -396,6 +396,10 @@ rez-build --install</code></pre>
 <pre class="language-cmd" data-language="cmd"><code class="language-cmd">rez-context</code></pre>
 <p>退出这个环境，使用exit命令。</p>
 <p>你还可以创建一个已配置的环境并在其中运行一个命令，只需一个命令。 当您使用这种形式时，shell 会在命令运行后立即退出：</p>
+<pre class="language-cmd" data-language="cmd"><code class="language-cmd">rez-env hello_world -- hello </code></pre>
+
+
+<h4 id="软件包命令"><a href="#软件包命令" class="headerlink" title="软件包命令"></a>软件包命令</h4><p>查看搜索路径：</p>
 
   </div>
   <div>
@@ -502,7 +506,7 @@ rez-build --install</code></pre>
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E5%8C%85"><span class="toc-number">1.</span> <span class="toc-text">下载安装包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%9F%BA%E6%9C%AC%E7%9A%84-Rez-%E5%8C%85"><span class="toc-number">2.</span> <span class="toc-text">创建基本的 Rez 包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E5%AE%89%E8%A3%85%E7%BB%93%E6%9E%9C"><span class="toc-number">3.</span> <span class="toc-text">验证安装结果</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8C%85"><span class="toc-number">4.</span> <span class="toc-text">构建第一个包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E6%9E%84%E5%BB%BA%E7%9A%84%E5%8C%85"><span class="toc-number">5.</span> <span class="toc-text">测试构建的包</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E5%8C%85"><span class="toc-number">1.</span> <span class="toc-text">下载安装包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%9F%BA%E6%9C%AC%E7%9A%84-Rez-%E5%8C%85"><span class="toc-number">2.</span> <span class="toc-text">创建基本的 Rez 包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E5%AE%89%E8%A3%85%E7%BB%93%E6%9E%9C"><span class="toc-number">3.</span> <span class="toc-text">验证安装结果</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8C%85"><span class="toc-number">4.</span> <span class="toc-text">构建第一个包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E6%9E%84%E5%BB%BA%E7%9A%84%E5%8C%85"><span class="toc-number">5.</span> <span class="toc-text">测试构建的包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%91%BD%E4%BB%A4"><span class="toc-number">6.</span> <span class="toc-text">软件包命令</span></a></li></ol>
 </div></main>
             <aside class="left-column">
               
@@ -521,7 +525,7 @@ rez-build --install</code></pre>
   <a 
     class="author-posts-count" 
     href="/archives">
-    <span>23</span>
+    <span>24</span>
     <span>文章</span>
   </a>
   <a 
@@ -533,7 +537,7 @@ rez-build --install</code></pre>
   <a 
     class="author-tags-count" 
     href="/tags">
-    <span>25</span>
+    <span>26</span>
     <span>标签</span>
   </a>
 </div>
@@ -642,7 +646,7 @@ rez-build --install</code></pre>
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E5%8C%85"><span class="toc-number">1.</span> <span class="toc-text">下载安装包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%9F%BA%E6%9C%AC%E7%9A%84-Rez-%E5%8C%85"><span class="toc-number">2.</span> <span class="toc-text">创建基本的 Rez 包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E5%AE%89%E8%A3%85%E7%BB%93%E6%9E%9C"><span class="toc-number">3.</span> <span class="toc-text">验证安装结果</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8C%85"><span class="toc-number">4.</span> <span class="toc-text">构建第一个包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E6%9E%84%E5%BB%BA%E7%9A%84%E5%8C%85"><span class="toc-number">5.</span> <span class="toc-text">测试构建的包</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E5%8C%85"><span class="toc-number">1.</span> <span class="toc-text">下载安装包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%9F%BA%E6%9C%AC%E7%9A%84-Rez-%E5%8C%85"><span class="toc-number">2.</span> <span class="toc-text">创建基本的 Rez 包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E5%AE%89%E8%A3%85%E7%BB%93%E6%9E%9C"><span class="toc-number">3.</span> <span class="toc-text">验证安装结果</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8C%85"><span class="toc-number">4.</span> <span class="toc-text">构建第一个包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E6%9E%84%E5%BB%BA%E7%9A%84%E5%8C%85"><span class="toc-number">5.</span> <span class="toc-text">测试构建的包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%91%BD%E4%BB%A4"><span class="toc-number">6.</span> <span class="toc-text">软件包命令</span></a></li></ol>
       </div>
     </article>
   
@@ -667,7 +671,7 @@ rez-build --install</code></pre>
       <a href="/categories/Maya/">
         <div class="categories-list-item">
           Maya
-          <span class="categories-list-item-badge">10</span>
+          <span class="categories-list-item-badge">11</span>
         </div>
       </a>
     
@@ -688,7 +692,7 @@ rez-build --install</code></pre>
       <a href="/categories/Maya/%E6%9D%82%E9%A1%B9/">
         <div class="categories-list-item">
           Maya/杂项
-          <span class="categories-list-item-badge">6</span>
+          <span class="categories-list-item-badge">7</span>
         </div>
       </a>
     
@@ -815,6 +819,12 @@ rez-build --install</code></pre>
       </a>
     
       <a 
+        href="/tags/Markdown/" 
+        title="Markdown">
+        <div class="tags-list-item">Markdown</div>
+      </a>
+    
+      <a 
         href="/tags/aiUserData/" 
         title="aiUserData">
         <div class="tags-list-item">aiUserData</div>
@@ -824,12 +834,6 @@ rez-build --install</code></pre>
         href="/tags/Aitoon/" 
         title="Aitoon">
         <div class="tags-list-item">Aitoon</div>
-      </a>
-    
-      <a 
-        href="/tags/Markdown/" 
-        title="Markdown">
-        <div class="tags-list-item">Markdown</div>
       </a>
     
       <a 
@@ -862,7 +866,7 @@ rez-build --install</code></pre>
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E5%8C%85"><span class="toc-number">1.</span> <span class="toc-text">下载安装包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%9F%BA%E6%9C%AC%E7%9A%84-Rez-%E5%8C%85"><span class="toc-number">2.</span> <span class="toc-text">创建基本的 Rez 包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E5%AE%89%E8%A3%85%E7%BB%93%E6%9E%9C"><span class="toc-number">3.</span> <span class="toc-text">验证安装结果</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8C%85"><span class="toc-number">4.</span> <span class="toc-text">构建第一个包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E6%9E%84%E5%BB%BA%E7%9A%84%E5%8C%85"><span class="toc-number">5.</span> <span class="toc-text">测试构建的包</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E5%8C%85"><span class="toc-number">1.</span> <span class="toc-text">下载安装包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%9F%BA%E6%9C%AC%E7%9A%84-Rez-%E5%8C%85"><span class="toc-number">2.</span> <span class="toc-text">创建基本的 Rez 包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E5%AE%89%E8%A3%85%E7%BB%93%E6%9E%9C"><span class="toc-number">3.</span> <span class="toc-text">验证安装结果</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8C%85"><span class="toc-number">4.</span> <span class="toc-text">构建第一个包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E6%9E%84%E5%BB%BA%E7%9A%84%E5%8C%85"><span class="toc-number">5.</span> <span class="toc-text">测试构建的包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%91%BD%E4%BB%A4"><span class="toc-number">6.</span> <span class="toc-text">软件包命令</span></a></li></ol>
     </article>
   
   
@@ -877,6 +881,11 @@ rez-build --install</code></pre>
   <div class="recent-posts-list">
     
       <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-05-21</div>
+        <a href="/posts/20220521a1.html"><div class="recent-posts-item-content">Maya中常用的部分环境变量</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
         <div class="recent-posts-item-title">2022-05-10</div>
         <a href="/posts/20220510a1.html"><div class="recent-posts-item-content">Windows任务计划</div></a>
       </div>
@@ -889,11 +898,6 @@ rez-build --install</code></pre>
       <div class="recent-posts-item">
         <div class="recent-posts-item-title">2022-05-03</div>
         <a href="/posts/20220503a6.html"><div class="recent-posts-item-content">Maya中材质文件和缓存文件相结合进行渲染的几种方式</div></a>
-      </div>
-    
-      <div class="recent-posts-item">
-        <div class="recent-posts-item-title">2022-05-03</div>
-        <a href="/posts/20220503a5.html"><div class="recent-posts-item-content">Maya软件渲染问题集锦</div></a>
       </div>
     
   </div>

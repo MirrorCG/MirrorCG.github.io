@@ -49,7 +49,7 @@
         content="2022-03-07">
       <meta 
         property="og:article:modified_time" 
-        content="2022-05-02">
+        content="2022-06-08">
       <meta 
         property="og:article:author" 
         content="Mirror">
@@ -339,7 +339,7 @@
     
     
       <span class="dot"></span>
-      <span>0 字</span>
+      <span>315 字</span>
     
   </div>
   
@@ -375,7 +375,20 @@
   <div 
     id="section" 
     class="post-content">
-    
+    <ul>
+<li>USD部分名词中文概述<a href="https://szxk.github.io/docs.usd/" title="" target="">点击这里</a>查看。</li>
+<li>maya输出USD：当一个USD文件输出错误，不能用于reference要重新输出USD文件时，需将错误的文件删除再输出USD文件（覆盖无效依旧会使用内存中暂存的USD数据），若不删除，即使设置正确，输出的数据依旧是错误的（maya2023.0测试结果）。</li>
+<li>从maya导出usd,不勾选任何材质球，导入后即为干净的模型USD文件。</li>
+<li>导出设置“Create USD Parent Scope”可用于编辑Layerusd时，识别usd文件中的prom模型分类，在USD文件中会将defaultPrim值设置为“Create USD Parent Scope”的值，并且会在xfrom外多定义一层Scope。</li>
+</ul>
+<p><img src="/images/CG%E6%B5%81%E7%A8%8B%E4%B8%AD%E2%80%9DUSD%E2%80%9C%E7%9A%84%E6%8E%A2%E7%B4%A2%E4%B8%8E%E8%BF%90%E7%94%A8/%E5%AF%BC%E5%87%BA%E6%97%B6%E8%AE%BE%E7%BD%AEcreateUseParentScope%E5%B1%9E%E6%80%A7%E6%95%88%E6%9E%9C.png" alt="导出时设置createUseParentScope属性效果 png" srcset="/images/home/Myhead.jpg" data-src="/images/CG%E6%B5%81%E7%A8%8B%E4%B8%AD%E2%80%9DUSD%E2%80%9C%E7%9A%84%E6%8E%A2%E7%B4%A2%E4%B8%8E%E8%BF%90%E7%94%A8/%E5%AF%BC%E5%87%BA%E6%97%B6%E8%AE%BE%E7%BD%AEcreateUseParentScope%E5%B1%9E%E6%80%A7%E6%95%88%E6%9E%9C.png" class="lozad post-image"></p>
+<ul>
+<li>maya2023 自身的USD导出的USD数据，其中材质网络的部分虽有记录但不能在maya中直接使用。</li>
+<li>maya2023 自身的USD导出的USD数据，可以reference但是没材质，不能用于Arnold的StandIn;arnold插件导出的USD数据，携带ArnoldOptions设置。其可以用于StandIn，也可以用于USD层编辑器，但是不能reference。</li>
+<li>目前maya 2023 自身的USD功能以及Arnold的USD功能还不完善，还有许多功能需要开发才能用于项目流程中。</li>
+</ul>
+<p>————— 更新于2022-06-01 —————</p>
+
   </div>
   <div>
     
@@ -500,7 +513,7 @@
   <a 
     class="author-posts-count" 
     href="/archives">
-    <span>23</span>
+    <span>24</span>
     <span>文章</span>
   </a>
   <a 
@@ -512,7 +525,7 @@
   <a 
     class="author-tags-count" 
     href="/tags">
-    <span>25</span>
+    <span>26</span>
     <span>标签</span>
   </a>
 </div>
@@ -646,7 +659,7 @@
       <a href="/categories/Maya/">
         <div class="categories-list-item">
           Maya
-          <span class="categories-list-item-badge">10</span>
+          <span class="categories-list-item-badge">11</span>
         </div>
       </a>
     
@@ -667,7 +680,7 @@
       <a href="/categories/Maya/%E6%9D%82%E9%A1%B9/">
         <div class="categories-list-item">
           Maya/杂项
-          <span class="categories-list-item-badge">6</span>
+          <span class="categories-list-item-badge">7</span>
         </div>
       </a>
     
@@ -794,6 +807,12 @@
       </a>
     
       <a 
+        href="/tags/Markdown/" 
+        title="Markdown">
+        <div class="tags-list-item">Markdown</div>
+      </a>
+    
+      <a 
         href="/tags/aiUserData/" 
         title="aiUserData">
         <div class="tags-list-item">aiUserData</div>
@@ -803,12 +822,6 @@
         href="/tags/Aitoon/" 
         title="Aitoon">
         <div class="tags-list-item">Aitoon</div>
-      </a>
-    
-      <a 
-        href="/tags/Markdown/" 
-        title="Markdown">
-        <div class="tags-list-item">Markdown</div>
       </a>
     
       <a 
@@ -856,6 +869,11 @@
   <div class="recent-posts-list">
     
       <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-05-21</div>
+        <a href="/posts/20220521a1.html"><div class="recent-posts-item-content">Maya中常用的部分环境变量</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
         <div class="recent-posts-item-title">2022-05-10</div>
         <a href="/posts/20220510a1.html"><div class="recent-posts-item-content">Windows任务计划</div></a>
       </div>
@@ -868,11 +886,6 @@
       <div class="recent-posts-item">
         <div class="recent-posts-item-title">2022-05-03</div>
         <a href="/posts/20220503a6.html"><div class="recent-posts-item-content">Maya中材质文件和缓存文件相结合进行渲染的几种方式</div></a>
-      </div>
-    
-      <div class="recent-posts-item">
-        <div class="recent-posts-item-title">2022-05-03</div>
-        <a href="/posts/20220503a5.html"><div class="recent-posts-item-content">Maya软件渲染问题集锦</div></a>
       </div>
     
   </div>
