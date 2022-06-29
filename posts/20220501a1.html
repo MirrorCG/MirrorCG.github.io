@@ -343,7 +343,7 @@
     
     
       <span class="dot"></span>
-      <span>448 字</span>
+      <span>499 字</span>
     
   </div>
   
@@ -413,40 +413,40 @@
 </ol>
 <p><img src="/images/QT%E4%B8%AD%E7%9A%84%E7%B3%BB%E7%BB%9F%E6%89%98%E7%9B%98%E5%9B%BE%E6%A0%87%E5%92%8C%E7%B3%BB%E7%BB%9F%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/%E7%82%B9%E5%87%BB%E5%9B%BE%E6%A0%87%E5%B7%A6%E5%8F%B3%E9%94%AE%E5%8A%9F%E8%83%BD.png" alt="点击图标左右键功能.png" srcset="/images/home/Myhead.jpg" data-src="/images/QT%E4%B8%AD%E7%9A%84%E7%B3%BB%E7%BB%9F%E6%89%98%E7%9B%98%E5%9B%BE%E6%A0%87%E5%92%8C%E7%B3%BB%E7%BB%9F%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/%E7%82%B9%E5%87%BB%E5%9B%BE%E6%A0%87%E5%B7%A6%E5%8F%B3%E9%94%AE%E5%8A%9F%E8%83%BD.png" class="lozad post-image">  </p>
 <p>代码示例如下:</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> sys
-<span class="token keyword">from</span> PySide2<span class="token punctuation">.</span>QtWidgets <span class="token keyword">import</span> QApplication<span class="token punctuation">,</span> QAction<span class="token punctuation">,</span> QMenu<span class="token punctuation">,</span> QSystemTrayIcon
-<span class="token keyword">from</span> PySide2<span class="token punctuation">.</span>QtCore <span class="token keyword">import</span> SIGNAL<span class="token punctuation">,</span> QObject
-<span class="token keyword">from</span> PySide2<span class="token punctuation">.</span>QtGui <span class="token keyword">import</span> QIcon
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">import sys
+from PySide2.QtWidgets import QApplication, QAction, QMenu, QSystemTrayIcon
+from PySide2.QtCore import SIGNAL, QObject
+from PySide2.QtGui import QIcon
 
-<span class="token keyword">def</span> <span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"close"</span><span class="token punctuation">)</span>
+def close():
+    print(&quot;close&quot;)
 
-<span class="token keyword">def</span> <span class="token function">restart</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"restart"</span><span class="token punctuation">)</span>
+def restart():
+    print(&quot;restart&quot;)
 
-<span class="token keyword">def</span> <span class="token function">show</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"show"</span><span class="token punctuation">)</span>
+def show():
+    print(&quot;show&quot;)
 
-app <span class="token operator">=</span> QApplication<span class="token punctuation">(</span>sys<span class="token punctuation">.</span>argv<span class="token punctuation">)</span>
+app &#x3D; QApplication(sys.argv)
 
-exit <span class="token operator">=</span> QAction<span class="token punctuation">(</span>QIcon<span class="token punctuation">(</span><span class="token string">"E:/Python_study/startLauncher/Icon/Menu.ico"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"Exit"</span><span class="token punctuation">,</span> <span class="token punctuation">)</span>
-QObject<span class="token punctuation">.</span>connect<span class="token punctuation">(</span>exit<span class="token punctuation">,</span> SIGNAL<span class="token punctuation">(</span><span class="token string">"triggered()"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> close<span class="token punctuation">)</span>
-res <span class="token operator">=</span> QAction<span class="token punctuation">(</span>QIcon<span class="token punctuation">(</span><span class="token string">"E:/Python_study/startLauncher/Icon/Menu1.ico"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"Restart"</span><span class="token punctuation">,</span> <span class="token punctuation">)</span>
-QObject<span class="token punctuation">.</span>connect<span class="token punctuation">(</span>res<span class="token punctuation">,</span> SIGNAL<span class="token punctuation">(</span><span class="token string">"triggered()"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> restart<span class="token punctuation">)</span>
+exit &#x3D; QAction(QIcon(&quot;E:&#x2F;Python_study&#x2F;startLauncher&#x2F;Icon&#x2F;Menu.ico&quot;), &quot;Exit&quot;, )
+QObject.connect(exit, SIGNAL(&quot;triggered()&quot;), close)
+res &#x3D; QAction(QIcon(&quot;E:&#x2F;Python_study&#x2F;startLauncher&#x2F;Icon&#x2F;Menu1.ico&quot;), &quot;Restart&quot;, )
+QObject.connect(res, SIGNAL(&quot;triggered()&quot;), restart)
 
-menu <span class="token operator">=</span> QMenu<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment"># 创建菜单，添加菜单选项</span>
-menu<span class="token punctuation">.</span>addAction<span class="token punctuation">(</span>exit<span class="token punctuation">)</span>
-menu<span class="token punctuation">.</span>addAction<span class="token punctuation">(</span>res<span class="token punctuation">)</span>
+menu &#x3D; QMenu()  # 创建菜单，添加菜单选项
+menu.addAction(exit)
+menu.addAction(res)
 
-trayIcon <span class="token operator">=</span> QSystemTrayIcon<span class="token punctuation">(</span>QIcon<span class="token punctuation">(</span><span class="token string">"E:/Python_study/startLauncher/Icon/Menu4.ico"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment"># 创建系统托盘</span>
-trayIcon<span class="token punctuation">.</span>setContextMenu<span class="token punctuation">(</span>menu<span class="token punctuation">)</span>
-QObject<span class="token punctuation">.</span>connect<span class="token punctuation">(</span>trayIcon<span class="token punctuation">,</span> SIGNAL<span class="token punctuation">(</span><span class="token string">"activated(QSystemTrayIcon::ActivationReason)"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> show<span class="token punctuation">)</span>
+trayIcon &#x3D; QSystemTrayIcon(QIcon(&quot;E:&#x2F;Python_study&#x2F;startLauncher&#x2F;Icon&#x2F;Menu4.ico&quot;))  # 创建系统托盘
+trayIcon.setContextMenu(menu)
+QObject.connect(trayIcon, SIGNAL(&quot;activated(QSystemTrayIcon::ActivationReason)&quot;), show)
 
-trayIcon<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span>
-trayIcon<span class="token punctuation">.</span>setToolTip<span class="token punctuation">(</span><span class="token string">"启动器"</span><span class="token punctuation">)</span>
-trayIcon<span class="token punctuation">.</span>showMessage<span class="token punctuation">(</span><span class="token string">"启动器已经启动!"</span><span class="token punctuation">,</span> <span class="token string">"左击显示窗口\n右击显示菜单"</span><span class="token punctuation">,</span> QIcon<span class="token punctuation">(</span><span class="token string">"E:/Python_study/startLauncher/Icon/Menu_Note1.ico"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+trayIcon.show()
+trayIcon.setToolTip(&quot;启动器&quot;)
+trayIcon.showMessage(&quot;启动器已经启动!&quot;, &quot;左击显示窗口\n右击显示菜单&quot;, QIcon(&quot;E:&#x2F;Python_study&#x2F;startLauncher&#x2F;Icon&#x2F;Menu_Note1.ico&quot;))
 
-sys<span class="token punctuation">.</span>exit<span class="token punctuation">(</span>app<span class="token punctuation">.</span>exec_<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+sys.exit(app.exec_())
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>执行代码后，会在电脑桌面系统托盘创建一个本程序的图标，同时会推送一条启动信息，该信息会自动收回。<br>上面的代码没有判断点的是左还是右键，所以只要鼠标点击图标都会先打印一遍 “show”,请自行判断。</p>
@@ -774,17 +774,17 @@ sys<span class="token punctuation">.</span>exit<span class="token punctuation">(
         </div>
       </a>
     
-      <a href="/categories/Maya/arnold/">
-        <div class="categories-list-item">
-          Maya/arnold
-          <span class="categories-list-item-badge">1</span>
-        </div>
-      </a>
-    
       <a href="/categories/Qt/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
         <div class="categories-list-item">
           Qt/学习笔记
           <span class="categories-list-item-badge">3</span>
+        </div>
+      </a>
+    
+      <a href="/categories/Maya/arnold/">
+        <div class="categories-list-item">
+          Maya/arnold
+          <span class="categories-list-item-badge">1</span>
         </div>
       </a>
     

@@ -339,7 +339,7 @@
     
     
       <span class="dot"></span>
-      <span>2.8k 字</span>
+      <span>3.6k 字</span>
     
   </div>
   
@@ -383,204 +383,204 @@
 <p><img src="/images/Maya%E8%8E%B7%E5%8F%96%E6%8C%87%E5%AE%9A%E7%89%A9%E4%BD%93%E5%88%B0Camera%E7%84%A6%E7%82%B9%E5%B9%B3%E9%9D%A2%E7%9A%84%E8%B7%9D%E7%A6%BB/%E7%A9%BA%E9%97%B4%E7%A4%BA%E6%84%8F%E5%9B%BE2.jpg" alt="空间示意图" srcset="/images/home/Myhead.jpg" data-src="/images/Maya%E8%8E%B7%E5%8F%96%E6%8C%87%E5%AE%9A%E7%89%A9%E4%BD%93%E5%88%B0Camera%E7%84%A6%E7%82%B9%E5%B9%B3%E9%9D%A2%E7%9A%84%E8%B7%9D%E7%A6%BB/%E7%A9%BA%E9%97%B4%E7%A4%BA%E6%84%8F%E5%9B%BE2.jpg" class="lozad post-image"></p>
 <p style="text-indent:2em">首先，我们需要通过xfrom方法获取相机的法向量：</p>
 
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">Cam <span class="token operator">=</span> mc<span class="token punctuation">.</span>xform<span class="token punctuation">(</span>cam<span class="token punctuation">.</span>name<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> q<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> ws<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> m<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">8</span><span class="token punctuation">:</span><span class="token number">11</span><span class="token punctuation">]</span>  <span class="token comment"># 数组第8到第10位为相机法向量</span>
-Cam_vector <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span>Cam<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token operator">-</span><span class="token number">1</span>   <span class="token comment"># 由于取出的数据是列表，这里需要转换成向量再取反，即为相机单位向量方向</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">Cam &#x3D; mc.xform(cam.name(), q&#x3D;True, ws&#x3D;True, m&#x3D;True)[8:11]  # 数组第8到第10位为相机法向量
+Cam_vector &#x3D; np.array(Cam) * -1   # 由于取出的数据是列表，这里需要转换成向量再取反，即为相机单位向量方向<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 
 <p style="text-indent:2em">获取相机的坐标和物体的坐标，计算得出向量oa：</p>
 
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">getVector</span><span class="token punctuation">(</span>locatorP<span class="token punctuation">,</span> camP<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token triple-quoted-string string">"""计算向量坐标
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">def getVector(locatorP, camP):
+    &quot;&quot;&quot;计算向量坐标
         locatorP: 物体坐标
         camP：相机坐标
-    """</span>
-    newVector <span class="token operator">=</span> <span class="token punctuation">(</span>locatorP<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">-</span> camP<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> locatorP<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">-</span> camP<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> locatorP<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">-</span> camP<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-    <span class="token keyword">return</span> newVector<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    &quot;&quot;&quot;
+    newVector &#x3D; (locatorP[0] - camP[0], locatorP[1] - camP[1], locatorP[2] - camP[2])
+    return newVector<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 <p style="text-indent:2em">由于需要区分向量之间的夹角，若为锐角，焦距为正，反之为负：</p>
 
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">judgeAngle</span><span class="token punctuation">(</span>_ang<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token triple-quoted-string string">"""计算向量角度为锐角还是钝角"""</span>
-    _flag <span class="token operator">=</span> <span class="token punctuation">(</span>_ang <span class="token operator">*</span> <span class="token number">180.0</span><span class="token punctuation">)</span> <span class="token operator">/</span> pi
-    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">u"向量间的角度为: %s 度(角度制)"</span> <span class="token operator">%</span> _flag<span class="token punctuation">)</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>_flag <span class="token operator">></span> <span class="token number">90</span><span class="token punctuation">)</span> <span class="token keyword">and</span> <span class="token punctuation">(</span>_flag <span class="token operator">&lt;=</span> <span class="token number">180</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
-    <span class="token keyword">elif</span> <span class="token punctuation">(</span>_flag <span class="token operator">&lt;</span> <span class="token number">90</span><span class="token punctuation">)</span> <span class="token keyword">and</span> <span class="token punctuation">(</span>_flag <span class="token operator">>=</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">return</span> <span class="token number">1</span>
-    <span class="token keyword">elif</span> _flag <span class="token operator">==</span> <span class="token number">90</span><span class="token punctuation">:</span>
-        <span class="token keyword">return</span> <span class="token number">0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">def judgeAngle(_ang):
+    &quot;&quot;&quot;计算向量角度为锐角还是钝角&quot;&quot;&quot;
+    _flag &#x3D; (_ang * 180.0) &#x2F; pi
+    print(u&quot;向量间的角度为: %s 度(角度制)&quot; % _flag)
+    if (_flag &gt; 90) and (_flag &lt;&#x3D; 180):
+        return -1
+    elif (_flag &lt; 90) and (_flag &gt;&#x3D; 0):
+        return 1
+    elif _flag &#x3D;&#x3D; 90:
+        return 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 <p style="text-indent:2em">使用上面获得的数据，即可求出相机焦点平面到物体的距离。以下为工具完整脚本：</p>
 
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment">#!/usr/bin/env python</span>
-<span class="token comment"># -*- coding:utf-8 -*-</span>
-<span class="token comment"># @Author: MirrorCG</span>
-<span class="token comment"># @Time: 2021/12/28</span>
-<span class="token comment"># =========================================</span>
-<span class="token keyword">import</span> maya<span class="token punctuation">.</span>cmds <span class="token keyword">as</span> mc
-<span class="token keyword">import</span> pymel<span class="token punctuation">.</span>core <span class="token keyword">as</span> pm
-<span class="token keyword">import</span> maya<span class="token punctuation">.</span>mel <span class="token keyword">as</span> mel
-<span class="token keyword">from</span> math <span class="token keyword">import</span> pi<span class="token punctuation">,</span> cos
-<span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">#!&#x2F;usr&#x2F;bin&#x2F;env python
+# -*- coding:utf-8 -*-
+# @Author: MirrorCG
+# @Time: 2021&#x2F;12&#x2F;28
+# &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+import maya.cmds as mc
+import pymel.core as pm
+import maya.mel as mel
+from math import pi, cos
+import numpy as np
 
 
-<span class="token keyword">def</span> <span class="token function">getVector</span><span class="token punctuation">(</span>locatorP<span class="token punctuation">,</span> camP<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token triple-quoted-string string">"""计算向量坐标"""</span>
-    newVector <span class="token operator">=</span> <span class="token punctuation">(</span>locatorP<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">-</span> camP<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> locatorP<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">-</span> camP<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> locatorP<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">-</span> camP<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-    <span class="token keyword">return</span> newVector
+def getVector(locatorP, camP):
+    &quot;&quot;&quot;计算向量坐标&quot;&quot;&quot;
+    newVector &#x3D; (locatorP[0] - camP[0], locatorP[1] - camP[1], locatorP[2] - camP[2])
+    return newVector
 
 
-<span class="token keyword">def</span> <span class="token function">squareRVector</span><span class="token punctuation">(</span>_vector<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token triple-quoted-string string">"""计算平方根，向量长度"""</span>
-    AB <span class="token operator">=</span> <span class="token punctuation">(</span>_vector<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">*</span> _vector<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">+</span> _vector<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">*</span> _vector<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">+</span> _vector<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">*</span> _vector<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">**</span> <span class="token number">0.5</span>
-    <span class="token keyword">return</span> AB
+def squareRVector(_vector):
+    &quot;&quot;&quot;计算平方根，向量长度&quot;&quot;&quot;
+    AB &#x3D; (_vector[0] * _vector[0] + _vector[1] * _vector[1] + _vector[2] * _vector[2]) ** 0.5
+    return AB
 
 
-<span class="token keyword">def</span> <span class="token function">judgeAngle</span><span class="token punctuation">(</span>_ang<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token triple-quoted-string string">"""计算向量角度为锐角还是钝角"""</span>
-    _flag <span class="token operator">=</span> <span class="token punctuation">(</span>_ang <span class="token operator">*</span> <span class="token number">180.0</span><span class="token punctuation">)</span> <span class="token operator">/</span> pi
-    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">u"向量间的角度为: %s 度(角度制)"</span> <span class="token operator">%</span> _flag<span class="token punctuation">)</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>_flag <span class="token operator">></span> <span class="token number">90</span><span class="token punctuation">)</span> <span class="token keyword">and</span> <span class="token punctuation">(</span>_flag <span class="token operator">&lt;=</span> <span class="token number">180</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
-    <span class="token keyword">elif</span> <span class="token punctuation">(</span>_flag <span class="token operator">&lt;</span> <span class="token number">90</span><span class="token punctuation">)</span> <span class="token keyword">and</span> <span class="token punctuation">(</span>_flag <span class="token operator">>=</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">return</span> <span class="token number">1</span>
-    <span class="token keyword">elif</span> _flag <span class="token operator">==</span> <span class="token number">90</span><span class="token punctuation">:</span>
-        <span class="token keyword">return</span> <span class="token number">0</span>
+def judgeAngle(_ang):
+    &quot;&quot;&quot;计算向量角度为锐角还是钝角&quot;&quot;&quot;
+    _flag &#x3D; (_ang * 180.0) &#x2F; pi
+    print(u&quot;向量间的角度为: %s 度(角度制)&quot; % _flag)
+    if (_flag &gt; 90) and (_flag &lt;&#x3D; 180):
+        return -1
+    elif (_flag &lt; 90) and (_flag &gt;&#x3D; 0):
+        return 1
+    elif _flag &#x3D;&#x3D; 90:
+        return 0
 
 
-<span class="token keyword">def</span> <span class="token function">getCam</span><span class="token punctuation">(</span>camName<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token triple-quoted-string string">"""获取选中的相机，填入窗口"""</span>
-    <span class="token keyword">try</span><span class="token punctuation">:</span>
-        cam <span class="token operator">=</span> pm<span class="token punctuation">.</span>ls<span class="token punctuation">(</span>sl<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>getChildren<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>  <span class="token comment"># 选择相机</span>
-    <span class="token keyword">except</span> IndexError <span class="token keyword">as</span> e<span class="token punctuation">:</span>
-        mc<span class="token punctuation">.</span>warning<span class="token punctuation">(</span><span class="token string">u"未选中对象"</span><span class="token punctuation">)</span>
-        <span class="token keyword">return</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">not</span> cam<span class="token punctuation">)</span> <span class="token keyword">or</span> <span class="token punctuation">(</span>cam<span class="token punctuation">.</span>nodeType<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token string">"camera"</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-        mc<span class="token punctuation">.</span>warning<span class="token punctuation">(</span><span class="token string">u"未选中相机"</span><span class="token punctuation">)</span>
-        <span class="token keyword">return</span>
-    _camName <span class="token operator">=</span> cam<span class="token punctuation">.</span>longName<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    mc<span class="token punctuation">.</span>textField<span class="token punctuation">(</span>camName<span class="token punctuation">,</span> e<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> tx<span class="token operator">=</span>_camName<span class="token punctuation">)</span>
+def getCam(camName):
+    &quot;&quot;&quot;获取选中的相机，填入窗口&quot;&quot;&quot;
+    try:
+        cam &#x3D; pm.ls(sl&#x3D;True)[0].getChildren()[0]  # 选择相机
+    except IndexError as e:
+        mc.warning(u&quot;未选中对象&quot;)
+        return
+    if (not cam) or (cam.nodeType() !&#x3D; &quot;camera&quot;):
+        mc.warning(u&quot;未选中相机&quot;)
+        return
+    _camName &#x3D; cam.longName()
+    mc.textField(camName, e&#x3D;True, tx&#x3D;_camName)
 
 
-<span class="token keyword">def</span> <span class="token function">createLocator</span><span class="token punctuation">(</span>locName<span class="token punctuation">,</span> camName<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token triple-quoted-string string">"""创建/获取locator,移动至相机位置，并将改1ocator填入窗口中"""</span>
-    <span class="token keyword">try</span><span class="token punctuation">:</span>
-        cam <span class="token operator">=</span> pm<span class="token punctuation">.</span>ls<span class="token punctuation">(</span>mc<span class="token punctuation">.</span>textField<span class="token punctuation">(</span>camName<span class="token punctuation">,</span> q<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> tx<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>getParent<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token keyword">except</span> IndexError <span class="token keyword">as</span> e<span class="token punctuation">:</span>
-        mc<span class="token punctuation">.</span>warning<span class="token punctuation">(</span><span class="token string">u"请选择并添加相机"</span><span class="token punctuation">)</span>
-        <span class="token keyword">return</span>
-    camP <span class="token operator">=</span> cam<span class="token punctuation">.</span>getTranslation<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment"># 相机坐标</span>
-    <span class="token keyword">if</span> mc<span class="token punctuation">.</span>objExists<span class="token punctuation">(</span><span class="token string">"find_focous"</span><span class="token punctuation">)</span> <span class="token keyword">and</span> pm<span class="token punctuation">.</span>nodeType<span class="token punctuation">(</span>pm<span class="token punctuation">.</span>ls<span class="token punctuation">(</span><span class="token string">"find_focous"</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>getChildren<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token string">"locator"</span><span class="token punctuation">:</span>
-        loc <span class="token operator">=</span> pm<span class="token punctuation">.</span>ls<span class="token punctuation">(</span><span class="token string">"find_focous"</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
-    <span class="token keyword">else</span><span class="token punctuation">:</span>
-        loc <span class="token operator">=</span> pm<span class="token punctuation">.</span>createNode<span class="token punctuation">(</span><span class="token string">"locator"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>getParent<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        loc<span class="token punctuation">.</span>rename<span class="token punctuation">(</span><span class="token string">"find_focous"</span><span class="token punctuation">)</span>
-    loc<span class="token punctuation">.</span>setAttr<span class="token punctuation">(</span><span class="token string">"translate"</span><span class="token punctuation">,</span> camP<span class="token punctuation">)</span>
-    mc<span class="token punctuation">.</span>textField<span class="token punctuation">(</span>locName<span class="token punctuation">,</span> e<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> tx<span class="token operator">=</span>loc<span class="token punctuation">.</span>name<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+def createLocator(locName, camName):
+    &quot;&quot;&quot;创建&#x2F;获取locator,移动至相机位置，并将改1ocator填入窗口中&quot;&quot;&quot;
+    try:
+        cam &#x3D; pm.ls(mc.textField(camName, q&#x3D;True, tx&#x3D;True))[0].getParent()
+    except IndexError as e:
+        mc.warning(u&quot;请选择并添加相机&quot;)
+        return
+    camP &#x3D; cam.getTranslation().get()  # 相机坐标
+    if mc.objExists(&quot;find_focous&quot;) and pm.nodeType(pm.ls(&quot;find_focous&quot;)[0].getChildren()[0]) &#x3D;&#x3D; &quot;locator&quot;:
+        loc &#x3D; pm.ls(&quot;find_focous&quot;)[0]
+    else:
+        loc &#x3D; pm.createNode(&quot;locator&quot;).getParent()
+        loc.rename(&quot;find_focous&quot;)
+    loc.setAttr(&quot;translate&quot;, camP)
+    mc.textField(locName, e&#x3D;True, tx&#x3D;loc.name())
 
 
-<span class="token keyword">def</span> <span class="token function">getInstance</span><span class="token punctuation">(</span>instName<span class="token punctuation">,</span> camName<span class="token punctuation">,</span> locName<span class="token punctuation">,</span> <span class="token operator">*</span>args<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token triple-quoted-string string">"""计算焦距，判断距离方向"""</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">not</span> mc<span class="token punctuation">.</span>textField<span class="token punctuation">(</span>camName<span class="token punctuation">,</span> q<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> tx<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">or</span> <span class="token punctuation">(</span><span class="token keyword">not</span> mc<span class="token punctuation">.</span>textField<span class="token punctuation">(</span>locName<span class="token punctuation">,</span> q<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> tx<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-        mc<span class="token punctuation">.</span>warning<span class="token punctuation">(</span><span class="token string">u"请填入相机或locator(`find_focous`)"</span><span class="token punctuation">)</span>
-        <span class="token keyword">return</span>
-    cam <span class="token operator">=</span> pm<span class="token punctuation">.</span>ls<span class="token punctuation">(</span>mc<span class="token punctuation">.</span>textField<span class="token punctuation">(</span>camName<span class="token punctuation">,</span> q<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> tx<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>getParent<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    camP <span class="token operator">=</span> cam<span class="token punctuation">.</span>getTranslation<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    loc <span class="token operator">=</span> pm<span class="token punctuation">.</span>ls<span class="token punctuation">(</span>mc<span class="token punctuation">.</span>textField<span class="token punctuation">(</span>locName<span class="token punctuation">,</span> q<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> tx<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
-    cam_vector <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span>mc<span class="token punctuation">.</span>xform<span class="token punctuation">(</span>cam<span class="token punctuation">.</span>name<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> q<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> ws<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> m<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">8</span><span class="token punctuation">:</span><span class="token number">11</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token operator">-</span><span class="token number">1</span>  <span class="token comment"># 获取相机单位向量(从maya获取的向量需要取反</span>
-    locatorP <span class="token operator">=</span> loc<span class="token punctuation">.</span>getAttr<span class="token punctuation">(</span><span class="token string">"translate"</span><span class="token punctuation">)</span>  <span class="token comment"># 定位器坐标</span>
-    AB_vector <span class="token operator">=</span> getVector<span class="token punctuation">(</span>locatorP<span class="token punctuation">,</span> camP<span class="token punctuation">)</span>
-    AB <span class="token operator">=</span> squareRVector<span class="token punctuation">(</span>AB_vector<span class="token punctuation">)</span>  <span class="token comment"># 定位器距离相机距离</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">u"定位器距离相机: %s 个单位"</span> <span class="token operator">%</span> AB<span class="token punctuation">)</span>
-    x <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span>cam_vector<span class="token punctuation">)</span>
-    y <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span>AB_vector<span class="token punctuation">)</span>
-    lx <span class="token operator">=</span> np<span class="token punctuation">.</span>sqrt<span class="token punctuation">(</span>x<span class="token punctuation">.</span>dot<span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">)</span>
-    ly <span class="token operator">=</span> np<span class="token punctuation">.</span>sqrt<span class="token punctuation">(</span>y<span class="token punctuation">.</span>dot<span class="token punctuation">(</span>y<span class="token punctuation">)</span><span class="token punctuation">)</span>
-    cos_angle <span class="token operator">=</span> x<span class="token punctuation">.</span>dot<span class="token punctuation">(</span>y<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token punctuation">(</span>lx <span class="token operator">*</span> ly<span class="token punctuation">)</span>
-    _angle <span class="token operator">=</span> np<span class="token punctuation">.</span>arccos<span class="token punctuation">(</span>cos_angle<span class="token punctuation">)</span>
-    _flag <span class="token operator">=</span> judgeAngle<span class="token punctuation">(</span>_angle<span class="token punctuation">)</span>
-    <span class="token keyword">if</span> AB <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
-        focus <span class="token operator">=</span> <span class="token number">0.1</span>
-    <span class="token keyword">else</span><span class="token punctuation">:</span>
-        focus <span class="token operator">=</span> <span class="token builtin">abs</span><span class="token punctuation">(</span>cos<span class="token punctuation">(</span>_angle<span class="token punctuation">)</span> <span class="token operator">*</span> AB<span class="token punctuation">)</span>
-    <span class="token keyword">if</span> _flag <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">:</span>
-        <span class="token keyword">pass</span>
-    <span class="token keyword">elif</span> _flag <span class="token operator">==</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">:</span>
-        focus <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span> <span class="token operator">*</span> focus<span class="token punctuation">)</span>
-    <span class="token keyword">elif</span> _flag <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
-        focus <span class="token operator">=</span> <span class="token number">0.1</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">u"相机焦距为: %s 个单位"</span> <span class="token operator">%</span> focus<span class="token punctuation">)</span>
-    mc<span class="token punctuation">.</span>textField<span class="token punctuation">(</span>instName<span class="token punctuation">,</span> e<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> tx<span class="token operator">=</span><span class="token string">"%s"</span> <span class="token operator">%</span> focus<span class="token punctuation">)</span>
-    <span class="token keyword">try</span><span class="token punctuation">:</span>
-        cam<span class="token punctuation">.</span>setAttr<span class="token punctuation">(</span><span class="token string">"focusDistance"</span><span class="token punctuation">,</span> focus<span class="token punctuation">)</span>
-    <span class="token keyword">except</span> RuntimeError <span class="token keyword">as</span> e<span class="token punctuation">:</span>
-        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">u"焦距小于默认最小值,设定为0.1"</span><span class="token punctuation">)</span>
-    cam<span class="token punctuation">.</span>setAttr<span class="token punctuation">(</span><span class="token string">"focusDistance"</span><span class="token punctuation">,</span> <span class="token number">0.1</span><span class="token punctuation">)</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"="</span> <span class="token operator">*</span> <span class="token number">40</span><span class="token punctuation">)</span>
+def getInstance(instName, camName, locName, *args):
+    &quot;&quot;&quot;计算焦距，判断距离方向&quot;&quot;&quot;
+    if (not mc.textField(camName, q&#x3D;True, tx&#x3D;True)) or (not mc.textField(locName, q&#x3D;True, tx&#x3D;True)):
+        mc.warning(u&quot;请填入相机或locator(&#96;find_focous&#96;)&quot;)
+        return
+    cam &#x3D; pm.ls(mc.textField(camName, q&#x3D;True, tx&#x3D;True))[0].getParent()
+    camP &#x3D; cam.getTranslation().get()
+    loc &#x3D; pm.ls(mc.textField(locName, q&#x3D;True, tx&#x3D;True))[0]
+    cam_vector &#x3D; np.array(mc.xform(cam.name(), q&#x3D;True, ws&#x3D;True, m&#x3D;True)[8:11]) * -1  # 获取相机单位向量(从maya获取的向量需要取反
+    locatorP &#x3D; loc.getAttr(&quot;translate&quot;)  # 定位器坐标
+    AB_vector &#x3D; getVector(locatorP, camP)
+    AB &#x3D; squareRVector(AB_vector)  # 定位器距离相机距离
+    print(u&quot;定位器距离相机: %s 个单位&quot; % AB)
+    x &#x3D; np.array(cam_vector)
+    y &#x3D; np.array(AB_vector)
+    lx &#x3D; np.sqrt(x.dot(x))
+    ly &#x3D; np.sqrt(y.dot(y))
+    cos_angle &#x3D; x.dot(y) &#x2F; (lx * ly)
+    _angle &#x3D; np.arccos(cos_angle)
+    _flag &#x3D; judgeAngle(_angle)
+    if AB &#x3D;&#x3D; 0:
+        focus &#x3D; 0.1
+    else:
+        focus &#x3D; abs(cos(_angle) * AB)
+    if _flag &#x3D;&#x3D; 1:
+        pass
+    elif _flag &#x3D;&#x3D; -1:
+        focus &#x3D; (-1 * focus)
+    elif _flag &#x3D;&#x3D; 0:
+        focus &#x3D; 0.1
+    print(u&quot;相机焦距为: %s 个单位&quot; % focus)
+    mc.textField(instName, e&#x3D;True, tx&#x3D;&quot;%s&quot; % focus)
+    try:
+        cam.setAttr(&quot;focusDistance&quot;, focus)
+    except RuntimeError as e:
+        print(u&quot;焦距小于默认最小值,设定为0.1&quot;)
+    cam.setAttr(&quot;focusDistance&quot;, 0.1)
+    print(&quot;&#x3D;&quot; * 40)
 
 
-<span class="token keyword">def</span> <span class="token function">toolDoc</span><span class="token punctuation">(</span>winName<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token triple-quoted-string string">"""工具帮助"""</span>
-    win_name <span class="token operator">=</span> <span class="token string">u"工具帮助"</span>
-    <span class="token keyword">if</span> mc<span class="token punctuation">.</span>window<span class="token punctuation">(</span>win_name<span class="token punctuation">,</span> q<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> ex<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-        mc<span class="token punctuation">.</span>deleteUI<span class="token punctuation">(</span>win_name<span class="token punctuation">,</span> window<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
-    helpWin<span class="token operator">=</span> mc<span class="token punctuation">.</span>window<span class="token punctuation">(</span><span class="token string">u"工具帮助"</span><span class="token punctuation">,</span> t<span class="token operator">=</span><span class="token string">u"工具帮助"</span><span class="token punctuation">,</span> wh<span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">700</span><span class="token punctuation">,</span> <span class="token number">70</span><span class="token punctuation">)</span><span class="token punctuation">,</span> p<span class="token operator">=</span>winName<span class="token punctuation">)</span>
-    mc<span class="token punctuation">.</span>paneLayout<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    mc<span class="token punctuation">.</span>textScrollList<span class="token punctuation">(</span><span class="token string">"line"</span><span class="token punctuation">,</span>
-                      append<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">u"1.选择相机：先选择要测量焦距的相机，再点击按钮(相机名可以手动填入，但相机名为长名，防止错误选择相机)"</span><span class="token punctuation">,</span>
-                              <span class="token string">u"2.创建locator：点击后创建定位器，或手动填入已有的locator(默认创建的1ocator为'find_focous',手动填入不用点击)"</span><span class="token punctuation">,</span>
-                              <span class="token string">u"3.计算焦距按钮：先移动调整好位置的1ocator，点击'移动locator，计算焦距'按钮，即可测出想要的焦距"</span><span class="token punctuation">,</span>
-                              <span class="token string">u"4.帮 助：本工具的使用说明"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-    mc<span class="token punctuation">.</span>textScrollList<span class="token punctuation">(</span><span class="token string">"line"</span><span class="token punctuation">,</span> edit<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> lf<span class="token operator">=</span><span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">"fixedWidthFont"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token string">"fixedWidthFont"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token string">"fixedWidthFont"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token string">"fixedWidthFont"</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-    mc<span class="token punctuation">.</span>showWindow<span class="token punctuation">(</span>helpWin<span class="token punctuation">)</span>
+def toolDoc(winName):
+    &quot;&quot;&quot;工具帮助&quot;&quot;&quot;
+    win_name &#x3D; u&quot;工具帮助&quot;
+    if mc.window(win_name, q&#x3D;True, ex&#x3D;True):
+        mc.deleteUI(win_name, window&#x3D;True)
+    helpWin&#x3D; mc.window(u&quot;工具帮助&quot;, t&#x3D;u&quot;工具帮助&quot;, wh&#x3D;(700, 70), p&#x3D;winName)
+    mc.paneLayout()
+    mc.textScrollList(&quot;line&quot;,
+                      append&#x3D;[u&quot;1.选择相机：先选择要测量焦距的相机，再点击按钮(相机名可以手动填入，但相机名为长名，防止错误选择相机)&quot;,
+                              u&quot;2.创建locator：点击后创建定位器，或手动填入已有的locator(默认创建的1ocator为&#39;find_focous&#39;,手动填入不用点击)&quot;,
+                              u&quot;3.计算焦距按钮：先移动调整好位置的1ocator，点击&#39;移动locator，计算焦距&#39;按钮，即可测出想要的焦距&quot;,
+                              u&quot;4.帮 助：本工具的使用说明&quot;])
+    mc.textScrollList(&quot;line&quot;, edit&#x3D;True, lf&#x3D;[(1, &quot;fixedWidthFont&quot;), (2, &quot;fixedWidthFont&quot;), (3, &quot;fixedWidthFont&quot;), (4, &quot;fixedWidthFont&quot;)])
+    mc.showWindow(helpWin)
 
 
-<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">"__main__"</span><span class="token punctuation">:</span>
-    win_name <span class="token operator">=</span> <span class="token string">u"测量相机焦距"</span>
-    <span class="token keyword">if</span> mc<span class="token punctuation">.</span>window<span class="token punctuation">(</span>win_name<span class="token punctuation">,</span> q<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> ex<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-        mc<span class="token punctuation">.</span>deleteUI<span class="token punctuation">(</span>win_name<span class="token punctuation">,</span> window<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
-    win <span class="token operator">=</span> mc<span class="token punctuation">.</span>window<span class="token punctuation">(</span>win_name<span class="token punctuation">,</span> title<span class="token operator">=</span><span class="token string">u"测量相机焦距"</span><span class="token punctuation">,</span> iconName<span class="token operator">=</span><span class="token string">u"Short_Name"</span><span class="token punctuation">,</span> widthHeight<span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">400</span><span class="token punctuation">,</span> <span class="token number">110</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-    mc<span class="token punctuation">.</span>columnLayout<span class="token punctuation">(</span>adjustableColumn<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> rs<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">)</span>
-    mc<span class="token punctuation">.</span>rowColumnLayout<span class="token punctuation">(</span>numberOfColumns<span class="token operator">=</span><span class="token number">3</span><span class="token punctuation">,</span> columnAttach<span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">"right"</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span> columnWidth<span class="token operator">=</span><span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">60</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">240</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-    mc<span class="token punctuation">.</span>text<span class="token punctuation">(</span>label<span class="token operator">=</span><span class="token string">u'相 机 名:'</span><span class="token punctuation">,</span> align<span class="token operator">=</span><span class="token string">'left'</span><span class="token punctuation">)</span>
-    camName <span class="token operator">=</span> mc<span class="token punctuation">.</span>textField<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    mc<span class="token punctuation">.</span>button<span class="token punctuation">(</span>label<span class="token operator">=</span><span class="token string">u'选择相机'</span><span class="token punctuation">,</span> command<span class="token operator">=</span><span class="token string">"getCam(camName)"</span><span class="token punctuation">)</span>
-    mc<span class="token punctuation">.</span>setParent<span class="token punctuation">(</span><span class="token string">'..'</span><span class="token punctuation">)</span>
-    mc<span class="token punctuation">.</span>rowColumnLayout<span class="token punctuation">(</span>numberOfColumns<span class="token operator">=</span><span class="token number">3</span><span class="token punctuation">,</span> columnAttach<span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">'right'</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span> columnWidth<span class="token operator">=</span><span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">60</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">240</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-    mc<span class="token punctuation">.</span>text<span class="token punctuation">(</span>label<span class="token operator">=</span><span class="token string">u'locator: '</span><span class="token punctuation">,</span> align<span class="token operator">=</span><span class="token string">'left'</span><span class="token punctuation">)</span>
-    locName <span class="token operator">=</span> mc<span class="token punctuation">.</span>textField<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    mc<span class="token punctuation">.</span>button<span class="token punctuation">(</span>label<span class="token operator">=</span><span class="token string">u'创建1ocator'</span><span class="token punctuation">,</span> command<span class="token operator">=</span><span class="token string">"createLocator(locName,camName)"</span><span class="token punctuation">)</span>
-    mc<span class="token punctuation">.</span>setParent<span class="token punctuation">(</span><span class="token string">'..'</span><span class="token punctuation">)</span>
-    mc<span class="token punctuation">.</span>button<span class="token punctuation">(</span>label<span class="token operator">=</span><span class="token string">u"移动locator,计算距离"</span><span class="token punctuation">,</span> command<span class="token operator">=</span><span class="token string">"getInstance(instName, camName, 1ocName)"</span><span class="token punctuation">,</span> bgc<span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0.73</span><span class="token punctuation">,</span> <span class="token number">0.14</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-    mc<span class="token punctuation">.</span>rowColumnLayout<span class="token punctuation">(</span>numberOfColumns<span class="token operator">=</span><span class="token number">4</span><span class="token punctuation">,</span> columnAttach<span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">'right'</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span> columnWidth<span class="token operator">=</span><span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">60</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">40</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-    mc<span class="token punctuation">.</span>text<span class="token punctuation">(</span>label<span class="token operator">=</span><span class="token string">u'焦  距:'</span><span class="token punctuation">,</span> align<span class="token operator">=</span><span class="token string">'left'</span><span class="token punctuation">)</span>
-    instName <span class="token operator">=</span> mc<span class="token punctuation">.</span>textField<span class="token punctuation">(</span>ed<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">,</span> bgc<span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">0.64</span><span class="token punctuation">,</span> <span class="token number">0.79</span><span class="token punctuation">,</span> <span class="token number">10.48</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-    mc<span class="token punctuation">.</span>text<span class="token punctuation">(</span>label<span class="token operator">=</span><span class="token string">u" "</span><span class="token punctuation">,</span> align<span class="token operator">=</span><span class="token string">'left'</span><span class="token punctuation">)</span>
-    mc<span class="token punctuation">.</span>button<span class="token punctuation">(</span>label<span class="token operator">=</span><span class="token string">u'帮助'</span><span class="token punctuation">,</span> command<span class="token operator">=</span><span class="token string">"toolDoc(win)"</span><span class="token punctuation">)</span>
-    mc<span class="token punctuation">.</span>setParent<span class="token punctuation">(</span><span class="token string">".."</span><span class="token punctuation">)</span>
-    mc<span class="token punctuation">.</span>setParent<span class="token punctuation">(</span><span class="token string">".."</span><span class="token punctuation">)</span>
-    mc<span class="token punctuation">.</span>showWindow<span class="token punctuation">(</span>win<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+if __name__ &#x3D;&#x3D; &quot;__main__&quot;:
+    win_name &#x3D; u&quot;测量相机焦距&quot;
+    if mc.window(win_name, q&#x3D;True, ex&#x3D;True):
+        mc.deleteUI(win_name, window&#x3D;True)
+    win &#x3D; mc.window(win_name, title&#x3D;u&quot;测量相机焦距&quot;, iconName&#x3D;u&quot;Short_Name&quot;, widthHeight&#x3D;(400, 110))
+    mc.columnLayout(adjustableColumn&#x3D;True, rs&#x3D;2)
+    mc.rowColumnLayout(numberOfColumns&#x3D;3, columnAttach&#x3D;(1, &quot;right&quot;, 0), columnWidth&#x3D;[(1, 60), (2, 240), (3, 100)])
+    mc.text(label&#x3D;u&#39;相 机 名:&#39;, align&#x3D;&#39;left&#39;)
+    camName &#x3D; mc.textField()
+    mc.button(label&#x3D;u&#39;选择相机&#39;, command&#x3D;&quot;getCam(camName)&quot;)
+    mc.setParent(&#39;..&#39;)
+    mc.rowColumnLayout(numberOfColumns&#x3D;3, columnAttach&#x3D;(1, &#39;right&#39;, 0), columnWidth&#x3D;[(1, 60), (2, 240), (3, 100)])
+    mc.text(label&#x3D;u&#39;locator: &#39;, align&#x3D;&#39;left&#39;)
+    locName &#x3D; mc.textField()
+    mc.button(label&#x3D;u&#39;创建1ocator&#39;, command&#x3D;&quot;createLocator(locName,camName)&quot;)
+    mc.setParent(&#39;..&#39;)
+    mc.button(label&#x3D;u&quot;移动locator,计算距离&quot;, command&#x3D;&quot;getInstance(instName, camName, 1ocName)&quot;, bgc&#x3D;(1, 0.73, 0.14))
+    mc.rowColumnLayout(numberOfColumns&#x3D;4, columnAttach&#x3D;(1, &#39;right&#39;, 0), columnWidth&#x3D;[(1, 60), (2, 200), (3, 100), (4, 40)])
+    mc.text(label&#x3D;u&#39;焦  距:&#39;, align&#x3D;&#39;left&#39;)
+    instName &#x3D; mc.textField(ed&#x3D;False, bgc&#x3D;(0.64, 0.79, 10.48))
+    mc.text(label&#x3D;u&quot; &quot;, align&#x3D;&#39;left&#39;)
+    mc.button(label&#x3D;u&#39;帮助&#39;, command&#x3D;&quot;toolDoc(win)&quot;)
+    mc.setParent(&quot;..&quot;)
+    mc.setParent(&quot;..&quot;)
+    mc.showWindow(win)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 <p style="text-indent:2em">若要动态获取相机焦距，可将下面的脚本修改后填入相机属性的表达式中。</p>
 
-<pre class="line-numbers language-mel" data-language="mel"><code class="language-mel"><span class="token keyword">vector</span> <span class="token variable">$camP</span> <span class="token operator">=</span> <span class="token code italic"><span class="token delimiter punctuation">`</span><span class="token function">getAttr</span> camera1<span class="token punctuation">.</span>translate<span class="token delimiter punctuation">`</span></span><span class="token punctuation">;</span> <span class="token comment">//相机坐标</span>
-<span class="token keyword">float</span> <span class="token variable">$camVct</span><span class="token punctuation">[</span><span class="token number">16</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token code italic"><span class="token delimiter punctuation">`</span><span class="token function">xform</span> <span class="token flag operator">-q</span> <span class="token flag operator">-m</span> <span class="token flag operator">-ws</span> camera1<span class="token delimiter punctuation">`</span></span><span class="token punctuation">;</span> <span class="token comment">//相机世界空间矩阵</span>
-<span class="token keyword">vector</span> <span class="token variable">$camVector</span> <span class="token operator">=</span> <span class="token punctuation">&lt;&lt;</span><span class="token variable">$camVct</span> <span class="token punctuation">[</span><span class="token number">8</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token variable">$camVct</span><span class="token punctuation">[</span><span class="token number">9</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token variable">$camVct</span> <span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span><span class="token punctuation">>></span><span class="token operator">*</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>  <span class="token comment">//从maya中获取的相机向量，需要取反</span>
-<span class="token keyword">vector</span> <span class="token variable">$locP</span> <span class="token operator">=</span> <span class="token code italic"><span class="token delimiter punctuation">`</span><span class="token function">getAttr</span> find_focous<span class="token punctuation">.</span>translate<span class="token delimiter punctuation">`</span></span><span class="token punctuation">;</span>
-<span class="token keyword">vector</span> <span class="token variable">$lcInstance</span> <span class="token operator">=</span> <span class="token variable">$locP</span> <span class="token operator">-</span> <span class="token variable">$camP</span><span class="token punctuation">;</span>
-<span class="token keyword">float</span> <span class="token variable">$inst</span> <span class="token operator">=</span> <span class="token function">mag</span><span class="token punctuation">(</span><span class="token variable">$locP</span> <span class="token operator">-</span> <span class="token variable">$camP</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//物体距离相机的距离</span>
-<span class="token keyword">float</span> <span class="token variable">$_angle</span> <span class="token operator">=</span> <span class="token function">angle</span><span class="token punctuation">(</span><span class="token variable">$camVector</span><span class="token punctuation">,</span><span class="token variable">$lcInstance</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//向量间的夹角</span>
-<span class="token keyword">float</span> <span class="token variable">$_focus</span> <span class="token operator">=</span> <span class="token function">cos</span><span class="token punctuation">(</span><span class="token variable">$_angle</span><span class="token punctuation">)</span><span class="token operator">*</span><span class="token variable">$inst</span><span class="token punctuation">;</span> <span class="token comment">//焦距</span>
-<span class="token keyword">float</span> <span class="token variable">$flag</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token variable">$_angle</span><span class="token operator">*</span><span class="token number">180</span><span class="token punctuation">)</span><span class="token operator">/</span><span class="token number">3.141592657</span><span class="token punctuation">;</span>
-<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$flag</span> <span class="token operator">>=</span> <span class="token number">90</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token variable">$focus</span> <span class="token operator">=</span> <span class="token number">0.1</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token function">print</span> <span class="token variable">$_focus</span><span class="token punctuation">;</span>
-cameraShape1<span class="token punctuation">.</span>focusDistance <span class="token operator">=</span> <span class="token variable">$_focus</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-mel" data-language="mel"><code class="language-mel">vector $camP &#x3D; &#96;getAttr camera1.translate&#96;; &#x2F;&#x2F;相机坐标
+float $camVct[16] &#x3D; &#96;xform -q -m -ws camera1&#96;; &#x2F;&#x2F;相机世界空间矩阵
+vector $camVector &#x3D; &lt;&lt;$camVct [8],$camVct[9],$camVct [10]&gt;&gt;*-1;  &#x2F;&#x2F;从maya中获取的相机向量，需要取反
+vector $locP &#x3D; &#96;getAttr find_focous.translate&#96;;
+vector $lcInstance &#x3D; $locP - $camP;
+float $inst &#x3D; mag($locP - $camP); &#x2F;&#x2F;物体距离相机的距离
+float $_angle &#x3D; angle($camVector,$lcInstance); &#x2F;&#x2F;向量间的夹角
+float $_focus &#x3D; cos($_angle)*$inst; &#x2F;&#x2F;焦距
+float $flag &#x3D; ($_angle*180)&#x2F;3.141592657;
+if ($flag &gt;&#x3D; 90)
+&#123;
+    $focus &#x3D; 0.1;
+&#125;
+print $_focus;
+cameraShape1.focusDistance &#x3D; $_focus;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <br>
 
@@ -589,151 +589,151 @@ cameraShape1<span class="token punctuation">.</span>focusDistance <span class="t
 <p><img src="/images/Maya%E8%8E%B7%E5%8F%96%E6%8C%87%E5%AE%9A%E7%89%A9%E4%BD%93%E5%88%B0Camera%E7%84%A6%E7%82%B9%E5%B9%B3%E9%9D%A2%E7%9A%84%E8%B7%9D%E7%A6%BB/%E7%A9%BA%E9%97%B4%E7%A4%BA%E6%84%8F%E5%9B%BE3.jpg" alt="空间示意图" srcset="/images/home/Myhead.jpg" data-src="/images/Maya%E8%8E%B7%E5%8F%96%E6%8C%87%E5%AE%9A%E7%89%A9%E4%BD%93%E5%88%B0Camera%E7%84%A6%E7%82%B9%E5%B9%B3%E9%9D%A2%E7%9A%84%E8%B7%9D%E7%A6%BB/%E7%A9%BA%E9%97%B4%E7%A4%BA%E6%84%8F%E5%9B%BE3.jpg" class="lozad post-image"></p>
 <p style="text-indent:2em">约束工具如下：</p>
 
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment">#!/usr/bin/env python</span>
-<span class="token comment"># -*- coding:utf-8 -*-</span>
-<span class="token comment"># @Auth0r: MirrorCG</span>
-<span class="token comment"># @Time: 2021/12/28</span>
-<span class="token comment"># =========================================</span>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">#!&#x2F;usr&#x2F;bin&#x2F;env python
+# -*- coding:utf-8 -*-
+# @Auth0r: MirrorCG
+# @Time: 2021&#x2F;12&#x2F;28
+# &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
 
-<span class="token keyword">import</span> maya<span class="token punctuation">.</span>cmds <span class="token keyword">as</span> mc
-<span class="token keyword">import</span> pymel<span class="token punctuation">.</span>core <span class="token keyword">as</span> pm
-
-
-<span class="token keyword">class</span> <span class="token class-name">getDistance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        win_name <span class="token operator">=</span> <span class="token string">u"测量相机焦距"</span>
-        <span class="token keyword">if</span> mc<span class="token punctuation">.</span>window<span class="token punctuation">(</span>win_name<span class="token punctuation">,</span> q<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> ex<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-            mc<span class="token punctuation">.</span>deleteUI<span class="token punctuation">(</span>win_name<span class="token punctuation">,</span> window<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>win <span class="token operator">=</span> mc<span class="token punctuation">.</span>window<span class="token punctuation">(</span>win_name<span class="token punctuation">,</span> title<span class="token operator">=</span><span class="token string">u"测量相机焦距"</span><span class="token punctuation">,</span> iconName<span class="token operator">=</span><span class="token string">u'short Name'</span><span class="token punctuation">,</span> widthHeight<span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">400</span><span class="token punctuation">,</span> <span class="token number">120</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-        mc<span class="token punctuation">.</span>columnLayout<span class="token punctuation">(</span>adjustableColumn<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> rs<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">)</span>
-        mc<span class="token punctuation">.</span>rowColumnLayout<span class="token punctuation">(</span>numberOfColumns<span class="token operator">=</span><span class="token number">3</span><span class="token punctuation">,</span> columnAttach<span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">'right'</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span> columnWidth<span class="token operator">=</span><span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">60</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">240</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-        mc<span class="token punctuation">.</span>text<span class="token punctuation">(</span>label<span class="token operator">=</span><span class="token string">u"相 机 名:"</span><span class="token punctuation">,</span> align<span class="token operator">=</span><span class="token string">'left'</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>camName <span class="token operator">=</span> mc<span class="token punctuation">.</span>textField<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        mc<span class="token punctuation">.</span>button<span class="token punctuation">(</span>label<span class="token operator">=</span><span class="token string">u"选择相机"</span><span class="token punctuation">,</span> command<span class="token operator">=</span><span class="token keyword">lambda</span> x<span class="token punctuation">:</span> self<span class="token punctuation">.</span>getCam<span class="token punctuation">(</span>self<span class="token punctuation">.</span>camName<span class="token punctuation">)</span><span class="token punctuation">)</span>
-        mc<span class="token punctuation">.</span>setParent<span class="token punctuation">(</span><span class="token string">'..'</span><span class="token punctuation">)</span>
-        mc<span class="token punctuation">.</span>rowColumnLayout<span class="token punctuation">(</span>numberOfColumns<span class="token operator">=</span><span class="token number">3</span><span class="token punctuation">,</span> columnAttach<span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">'right'</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span> columnWidth<span class="token operator">=</span><span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">60</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">240</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-        mc<span class="token punctuation">.</span>text<span class="token punctuation">(</span>label<span class="token operator">=</span><span class="token string">u"locator:"</span><span class="token punctuation">,</span> align<span class="token operator">=</span><span class="token string">'left'</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>locName <span class="token operator">=</span> mc<span class="token punctuation">.</span>textField<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        mc<span class="token punctuation">.</span>button<span class="token punctuation">(</span>label<span class="token operator">=</span><span class="token string">u"创建locator"</span><span class="token punctuation">,</span> command<span class="token operator">=</span><span class="token keyword">lambda</span> x<span class="token punctuation">:</span> self<span class="token punctuation">.</span>createLocators<span class="token punctuation">(</span>self<span class="token punctuation">.</span>locName<span class="token punctuation">)</span><span class="token punctuation">)</span>
-        mc<span class="token punctuation">.</span>setParent<span class="token punctuation">(</span><span class="token string">".."</span><span class="token punctuation">)</span>
-        mc<span class="token punctuation">.</span>rowColumnLayout<span class="token punctuation">(</span>numberOfColumns<span class="token operator">=</span><span class="token number">3</span><span class="token punctuation">,</span> columnWidth<span class="token operator">=</span><span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">180</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">40</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">180</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-        mc<span class="token punctuation">.</span>button<span class="token punctuation">(</span>label<span class="token operator">=</span><span class="token string">u"约束到选择的物体"</span><span class="token punctuation">,</span> command<span class="token operator">=</span><span class="token keyword">lambda</span> x<span class="token punctuation">:</span> self<span class="token punctuation">.</span>addCtrlWithObj<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> bgc<span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0.73</span><span class="token punctuation">,</span> <span class="token number">0.14</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-        mc<span class="token punctuation">.</span>text<span class="token punctuation">(</span>label<span class="token operator">=</span><span class="token string">u' '</span><span class="token punctuation">,</span> align<span class="token operator">=</span><span class="token string">'right'</span><span class="token punctuation">)</span>
-        mc<span class="token punctuation">.</span>button<span class="token punctuation">(</span>label<span class="token operator">=</span><span class="token string">u"清除产生的对象"</span><span class="token punctuation">,</span> command<span class="token operator">=</span><span class="token keyword">lambda</span> x<span class="token punctuation">:</span> self<span class="token punctuation">.</span>cleanAll<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> bgc<span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0.73</span><span class="token punctuation">,</span> <span class="token number">0.14</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-        mc<span class="token punctuation">.</span>setParent<span class="token punctuation">(</span><span class="token string">".."</span><span class="token punctuation">)</span>
-        mc<span class="token punctuation">.</span>rowColumnLayout<span class="token punctuation">(</span>numberOfColumns<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">,</span> columnAttach<span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">'right'</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span> columnWidth<span class="token operator">=</span><span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">360</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">40</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-        mc<span class="token punctuation">.</span>text<span class="token punctuation">(</span>label<span class="token operator">=</span><span class="token string">u' '</span> <span class="token operator">*</span> <span class="token number">8</span><span class="token punctuation">,</span> align<span class="token operator">=</span><span class="token string">'left'</span><span class="token punctuation">)</span>
-        mc<span class="token punctuation">.</span>button<span class="token punctuation">(</span>label<span class="token operator">=</span><span class="token string">u"帮助"</span><span class="token punctuation">,</span> command<span class="token operator">=</span><span class="token keyword">lambda</span> x<span class="token punctuation">:</span> self<span class="token punctuation">.</span>toolDoc<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-        mc<span class="token punctuation">.</span>setParent<span class="token punctuation">(</span><span class="token string">'..'</span><span class="token punctuation">)</span>
-        mc<span class="token punctuation">.</span>setParent<span class="token punctuation">(</span><span class="token string">'..'</span><span class="token punctuation">)</span>
-        mc<span class="token punctuation">.</span>showWindow<span class="token punctuation">(</span>self<span class="token punctuation">.</span>win<span class="token punctuation">)</span>
-
-    <span class="token keyword">def</span> <span class="token function">getCam</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> <span class="token operator">*</span>args<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""获取选中的相机，填入窗口"""</span>
-        <span class="token keyword">try</span><span class="token punctuation">:</span>
-            cam <span class="token operator">=</span> pm<span class="token punctuation">.</span>ls<span class="token punctuation">(</span>sl<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>getChildren<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>  <span class="token comment"># 选择相机</span>
-        <span class="token keyword">except</span> IndexError <span class="token keyword">as</span> e<span class="token punctuation">:</span>
-            mc<span class="token punctuation">.</span>warning<span class="token punctuation">(</span><span class="token string">u"未选中对象"</span><span class="token punctuation">)</span>
-            <span class="token keyword">return</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">not</span> cam<span class="token punctuation">)</span> <span class="token keyword">or</span> <span class="token punctuation">(</span>cam<span class="token punctuation">.</span>nodeType<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token string">"camera"</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-            mc<span class="token punctuation">.</span>warning<span class="token punctuation">(</span><span class="token string">u"未选中相机"</span><span class="token punctuation">)</span>
-            <span class="token keyword">return</span>
-        _camName <span class="token operator">=</span> cam<span class="token punctuation">.</span>longName<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        mc<span class="token punctuation">.</span>textField<span class="token punctuation">(</span>self<span class="token punctuation">.</span>camName<span class="token punctuation">,</span> e<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> tx<span class="token operator">=</span>_camName<span class="token punctuation">)</span>
-
-    <span class="token keyword">def</span> <span class="token function">connectParm</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> loc_a<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""连接相机属性"""</span>
-        cam <span class="token operator">=</span> pm<span class="token punctuation">.</span>ls<span class="token punctuation">(</span>mc<span class="token punctuation">.</span>textField<span class="token punctuation">(</span>self<span class="token punctuation">.</span>camName<span class="token punctuation">,</span> q<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> tx<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
-        <span class="token comment"># cam.setAttr("aiEnableDOF",1)</span>
-        node_name <span class="token operator">=</span> <span class="token string">"distance_data"</span>
-        <span class="token keyword">if</span> mc<span class="token punctuation">.</span>objExists<span class="token punctuation">(</span>node_name<span class="token punctuation">)</span><span class="token punctuation">:</span>
-            mc<span class="token punctuation">.</span>delete<span class="token punctuation">(</span>node_name<span class="token punctuation">)</span>
-        mc<span class="token punctuation">.</span>createNode<span class="token punctuation">(</span><span class="token string">"floatMath"</span><span class="token punctuation">,</span> n<span class="token operator">=</span>node_name<span class="token punctuation">)</span>
-        mc<span class="token punctuation">.</span>setAttr<span class="token punctuation">(</span>node_name <span class="token operator">+</span> <span class="token string">".operation"</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>
-        mc<span class="token punctuation">.</span>setAttr<span class="token punctuation">(</span>node_name <span class="token operator">+</span> <span class="token string">".floatB"</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
-        mc<span class="token punctuation">.</span>connectAttr<span class="token punctuation">(</span>loc_a<span class="token punctuation">.</span>name<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">".translateZ"</span><span class="token punctuation">,</span> node_name <span class="token operator">+</span> <span class="token string">".floatA"</span><span class="token punctuation">,</span> f<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
-        mc<span class="token punctuation">.</span>connectAttr<span class="token punctuation">(</span>node_name <span class="token operator">+</span> <span class="token string">".outFloat"</span><span class="token punctuation">,</span> cam<span class="token punctuation">.</span>name<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">".aiFocusDistance"</span><span class="token punctuation">,</span> f<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
-
-    <span class="token keyword">def</span> <span class="token function">addCtrl</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> loc_m<span class="token punctuation">,</span> loc_a<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""m添加约束和设置可见性"""</span>
-        cam <span class="token operator">=</span> mc<span class="token punctuation">.</span>textField<span class="token punctuation">(</span>self<span class="token punctuation">.</span>camName<span class="token punctuation">,</span> q<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> tx<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
-        mc<span class="token punctuation">.</span>parent<span class="token punctuation">(</span>loc_a<span class="token punctuation">.</span>name<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> cam<span class="token punctuation">)</span>
-        mc<span class="token punctuation">.</span>transformLimits<span class="token punctuation">(</span>loc_a<span class="token punctuation">.</span>name<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> tz<span class="token operator">=</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">0.02</span><span class="token punctuation">)</span><span class="token punctuation">,</span> etz<span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-        mc<span class="token punctuation">.</span>setAttr<span class="token punctuation">(</span>loc_a<span class="token punctuation">.</span>fullPath<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">".visibility"</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
-        mc<span class="token punctuation">.</span>setAttr<span class="token punctuation">(</span>loc_a<span class="token punctuation">.</span>fullPath<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">".visibility"</span><span class="token punctuation">,</span> lock<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
-
-        mc<span class="token punctuation">.</span>parentConstraint<span class="token punctuation">(</span>loc_m<span class="token punctuation">.</span>name<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> loc_a<span class="token punctuation">.</span>name<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> mo<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> st<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">"x"</span><span class="token punctuation">,</span> <span class="token string">"y"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> sr<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">"x"</span><span class="token punctuation">,</span> <span class="token string">"y"</span><span class="token punctuation">,</span> <span class="token string">"z"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-
-    <span class="token keyword">def</span> <span class="token function">createLocators</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> <span class="token operator">*</span>args<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""创建 / 获取1ocator, 移动至相机位置，并将该主1ocator填入窗口中"""</span>
-        <span class="token keyword">try</span><span class="token punctuation">:</span>
-            cam <span class="token operator">=</span> pm<span class="token punctuation">.</span>ls<span class="token punctuation">(</span>mc<span class="token punctuation">.</span>textField<span class="token punctuation">(</span>self<span class="token punctuation">.</span>camName<span class="token punctuation">,</span> q<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> tx<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>getParent<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>fullPath<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        <span class="token keyword">except</span> IndexError <span class="token keyword">as</span> e<span class="token punctuation">:</span>
-            mc<span class="token punctuation">.</span>warning<span class="token punctuation">(</span><span class="token string">u"请选择并添加正确的相机"</span><span class="token punctuation">)</span>
-            <span class="token keyword">return</span>
-        cam_p <span class="token operator">=</span> mc<span class="token punctuation">.</span>xform<span class="token punctuation">(</span>cam<span class="token punctuation">,</span> q<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> ws<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> t<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>  <span class="token comment"># 相机世界坐标</span>
-        <span class="token keyword">if</span> mc<span class="token punctuation">.</span>objExists<span class="token punctuation">(</span><span class="token string">"find_focus"</span><span class="token punctuation">)</span><span class="token punctuation">:</span>  <span class="token comment"># 用于移动的locator</span>
-            loc_m <span class="token operator">=</span> pm<span class="token punctuation">.</span>ls<span class="token punctuation">(</span><span class="token string">"find_focus"</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
-            pm<span class="token punctuation">.</span>delete<span class="token punctuation">(</span>loc_m<span class="token punctuation">)</span>
-        loc_m <span class="token operator">=</span> pm<span class="token punctuation">.</span>createNode<span class="token punctuation">(</span><span class="token string">"locator"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>getParent<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        loc_m<span class="token punctuation">.</span>rename<span class="token punctuation">(</span><span class="token string">"find_focus"</span><span class="token punctuation">)</span>
-
-        <span class="token keyword">if</span> mc<span class="token punctuation">.</span>objExists<span class="token punctuation">(</span><span class="token string">"cam_center"</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-            loc_a <span class="token operator">=</span> pm<span class="token punctuation">.</span>ls<span class="token punctuation">(</span><span class="token string">"cam_center"</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
-            pm<span class="token punctuation">.</span>delete<span class="token punctuation">(</span>loc_a<span class="token punctuation">)</span>
-        loc_a <span class="token operator">=</span> pm<span class="token punctuation">.</span>createNode<span class="token punctuation">(</span><span class="token string">"locator"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>getParent<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        loc_a<span class="token punctuation">.</span>rename<span class="token punctuation">(</span><span class="token string">"cam_center"</span><span class="token punctuation">)</span>
-
-        loc_m<span class="token punctuation">.</span>setAttr<span class="token punctuation">(</span><span class="token string">"translate"</span><span class="token punctuation">,</span> cam_p<span class="token punctuation">)</span>
-        loc_a<span class="token punctuation">.</span>setAttr<span class="token punctuation">(</span><span class="token string">"translate"</span><span class="token punctuation">,</span> cam_p<span class="token punctuation">)</span>
-        mc<span class="token punctuation">.</span>textField<span class="token punctuation">(</span>self<span class="token punctuation">.</span>locName<span class="token punctuation">,</span> e<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> tx<span class="token operator">=</span>loc_m<span class="token punctuation">.</span>name<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-
-        self<span class="token punctuation">.</span>addCtrl<span class="token punctuation">(</span>loc_m<span class="token punctuation">,</span> loc_a<span class="token punctuation">)</span>  <span class="token comment"># 添加约束和设置可见性</span>
-        self<span class="token punctuation">.</span>connectParm<span class="token punctuation">(</span>loc_a<span class="token punctuation">)</span>
-
-    <span class="token keyword">def</span> <span class="token function">addCtrlWithObj</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> <span class="token operator">*</span>args<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""约束到物体"""</span>
-        <span class="token keyword">try</span><span class="token punctuation">:</span>
-            loc_m <span class="token operator">=</span> pm<span class="token punctuation">.</span>ls<span class="token punctuation">(</span>mc<span class="token punctuation">.</span>textField<span class="token punctuation">(</span>self<span class="token punctuation">.</span>locName<span class="token punctuation">,</span> q<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> tx<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>fullPath<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        <span class="token keyword">except</span> IndexError <span class="token keyword">as</span> e<span class="token punctuation">:</span>
-            mc<span class="token punctuation">.</span>warning<span class="token punctuation">(</span><span class="token string">u"未创建或填入定位器"</span><span class="token punctuation">)</span>
-            <span class="token keyword">return</span>
-        obj <span class="token operator">=</span> <span class="token string">""</span>
-        <span class="token keyword">for</span> i <span class="token keyword">in</span> mc<span class="token punctuation">.</span>ls<span class="token punctuation">(</span>sl<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-            <span class="token keyword">if</span> <span class="token string">"find focus"</span> <span class="token keyword">not</span> <span class="token keyword">in</span> i<span class="token punctuation">:</span>
-                obj <span class="token operator">=</span> i
-                <span class="token keyword">break</span>
-            <span class="token keyword">continue</span>
-        <span class="token keyword">if</span> <span class="token keyword">not</span> obj<span class="token punctuation">:</span>
-            mc<span class="token punctuation">.</span>warning<span class="token punctuation">(</span><span class="token string">u"未选择约束物体，或约束物体名称中含有'find_focus'字符串"</span><span class="token punctuation">)</span>
-        mc<span class="token punctuation">.</span>parentConstraint<span class="token punctuation">(</span>obj<span class="token punctuation">,</span> loc_m<span class="token punctuation">,</span> mo<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> sr<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">"x"</span><span class="token punctuation">,</span> <span class="token string">"y"</span><span class="token punctuation">,</span> <span class="token string">"z"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-
-    <span class="token keyword">def</span> <span class="token function">cleanAll</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> <span class="token operator">*</span>arqs<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""清除本工具产生的所有节点"""</span>
-        node_list <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">"distance_data"</span><span class="token punctuation">,</span> <span class="token string">"find_focus"</span><span class="token punctuation">,</span> <span class="token string">"cam_center"</span><span class="token punctuation">]</span>
-        <span class="token keyword">for</span> i <span class="token keyword">in</span> node_list<span class="token punctuation">:</span>
-            <span class="token keyword">if</span> mc<span class="token punctuation">.</span>objExists<span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">:</span>
-                mc<span class="token punctuation">.</span>delete<span class="token punctuation">(</span>i<span class="token punctuation">)</span>
-
-    <span class="token keyword">def</span> <span class="token function">toolDoc</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""工具帮助"""</span>
-        win_name <span class="token operator">=</span> <span class="token string">u"工具帮助"</span>
-        <span class="token keyword">if</span> mc<span class="token punctuation">.</span>window<span class="token punctuation">(</span>win_name<span class="token punctuation">,</span> q<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> ex<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-            mc<span class="token punctuation">.</span>deleteUI<span class="token punctuation">(</span>win_name<span class="token punctuation">,</span> window<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
-        help_win <span class="token operator">=</span> mc<span class="token punctuation">.</span>window<span class="token punctuation">(</span><span class="token string">u"工具帮助"</span><span class="token punctuation">,</span> t<span class="token operator">=</span><span class="token string">u"工具帮助"</span><span class="token punctuation">,</span> wh<span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">640</span><span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">,</span> p<span class="token operator">=</span>self<span class="token punctuation">.</span>win<span class="token punctuation">)</span>
-        mc<span class="token punctuation">.</span>paneLayout<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        mc<span class="token punctuation">.</span>textScrollList<span class="token punctuation">(</span><span class="token string">"line"</span><span class="token punctuation">,</span> append<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">u"1.选择相机:先选择要测量焦距的相机，再点击按钮(相机名可以手动填入，但相机名为长名，防止错误选择相机)"</span><span class="token punctuation">,</span>
-                                          <span class="token string">u"2,创建locator:点击后，在相机处创建定位器，创建的1ocator名称为'find focous'"</span><span class="token punctuation">,</span>
-                                          <span class="token string">u"3.约束到选择物体:先调整好locator(find focous)的位置，选择约束物体，点击'约束到选择物体'，即测出想要的焦距，属性将自动连接"</span><span class="token punctuation">,</span>
-                                          <span class="token string">u"4.清除对象，清除本工具产生的相关节点"</span><span class="token punctuation">,</span> <span class="token string">u"5.帮助:本工具的使用说明"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-        mc<span class="token punctuation">.</span>textScrollList<span class="token punctuation">(</span><span class="token string">"line"</span><span class="token punctuation">,</span> edit<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> lf<span class="token operator">=</span><span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">"fixedWidthFont"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token string">"fixedWidthFont"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token string">"fixedWidthFont"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-                                                 <span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token string">"fixedWidthFont"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token string">"fixedWidthFont"</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-
-        mc<span class="token punctuation">.</span>showWindow<span class="token punctuation">(</span>help_win<span class="token punctuation">)</span>
+import maya.cmds as mc
+import pymel.core as pm
 
 
-<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">"__main__"</span><span class="token punctuation">:</span>
-    tool <span class="token operator">=</span> getDistance<span class="token punctuation">(</span><span class="token punctuation">)</span>
+class getDistance():
+    def __init__(self):
+        win_name &#x3D; u&quot;测量相机焦距&quot;
+        if mc.window(win_name, q&#x3D;True, ex&#x3D;True):
+            mc.deleteUI(win_name, window&#x3D;True)
+        self.win &#x3D; mc.window(win_name, title&#x3D;u&quot;测量相机焦距&quot;, iconName&#x3D;u&#39;short Name&#39;, widthHeight&#x3D;(400, 120))
+        mc.columnLayout(adjustableColumn&#x3D;True, rs&#x3D;2)
+        mc.rowColumnLayout(numberOfColumns&#x3D;3, columnAttach&#x3D;(1, &#39;right&#39;, 0), columnWidth&#x3D;[(1, 60), (2, 240), (3, 100)])
+        mc.text(label&#x3D;u&quot;相 机 名:&quot;, align&#x3D;&#39;left&#39;)
+        self.camName &#x3D; mc.textField()
+        mc.button(label&#x3D;u&quot;选择相机&quot;, command&#x3D;lambda x: self.getCam(self.camName))
+        mc.setParent(&#39;..&#39;)
+        mc.rowColumnLayout(numberOfColumns&#x3D;3, columnAttach&#x3D;(1, &#39;right&#39;, 0), columnWidth&#x3D;[(1, 60), (2, 240), (3, 100)])
+        mc.text(label&#x3D;u&quot;locator:&quot;, align&#x3D;&#39;left&#39;)
+        self.locName &#x3D; mc.textField()
+        mc.button(label&#x3D;u&quot;创建locator&quot;, command&#x3D;lambda x: self.createLocators(self.locName))
+        mc.setParent(&quot;..&quot;)
+        mc.rowColumnLayout(numberOfColumns&#x3D;3, columnWidth&#x3D;[(1, 180), (2, 40), (3, 180)])
+        mc.button(label&#x3D;u&quot;约束到选择的物体&quot;, command&#x3D;lambda x: self.addCtrlWithObj(), bgc&#x3D;(1, 0.73, 0.14))
+        mc.text(label&#x3D;u&#39; &#39;, align&#x3D;&#39;right&#39;)
+        mc.button(label&#x3D;u&quot;清除产生的对象&quot;, command&#x3D;lambda x: self.cleanAll(), bgc&#x3D;(1, 0.73, 0.14))
+        mc.setParent(&quot;..&quot;)
+        mc.rowColumnLayout(numberOfColumns&#x3D;2, columnAttach&#x3D;(1, &#39;right&#39;, 0), columnWidth&#x3D;[(1, 360), (2, 40)])
+        mc.text(label&#x3D;u&#39; &#39; * 8, align&#x3D;&#39;left&#39;)
+        mc.button(label&#x3D;u&quot;帮助&quot;, command&#x3D;lambda x: self.toolDoc())
+        mc.setParent(&#39;..&#39;)
+        mc.setParent(&#39;..&#39;)
+        mc.showWindow(self.win)
+
+    def getCam(self, *args):
+        &quot;&quot;&quot;获取选中的相机，填入窗口&quot;&quot;&quot;
+        try:
+            cam &#x3D; pm.ls(sl&#x3D;True)[0].getChildren()[0]  # 选择相机
+        except IndexError as e:
+            mc.warning(u&quot;未选中对象&quot;)
+            return
+        if (not cam) or (cam.nodeType() !&#x3D; &quot;camera&quot;):
+            mc.warning(u&quot;未选中相机&quot;)
+            return
+        _camName &#x3D; cam.longName()
+        mc.textField(self.camName, e&#x3D;True, tx&#x3D;_camName)
+
+    def connectParm(self, loc_a):
+        &quot;&quot;&quot;连接相机属性&quot;&quot;&quot;
+        cam &#x3D; pm.ls(mc.textField(self.camName, q&#x3D;True, tx&#x3D;True))[0]
+        # cam.setAttr(&quot;aiEnableDOF&quot;,1)
+        node_name &#x3D; &quot;distance_data&quot;
+        if mc.objExists(node_name):
+            mc.delete(node_name)
+        mc.createNode(&quot;floatMath&quot;, n&#x3D;node_name)
+        mc.setAttr(node_name + &quot;.operation&quot;, 2)
+        mc.setAttr(node_name + &quot;.floatB&quot;, -1)
+        mc.connectAttr(loc_a.name() + &quot;.translateZ&quot;, node_name + &quot;.floatA&quot;, f&#x3D;True)
+        mc.connectAttr(node_name + &quot;.outFloat&quot;, cam.name() + &quot;.aiFocusDistance&quot;, f&#x3D;True)
+
+    def addCtrl(self, loc_m, loc_a):
+        &quot;&quot;&quot;m添加约束和设置可见性&quot;&quot;&quot;
+        cam &#x3D; mc.textField(self.camName, q&#x3D;True, tx&#x3D;True)
+        mc.parent(loc_a.name(), cam)
+        mc.transformLimits(loc_a.name(), tz&#x3D;(-1, -0.02), etz&#x3D;(0, 1))
+        mc.setAttr(loc_a.fullPath() + &quot;.visibility&quot;, 0)
+        mc.setAttr(loc_a.fullPath() + &quot;.visibility&quot;, lock&#x3D;True)
+
+        mc.parentConstraint(loc_m.name(), loc_a.name(), mo&#x3D;True, st&#x3D;[&quot;x&quot;, &quot;y&quot;], sr&#x3D;[&quot;x&quot;, &quot;y&quot;, &quot;z&quot;])
+
+    def createLocators(self, *args):
+        &quot;&quot;&quot;创建 &#x2F; 获取1ocator, 移动至相机位置，并将该主1ocator填入窗口中&quot;&quot;&quot;
+        try:
+            cam &#x3D; pm.ls(mc.textField(self.camName, q&#x3D;True, tx&#x3D;True))[0].getParent().fullPath()
+        except IndexError as e:
+            mc.warning(u&quot;请选择并添加正确的相机&quot;)
+            return
+        cam_p &#x3D; mc.xform(cam, q&#x3D;True, ws&#x3D;True, t&#x3D;True)  # 相机世界坐标
+        if mc.objExists(&quot;find_focus&quot;):  # 用于移动的locator
+            loc_m &#x3D; pm.ls(&quot;find_focus&quot;)[0]
+            pm.delete(loc_m)
+        loc_m &#x3D; pm.createNode(&quot;locator&quot;).getParent()
+        loc_m.rename(&quot;find_focus&quot;)
+
+        if mc.objExists(&quot;cam_center&quot;):
+            loc_a &#x3D; pm.ls(&quot;cam_center&quot;)[0]
+            pm.delete(loc_a)
+        loc_a &#x3D; pm.createNode(&quot;locator&quot;).getParent()
+        loc_a.rename(&quot;cam_center&quot;)
+
+        loc_m.setAttr(&quot;translate&quot;, cam_p)
+        loc_a.setAttr(&quot;translate&quot;, cam_p)
+        mc.textField(self.locName, e&#x3D;True, tx&#x3D;loc_m.name())
+
+        self.addCtrl(loc_m, loc_a)  # 添加约束和设置可见性
+        self.connectParm(loc_a)
+
+    def addCtrlWithObj(self, *args):
+        &quot;&quot;&quot;约束到物体&quot;&quot;&quot;
+        try:
+            loc_m &#x3D; pm.ls(mc.textField(self.locName, q&#x3D;True, tx&#x3D;True))[0].fullPath()
+        except IndexError as e:
+            mc.warning(u&quot;未创建或填入定位器&quot;)
+            return
+        obj &#x3D; &quot;&quot;
+        for i in mc.ls(sl&#x3D;True):
+            if &quot;find focus&quot; not in i:
+                obj &#x3D; i
+                break
+            continue
+        if not obj:
+            mc.warning(u&quot;未选择约束物体，或约束物体名称中含有&#39;find_focus&#39;字符串&quot;)
+        mc.parentConstraint(obj, loc_m, mo&#x3D;True, sr&#x3D;[&quot;x&quot;, &quot;y&quot;, &quot;z&quot;])
+
+    def cleanAll(self, *arqs):
+        &quot;&quot;&quot;清除本工具产生的所有节点&quot;&quot;&quot;
+        node_list &#x3D; [&quot;distance_data&quot;, &quot;find_focus&quot;, &quot;cam_center&quot;]
+        for i in node_list:
+            if mc.objExists(i):
+                mc.delete(i)
+
+    def toolDoc(self):
+        &quot;&quot;&quot;工具帮助&quot;&quot;&quot;
+        win_name &#x3D; u&quot;工具帮助&quot;
+        if mc.window(win_name, q&#x3D;True, ex&#x3D;True):
+            mc.deleteUI(win_name, window&#x3D;True)
+        help_win &#x3D; mc.window(u&quot;工具帮助&quot;, t&#x3D;u&quot;工具帮助&quot;, wh&#x3D;(640, 100), p&#x3D;self.win)
+        mc.paneLayout()
+        mc.textScrollList(&quot;line&quot;, append&#x3D;[u&quot;1.选择相机:先选择要测量焦距的相机，再点击按钮(相机名可以手动填入，但相机名为长名，防止错误选择相机)&quot;,
+                                          u&quot;2,创建locator:点击后，在相机处创建定位器，创建的1ocator名称为&#39;find focous&#39;&quot;,
+                                          u&quot;3.约束到选择物体:先调整好locator(find focous)的位置，选择约束物体，点击&#39;约束到选择物体&#39;，即测出想要的焦距，属性将自动连接&quot;,
+                                          u&quot;4.清除对象，清除本工具产生的相关节点&quot;, u&quot;5.帮助:本工具的使用说明&quot;])
+        mc.textScrollList(&quot;line&quot;, edit&#x3D;True, lf&#x3D;[(1, &quot;fixedWidthFont&quot;), (2, &quot;fixedWidthFont&quot;), (3, &quot;fixedWidthFont&quot;),
+                                                 (4, &quot;fixedWidthFont&quot;), (5, &quot;fixedWidthFont&quot;)])
+
+        mc.showWindow(help_win)
+
+
+if __name__ &#x3D;&#x3D; &quot;__main__&quot;:
+    tool &#x3D; getDistance()
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
@@ -1061,17 +1061,17 @@ cameraShape1<span class="token punctuation">.</span>focusDistance <span class="t
         </div>
       </a>
     
-      <a href="/categories/Maya/arnold/">
-        <div class="categories-list-item">
-          Maya/arnold
-          <span class="categories-list-item-badge">1</span>
-        </div>
-      </a>
-    
       <a href="/categories/Qt/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
         <div class="categories-list-item">
           Qt/学习笔记
           <span class="categories-list-item-badge">3</span>
+        </div>
+      </a>
+    
+      <a href="/categories/Maya/arnold/">
+        <div class="categories-list-item">
+          Maya/arnold
+          <span class="categories-list-item-badge">1</span>
         </div>
       </a>
     

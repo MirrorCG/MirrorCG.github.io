@@ -335,7 +335,7 @@
     
     
       <span class="dot"></span>
-      <span>223 字</span>
+      <span>285 字</span>
     
   </div>
   
@@ -364,51 +364,51 @@
     class="post-content">
     <p style="text-indent:2em">从Maya视图窗口中获取相机视角中所有的对象，可以利用OpenMaya和OpenMayaUI两个模块来完成此功能，<span id="more"></span>首先需要指定相机，并通过遍历相机视口，来获取相机视口中的对象：</p>
 
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment">#!/usr/bin/env python</span>
-<span class="token comment"># -*- coding:utf-8 -*-</span>
-<span class="token comment"># @Auth0r: Mirror</span>
-<span class="token comment"># @Time: ----</span>
-<span class="token comment"># =========================================</span>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">#!&#x2F;usr&#x2F;bin&#x2F;env python
+# -*- coding:utf-8 -*-
+# @Auth0r: Mirror
+# @Time: ----
+# &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
 
-<span class="token keyword">import</span> maya<span class="token punctuation">.</span>cmds <span class="token keyword">as</span> cmds
-<span class="token keyword">import</span> maya<span class="token punctuation">.</span>OpenMaya <span class="token keyword">as</span> OpenMaya
-<span class="token keyword">import</span> maya<span class="token punctuation">.</span>OpenMayaUI <span class="token keyword">as</span> OpenMayaUI
-
-
-<span class="token keyword">def</span> <span class="token function">getObjInView</span><span class="token punctuation">(</span>cam<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token comment"># 添加相机到 MDagPath</span>
-    mdag_path <span class="token operator">=</span> OpenMaya<span class="token punctuation">.</span>MDagPath<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    sel <span class="token operator">=</span> OpenMaya<span class="token punctuation">.</span>MSelectionList<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    sel<span class="token punctuation">.</span>add<span class="token punctuation">(</span>cam<span class="token punctuation">)</span>
-    sel<span class="token punctuation">.</span>getDagPath<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> mdag_path<span class="token punctuation">)</span>
-
-    <span class="token comment"># 遍历视口</span>
-    draw_traversal <span class="token operator">=</span> OpenMayaUI<span class="token punctuation">.</span>MDrawTraversal<span class="token punctuation">(</span><span class="token punctuation">)</span>
-
-    <span class="token comment"># 创建视锥</span>
-    draw_traversal<span class="token punctuation">.</span>setFrustum<span class="token punctuation">(</span>mdag_path<span class="token punctuation">,</span> cmds<span class="token punctuation">.</span>getAttr<span class="token punctuation">(</span><span class="token string">"defaultResolution.width"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>cmds<span class="token punctuation">.</span>getAttr<span class="token punctuation">(</span><span class="token string">"defaultResolution.height"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-    draw_traversal<span class="token punctuation">.</span>traverse<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    frustum_objs <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
-
-    <span class="token comment"># Loop through obiects within frustum</span>
-    <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>draw_traversal<span class="token punctuation">.</span>numberOfItems<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token comment"># 先返回shape, 所以需要先获取它的transforn</span>
-        shape_dag_path <span class="token operator">=</span> OpenMaya<span class="token punctuation">.</span>MDagPath<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        draw_traversal<span class="token punctuation">.</span>itemPath<span class="token punctuation">(</span>i<span class="token punctuation">,</span> shape_dag_path<span class="token punctuation">)</span>
-        transform_dag_path <span class="token operator">=</span> OpenMaya<span class="token punctuation">.</span>MDagPath<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        OpenMaya<span class="token punctuation">.</span>MDagPath<span class="token punctuation">.</span>getAPathTo<span class="token punctuation">(</span>shape_dag_path<span class="token punctuation">.</span>transform<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> transform_dag_path<span class="token punctuation">)</span>
-        <span class="token comment"># 获取物体的长名并且确保它是有效的transform</span>
-        obj <span class="token operator">=</span> transform_dag_path<span class="token punctuation">.</span>fullPathName<span class="token punctuation">(</span><span class="token punctuation">)</span>
-
-        <span class="token keyword">if</span> cmds<span class="token punctuation">.</span>objExists<span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">:</span>
-            frustum_objs<span class="token punctuation">.</span>append<span class="token punctuation">(</span>obj<span class="token punctuation">)</span>
-            cmds<span class="token punctuation">.</span>select<span class="token punctuation">(</span>frustum_objs<span class="token punctuation">)</span>
+import maya.cmds as cmds
+import maya.OpenMaya as OpenMaya
+import maya.OpenMayaUI as OpenMayaUI
 
 
-<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">"__main__"</span><span class="token punctuation">:</span>
-    <span class="token comment"># 需要指定相机</span>
-    cam <span class="token operator">=</span> <span class="token string">'persp'</span>  <span class="token comment"># 指定相机</span>
-    getObjInView<span class="token punctuation">(</span>cam<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre> 
+def getObjInView(cam):
+    # 添加相机到 MDagPath
+    mdag_path &#x3D; OpenMaya.MDagPath()
+    sel &#x3D; OpenMaya.MSelectionList()
+    sel.add(cam)
+    sel.getDagPath(0, mdag_path)
+
+    # 遍历视口
+    draw_traversal &#x3D; OpenMayaUI.MDrawTraversal()
+
+    # 创建视锥
+    draw_traversal.setFrustum(mdag_path, cmds.getAttr(&quot;defaultResolution.width&quot;),cmds.getAttr(&quot;defaultResolution.height&quot;))
+    draw_traversal.traverse()
+    frustum_objs &#x3D; []
+
+    # Loop through obiects within frustum
+    for i in range(draw_traversal.numberOfItems()):
+        # 先返回shape, 所以需要先获取它的transforn
+        shape_dag_path &#x3D; OpenMaya.MDagPath()
+        draw_traversal.itemPath(i, shape_dag_path)
+        transform_dag_path &#x3D; OpenMaya.MDagPath()
+        OpenMaya.MDagPath.getAPathTo(shape_dag_path.transform(), transform_dag_path)
+        # 获取物体的长名并且确保它是有效的transform
+        obj &#x3D; transform_dag_path.fullPathName()
+
+        if cmds.objExists(obj):
+            frustum_objs.append(obj)
+            cmds.select(frustum_objs)
+
+
+if __name__ &#x3D;&#x3D; &quot;__main__&quot;:
+    # 需要指定相机
+    cam &#x3D; &#39;persp&#39;  # 指定相机
+    getObjInView(cam)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre> 
 
 
   </div>
@@ -734,17 +734,17 @@
         </div>
       </a>
     
-      <a href="/categories/Maya/arnold/">
-        <div class="categories-list-item">
-          Maya/arnold
-          <span class="categories-list-item-badge">1</span>
-        </div>
-      </a>
-    
       <a href="/categories/Qt/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
         <div class="categories-list-item">
           Qt/学习笔记
           <span class="categories-list-item-badge">3</span>
+        </div>
+      </a>
+    
+      <a href="/categories/Maya/arnold/">
+        <div class="categories-list-item">
+          Maya/arnold
+          <span class="categories-list-item-badge">1</span>
         </div>
       </a>
     

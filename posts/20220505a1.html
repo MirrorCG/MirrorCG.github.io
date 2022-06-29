@@ -335,7 +335,7 @@
     
     
       <span class="dot"></span>
-      <span>494 字</span>
+      <span>536 字</span>
     
   </div>
   
@@ -375,34 +375,34 @@
 <p><img src="/images/Deadline%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8PythonAPI/Deadline%E8%AE%BE%E5%A4%87%E5%90%8D%E7%A7%B0%E5%92%8C%E7%AB%AF%E5%8F%A3%E5%8F%B7.png" alt="Deadline设备名称和端口号" srcset="/images/home/Myhead.jpg" data-src="/images/Deadline%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8PythonAPI/Deadline%E8%AE%BE%E5%A4%87%E5%90%8D%E7%A7%B0%E5%92%8C%E7%AB%AF%E5%8F%A3%E5%8F%B7.png" class="lozad post-image"></p>
 <p>然后我们就可以使用API创建一个连接对象“connectionObject &#x3D; Deadline.DeadlineConnect.DeadlineCon(‘WebServiceName’, WebServicePortNumber)”， 通过该对象，我们可以查询、修改 Deadline 上的大部分信息。</p>
 <p>示例代码1：查询作业组、暂停指定作业</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> Deadline<span class="token punctuation">.</span>DeadlineConnect <span class="token keyword">as</span> Connect  <span class="token comment"># 导入 Deadline.DeadlineConnect 作为连接</span>
-connectionObject <span class="token operator">=</span> Connect<span class="token punctuation">.</span>DeadlineCon<span class="token punctuation">(</span><span class="token string">'DESKTOP-Mirror'</span><span class="token punctuation">,</span> <span class="token number">8082</span><span class="token punctuation">)</span>
-<span class="token keyword">print</span><span class="token punctuation">(</span>connectionObject<span class="token punctuation">.</span>Groups<span class="token punctuation">.</span>GetGroupNames<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token comment">#["group1","group2","group3"]</span>
-jobId <span class="token operator">=</span> <span class="token string">"622c38262812473ba4c08eca"</span>  <span class="token comment">#(有效的job ID号)</span>
-<span class="token keyword">print</span><span class="token punctuation">(</span>connectionObject<span class="token punctuation">.</span>Jobs<span class="token punctuation">.</span>SuspendJob<span class="token punctuation">(</span>jobId<span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token comment"># 'Success'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">import Deadline.DeadlineConnect as Connect  # 导入 Deadline.DeadlineConnect 作为连接
+connectionObject &#x3D; Connect.DeadlineCon(&#39;DESKTOP-Mirror&#39;, 8082)
+print(connectionObject.Groups.GetGroupNames())
+#[&quot;group1&quot;,&quot;group2&quot;,&quot;group3&quot;]
+jobId &#x3D; &quot;622c38262812473ba4c08eca&quot;  #(有效的job ID号)
+print(connectionObject.Jobs.SuspendJob(jobId))
+# &#39;Success&#39;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>示例代码2：提交作业</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> Deadline<span class="token punctuation">.</span>DeadlineConnect <span class="token keyword">as</span> Connect
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">import Deadline.DeadlineConnect as Connect
 
-Deadline <span class="token operator">=</span> Connect<span class="token punctuation">.</span>DeadlineCon<span class="token punctuation">(</span><span class="token string">'DESKTOP-Mirror'</span><span class="token punctuation">,</span> <span class="token number">8082</span><span class="token punctuation">)</span>
-JobInfo <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-    <span class="token string">"Name"</span><span class="token punctuation">:</span> <span class="token string">"Submitted via Python"</span><span class="token punctuation">,</span>
-    <span class="token string">"UserName"</span><span class="token punctuation">:</span> <span class="token string">"UserName"</span><span class="token punctuation">,</span>
-    <span class="token string">"Frames"</span><span class="token punctuation">:</span> <span class="token string">"0-1"</span><span class="token punctuation">,</span>
-    <span class="token string">"Plugin"</span><span class="token punctuation">:</span> <span class="token string">"VraySpawner"</span>
-<span class="token punctuation">&#125;</span>
+Deadline &#x3D; Connect.DeadlineCon(&#39;DESKTOP-Mirror&#39;, 8082)
+JobInfo &#x3D; &#123;
+    &quot;Name&quot;: &quot;Submitted via Python&quot;,
+    &quot;UserName&quot;: &quot;UserName&quot;,
+    &quot;Frames&quot;: &quot;0-1&quot;,
+    &quot;Plugin&quot;: &quot;VraySpawner&quot;
+&#125;
 
-PluginInfo <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-    <span class="token string">"Version"</span><span class="token punctuation">:</span> <span class="token string">"Max2014"</span>
-<span class="token punctuation">&#125;</span>
+PluginInfo &#x3D; &#123;
+    &quot;Version&quot;: &quot;Max2014&quot;
+&#125;
 
-<span class="token keyword">try</span><span class="token punctuation">:</span>
-    newJob <span class="token operator">=</span> connectionObject<span class="token punctuation">.</span>Jobs<span class="token punctuation">.</span>SubmitJob<span class="token punctuation">(</span>JobInfo<span class="token punctuation">,</span> PluginInfo<span class="token punctuation">)</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span>newJob<span class="token punctuation">)</span>
-<span class="token keyword">except</span><span class="token punctuation">:</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Sorry, Web Service is currently down!"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+try:
+    newJob &#x3D; connectionObject.Jobs.SubmitJob(JobInfo, PluginInfo)
+    print(newJob)
+except:
+    print(&quot;Sorry, Web Service is currently down!&quot;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 <h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><ul>
@@ -732,17 +732,17 @@ PluginInfo <span class="token operator">=</span> <span class="token punctuation"
         </div>
       </a>
     
-      <a href="/categories/Maya/arnold/">
-        <div class="categories-list-item">
-          Maya/arnold
-          <span class="categories-list-item-badge">1</span>
-        </div>
-      </a>
-    
       <a href="/categories/Qt/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
         <div class="categories-list-item">
           Qt/学习笔记
           <span class="categories-list-item-badge">3</span>
+        </div>
+      </a>
+    
+      <a href="/categories/Maya/arnold/">
+        <div class="categories-list-item">
+          Maya/arnold
+          <span class="categories-list-item-badge">1</span>
         </div>
       </a>
     

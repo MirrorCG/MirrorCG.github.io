@@ -333,7 +333,7 @@
     
     
       <span class="dot"></span>
-      <span>828 字</span>
+      <span>1.1k 字</span>
     
   </div>
   
@@ -399,8 +399,25 @@ rez-build --install</code></pre>
 <pre class="language-cmd" data-language="cmd"><code class="language-cmd">rez-env hello_world -- hello </code></pre>
 
 
-<h4 id="软件包命令"><a href="#软件包命令" class="headerlink" title="软件包命令"></a>软件包命令</h4><p>查看搜索路径：</p>
+<h4 id="软件包命令"><a href="#软件包命令" class="headerlink" title="软件包命令"></a>软件包命令</h4><p>查看搜索路径:</p>
+<pre class="language-cmd" data-language="cmd"><code class="language-cmd">rez-config</code></pre>
 
+<p>查看当前配置环境：</p>
+<pre class="language-cmd" data-language="cmd"><code class="language-cmd">rez-context</code></pre>
+
+<p>修改软件包路径的方法：设置REZ_PACKAGES_PATH环境变量；</p>
+<h4 id="在共享路径下搜索插件包"><a href="#在共享路径下搜索插件包" class="headerlink" title="在共享路径下搜索插件包"></a>在共享路径下搜索插件包</h4><p>首先，需要为系统设置配置文件的用户环境变量 REZ_CONFIG_FILE 指向 rezconfig.py文件；为系统用户的环境变量中添加环境变量 REZ_CONFIG_FILE ，并且值为”S:\opt\rez\Lib\site-packages\rez\rezconfig.py”(本文将 rez安装在S盘，对应安装的根目录即可)，然后添加插件包的存放路径即可，若不添加环境变量，则默认从安装路径获取配置文件信息。<br>下面是配置文件中，获取共享路径中的插件路径：</p>
+<pre class="language-python" data-language="python"><code class="language-python"># The package search path. Rez uses this to find packages. A package with the
+# same name and version in an earlier path takes precedence.
+packages_path &#x3D; [
+    &quot;~&#x2F;packages&quot;,           # locally installed pkgs, not yet deployed
+    &quot;~&#x2F;.rez&#x2F;packages&#x2F;int&quot;,  # internally developed pkgs, deployed
+    &quot;~&#x2F;.rez&#x2F;packages&#x2F;ext&quot;,  # external (3rd party) pkgs, such as houdini, boost
+    &quot;S:&#x2F;rez&#x2F;packages&#x2F;dcc&quot;,  # dcc软件共享路径
+    &quot;S:&#x2F;rez&#x2F;packages&#x2F;plugins&quot;,  # 插件共享路径
+    &quot;S:&#x2F;rez&#x2F;packages&#x2F;third_party&quot;, # 第三方插件路径
+    &quot;S:&#x2F;rez&#x2F;packages&#x2F;tools&quot; # 自定义工具路径
+]</code></pre>
   </div>
   <div>
     
@@ -506,7 +523,7 @@ rez-build --install</code></pre>
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E5%8C%85"><span class="toc-number">1.</span> <span class="toc-text">下载安装包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%9F%BA%E6%9C%AC%E7%9A%84-Rez-%E5%8C%85"><span class="toc-number">2.</span> <span class="toc-text">创建基本的 Rez 包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E5%AE%89%E8%A3%85%E7%BB%93%E6%9E%9C"><span class="toc-number">3.</span> <span class="toc-text">验证安装结果</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8C%85"><span class="toc-number">4.</span> <span class="toc-text">构建第一个包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E6%9E%84%E5%BB%BA%E7%9A%84%E5%8C%85"><span class="toc-number">5.</span> <span class="toc-text">测试构建的包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%91%BD%E4%BB%A4"><span class="toc-number">6.</span> <span class="toc-text">软件包命令</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E5%8C%85"><span class="toc-number">1.</span> <span class="toc-text">下载安装包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%9F%BA%E6%9C%AC%E7%9A%84-Rez-%E5%8C%85"><span class="toc-number">2.</span> <span class="toc-text">创建基本的 Rez 包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E5%AE%89%E8%A3%85%E7%BB%93%E6%9E%9C"><span class="toc-number">3.</span> <span class="toc-text">验证安装结果</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8C%85"><span class="toc-number">4.</span> <span class="toc-text">构建第一个包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E6%9E%84%E5%BB%BA%E7%9A%84%E5%8C%85"><span class="toc-number">5.</span> <span class="toc-text">测试构建的包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%91%BD%E4%BB%A4"><span class="toc-number">6.</span> <span class="toc-text">软件包命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%A8%E5%85%B1%E4%BA%AB%E8%B7%AF%E5%BE%84%E4%B8%8B%E6%90%9C%E7%B4%A2%E6%8F%92%E4%BB%B6%E5%8C%85"><span class="toc-number">7.</span> <span class="toc-text">在共享路径下搜索插件包</span></a></li></ol>
 </div></main>
             <aside class="left-column">
               
@@ -646,7 +663,7 @@ rez-build --install</code></pre>
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E5%8C%85"><span class="toc-number">1.</span> <span class="toc-text">下载安装包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%9F%BA%E6%9C%AC%E7%9A%84-Rez-%E5%8C%85"><span class="toc-number">2.</span> <span class="toc-text">创建基本的 Rez 包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E5%AE%89%E8%A3%85%E7%BB%93%E6%9E%9C"><span class="toc-number">3.</span> <span class="toc-text">验证安装结果</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8C%85"><span class="toc-number">4.</span> <span class="toc-text">构建第一个包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E6%9E%84%E5%BB%BA%E7%9A%84%E5%8C%85"><span class="toc-number">5.</span> <span class="toc-text">测试构建的包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%91%BD%E4%BB%A4"><span class="toc-number">6.</span> <span class="toc-text">软件包命令</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E5%8C%85"><span class="toc-number">1.</span> <span class="toc-text">下载安装包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%9F%BA%E6%9C%AC%E7%9A%84-Rez-%E5%8C%85"><span class="toc-number">2.</span> <span class="toc-text">创建基本的 Rez 包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E5%AE%89%E8%A3%85%E7%BB%93%E6%9E%9C"><span class="toc-number">3.</span> <span class="toc-text">验证安装结果</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8C%85"><span class="toc-number">4.</span> <span class="toc-text">构建第一个包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E6%9E%84%E5%BB%BA%E7%9A%84%E5%8C%85"><span class="toc-number">5.</span> <span class="toc-text">测试构建的包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%91%BD%E4%BB%A4"><span class="toc-number">6.</span> <span class="toc-text">软件包命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%A8%E5%85%B1%E4%BA%AB%E8%B7%AF%E5%BE%84%E4%B8%8B%E6%90%9C%E7%B4%A2%E6%8F%92%E4%BB%B6%E5%8C%85"><span class="toc-number">7.</span> <span class="toc-text">在共享路径下搜索插件包</span></a></li></ol>
       </div>
     </article>
   
@@ -724,17 +741,17 @@ rez-build --install</code></pre>
         </div>
       </a>
     
-      <a href="/categories/Maya/arnold/">
-        <div class="categories-list-item">
-          Maya/arnold
-          <span class="categories-list-item-badge">1</span>
-        </div>
-      </a>
-    
       <a href="/categories/Qt/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
         <div class="categories-list-item">
           Qt/学习笔记
           <span class="categories-list-item-badge">3</span>
+        </div>
+      </a>
+    
+      <a href="/categories/Maya/arnold/">
+        <div class="categories-list-item">
+          Maya/arnold
+          <span class="categories-list-item-badge">1</span>
         </div>
       </a>
     
@@ -866,7 +883,7 @@ rez-build --install</code></pre>
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E5%8C%85"><span class="toc-number">1.</span> <span class="toc-text">下载安装包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%9F%BA%E6%9C%AC%E7%9A%84-Rez-%E5%8C%85"><span class="toc-number">2.</span> <span class="toc-text">创建基本的 Rez 包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E5%AE%89%E8%A3%85%E7%BB%93%E6%9E%9C"><span class="toc-number">3.</span> <span class="toc-text">验证安装结果</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8C%85"><span class="toc-number">4.</span> <span class="toc-text">构建第一个包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E6%9E%84%E5%BB%BA%E7%9A%84%E5%8C%85"><span class="toc-number">5.</span> <span class="toc-text">测试构建的包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%91%BD%E4%BB%A4"><span class="toc-number">6.</span> <span class="toc-text">软件包命令</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E5%8C%85"><span class="toc-number">1.</span> <span class="toc-text">下载安装包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%9F%BA%E6%9C%AC%E7%9A%84-Rez-%E5%8C%85"><span class="toc-number">2.</span> <span class="toc-text">创建基本的 Rez 包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E5%AE%89%E8%A3%85%E7%BB%93%E6%9E%9C"><span class="toc-number">3.</span> <span class="toc-text">验证安装结果</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8C%85"><span class="toc-number">4.</span> <span class="toc-text">构建第一个包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E6%9E%84%E5%BB%BA%E7%9A%84%E5%8C%85"><span class="toc-number">5.</span> <span class="toc-text">测试构建的包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%91%BD%E4%BB%A4"><span class="toc-number">6.</span> <span class="toc-text">软件包命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%A8%E5%85%B1%E4%BA%AB%E8%B7%AF%E5%BE%84%E4%B8%8B%E6%90%9C%E7%B4%A2%E6%8F%92%E4%BB%B6%E5%8C%85"><span class="toc-number">7.</span> <span class="toc-text">在共享路径下搜索插件包</span></a></li></ol>
     </article>
   
   

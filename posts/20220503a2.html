@@ -335,7 +335,7 @@
     
     
       <span class="dot"></span>
-      <span>882 字</span>
+      <span>1k 字</span>
     
   </div>
   
@@ -374,10 +374,10 @@
 </li>
 </ol>
 <p>代码如下：</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> codecs
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">import codecs
 
-<span class="token keyword">def</span> <span class="token function">checkMayaAsciiFile</span><span class="token punctuation">(</span>source_file<span class="token punctuation">,</span> target_file<span class="token punctuation">,</span> log_file<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token triple-quoted-string string">"""
+def checkMayaAsciiFile(source_file, target_file, log_file):
+    &quot;&quot;&quot;
     1. 用于检查 Maya Ascii 文件打开崩溃
     2. - - - - - - - - - - - - - -耗时
     Args:
@@ -387,59 +387,59 @@
 
     Returns: none
 
-    """</span>
-    <span class="token comment"># # 记录打不开的ma文件是从哪一行崩溃的</span>
-    <span class="token comment"># __startMel = '''python("logFile='%s';ff = open(logFile,'w');ff.write(' ');ff.close();");''' % log_file</span>
-    <span class="token comment"># __proc = '''python("ff = open(logFile,'a');ff.write('%s - &#123;0&#125;\\\\n'.format(comp_time));ff.close();");\n'''</span>
-    <span class="token comment"># __endMel = ""</span>
+    &quot;&quot;&quot;
+    # # 记录打不开的ma文件是从哪一行崩溃的
+    # __startMel &#x3D; &#39;&#39;&#39;python(&quot;logFile&#x3D;&#39;%s&#39;;ff &#x3D; open(logFile,&#39;w&#39;);ff.write(&#39; &#39;);ff.close();&quot;);&#39;&#39;&#39; % log_file
+    # __proc &#x3D; &#39;&#39;&#39;python(&quot;ff &#x3D; open(logFile,&#39;a&#39;);ff.write(&#39;%s - &#123;0&#125;\\\\n&#39;.format(comp_time));ff.close();&quot;);\n&#39;&#39;&#39;
+    # __endMel &#x3D; &quot;&quot;
 
-    <span class="token comment"># 记录打开文件时的耗时信息</span>
-    __startMel <span class="token operator">=</span> <span class="token triple-quoted-string string">'''python("from datetime import datetime;import time;line_time=datetime.now();time.sleep(0.002);threshold_time=datetime.now() - line_time;start_time=line_time;logging=list();logFile='%s'");'''</span> <span class="token operator">%</span> log_file
-    __proc <span class="token operator">=</span> <span class="token triple-quoted-string string">'''python("comp_time = datetime.now() - line_time;logging.append('%s - '+ str(comp_time)) if comp_time > threshold_time else None;line_time = datetime.now();");\n'''</span>
-    __endMel <span class="token operator">=</span> <span class="token triple-quoted-string string">'''python("logging.append('\\\\n\\\\nStart Time - '+ str(start_time) + '\\\\nEnd Time - '+ str(line_time) + '\\\\nTotal Time - ' + str(line_time - start_time));ff = open(logFile,'w');[ff.write(line+'\\\\n') for line in logging];ff.close();");'''</span>
+    # 记录打开文件时的耗时信息
+    __startMel &#x3D; &#39;&#39;&#39;python(&quot;from datetime import datetime;import time;line_time&#x3D;datetime.now();time.sleep(0.002);threshold_time&#x3D;datetime.now() - line_time;start_time&#x3D;line_time;logging&#x3D;list();logFile&#x3D;&#39;%s&#39;&quot;);&#39;&#39;&#39; % log_file
+    __proc &#x3D; &#39;&#39;&#39;python(&quot;comp_time &#x3D; datetime.now() - line_time;logging.append(&#39;%s - &#39;+ str(comp_time)) if comp_time &gt; threshold_time else None;line_time &#x3D; datetime.now();&quot;);\n&#39;&#39;&#39;
+    __endMel &#x3D; &#39;&#39;&#39;python(&quot;logging.append(&#39;\\\\n\\\\nStart Time - &#39;+ str(start_time) + &#39;\\\\nEnd Time - &#39;+ str(line_time) + &#39;\\\\nTotal Time - &#39; + str(line_time - start_time));ff &#x3D; open(logFile,&#39;w&#39;);[ff.write(line+&#39;\\\\n&#39;) for line in logging];ff.close();&quot;);&#39;&#39;&#39;
 
-    <span class="token keyword">with</span> codecs<span class="token punctuation">.</span><span class="token builtin">open</span><span class="token punctuation">(</span>source_file<span class="token punctuation">,</span> <span class="token string">"r"</span><span class="token punctuation">,</span> <span class="token string">"gbk"</span><span class="token punctuation">)</span> <span class="token keyword">as</span> f<span class="token punctuation">:</span>
-        aLines <span class="token operator">=</span> f<span class="token punctuation">.</span>readlines<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    with codecs.open(source_file, &quot;r&quot;, &quot;gbk&quot;) as f:
+        aLines &#x3D; f.readlines()
 
-    fileter <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token string">"select"</span><span class="token punctuation">,</span> <span class="token string">"connectAttr"</span><span class="token punctuation">,</span> <span class="token string">"dataStructure"</span><span class="token punctuation">,</span> <span class="token string">"createNode"</span><span class="token punctuation">,</span> <span class="token string">"requires"</span><span class="token punctuation">,</span> <span class="token string">"currentUnit"</span><span class="token punctuation">)</span>
-    <span class="token comment"># other relationship fileInfo</span>
-    rule <span class="token operator">=</span> <span class="token number">1</span>
-    <span class="token keyword">for</span> num<span class="token punctuation">,</span> line <span class="token keyword">in</span> <span class="token builtin">enumerate</span><span class="token punctuation">(</span>aLines<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        line_add <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span><span class="token punctuation">[</span>aLines<span class="token punctuation">[</span>num <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> __proc <span class="token operator">%</span> <span class="token builtin">str</span><span class="token punctuation">(</span>num<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-        <span class="token keyword">if</span> rule<span class="token punctuation">:</span>  <span class="token comment"># 文件开头的 file 每一行都加 mel</span>
-            <span class="token keyword">if</span> __startMel<span class="token punctuation">:</span>  <span class="token comment"># 文件开头结尾初始化命令</span>
-                aLines<span class="token punctuation">[</span>num<span class="token punctuation">]</span> <span class="token operator">=</span> __startMel <span class="token operator">+</span> line
-                <span class="token keyword">if</span> __endMel<span class="token punctuation">:</span>
-                    aLines<span class="token punctuation">[</span>num <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> __endMel <span class="token operator">+</span> aLines<span class="token punctuation">[</span>num <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span>
-                __startMel <span class="token operator">=</span> <span class="token number">0</span>
-                <span class="token keyword">continue</span>
-            <span class="token keyword">if</span> <span class="token string">"file"</span> <span class="token keyword">in</span> line<span class="token punctuation">:</span>  <span class="token comment"># 可能有的设置里会有file字符串,所以这里要独立规则</span>
-                <span class="token keyword">if</span> <span class="token string">";\n"</span> <span class="token keyword">not</span> <span class="token keyword">in</span> aLines<span class="token punctuation">[</span>num <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
-                    <span class="token keyword">continue</span>
-                aLines<span class="token punctuation">[</span>num <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> line_add
-            <span class="token keyword">if</span> <span class="token string">"requires"</span> <span class="token keyword">in</span> line<span class="token punctuation">:</span>  <span class="token comment"># requires 之后改变规则</span>
-                rule <span class="token operator">=</span> <span class="token number">0</span>
+    fileter &#x3D; (&quot;select&quot;, &quot;connectAttr&quot;, &quot;dataStructure&quot;, &quot;createNode&quot;, &quot;requires&quot;, &quot;currentUnit&quot;)
+    # other relationship fileInfo
+    rule &#x3D; 1
+    for num, line in enumerate(aLines):
+        line_add &#x3D; &quot;&quot;.join([aLines[num - 1][:-1], __proc % str(num)])
+        if rule:  # 文件开头的 file 每一行都加 mel
+            if __startMel:  # 文件开头结尾初始化命令
+                aLines[num] &#x3D; __startMel + line
+                if __endMel:
+                    aLines[num - 1] &#x3D; __endMel + aLines[num - 1]
+                __startMel &#x3D; 0
+                continue
+            if &quot;file&quot; in line:  # 可能有的设置里会有file字符串,所以这里要独立规则
+                if &quot;;\n&quot; not in aLines[num - 1]:
+                    continue
+                aLines[num - 1] &#x3D; line_add
+            if &quot;requires&quot; in line:  # requires 之后改变规则
+                rule &#x3D; 0
 
-        <span class="token comment"># 在 fileter 参数里的,对它的前一行添加 mel</span>
-        <span class="token comment"># setAttr 用的是 .attr 的方式,在它之后加 mel 会影响下一个 setAttr 所以这里添加这个过滤</span>
-        <span class="token keyword">for</span> _ <span class="token keyword">in</span> fileter<span class="token punctuation">:</span>
-            <span class="token keyword">if</span> _ <span class="token keyword">in</span> line<span class="token punctuation">:</span>
-                <span class="token keyword">if</span> <span class="token string">";\n"</span> <span class="token keyword">in</span> aLines<span class="token punctuation">[</span>num <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
-                    aLines<span class="token punctuation">[</span>num <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> line_add
+        # 在 fileter 参数里的,对它的前一行添加 mel
+        # setAttr 用的是 .attr 的方式,在它之后加 mel 会影响下一个 setAttr 所以这里添加这个过滤
+        for _ in fileter:
+            if _ in line:
+                if &quot;;\n&quot; in aLines[num - 1]:
+                    aLines[num - 1] &#x3D; line_add
 
-    <span class="token keyword">with</span> codecs<span class="token punctuation">.</span><span class="token builtin">open</span><span class="token punctuation">(</span>target_file<span class="token punctuation">,</span> <span class="token string">"w"</span><span class="token punctuation">,</span> <span class="token string">"gbk"</span><span class="token punctuation">)</span> <span class="token keyword">as</span> ff<span class="token punctuation">:</span>
-        <span class="token keyword">for</span> lines <span class="token keyword">in</span> aLines<span class="token punctuation">:</span>
-            ff<span class="token punctuation">.</span>write<span class="token punctuation">(</span>lines<span class="token punctuation">)</span>
+    with codecs.open(target_file, &quot;w&quot;, &quot;gbk&quot;) as ff:
+        for lines in aLines:
+            ff.write(lines)
 
-<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
-    srcFile <span class="token operator">=</span> <span class="token string">r"E:\test\shot00401.ma"</span>
-    srcFile <span class="token operator">=</span> srcFile<span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token string">"\\"</span><span class="token punctuation">,</span> <span class="token string">"/"</span><span class="token punctuation">)</span>
+if __name__ &#x3D;&#x3D; &#39;__main__&#39;:
+    srcFile &#x3D; r&quot;E:\test\shot00401.ma&quot;
+    srcFile &#x3D; srcFile.replace(&quot;\\&quot;, &quot;&#x2F;&quot;)
 
-    sourceFile <span class="token operator">=</span> srcFile
-    targetFile <span class="token operator">=</span> srcFile<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token string">"_v01.ma"</span>
-    logFile <span class="token operator">=</span> srcFile<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token string">"_v01.txt"</span>
-    <span class="token comment"># print(sourceFile, targetFile, logFile)</span>
-    checkMayaAsciiFile<span class="token punctuation">(</span>sourceFile<span class="token punctuation">,</span> targetFile<span class="token punctuation">,</span> logFile<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    sourceFile &#x3D; srcFile
+    targetFile &#x3D; srcFile[:-3] + &quot;_v01.ma&quot;
+    logFile &#x3D; srcFile[:-3] + &quot;_v01.txt&quot;
+    # print(sourceFile, targetFile, logFile)
+    checkMayaAsciiFile(sourceFile, targetFile, logFile)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>以上代码中，需要将”E:\test\shot00401.ma”替换成你的‘.ma’文件路径，执行完成后，会在同级文件目录下生成一个版本号为‘-v01’的‘.ma’文件，使用Maya打开该文件，打开文件的同时会执行文件中的mel脚本保存日志信息，文件读取完成后，也会在统计目录下生成一个版本号为‘-v01’的txt日志文件，打开文件分析即可。</p>
 <h4 id="转载"><a href="#转载" class="headerlink" title="转载"></a>转载</h4><p>部分内容转载自：<a target="_blank" rel="noopener" href="https://ruben.blog.csdn.net/article/details/90082639">https://ruben.blog.csdn.net/article/details/90082639</a></p>
@@ -767,17 +767,17 @@
         </div>
       </a>
     
-      <a href="/categories/Maya/arnold/">
-        <div class="categories-list-item">
-          Maya/arnold
-          <span class="categories-list-item-badge">1</span>
-        </div>
-      </a>
-    
       <a href="/categories/Qt/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
         <div class="categories-list-item">
           Qt/学习笔记
           <span class="categories-list-item-badge">3</span>
+        </div>
+      </a>
+    
+      <a href="/categories/Maya/arnold/">
+        <div class="categories-list-item">
+          Maya/arnold
+          <span class="categories-list-item-badge">1</span>
         </div>
       </a>
     

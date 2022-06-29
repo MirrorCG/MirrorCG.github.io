@@ -335,7 +335,7 @@
     
     
       <span class="dot"></span>
-      <span>1.2k 字</span>
+      <span>1.7k 字</span>
     
   </div>
   
@@ -369,130 +369,130 @@
 <p><img src="/images/Deadline%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E7%A4%BA%E4%BE%8B/event%E5%88%9B%E5%BB%BA%E4%BA%8B%E4%BB%B6%E6%96%87%E4%BB%B6%E5%A4%B9.png" alt="event创建事件文件夹" srcset="/images/home/Myhead.jpg" data-src="/images/Deadline%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E7%A4%BA%E4%BE%8B/event%E5%88%9B%E5%BB%BA%E4%BA%8B%E4%BB%B6%E6%96%87%E4%BB%B6%E5%A4%B9.png" class="lozad post-image"></p>
 <p>创建好文件夹后，我们需要新建一个和该文件夹相同明明的 .py 文件，并在文件中写入相应的基本内容（导入deadline事件命名空间；GetDeadlineEventListener()函数获取MyEvent类的一个实例，没有会报错；MyEvent类将需要基于想要响应的事件实现某些回调；当不再使用该事件插件，CleanupDeadlineEventListener()函数进行自动清理。）：</p>
 <p><img src="/images/Deadline%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E7%A4%BA%E4%BE%8B/event%E5%88%9B%E5%BB%BA%E4%BA%8B%E4%BB%B6%E8%84%9A%E6%9C%AC%E6%96%87%E4%BB%B6.png" alt="event创建事件脚本文件" srcset="/images/home/Myhead.jpg" data-src="/images/Deadline%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E7%A4%BA%E4%BE%8B/event%E5%88%9B%E5%BB%BA%E4%BA%8B%E4%BB%B6%E8%84%9A%E6%9C%AC%E6%96%87%E4%BB%B6.png" class="lozad post-image"></p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> Deadline<span class="token punctuation">.</span>Events <span class="token keyword">import</span> <span class="token operator">*</span>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">from Deadline.Events import *
 
-<span class="token keyword">def</span> <span class="token function">GetDeadlineEventListener</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token triple-quoted-string string">"""This is the function that Deadline calls to get an instance of the
+def GetDeadlineEventListener():
+    &quot;&quot;&quot;This is the function that Deadline calls to get an instance of the
     main DeadlineEventListener class.
-    """</span>
-    <span class="token keyword">return</span> MyEvent<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    &quot;&quot;&quot;
+    return MyEvent()
 
-<span class="token keyword">def</span> <span class="token function">CleanupDeadlineEventListener</span><span class="token punctuation">(</span>deadlinePlugin<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token triple-quoted-string string">"""This is the function that Deadline calls when the event plugin is
+def CleanupDeadlineEventListener(deadlinePlugin):
+    &quot;&quot;&quot;This is the function that Deadline calls when the event plugin is
     no longer in use so that it can get cleaned up.
-    """</span>
-    deadlinePlugin<span class="token punctuation">.</span>Cleanup<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    &quot;&quot;&quot;
+    deadlinePlugin.Cleanup()
 
-<span class="token keyword">class</span> <span class="token class-name">MyEvent</span><span class="token punctuation">(</span>DeadlineEventListener<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token triple-quoted-string string">"""This is the main DeadlineEventListener class for MyEvent"""</span>
-    <span class="token comment"># TODO: Place code here to replace "pass"</span>
-    <span class="token keyword">pass</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+class MyEvent(DeadlineEventListener):
+    &quot;&quot;&quot;This is the main DeadlineEventListener class for MyEvent&quot;&quot;&quot;
+    # TODO: Place code here to replace &quot;pass&quot;
+    pass<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>当我们完成上述脚本文件的内容后，我们将会得到下面的脚本内容：</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment">#!/usr/bin/env python3</span>
-<span class="token comment"># -*- coding:utf-8 -*-</span>
-<span class="token comment"># @Auther: Mirror</span>
-<span class="token comment"># @Time: 2020/07/01</span>
-<span class="token comment"># =========================================</span>
-<span class="token keyword">from</span> System <span class="token keyword">import</span> <span class="token operator">*</span>
-<span class="token keyword">from</span> System<span class="token punctuation">.</span>Collections<span class="token punctuation">.</span>Specialized <span class="token keyword">import</span> <span class="token operator">*</span>
-<span class="token keyword">from</span> System<span class="token punctuation">.</span>IO <span class="token keyword">import</span> <span class="token operator">*</span>
-<span class="token keyword">from</span> System<span class="token punctuation">.</span>Text <span class="token keyword">import</span> <span class="token operator">*</span>
-<span class="token keyword">from</span> Deadline<span class="token punctuation">.</span>Scripting <span class="token keyword">import</span> <span class="token operator">*</span>
-<span class="token keyword">from</span> Deadline<span class="token punctuation">.</span>Events <span class="token keyword">import</span> <span class="token operator">*</span>
-<span class="token keyword">import</span> time
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">#!&#x2F;usr&#x2F;bin&#x2F;env python3
+# -*- coding:utf-8 -*-
+# @Auther: Mirror
+# @Time: 2020&#x2F;07&#x2F;01
+# &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+from System import *
+from System.Collections.Specialized import *
+from System.IO import *
+from System.Text import *
+from Deadline.Scripting import *
+from Deadline.Events import *
+import time
 
 
-<span class="token comment">######################################################################</span>
-<span class="token comment">## This is the function that Deadline calls to get an instance of the</span>
-<span class="token comment">## main DeadlineEventListener class.</span>
-<span class="token comment">######################################################################</span>
-<span class="token keyword">def</span> <span class="token function">GetDeadlineEventListener</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">return</span> MyEvent<span class="token punctuation">(</span><span class="token punctuation">)</span>
+######################################################################
+## This is the function that Deadline calls to get an instance of the
+## main DeadlineEventListener class.
+######################################################################
+def GetDeadlineEventListener():
+    return MyEvent()
 
 
-<span class="token comment">######################################################################</span>
-<span class="token comment">## This is the function that Deadline calls when the event plugin is</span>
-<span class="token comment">## no longer in use so that it can get cleaned up.</span>
-<span class="token comment">######################################################################</span>
-<span class="token keyword">def</span> <span class="token function">CleanupDeadlineEventListener</span><span class="token punctuation">(</span>deadlinePlugin<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    deadlinePlugin<span class="token punctuation">.</span>Cleanup<span class="token punctuation">(</span><span class="token punctuation">)</span>
+######################################################################
+## This is the function that Deadline calls when the event plugin is
+## no longer in use so that it can get cleaned up.
+######################################################################
+def CleanupDeadlineEventListener(deadlinePlugin):
+    deadlinePlugin.Cleanup()
 
 
-<span class="token comment">######################################################################</span>
-<span class="token comment">## This is the main DeadlineEventListener class for MyEvent.</span>
-<span class="token comment">######################################################################</span>
-<span class="token keyword">class</span> <span class="token class-name">MyEvent</span><span class="token punctuation">(</span>DeadlineEventListener<span class="token punctuation">)</span><span class="token punctuation">:</span>
+######################################################################
+## This is the main DeadlineEventListener class for MyEvent.
+######################################################################
+class MyEvent(DeadlineEventListener):
 
-    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token comment"># Set up the event callbacks here</span>
-        self<span class="token punctuation">.</span>OnJobFinishedCallback <span class="token operator">+=</span> self<span class="token punctuation">.</span>OnJobFinished
-        self<span class="token punctuation">.</span>OnJobFailedCallback <span class="token operator">+=</span> self<span class="token punctuation">.</span>OnJobFailed
+    def __init__(self):
+        # Set up the event callbacks here
+        self.OnJobFinishedCallback +&#x3D; self.OnJobFinished
+        self.OnJobFailedCallback +&#x3D; self.OnJobFailed
 
-    <span class="token keyword">def</span> <span class="token function">Cleanup</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">del</span> self<span class="token punctuation">.</span>OnJobFinishedCallback
-        <span class="token keyword">del</span> self<span class="token punctuation">.</span>OnJobFailedCallback
+    def Cleanup(self):
+        del self.OnJobFinishedCallback
+        del self.OnJobFailedCallback
 
-    <span class="token keyword">def</span> <span class="token function">OnJobFinished</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> job<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token comment"># TODO: Connect to pipeline site to notify it that the job for a particular</span>
-        <span class="token comment"># shot or task is complete.</span>
-        job_name <span class="token operator">=</span> job<span class="token punctuation">.</span>JobName
-        job_mach <span class="token operator">=</span> job<span class="token punctuation">.</span>GetJobInfoKeyValue<span class="token punctuation">(</span><span class="token string">"MachineName"</span><span class="token punctuation">)</span>
-        job_user <span class="token operator">=</span> job<span class="token punctuation">.</span>JobUserName
-        <span class="token keyword">if</span> job_mach<span class="token punctuation">.</span>lower<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token string">"renderfarm"</span><span class="token punctuation">:</span>
-            slaves <span class="token operator">=</span> <span class="token boolean">None</span>
-        <span class="token keyword">else</span><span class="token punctuation">:</span>
-            slaves <span class="token operator">=</span> <span class="token punctuation">[</span>job_mach<span class="token punctuation">]</span>
-        <span class="token keyword">if</span> slaves<span class="token punctuation">:</span>
-            <span class="token keyword">for</span> each <span class="token keyword">in</span> slaves<span class="token punctuation">:</span>
-                curr_time <span class="token operator">=</span> time<span class="token punctuation">.</span>strftime<span class="token punctuation">(</span><span class="token string">'%Y-%m-%d'</span><span class="token punctuation">,</span> time<span class="token punctuation">.</span>localtime<span class="token punctuation">(</span>time<span class="token punctuation">.</span>time<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-                slave <span class="token operator">=</span> each
-                massages <span class="token operator">=</span> <span class="token string">"Cur_time:  &#123;curtime&#125;\nJob_user:  &#123;user&#125;\n\nmassages:  Job named \'&#123;jobname&#125;\' had been complate"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>
-                    curtime<span class="token operator">=</span>curr_time<span class="token punctuation">,</span> user<span class="token operator">=</span>job_user<span class="token punctuation">,</span> jobname<span class="token operator">=</span>job_name<span class="token punctuation">)</span>
-                self<span class="token punctuation">.</span>sendmessages<span class="token punctuation">(</span>slave<span class="token punctuation">,</span> massages<span class="token punctuation">)</span>
-        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"================================================================================================"</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>LogInfo<span class="token punctuation">(</span><span class="token string">"\'%s\' is complated"</span> <span class="token operator">%</span> job_name<span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>LogInfo<span class="token punctuation">(</span><span class="token string">"================================================================================================"</span><span class="token punctuation">)</span>
+    def OnJobFinished(self, job):
+        # TODO: Connect to pipeline site to notify it that the job for a particular
+        # shot or task is complete.
+        job_name &#x3D; job.JobName
+        job_mach &#x3D; job.GetJobInfoKeyValue(&quot;MachineName&quot;)
+        job_user &#x3D; job.JobUserName
+        if job_mach.lower() &#x3D;&#x3D; &quot;renderfarm&quot;:
+            slaves &#x3D; None
+        else:
+            slaves &#x3D; [job_mach]
+        if slaves:
+            for each in slaves:
+                curr_time &#x3D; time.strftime(&#39;%Y-%m-%d&#39;, time.localtime(time.time()))
+                slave &#x3D; each
+                massages &#x3D; &quot;Cur_time:  &#123;curtime&#125;\nJob_user:  &#123;user&#125;\n\nmassages:  Job named \&#39;&#123;jobname&#125;\&#39; had been complate&quot;.format(
+                    curtime&#x3D;curr_time, user&#x3D;job_user, jobname&#x3D;job_name)
+                self.sendmessages(slave, massages)
+        print(&quot;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&quot;)
+        self.LogInfo(&quot;\&#39;%s\&#39; is complated&quot; % job_name)
+        self.LogInfo(&quot;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&quot;)
 
-    <span class="token keyword">def</span> <span class="token function">OnJobFailed</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> job<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
+    def OnJobFailed(self, job):
+        &quot;&quot;&quot;
         Deadline will to do sometion when job or task is faild
         :param job: which Work being monitored
         :return: None
-        """</span>
-        job_name <span class="token operator">=</span> job<span class="token punctuation">.</span>JobName
-        job_mach <span class="token operator">=</span> job<span class="token punctuation">.</span>GetJobInfoKeyValue<span class="token punctuation">(</span><span class="token string">"MachineName"</span><span class="token punctuation">)</span>
-        job_user <span class="token operator">=</span> job<span class="token punctuation">.</span>JobUserName
-        <span class="token keyword">if</span> job_mach<span class="token punctuation">.</span>lower<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token string">"renderfarm"</span><span class="token punctuation">:</span>
-            slaves <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">"DESKTOP-Mirror"</span><span class="token punctuation">]</span>
-        <span class="token keyword">else</span><span class="token punctuation">:</span>
-            <span class="token keyword">if</span> job_mach <span class="token operator">==</span> <span class="token string">"DESKTOP-Mirror"</span><span class="token punctuation">:</span>
-                slaves <span class="token operator">=</span> <span class="token punctuation">[</span>job_mach<span class="token punctuation">]</span>
-            <span class="token keyword">else</span><span class="token punctuation">:</span>
-                slaves <span class="token operator">=</span> <span class="token punctuation">[</span>job_mach<span class="token punctuation">,</span> <span class="token string">"DESKTOP-Mirror"</span><span class="token punctuation">]</span>
-        <span class="token keyword">for</span> each <span class="token keyword">in</span> slaves<span class="token punctuation">:</span>
-            curr_time <span class="token operator">=</span> time<span class="token punctuation">.</span>strftime<span class="token punctuation">(</span><span class="token string">'%Y-%m-%d'</span><span class="token punctuation">,</span> time<span class="token punctuation">.</span>localtime<span class="token punctuation">(</span>time<span class="token punctuation">.</span>time<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-            slave <span class="token operator">=</span> each
-            massages <span class="token operator">=</span> <span class="token string">"Cur_time:  &#123;curtime&#125;\nJob_user:  &#123;user&#125;\nmassages:  Job named \'&#123;jobname&#125;\' had been failed"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>
-                curtime<span class="token operator">=</span>curr_time<span class="token punctuation">,</span> user<span class="token operator">=</span>job_user<span class="token punctuation">,</span> jobname<span class="token operator">=</span>job_name<span class="token punctuation">)</span>
-            self<span class="token punctuation">.</span>sendmessages<span class="token punctuation">(</span>slave<span class="token punctuation">,</span> massages<span class="token punctuation">)</span>
-        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"================================================================================================"</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>LogInfo<span class="token punctuation">(</span><span class="token string">"\'%s\' is failed"</span> <span class="token operator">%</span> job_name<span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>LogInfo<span class="token punctuation">(</span><span class="token string">"================================================================================================"</span><span class="token punctuation">)</span>
+        &quot;&quot;&quot;
+        job_name &#x3D; job.JobName
+        job_mach &#x3D; job.GetJobInfoKeyValue(&quot;MachineName&quot;)
+        job_user &#x3D; job.JobUserName
+        if job_mach.lower() &#x3D;&#x3D; &quot;renderfarm&quot;:
+            slaves &#x3D; [&quot;DESKTOP-Mirror&quot;]
+        else:
+            if job_mach &#x3D;&#x3D; &quot;DESKTOP-Mirror&quot;:
+                slaves &#x3D; [job_mach]
+            else:
+                slaves &#x3D; [job_mach, &quot;DESKTOP-Mirror&quot;]
+        for each in slaves:
+            curr_time &#x3D; time.strftime(&#39;%Y-%m-%d&#39;, time.localtime(time.time()))
+            slave &#x3D; each
+            massages &#x3D; &quot;Cur_time:  &#123;curtime&#125;\nJob_user:  &#123;user&#125;\nmassages:  Job named \&#39;&#123;jobname&#125;\&#39; had been failed&quot;.format(
+                curtime&#x3D;curr_time, user&#x3D;job_user, jobname&#x3D;job_name)
+            self.sendmessages(slave, massages)
+        print(&quot;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&quot;)
+        self.LogInfo(&quot;\&#39;%s\&#39; is failed&quot; % job_name)
+        self.LogInfo(&quot;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&quot;)
 
-    <span class="token keyword">def</span> <span class="token function">sendmessages</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> slaves<span class="token punctuation">,</span> messages<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
+    def sendmessages(self, slaves, messages):
+        &quot;&quot;&quot;
         :param
-            slaves: machines`s machines name or IP address.
+            slaves: machines&#96;s machines name or IP address.
             messages: the messages which is send by current serve]
         :return
             cmd is executed by system
-        """</span>
-        args <span class="token operator">=</span> StringCollection<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        args<span class="token punctuation">.</span>Add<span class="token punctuation">(</span><span class="token string">"-SendPopupMessage"</span><span class="token punctuation">)</span>
-        args<span class="token punctuation">.</span>Add<span class="token punctuation">(</span><span class="token string">"%s"</span> <span class="token operator">%</span> slaves<span class="token punctuation">)</span>
-        args<span class="token punctuation">.</span>Add<span class="token punctuation">(</span><span class="token string">"%s"</span> <span class="token operator">%</span> messages<span class="token punctuation">)</span>
-        ClientUtils<span class="token punctuation">.</span>ExecuteCommand<span class="token punctuation">(</span>args<span class="token punctuation">)</span>
+        &quot;&quot;&quot;
+        args &#x3D; StringCollection()
+        args.Add(&quot;-SendPopupMessage&quot;)
+        args.Add(&quot;%s&quot; % slaves)
+        args.Add(&quot;%s&quot; % messages)
+        ClientUtils.ExecuteCommand(args)
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
@@ -842,17 +842,17 @@ Default=OnJobFailed<span aria-hidden="true" class="line-numbers-rows"><span></sp
         </div>
       </a>
     
-      <a href="/categories/Maya/arnold/">
-        <div class="categories-list-item">
-          Maya/arnold
-          <span class="categories-list-item-badge">1</span>
-        </div>
-      </a>
-    
       <a href="/categories/Qt/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
         <div class="categories-list-item">
           Qt/学习笔记
           <span class="categories-list-item-badge">3</span>
+        </div>
+      </a>
+    
+      <a href="/categories/Maya/arnold/">
+        <div class="categories-list-item">
+          Maya/arnold
+          <span class="categories-list-item-badge">1</span>
         </div>
       </a>
     

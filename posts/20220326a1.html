@@ -339,7 +339,7 @@
     
     
       <span class="dot"></span>
-      <span>500 字</span>
+      <span>568 字</span>
     
   </div>
   
@@ -379,58 +379,58 @@
 
 <h4 id="实现逻辑"><a href="#实现逻辑" class="headerlink" title="实现逻辑"></a>实现逻辑</h4><p style="text-indent:2em">要实现 QToolButton 按钮的双击事件：需要新建一个继承于 QToolButton 的子类，该类继承 QToolButton 的 click 鼠标单击事件，添加 singleClicked 和 doubleClicked 两个信号用于发送我们想要的单/双击信号，并在子类中添加一个 Qtimer 作为判断依据：将 QTimer 设置为单次触发, 并为QTimer 设定一个较短的时间，在该时间内，click信号链接到事件判断函数，如果再次点击该按钮则判断为双击事件，同时将 QTimer 停止；反之 QTimer 超时，QTimer 发送超时信号到单击事件函数，也需要将Qtimer 停止。当实例化这个子类后，点击按钮，该 click 信号即在实例内部进行判断。</p>
 
-<h4 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h4><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># !/user/bin/python37</span>
-<span class="token comment"># -*- coding: utf-8 -*-</span>
-<span class="token comment"># Author:Mirror</span>
-<span class="token comment"># Time: 2022/03/26</span>
-<span class="token comment"># ================================</span>
-<span class="token keyword">import</span> sys
-<span class="token keyword">from</span> PySide2<span class="token punctuation">.</span>QtWidgets <span class="token keyword">import</span> QApplication<span class="token punctuation">,</span> QToolButton
-<span class="token keyword">from</span> PySide2<span class="token punctuation">.</span>QtCore <span class="token keyword">import</span> Qt<span class="token punctuation">,</span> Signal<span class="token punctuation">,</span> QTimer
+<h4 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h4><pre class="line-numbers language-python" data-language="python"><code class="language-python"># !&#x2F;user&#x2F;bin&#x2F;python37
+# -*- coding: utf-8 -*-
+# Author:Mirror
+# Time: 2022&#x2F;03&#x2F;26
+# &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+import sys
+from PySide2.QtWidgets import QApplication, QToolButton
+from PySide2.QtCore import Qt, Signal, QTimer
 
-<span class="token keyword">class</span> <span class="token class-name">DccButton</span><span class="token punctuation">(</span>QToolButton<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token triple-quoted-string string">"""定义ToolButton按钮双击事件"""</span>
-    doubleClicked <span class="token operator">=</span> Signal<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment"># 双击信号</span>
-    singleClicked <span class="token operator">=</span> Signal<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment"># 单击信号</span>
-    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token builtin">super</span><span class="token punctuation">(</span>DccButton<span class="token punctuation">,</span> self<span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>setToolButtonStyle<span class="token punctuation">(</span>Qt<span class="token punctuation">.</span>ToolButtonTextUnderIcon<span class="token punctuation">)</span>  <span class="token comment"># 设置图标在字体之上</span>
-        self<span class="token punctuation">.</span>timer <span class="token operator">=</span> QTimer<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment"># 创建触发器</span>
-        self<span class="token punctuation">.</span>timer<span class="token punctuation">.</span>setSingleShot<span class="token punctuation">(</span><span class="token boolean">True</span><span class="token punctuation">)</span> <span class="token comment"># 仅单次触发</span>
-        self<span class="token punctuation">.</span>timer<span class="token punctuation">.</span>setInterval<span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span> <span class="token comment"># 触发间隔，用于判断是否为双击</span>
-        self<span class="token punctuation">.</span>timer<span class="token punctuation">.</span>timeout<span class="token punctuation">.</span>connect<span class="token punctuation">(</span>self<span class="token punctuation">.</span>singleClick<span class="token punctuation">)</span> <span class="token comment"># 超时信号连接至单击</span>
-        self<span class="token punctuation">.</span>clicked<span class="token punctuation">.</span>connect<span class="token punctuation">(</span>self<span class="token punctuation">.</span>checkDoubleClick<span class="token punctuation">)</span> <span class="token comment"># 连接至成员函数判断是否为双击</span>
+class DccButton(QToolButton):
+    &quot;&quot;&quot;定义ToolButton按钮双击事件&quot;&quot;&quot;
+    doubleClicked &#x3D; Signal()  # 双击信号
+    singleClicked &#x3D; Signal()  # 单击信号
+    def __init__(self):
+        super(DccButton, self).__init__()
+        self.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)  # 设置图标在字体之上
+        self.timer &#x3D; QTimer()  # 创建触发器
+        self.timer.setSingleShot(True) # 仅单次触发
+        self.timer.setInterval(200) # 触发间隔，用于判断是否为双击
+        self.timer.timeout.connect(self.singleClick) # 超时信号连接至单击
+        self.clicked.connect(self.checkDoubleClick) # 连接至成员函数判断是否为双击
 
-    <span class="token keyword">def</span> <span class="token function">singleClick</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
+    def singleClick(self):
+        &quot;&quot;&quot;
             发送单击信号
-        """</span>
-        self<span class="token punctuation">.</span>timer<span class="token punctuation">.</span>stop<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>setDown<span class="token punctuation">(</span><span class="token boolean">False</span><span class="token punctuation">)</span>
-        self<span class="token punctuation">.</span>singleClicked<span class="token punctuation">.</span>emit<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"单击"</span><span class="token punctuation">)</span>
+        &quot;&quot;&quot;
+        self.timer.stop()
+        self.setDown(False)
+        self.singleClicked.emit()
+        print(&quot;单击&quot;)
 
-    <span class="token keyword">def</span> <span class="token function">checkDoubleClick</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
+    def checkDoubleClick(self):
+        &quot;&quot;&quot;
             判断是否为双击信号，否则信号超时
-        """</span>
-        <span class="token keyword">if</span> <span class="token keyword">not</span> self<span class="token punctuation">.</span>isDown<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-            self<span class="token punctuation">.</span>setDown<span class="token punctuation">(</span><span class="token boolean">True</span><span class="token punctuation">)</span>
-        <span class="token keyword">if</span> self<span class="token punctuation">.</span>timer<span class="token punctuation">.</span>isActive<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-            self<span class="token punctuation">.</span>timer<span class="token punctuation">.</span>stop<span class="token punctuation">(</span><span class="token punctuation">)</span>
-            self<span class="token punctuation">.</span>setDown<span class="token punctuation">(</span><span class="token boolean">False</span><span class="token punctuation">)</span>
-            self<span class="token punctuation">.</span>doubleClicked<span class="token punctuation">.</span>emit<span class="token punctuation">(</span><span class="token punctuation">)</span>
-            <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"双击"</span><span class="token punctuation">)</span>
-            <span class="token keyword">return</span>
-        <span class="token keyword">else</span><span class="token punctuation">:</span>
-            self<span class="token punctuation">.</span>timer<span class="token punctuation">.</span>start<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        &quot;&quot;&quot;
+        if not self.isDown():
+            self.setDown(True)
+        if self.timer.isActive():
+            self.timer.stop()
+            self.setDown(False)
+            self.doubleClicked.emit()
+            print(&quot;双击&quot;)
+            return
+        else:
+            self.timer.start()
 
 
-<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">"__main__"</span><span class="token punctuation">:</span>
-    app <span class="token operator">=</span> QApplication<span class="token punctuation">(</span>sys<span class="token punctuation">.</span>argv<span class="token punctuation">)</span>
-    form <span class="token operator">=</span> DccButton<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    form<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    sys<span class="token punctuation">.</span>exit<span class="token punctuation">(</span>app<span class="token punctuation">.</span>exec_<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+if __name__ &#x3D;&#x3D; &quot;__main__&quot;:
+    app &#x3D; QApplication(sys.argv)
+    form &#x3D; DccButton()
+    form.show()
+    sys.exit(app.exec_())
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
   </div>
   <div>
@@ -755,17 +755,17 @@
         </div>
       </a>
     
-      <a href="/categories/Maya/arnold/">
-        <div class="categories-list-item">
-          Maya/arnold
-          <span class="categories-list-item-badge">1</span>
-        </div>
-      </a>
-    
       <a href="/categories/Qt/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
         <div class="categories-list-item">
           Qt/学习笔记
           <span class="categories-list-item-badge">3</span>
+        </div>
+      </a>
+    
+      <a href="/categories/Maya/arnold/">
+        <div class="categories-list-item">
+          Maya/arnold
+          <span class="categories-list-item-badge">1</span>
         </div>
       </a>
     

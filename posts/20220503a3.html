@@ -335,7 +335,7 @@
     
     
       <span class="dot"></span>
-      <span>497 字</span>
+      <span>539 字</span>
     
   </div>
   
@@ -365,26 +365,26 @@
     <p>本文记录了一些Maya中出现的一些小问题：<span id="more"></span></p>
 <ol>
 <li><p>AOV无法正常创建</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> maya<span class="token punctuation">.</span>cmds <span class="token keyword">as</span> mc
-mc<span class="token punctuation">.</span>lockNode<span class="token punctuation">(</span><span class="token string">'initialParticleSE'</span><span class="token punctuation">,</span>l<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span>lu<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span>
-mc<span class="token punctuation">.</span>lockNode<span class="token punctuation">(</span><span class="token string">'initialShadingGroup'</span><span class="token punctuation">,</span>l<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span>lu<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">import maya.cmds as mc
+mc.lockNode(&#39;initialParticleSE&#39;,l&#x3D;0,lu&#x3D;0)
+mc.lockNode(&#39;initialShadingGroup&#39;,l&#x3D;0,lu&#x3D;0)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>Maya 操作总是提示 “&#x2F;&#x2F; Error: line 1: Cannot find procedure “onModelChange3dc”. &#x2F;&#x2F;“，这可能是模型制作的时候打开了某个窗口，maya在关闭的时候会保存一份配置在maya文件里，可以从Expression Editor的By Script Node Name里看到，虽然没什么影响，但是真的很烦。解决办法：</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> pymel<span class="token punctuation">.</span>core <span class="token keyword">as</span> pm
-<span class="token comment"># 获取Maya中的所有模型编辑器并重置 editorChanged 事件</span>
-<span class="token keyword">for</span> item <span class="token keyword">in</span> pm<span class="token punctuation">.</span>lsUI<span class="token punctuation">(</span>editors<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-   <span class="token keyword">if</span> <span class="token builtin">isinstance</span><span class="token punctuation">(</span>item<span class="token punctuation">,</span> pm<span class="token punctuation">.</span>ui<span class="token punctuation">.</span>ModelEditor<span class="token punctuation">)</span><span class="token punctuation">:</span>
-       pm<span class="token punctuation">.</span>modelEditor<span class="token punctuation">(</span>item<span class="token punctuation">,</span> edit<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> editorChanged<span class="token operator">=</span><span class="token string">""</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">import pymel.core as pm
+# 获取Maya中的所有模型编辑器并重置 editorChanged 事件
+for item in pm.lsUI(editors&#x3D;True):
+   if isinstance(item, pm.ui.ModelEditor):
+       pm.modelEditor(item, edit&#x3D;True, editorChanged&#x3D;&quot;&quot;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>RenderSetting渲染面板内容空白，执行mel脚本:</p>
-<pre class="line-numbers language-mel" data-language="mel"><code class="language-mel"><span class="token function">deleteUI</span> unifiedRenderGlobalsWindow<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-mel" data-language="mel"><code class="language-mel">deleteUI unifiedRenderGlobalsWindow;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 </li>
 <li><p>关闭“cannot find procedrure ‘look’”：</p>
 <ul>
 <li><p>执行mel脚本:</p>
 <ul>
-<li>方法一：<pre class="line-numbers language-mel" data-language="mel"><code class="language-mel"><span class="token function">outlinerEditor</span> <span class="token flag operator">-edit</span> <span class="token flag operator">-selectCommand</span> <span class="token string">""</span> <span class="token string">"outlinerPanel1"</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
-<li>方法二：<pre class="line-numbers language-mel" data-language="mel"><code class="language-mel"><span class="token keyword">global</span> <span class="token keyword">proc</span> <span class="token function">look</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li>方法一：<pre class="line-numbers language-mel" data-language="mel"><code class="language-mel">outlinerEditor -edit -selectCommand &quot;&quot; &quot;outlinerPanel1&quot;;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li>方法二：<pre class="line-numbers language-mel" data-language="mel"><code class="language-mel">global proc look()&#123;&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
 </ul>
 </li>
 <li><p>执行python脚本:</p>
@@ -394,23 +394,23 @@ mc<span class="token punctuation">.</span>lockNode<span class="token punctuation
 <li><p>删除TurtleDefaultBakeLayer层：</p>
 <ul>
 <li><p>执行mel脚本</p>
- <pre class="line-numbers language-mel" data-language="mel"><code class="language-mel"><span class="token comment">//删除海龟渲染 mel脚本</span>
-<span class="token function">lockNode</span> <span class="token flag operator">-l</span> off TurtleDefaultBakeLayer<span class="token punctuation">;</span>
-<span class="token function">delete</span> TurtleDefaultBakeLayer<span class="token punctuation">;</span>
-<span class="token function">lockNode</span> <span class="token flag operator">-l</span> off TurtleRenderOptions<span class="token punctuation">;</span>
-<span class="token function">delete</span> TurtleRenderOptions<span class="token punctuation">;</span>
-<span class="token function">lockNode</span> <span class="token flag operator">-l</span> off TurtleBakeLayerManager<span class="token punctuation">;</span>
-<span class="token function">delete</span> TurtleBakeLayerManager<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+ <pre class="line-numbers language-mel" data-language="mel"><code class="language-mel">&#x2F;&#x2F;删除海龟渲染 mel脚本
+lockNode -l off TurtleDefaultBakeLayer;
+delete TurtleDefaultBakeLayer;
+lockNode -l off TurtleRenderOptions;
+delete TurtleRenderOptions;
+lockNode -l off TurtleBakeLayerManager;
+delete TurtleBakeLayerManager;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>执行python脚本</p>
- <pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">delTurtleRender</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">if</span> mc<span class="token punctuation">.</span>objExists<span class="token punctuation">(</span><span class="token string">'TurtleRenderOptions'</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-        mc<span class="token punctuation">.</span>lockNode<span class="token punctuation">(</span><span class="token string">'TurtleRenderOptions'</span><span class="token punctuation">,</span> <span class="token string">'TurtleUIOptions'</span><span class="token punctuation">,</span> <span class="token string">'TurtleBakeLayerManager'</span><span class="token punctuation">,</span> <span class="token string">'TurtleDefaultBakeLayer'</span><span class="token punctuation">,</span> lock<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span>
-        mc<span class="token punctuation">.</span>delete<span class="token punctuation">(</span><span class="token string">'TurtleRenderOptions'</span><span class="token punctuation">,</span> <span class="token string">'TurtleUIOptions'</span><span class="token punctuation">,</span> <span class="token string">'TurtleBakeLayerManager'</span><span class="token punctuation">,</span> <span class="token string">'TurtleDefaultBakeLayer'</span><span class="token punctuation">)</span>
-        <span class="token keyword">print</span> <span class="token string">u"海龟渲染节点清理完成"</span>
-    <span class="token keyword">else</span><span class="token punctuation">:</span>
-        <span class="token keyword">print</span> <span class="token string">u"场景中海龟渲染节点已清理干净"</span>
-delTurtleRender<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+ <pre class="line-numbers language-python" data-language="python"><code class="language-python">def delTurtleRender():
+    if mc.objExists(&#39;TurtleRenderOptions&#39;):
+        mc.lockNode(&#39;TurtleRenderOptions&#39;, &#39;TurtleUIOptions&#39;, &#39;TurtleBakeLayerManager&#39;, &#39;TurtleDefaultBakeLayer&#39;, lock&#x3D;0)
+        mc.delete(&#39;TurtleRenderOptions&#39;, &#39;TurtleUIOptions&#39;, &#39;TurtleBakeLayerManager&#39;, &#39;TurtleDefaultBakeLayer&#39;)
+        print u&quot;海龟渲染节点清理完成&quot;
+    else:
+        print u&quot;场景中海龟渲染节点已清理干净&quot;
+delTurtleRender()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
 </li>
 <li><p>Maya Arnold不能渲染:<br> &#x2F;&#x2F; Rendering with Arnold Renderer… &#x2F;&#x2F;<br> &#x2F;&#x2F; Result: Rendering Completed. See mayaRenderLog.txt for information. &#x2F;&#x2F;<br> 是因为Maya 的mtoa环境变量丢失，导致渲染器使用的部分文件没有调用到，因此直接结束渲染。<br> 解决办法：<br> <a target="_blank" rel="noopener" href="https://support.solidangle.com/display/AFMUG/Batch+Rendering">https://support.solidangle.com/display/AFMUG/Batch+Rendering</a> 的Batch Render Flags   提到了解决问题的办法，就是在环境变量中增加如下环境变量（对应maya版本号）：<br> MAYA_RENDER_DESC_PATH&#x3D;C:\solidangle\mtoadeploy\对应maya版本号<br> 然后，重新打开maya渲染。或者，重新安装渲染器，此办法有概率解决问题。</p>
@@ -742,17 +742,17 @@ delTurtleRender<span class="token punctuation">(</span><span class="token punctu
         </div>
       </a>
     
-      <a href="/categories/Maya/arnold/">
-        <div class="categories-list-item">
-          Maya/arnold
-          <span class="categories-list-item-badge">1</span>
-        </div>
-      </a>
-    
       <a href="/categories/Qt/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
         <div class="categories-list-item">
           Qt/学习笔记
           <span class="categories-list-item-badge">3</span>
+        </div>
+      </a>
+    
+      <a href="/categories/Maya/arnold/">
+        <div class="categories-list-item">
+          Maya/arnold
+          <span class="categories-list-item-badge">1</span>
         </div>
       </a>
     

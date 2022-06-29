@@ -339,7 +339,7 @@
     
     
       <span class="dot"></span>
-      <span>467 字</span>
+      <span>573 字</span>
     
   </div>
   
@@ -380,38 +380,38 @@
 <p style="text-indent:2em">可以使用给点创建毛囊的办法，利用uv映射的点的位置始终保持不变，但是物体的世界矩阵在变化的原理，将点世界坐标的信息传递给毛囊，毛囊会一直跟着点的，此时我们只需要约束毛囊就能达到我们想要的效果了。</p>
 
 <p>代码如下：</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># -*- coding:utf-8 -*-</span>
-<span class="token comment"># !/usr/bin/env python27</span>
-<span class="token comment"># @Author: Mirror</span>
-<span class="token comment"># @Time: 2022-03-15</span>
-<span class="token comment"># description: 该脚本用于在选中点的位置上创建定位毛囊，该毛囊通过UV点定位，所有使用后不能调整点所在的UV</span>
-<span class="token comment"># =========================================</span>
-<span class="token keyword">import</span> maya<span class="token punctuation">.</span>cmds <span class="token keyword">as</span> mc
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"># -*- coding:utf-8 -*-
+# !&#x2F;usr&#x2F;bin&#x2F;env python27
+# @Author: Mirror
+# @Time: 2022-03-15
+# description: 该脚本用于在选中点的位置上创建定位毛囊，该毛囊通过UV点定位，所有使用后不能调整点所在的UV
+# &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+import maya.cmds as mc
 
-<span class="token keyword">def</span> <span class="token function">buildFollicle</span><span class="token punctuation">(</span>points<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">if</span> <span class="token keyword">not</span> points<span class="token punctuation">:</span>
-        <span class="token keyword">return</span>
-    <span class="token keyword">if</span> <span class="token builtin">type</span><span class="token punctuation">(</span>points<span class="token punctuation">)</span><span class="token punctuation">.</span>__name__ <span class="token operator">==</span> <span class="token string">"str"</span><span class="token punctuation">:</span>
-        points <span class="token operator">=</span> <span class="token punctuation">[</span>points<span class="token punctuation">]</span>
-    <span class="token keyword">for</span> point <span class="token keyword">in</span> points<span class="token punctuation">:</span>
-        poly_transform <span class="token operator">=</span> mc<span class="token punctuation">.</span>listRelatives<span class="token punctuation">(</span>mc<span class="token punctuation">.</span>listRelatives<span class="token punctuation">(</span>point<span class="token punctuation">,</span> p<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> s<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> p<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> s<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
-        point_uvVertex <span class="token operator">=</span> mc<span class="token punctuation">.</span>polyListComponentConversion<span class="token punctuation">(</span>point<span class="token punctuation">,</span> fv<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> tuv<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
-        point_uvposition <span class="token operator">=</span> mc<span class="token punctuation">.</span>polyEditUV<span class="token punctuation">(</span>point_uvVertex<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> q<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span>
+def buildFollicle(points):
+    if not points:
+        return
+    if type(points).__name__ &#x3D;&#x3D; &quot;str&quot;:
+        points &#x3D; [points]
+    for point in points:
+        poly_transform &#x3D; mc.listRelatives(mc.listRelatives(point, p&#x3D;True, s&#x3D;True)[0], p&#x3D;True, s&#x3D;True)[0]
+        point_uvVertex &#x3D; mc.polyListComponentConversion(point, fv&#x3D;True, tuv&#x3D;True)
+        point_uvposition &#x3D; mc.polyEditUV(point_uvVertex[0], q&#x3D;1)
 
-        follicle <span class="token operator">=</span> mc<span class="token punctuation">.</span>createNode<span class="token punctuation">(</span><span class="token string">"follicle"</span><span class="token punctuation">,</span> n<span class="token operator">=</span><span class="token string">"follicle_%s"</span> <span class="token operator">%</span> point<span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token string">"["</span><span class="token punctuation">,</span> <span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token string">"]"</span><span class="token punctuation">,</span> <span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token string">"."</span><span class="token punctuation">,</span> <span class="token string">"_"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-        follicle_transform <span class="token operator">=</span> mc<span class="token punctuation">.</span>listRelatives<span class="token punctuation">(</span>follicle<span class="token punctuation">,</span> p<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+        follicle &#x3D; mc.createNode(&quot;follicle&quot;, n&#x3D;&quot;follicle_%s&quot; % point.replace(&quot;[&quot;, &quot;&quot;).replace(&quot;]&quot;, &quot;&quot;).replace(&quot;.&quot;, &quot;_&quot;))
+        follicle_transform &#x3D; mc.listRelatives(follicle, p&#x3D;True)[0]
 
-        mc<span class="token punctuation">.</span>connectAttr<span class="token punctuation">(</span>poly_transform <span class="token operator">+</span> <span class="token string">".worldMatrix[0]"</span><span class="token punctuation">,</span> follicle <span class="token operator">+</span> <span class="token string">".inputWorldMatrix"</span><span class="token punctuation">)</span>
-        mc<span class="token punctuation">.</span>connectAttr<span class="token punctuation">(</span>poly_transform <span class="token operator">+</span> <span class="token string">".outMesh"</span><span class="token punctuation">,</span> follicle <span class="token operator">+</span> <span class="token string">".inputMesh"</span><span class="token punctuation">)</span>
-        mc<span class="token punctuation">.</span>connectAttr<span class="token punctuation">(</span>follicle <span class="token operator">+</span> <span class="token string">".outTranslate"</span><span class="token punctuation">,</span> follicle_transform <span class="token operator">+</span> <span class="token string">".translate"</span><span class="token punctuation">)</span>
-        mc<span class="token punctuation">.</span>connectAttr<span class="token punctuation">(</span>follicle <span class="token operator">+</span> <span class="token string">".outRotate"</span><span class="token punctuation">,</span> follicle_transform <span class="token operator">+</span> <span class="token string">".rotate"</span><span class="token punctuation">)</span>
-        mc<span class="token punctuation">.</span>setAttr<span class="token punctuation">(</span>follicle_transform <span class="token operator">+</span> <span class="token string">".parameterU"</span><span class="token punctuation">,</span> point_uvposition<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-        mc<span class="token punctuation">.</span>setAttr<span class="token punctuation">(</span>follicle_transform <span class="token operator">+</span> <span class="token string">".parameterV"</span><span class="token punctuation">,</span> point_uvposition<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+        mc.connectAttr(poly_transform + &quot;.worldMatrix[0]&quot;, follicle + &quot;.inputWorldMatrix&quot;)
+        mc.connectAttr(poly_transform + &quot;.outMesh&quot;, follicle + &quot;.inputMesh&quot;)
+        mc.connectAttr(follicle + &quot;.outTranslate&quot;, follicle_transform + &quot;.translate&quot;)
+        mc.connectAttr(follicle + &quot;.outRotate&quot;, follicle_transform + &quot;.rotate&quot;)
+        mc.setAttr(follicle_transform + &quot;.parameterU&quot;, point_uvposition[0])
+        mc.setAttr(follicle_transform + &quot;.parameterV&quot;, point_uvposition[1])
 
 
-<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">"__main__"</span><span class="token punctuation">:</span>
-    vertexs <span class="token operator">=</span> mc<span class="token punctuation">.</span>ls<span class="token punctuation">(</span>sl<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span>fl<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
-    buildFollicle<span class="token punctuation">(</span>vertexs<span class="token punctuation">)</span>
+if __name__ &#x3D;&#x3D; &quot;__main__&quot;:
+    vertexs &#x3D; mc.ls(sl&#x3D;True,fl&#x3D;True)
+    buildFollicle(vertexs)
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>注意：在添加了定位的毛囊之后，不能修改UV，否则毛囊会回到原点，约束失效，需要重新创建毛囊和约束。</p>
@@ -740,17 +740,17 @@
         </div>
       </a>
     
-      <a href="/categories/Maya/arnold/">
-        <div class="categories-list-item">
-          Maya/arnold
-          <span class="categories-list-item-badge">1</span>
-        </div>
-      </a>
-    
       <a href="/categories/Qt/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
         <div class="categories-list-item">
           Qt/学习笔记
           <span class="categories-list-item-badge">3</span>
+        </div>
+      </a>
+    
+      <a href="/categories/Maya/arnold/">
+        <div class="categories-list-item">
+          Maya/arnold
+          <span class="categories-list-item-badge">1</span>
         </div>
       </a>
     

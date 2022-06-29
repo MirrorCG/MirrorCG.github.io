@@ -436,23 +436,23 @@
 
 <p style="text-indent:2em">文本打开博客文件夹根目录下的"_config.yml"文件，在文件尾部添加在文件尾部添加：</p>
 
-<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown"><span class="token title important"><span class="token punctuation">##</span> 添加储存库配置</span>
+<pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">## 添加储存库配置
 deploy:
   type: git
   repo: (你的储存库地址)
   branch: master 
-<span class="token title important"><span class="token punctuation">##</span> 注意：冒号后面有空格</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+## 注意：冒号后面有空格<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p style="text-indent:2em">要将博客部署到github上，需要先配置git全局用户名和邮箱：</p>
 
-<pre class="line-numbers language-git" data-language="git"><code class="language-git">git config --global user.email <span class="token string">"github中的邮箱地址"</span>
-git config --global user.name <span class="token string">"github中的用户名"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-git" data-language="git"><code class="language-git">git config --global user.email &quot;github中的邮箱地址&quot;
+git config --global user.name &quot;github中的用户名&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p style="text-indent:2em">从22021年8月14日(七夕)那天开始，推送代码到GitHub需要使用token登录而不是密码，因此，我们需要先<a href="https://docs.github.com/cn/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token" title="" target="">获取token</a>。</p>
 
 <p style="text-indent:2em">使用git生成SSH，运行 git Bash 客户端，检测是否存在ssh文件,换句话说就是检查是否存在 id_rsa.pub 或 id_dsa.pub 文件,如果存在可以跳过下面两步，输入如下代码：</p>
 
-<pre class="line-numbers language-git" data-language="git"><code class="language-git">cd ~/.ssh
+<pre class="line-numbers language-git" data-language="git"><code class="language-git">cd ~&#x2F;.ssh
 ls<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p style="text-indent:2em">创建SSH：</p>
@@ -472,7 +472,7 @@ The key fingerprint is:............."内容时，表示创建成功。在C盘Use
 
 <h4 id="更换主题"><a href="#更换主题" class="headerlink" title="更换主题"></a>更换主题</h4><p style="text-indent:2em">可以 <a href="https://hexo.io/themes/" title="" target="">点击这里</a> 获取更多主题仓库地址，克隆主题到本地：</p>
 
-<pre class="line-numbers language-git" data-language="git"><code class="language-git">git clone https://github.com/litten/hexo-theme-yilia.git themes/主题名称<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-git" data-language="git"><code class="language-git">git clone https:&#x2F;&#x2F;github.com&#x2F;litten&#x2F;hexo-theme-yilia.git themes&#x2F;主题名称<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p style="text-indent:2em">修改博客根目录_config.yml文件，修改theme字段后的内容为 “主题名称”。</p>
 
@@ -818,17 +818,17 @@ The key fingerprint is:............."内容时，表示创建成功。在C盘Use
         </div>
       </a>
     
-      <a href="/categories/Maya/arnold/">
-        <div class="categories-list-item">
-          Maya/arnold
-          <span class="categories-list-item-badge">1</span>
-        </div>
-      </a>
-    
       <a href="/categories/Qt/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
         <div class="categories-list-item">
           Qt/学习笔记
           <span class="categories-list-item-badge">3</span>
+        </div>
+      </a>
+    
+      <a href="/categories/Maya/arnold/">
+        <div class="categories-list-item">
+          Maya/arnold
+          <span class="categories-list-item-badge">1</span>
         </div>
       </a>
     

@@ -349,14 +349,14 @@
   </url>
   
   <url>
-    <loc>http://mirrorcg.github.io/tags/OpenMaya/</loc>
+    <loc>http://mirrorcg.github.io/tags/%E9%94%A6%E5%9B%8A%E5%B0%8F%E5%A6%99%E6%8B%9B/</loc>
     <lastmod>2022-06-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://mirrorcg.github.io/tags/%E9%94%A6%E5%9B%8A%E5%B0%8F%E5%A6%99%E6%8B%9B/</loc>
+    <loc>http://mirrorcg.github.io/tags/OpenMaya/</loc>
     <lastmod>2022-06-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -519,14 +519,14 @@
   </url>
   
   <url>
-    <loc>http://mirrorcg.github.io/categories/Maya/arnold/</loc>
+    <loc>http://mirrorcg.github.io/categories/Qt/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2022-06-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://mirrorcg.github.io/categories/Qt/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
+    <loc>http://mirrorcg.github.io/categories/Maya/arnold/</loc>
     <lastmod>2022-06-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
