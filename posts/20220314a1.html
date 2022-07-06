@@ -49,7 +49,7 @@
         content="2022-03-14">
       <meta 
         property="og:article:modified_time" 
-        content="2022-03-26">
+        content="2022-06-30">
       <meta 
         property="og:article:author" 
         content="Mirror">
@@ -406,7 +406,7 @@ rez-build --install</code></pre>
 <pre class="language-cmd" data-language="cmd"><code class="language-cmd">rez-context</code></pre>
 
 
-<h4 id="在共享路径下搜索插件包"><a href="#在共享路径下搜索插件包" class="headerlink" title="在共享路径下搜索插件包"></a>在共享路径下搜索插件包</h4><p>首先，需要为系统设置配置文件的用户环境变量 REZ_CONFIG_FILE 指向 rezconfig.py文件；为系统用户的环境变量中添加环境变量 REZ_CONFIG_FILE ，并且值为”S:\opt\rez\Lib\site-packages\rez\rezconfig.py”(本文将 rez安装在S盘，对应安装的根目录即可)，然后添加插件包的存放路径即可，若不添加环境变量，则默认从安装路径获取配置文件信息。<br>下面是配置文件中，获取共享路径中的插件路径：</p>
+<h4 id="在共享路径下搜索插件包"><a href="#在共享路径下搜索插件包" class="headerlink" title="在共享路径下搜索插件包"></a>在共享路径下搜索插件包</h4><p>首先，需要为系统设置配置文件的用户环境变量 REZ_CONFIG_FILE 指向 rezconfig.py文件；为系统用户的环境变量中添加环境变量 REZ_CONFIG_FILE ，并且值为”S:\opt\rez\Lib\site-packages\rez\rezconfig.py”(本文将 rez安装在S盘，对应安装的根目录即可)，然后添加插件包的存放路径即可，若不添加环境变量，则默认从安装路径获取配置文件信息。<br>下面是配置文件中，通过修改packages_path变量修改获取共享路径中的插件路径：</p>
 <pre class="language-python" data-language="python"><code class="language-python"># The package search path. Rez uses this to find packages. A package with the
 # same name and version in an earlier path takes precedence.
 packages_path &#x3D; [
@@ -542,7 +542,7 @@ packages_path &#x3D; [
   <a 
     class="author-posts-count" 
     href="/archives">
-    <span>24</span>
+    <span>25</span>
     <span>文章</span>
   </a>
   <a 
@@ -681,14 +681,7 @@ packages_path &#x3D; [
       <a href="/categories/Doc/">
         <div class="categories-list-item">
           Doc
-          <span class="categories-list-item-badge">7</span>
-        </div>
-      </a>
-    
-      <a href="/categories/Maya/">
-        <div class="categories-list-item">
-          Maya
-          <span class="categories-list-item-badge">11</span>
+          <span class="categories-list-item-badge">9</span>
         </div>
       </a>
     
@@ -702,21 +695,14 @@ packages_path &#x3D; [
       <a href="/categories/Doc/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
         <div class="categories-list-item">
           Doc/学习笔记
-          <span class="categories-list-item-badge">4</span>
+          <span class="categories-list-item-badge">6</span>
         </div>
       </a>
     
-      <a href="/categories/Maya/%E6%9D%82%E9%A1%B9/">
+      <a href="/categories/Maya/">
         <div class="categories-list-item">
-          Maya/杂项
-          <span class="categories-list-item-badge">7</span>
-        </div>
-      </a>
-    
-      <a href="/categories/Maya/%E5%B0%8F%E5%B7%A5%E5%85%B7/">
-        <div class="categories-list-item">
-          Maya/小工具
-          <span class="categories-list-item-badge">3</span>
+          Maya
+          <span class="categories-list-item-badge">10</span>
         </div>
       </a>
     
@@ -734,6 +720,13 @@ packages_path &#x3D; [
         </div>
       </a>
     
+      <a href="/categories/Maya/%E6%9D%82%E9%A1%B9/">
+        <div class="categories-list-item">
+          Maya/杂项
+          <span class="categories-list-item-badge">6</span>
+        </div>
+      </a>
+    
       <a href="/categories/Rez/">
         <div class="categories-list-item">
           Rez
@@ -745,6 +738,13 @@ packages_path &#x3D; [
         <div class="categories-list-item">
           Maya/arnold
           <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/categories/Maya/%E5%B0%8F%E5%B7%A5%E5%85%B7/">
+        <div class="categories-list-item">
+          Maya/小工具
+          <span class="categories-list-item-badge">3</span>
         </div>
       </a>
     
@@ -770,15 +770,15 @@ packages_path &#x3D; [
   <div class="tags-list">
     
       <a 
-        href="/tags/%E7%81%AF%E5%85%89/" 
-        title="灯光">
-        <div class="tags-list-item">灯光</div>
-      </a>
-    
-      <a 
         href="/tags/Pipeline/" 
         title="Pipeline">
         <div class="tags-list-item">Pipeline</div>
+      </a>
+    
+      <a 
+        href="/tags/%E7%81%AF%E5%85%89/" 
+        title="灯光">
+        <div class="tags-list-item">灯光</div>
       </a>
     
       <a 
@@ -818,15 +818,21 @@ packages_path &#x3D; [
       </a>
     
       <a 
-        href="/tags/USD/" 
-        title="USD">
-        <div class="tags-list-item">USD</div>
+        href="/tags/ACES/" 
+        title="ACES">
+        <div class="tags-list-item">ACES</div>
       </a>
     
       <a 
-        href="/tags/UV/" 
-        title="UV">
-        <div class="tags-list-item">UV</div>
+        href="/tags/%E7%81%AF%E5%85%89%E5%90%88%E6%88%90/" 
+        title="灯光合成">
+        <div class="tags-list-item">灯光合成</div>
+      </a>
+    
+      <a 
+        href="/tags/USD/" 
+        title="USD">
+        <div class="tags-list-item">USD</div>
       </a>
     
       <a 
@@ -836,15 +842,15 @@ packages_path &#x3D; [
       </a>
     
       <a 
-        href="/tags/Markdown/" 
-        title="Markdown">
-        <div class="tags-list-item">Markdown</div>
+        href="/tags/UV/" 
+        title="UV">
+        <div class="tags-list-item">UV</div>
       </a>
     
       <a 
-        href="/tags/%E7%BD%91%E7%AB%99%E6%8E%A8%E8%8D%90/" 
-        title="网站推荐">
-        <div class="tags-list-item">网站推荐</div>
+        href="/tags/Markdown/" 
+        title="Markdown">
+        <div class="tags-list-item">Markdown</div>
       </a>
     
       <a 
@@ -857,12 +863,6 @@ packages_path &#x3D; [
         href="/tags/Aitoon/" 
         title="Aitoon">
         <div class="tags-list-item">Aitoon</div>
-      </a>
-    
-      <a 
-        href="/tags/%E6%8E%92%E9%94%99%E8%AE%B0%E5%BD%95/" 
-        title="排错记录">
-        <div class="tags-list-item">排错记录</div>
       </a>
     
   </div>
@@ -898,6 +898,11 @@ packages_path &#x3D; [
   <div class="recent-posts-list">
     
       <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-07-06</div>
+        <a href="/posts/20220706a1.html"><div class="recent-posts-item-content">CG流程中的ACES概念解释</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
         <div class="recent-posts-item-title">2022-05-21</div>
         <a href="/posts/20220521a1.html"><div class="recent-posts-item-content">Maya中常用的部分环境变量</div></a>
       </div>
@@ -910,11 +915,6 @@ packages_path &#x3D; [
       <div class="recent-posts-item">
         <div class="recent-posts-item-title">2022-05-05</div>
         <a href="/posts/20220505a1.html"><div class="recent-posts-item-content">Deadline如何使用PythonAPI</div></a>
-      </div>
-    
-      <div class="recent-posts-item">
-        <div class="recent-posts-item-title">2022-05-03</div>
-        <a href="/posts/20220503a6.html"><div class="recent-posts-item-content">Maya中材质文件和缓存文件相结合进行渲染的几种方式</div></a>
       </div>
     
   </div>

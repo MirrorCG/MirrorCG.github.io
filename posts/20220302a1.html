@@ -57,11 +57,7 @@
         
           <meta 
             property="og:article:tag" 
-            content="灯光">
-        
-          <meta 
-            property="og:article:tag" 
-            content="合成">
+            content="灯光合成">
         
           <meta 
             property="og:article:tag" 
@@ -329,15 +325,15 @@
       <span class="dot"></span>
       
         <a 
-          href="/categories/Maya/" 
+          href="/categories/Doc/" 
           class="post-meta-link">
-          Maya
+          Doc
         </a>
       
         <a 
-          href="/categories/Maya/%E6%9D%82%E9%A1%B9/" 
+          href="/categories/Doc/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" 
           class="post-meta-link">
-          杂项
+          学习笔记
         </a>
       
     
@@ -358,18 +354,9 @@
         
           
           <a 
-            href="/tags/%E7%81%AF%E5%85%89/" 
+            href="/tags/%E7%81%AF%E5%85%89%E5%90%88%E6%88%90/" 
             class="post-meta-link">
-            灯光
-          </a>
-        
-          
-            <span class="dot"></span>
-          
-          <a 
-            href="/tags/%E5%90%88%E6%88%90/" 
-            class="post-meta-link">
-            合成
+            灯光合成
           </a>
         
           
@@ -390,9 +377,9 @@
     class="post-content">
     <p>构建CG流程中的ACES色彩管理流程 <span id="more"></span>,为什么要构建呢？因为：1.色域更高，能容纳更多的色彩，显示的色彩更丰富；2.能接受更高的灯光强度，画面比较不会过曝（不要调皮地将灯光强度调的特别高哦）;3.更物理更真实，颜色会随着亮度地提升，饱和度逐渐降低。相对的就会有些缺点：图片占用存储空间会变大(对影视动画没什么影响)。</p>
 <p>在CG流程中的大概过程就是，sRGB图片进入DCC软件被AECScg线性转换函数转换编码到ACES色域中被管理&gt;渲染器处理贴图信息后生成ACES色域图片&gt;经过编码转换到视图中显示或输出为指定色域的图片用于存储(srgb或ACES)、进一步编辑（ACES）</p>
-<h4 id="测试环境"><a href="#测试环境" class="headerlink" title="测试环境"></a>测试环境</h4><pre><code>Substance painter 7.1 + Maya 2020.4 + Nukel2.3 + ACES1.1
+<h4 id="测试环境"><a href="#测试环境" class="headerlink" title="测试环境"></a>测试环境</h4><pre><code>Substance painter 7.1 + Doc 2020.4 + Nukel2.3 + ACES1.1
 </code></pre>
-<h4 id="SP软件配置"><a href="#SP软件配置" class="headerlink" title="SP软件配置"></a>SP软件配置</h4><p style="text-indent:2em">由于SP要在7.4版本以后才支持 OCIO 配置文件，并且目前大部分资产贴图都采用sRGB色域编码，因此默认使用传统 SP(sRGB)到 MAYA(ACES) 中进行 sRGB 色域空间转换到 ACES 色域空间的方式。传统SP流程可以通过LMT(外观转换)的LUT(查找表)文件用于显示（只是看起来和AECES差不多，但实除上还是SRGB色域的图片）具体方法是：file > import resource > 添加资源 > 选择Lut文件 > 修改定义为 colorLut > 导入到"工具架" > 导入，然后在显示设置中将 activate post effects恢复默认,勾选activate post effects，勾选activate post effects > tone mapping(色调映射),将 activate post effects > tone mapping > function(功能)设置为log(日志)，并勾选activate color porfile > porfile 修改为 ACES_Standard_log,white_Point 设置为默认值，此时我们从SP软件的视口中看见的色彩在视觉上基本等同ACES色域图显示的效果。</p>
+<h4 id="SP软件配置"><a href="#SP软件配置" class="headerlink" title="SP软件配置"></a>SP软件配置</h4><p style="text-indent:2em">由于SP要在7.4版本以后才支持 OCIO 配置文件，并且目前大部分资产贴图都采用sRGB色域编码，因此默认使用传统 SP(sRGB)到 MAYA(ACES) 中进行 sRGB 色域空间转换到 ACES 色域空间的方式。传统SP流程可以通过LMT(外观转换)的LUT(查找表)文件用于显示（只是看起来和AECES差不多，但实际上还是SRGB色域的图片）具体方法是：file > import resource > 添加资源 > 选择Lut文件 > 修改定义为 colorLut > 导入到"工具架" > 导入，然后在显示设置中将 activate post effects恢复默认,勾选activate post effects，勾选activate post effects > tone mapping(色调映射),将 activate post effects > tone mapping > function(功能)设置为log(日志)，并勾选activate color porfile > porfile 修改为 ACES_Standard_log,white_Point 设置为默认值，此时我们从SP软件的视口中看见的色彩在视觉上基本等同ACES色域图显示的效果。</p>
 
 <h4 id="May启动时配置-ACES-色彩管理"><a href="#May启动时配置-ACES-色彩管理" class="headerlink" title="May启动时配置 ACES 色彩管理"></a>May启动时配置 ACES 色彩管理</h4><p style="text-indent:2em">Maya中使用 ACES 色彩管理空间，在具备有效的 config.ocio 配置文件的情况下，为 Maya 设置环境变量"OCIO = 文件全路径",此时Maya中的色彩管理空间将使用 OCIO 配置文样中的设置，该设置会在基于ACES 色彩管理的基础上自动修改渲染预览界面和视图界面的色彩空间，我们在显示器中看到的色彩信息并非线性空间的色彩信息，Maya后台输出的图片也是经 ACES 色彩空间编码后的图片，此时将渲染图片放入使用相同 ACES 配置文件的 Nuke 软件中，即可直接对 ACES 图片进行线性数据的操作。</p>
 
@@ -548,7 +535,7 @@
   <a 
     class="author-posts-count" 
     href="/archives">
-    <span>24</span>
+    <span>25</span>
     <span>文章</span>
   </a>
   <a 
@@ -687,14 +674,7 @@
       <a href="/categories/Doc/">
         <div class="categories-list-item">
           Doc
-          <span class="categories-list-item-badge">7</span>
-        </div>
-      </a>
-    
-      <a href="/categories/Maya/">
-        <div class="categories-list-item">
-          Maya
-          <span class="categories-list-item-badge">11</span>
+          <span class="categories-list-item-badge">9</span>
         </div>
       </a>
     
@@ -708,21 +688,14 @@
       <a href="/categories/Doc/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
         <div class="categories-list-item">
           Doc/学习笔记
-          <span class="categories-list-item-badge">4</span>
+          <span class="categories-list-item-badge">6</span>
         </div>
       </a>
     
-      <a href="/categories/Maya/%E6%9D%82%E9%A1%B9/">
+      <a href="/categories/Maya/">
         <div class="categories-list-item">
-          Maya/杂项
-          <span class="categories-list-item-badge">7</span>
-        </div>
-      </a>
-    
-      <a href="/categories/Maya/%E5%B0%8F%E5%B7%A5%E5%85%B7/">
-        <div class="categories-list-item">
-          Maya/小工具
-          <span class="categories-list-item-badge">3</span>
+          Maya
+          <span class="categories-list-item-badge">10</span>
         </div>
       </a>
     
@@ -740,6 +713,13 @@
         </div>
       </a>
     
+      <a href="/categories/Maya/%E6%9D%82%E9%A1%B9/">
+        <div class="categories-list-item">
+          Maya/杂项
+          <span class="categories-list-item-badge">6</span>
+        </div>
+      </a>
+    
       <a href="/categories/Rez/">
         <div class="categories-list-item">
           Rez
@@ -751,6 +731,13 @@
         <div class="categories-list-item">
           Maya/arnold
           <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/categories/Maya/%E5%B0%8F%E5%B7%A5%E5%85%B7/">
+        <div class="categories-list-item">
+          Maya/小工具
+          <span class="categories-list-item-badge">3</span>
         </div>
       </a>
     
@@ -776,15 +763,15 @@
   <div class="tags-list">
     
       <a 
-        href="/tags/%E7%81%AF%E5%85%89/" 
-        title="灯光">
-        <div class="tags-list-item">灯光</div>
-      </a>
-    
-      <a 
         href="/tags/Pipeline/" 
         title="Pipeline">
         <div class="tags-list-item">Pipeline</div>
+      </a>
+    
+      <a 
+        href="/tags/%E7%81%AF%E5%85%89/" 
+        title="灯光">
+        <div class="tags-list-item">灯光</div>
       </a>
     
       <a 
@@ -824,15 +811,21 @@
       </a>
     
       <a 
-        href="/tags/USD/" 
-        title="USD">
-        <div class="tags-list-item">USD</div>
+        href="/tags/ACES/" 
+        title="ACES">
+        <div class="tags-list-item">ACES</div>
       </a>
     
       <a 
-        href="/tags/UV/" 
-        title="UV">
-        <div class="tags-list-item">UV</div>
+        href="/tags/%E7%81%AF%E5%85%89%E5%90%88%E6%88%90/" 
+        title="灯光合成">
+        <div class="tags-list-item">灯光合成</div>
+      </a>
+    
+      <a 
+        href="/tags/USD/" 
+        title="USD">
+        <div class="tags-list-item">USD</div>
       </a>
     
       <a 
@@ -842,15 +835,15 @@
       </a>
     
       <a 
-        href="/tags/Markdown/" 
-        title="Markdown">
-        <div class="tags-list-item">Markdown</div>
+        href="/tags/UV/" 
+        title="UV">
+        <div class="tags-list-item">UV</div>
       </a>
     
       <a 
-        href="/tags/%E7%BD%91%E7%AB%99%E6%8E%A8%E8%8D%90/" 
-        title="网站推荐">
-        <div class="tags-list-item">网站推荐</div>
+        href="/tags/Markdown/" 
+        title="Markdown">
+        <div class="tags-list-item">Markdown</div>
       </a>
     
       <a 
@@ -863,12 +856,6 @@
         href="/tags/Aitoon/" 
         title="Aitoon">
         <div class="tags-list-item">Aitoon</div>
-      </a>
-    
-      <a 
-        href="/tags/%E6%8E%92%E9%94%99%E8%AE%B0%E5%BD%95/" 
-        title="排错记录">
-        <div class="tags-list-item">排错记录</div>
       </a>
     
   </div>
@@ -904,6 +891,11 @@
   <div class="recent-posts-list">
     
       <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-07-06</div>
+        <a href="/posts/20220706a1.html"><div class="recent-posts-item-content">CG流程中的ACES概念解释</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
         <div class="recent-posts-item-title">2022-05-21</div>
         <a href="/posts/20220521a1.html"><div class="recent-posts-item-content">Maya中常用的部分环境变量</div></a>
       </div>
@@ -916,11 +908,6 @@
       <div class="recent-posts-item">
         <div class="recent-posts-item-title">2022-05-05</div>
         <a href="/posts/20220505a1.html"><div class="recent-posts-item-content">Deadline如何使用PythonAPI</div></a>
-      </div>
-    
-      <div class="recent-posts-item">
-        <div class="recent-posts-item-title">2022-05-03</div>
-        <a href="/posts/20220503a6.html"><div class="recent-posts-item-content">Maya中材质文件和缓存文件相结合进行渲染的几种方式</div></a>
       </div>
     
   </div>
