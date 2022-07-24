@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://mirrorcg.github.io/posts/20220521a1.html</loc>
+    
+    <lastmod>2022-07-25</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://mirrorcg.github.io/posts/20220721a1.html</loc>
     
     <lastmod>2022-07-21</lastmod>
@@ -65,15 +74,6 @@
   </url>
   
   <url>
-    <loc>http://mirrorcg.github.io/posts/20220521a1.html</loc>
-    
-    <lastmod>2022-05-21</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://mirrorcg.github.io/posts/20220510a1.html</loc>
     
     <lastmod>2022-05-10</lastmod>
@@ -110,7 +110,7 @@
   </url>
   
   <url>
-    <loc>http://mirrorcg.github.io/posts/20220503a4.html</loc>
+    <loc>http://mirrorcg.github.io/posts/20220503a3.html</loc>
     
     <lastmod>2022-05-03</lastmod>
     
@@ -119,7 +119,7 @@
   </url>
   
   <url>
-    <loc>http://mirrorcg.github.io/posts/20220503a3.html</loc>
+    <loc>http://mirrorcg.github.io/posts/20220503a4.html</loc>
     
     <lastmod>2022-05-03</lastmod>
     
@@ -283,190 +283,190 @@
 
   <url>
     <loc>http://mirrorcg.github.io/</loc>
-    <lastmod>2022-07-21</lastmod>
+    <lastmod>2022-07-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
   
   <url>
-    <loc>http://mirrorcg.github.io/tags/USD/</loc>
-    <lastmod>2022-07-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://mirrorcg.github.io/tags/Pipeline/</loc>
-    <lastmod>2022-07-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>http://mirrorcg.github.io/tags/%E7%81%AF%E5%85%89%E5%90%88%E6%88%90/</loc>
-    <lastmod>2022-07-21</lastmod>
+    <lastmod>2022-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://mirrorcg.github.io/tags/ACES/</loc>
-    <lastmod>2022-07-21</lastmod>
+    <lastmod>2022-07-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://mirrorcg.github.io/tags/USD/</loc>
+    <lastmod>2022-07-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://mirrorcg.github.io/tags/Pipeline/</loc>
+    <lastmod>2022-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://mirrorcg.github.io/tags/%E6%8F%92%E4%BB%B6/</loc>
-    <lastmod>2022-07-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://mirrorcg.github.io/tags/%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/</loc>
-    <lastmod>2022-07-21</lastmod>
+    <lastmod>2022-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://mirrorcg.github.io/tags/Blog/</loc>
-    <lastmod>2022-07-21</lastmod>
+    <lastmod>2022-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://mirrorcg.github.io/tags/Hexo/</loc>
-    <lastmod>2022-07-21</lastmod>
+    <lastmod>2022-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://mirrorcg.github.io/tags/%E6%A3%80%E6%9F%A5/</loc>
-    <lastmod>2022-07-21</lastmod>
+    <loc>http://mirrorcg.github.io/tags/%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/</loc>
+    <lastmod>2022-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://mirrorcg.github.io/tags/%E7%81%AF%E5%85%89/</loc>
-    <lastmod>2022-07-21</lastmod>
+    <lastmod>2022-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://mirrorcg.github.io/tags/%E5%90%91%E9%87%8F%E8%AE%A1%E7%AE%97/</loc>
-    <lastmod>2022-07-21</lastmod>
+    <loc>http://mirrorcg.github.io/tags/%E6%A3%80%E6%9F%A5/</loc>
+    <lastmod>2022-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://mirrorcg.github.io/tags/OpenMaya/</loc>
-    <lastmod>2022-07-21</lastmod>
+    <lastmod>2022-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://mirrorcg.github.io/tags/%E9%94%A6%E5%9B%8A%E5%B0%8F%E5%A6%99%E6%8B%9B/</loc>
-    <lastmod>2022-07-21</lastmod>
+    <lastmod>2022-07-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://mirrorcg.github.io/tags/%E5%90%91%E9%87%8F%E8%AE%A1%E7%AE%97/</loc>
+    <lastmod>2022-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://mirrorcg.github.io/tags/QT%E4%BA%8B%E4%BB%B6/</loc>
-    <lastmod>2022-07-21</lastmod>
+    <lastmod>2022-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://mirrorcg.github.io/tags/%E4%BF%A1%E5%8F%B7-%E6%A7%BD/</loc>
-    <lastmod>2022-07-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://mirrorcg.github.io/tags/%E5%BC%82%E5%BD%A2%E7%AA%97%E5%8F%A3/</loc>
-    <lastmod>2022-07-21</lastmod>
+    <lastmod>2022-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://mirrorcg.github.io/tags/%E7%B3%BB%E7%BB%9F%E6%89%98%E7%9B%98%E5%9B%BE%E6%A0%87%E5%92%8C%E6%B6%88%E6%81%AF/</loc>
-    <lastmod>2022-07-21</lastmod>
+    <lastmod>2022-07-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://mirrorcg.github.io/tags/%E5%BC%82%E5%BD%A2%E7%AA%97%E5%8F%A3/</loc>
+    <lastmod>2022-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://mirrorcg.github.io/tags/windows/</loc>
-    <lastmod>2022-07-21</lastmod>
+    <lastmod>2022-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://mirrorcg.github.io/tags/%E6%8E%92%E9%94%99%E8%AE%B0%E5%BD%95/</loc>
-    <lastmod>2022-07-21</lastmod>
+    <lastmod>2022-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://mirrorcg.github.io/tags/%E5%8C%85%E7%AE%A1%E7%90%86/</loc>
-    <lastmod>2022-07-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://mirrorcg.github.io/tags/%E7%BD%91%E7%AB%99%E6%8E%A8%E8%8D%90/</loc>
-    <lastmod>2022-07-21</lastmod>
+    <lastmod>2022-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://mirrorcg.github.io/tags/Markdown/</loc>
-    <lastmod>2022-07-21</lastmod>
+    <lastmod>2022-07-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://mirrorcg.github.io/tags/%E7%BD%91%E7%AB%99%E6%8E%A8%E8%8D%90/</loc>
+    <lastmod>2022-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://mirrorcg.github.io/tags/Aitoon/</loc>
-    <lastmod>2022-07-21</lastmod>
+    <lastmod>2022-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://mirrorcg.github.io/tags/aiUserData/</loc>
-    <lastmod>2022-07-21</lastmod>
+    <lastmod>2022-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://mirrorcg.github.io/tags/UV/</loc>
-    <lastmod>2022-07-21</lastmod>
+    <lastmod>2022-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://mirrorcg.github.io/tags/github/</loc>
-    <lastmod>2022-07-21</lastmod>
+    <lastmod>2022-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -475,77 +475,77 @@
   
   <url>
     <loc>http://mirrorcg.github.io/categories/Doc/</loc>
-    <lastmod>2022-07-21</lastmod>
+    <lastmod>2022-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://mirrorcg.github.io/categories/Deadline/</loc>
-    <lastmod>2022-07-21</lastmod>
+    <lastmod>2022-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://mirrorcg.github.io/categories/Doc/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2022-07-21</lastmod>
+    <lastmod>2022-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://mirrorcg.github.io/categories/Maya/</loc>
-    <lastmod>2022-07-21</lastmod>
+    <lastmod>2022-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://mirrorcg.github.io/categories/Deadline/%E6%8F%92%E4%BB%B6/</loc>
-    <lastmod>2022-07-21</lastmod>
+    <lastmod>2022-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://mirrorcg.github.io/categories/Qt/</loc>
-    <lastmod>2022-07-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://mirrorcg.github.io/categories/Rez/</loc>
-    <lastmod>2022-07-21</lastmod>
+    <lastmod>2022-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://mirrorcg.github.io/categories/Maya/%E6%9D%82%E9%A1%B9/</loc>
-    <lastmod>2022-07-21</lastmod>
+    <lastmod>2022-07-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://mirrorcg.github.io/categories/Rez/</loc>
+    <lastmod>2022-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://mirrorcg.github.io/categories/Maya/%E5%B0%8F%E5%B7%A5%E5%85%B7/</loc>
-    <lastmod>2022-07-21</lastmod>
+    <lastmod>2022-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://mirrorcg.github.io/categories/Qt/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2022-07-21</lastmod>
+    <lastmod>2022-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://mirrorcg.github.io/categories/Maya/arnold/</loc>
-    <lastmod>2022-07-21</lastmod>
+    <lastmod>2022-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
