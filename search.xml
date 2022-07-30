@@ -4,6 +4,27 @@
   
     
     <entry>
+      <title>Maya中Xgen毛发渲染问题</title>
+      <link href="/posts/20220729a1.html"/>
+      <url>/posts/20220729a1.html</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>本文记录了一些Maya中Xgen毛发渲染的相关的问题：<span id="more"></span></p><ol><li>Xgen 毛发渲染运动模糊时，角色ABC和毛发ABC的运动迷糊不匹配的问题（小概率事件）：<p style="text-indent:2em">原因是生长面缓存只有整数帧采样并且在渲染运动模糊时，Xgen没有计算生长面的插值,或者由于前后帧的运动差异过大，Xgen计算出错误的生长面插值，导致毛发生长面的缓存和角色缓存的插值不匹配，生长面缓存和角色缓存在小数帧位置不同，就会导致运动模糊不同。也可以通过实际文件观测到，在运动模糊有问题的小数帧，毛发不加载缓存时，其毛发引导线跟随动画缓存，加载了毛发缓存后，毛发缓存曲线和动画缓存的位置一致，而毛发引导线却和缓存曲线不在相同的位置，毛发引导线和动画缓存脱离，但是毛发引导线的形态和毛发缓存一致，说明毛发引导线只是从毛发缓存继承了形态，并不继承其位置。而毛发引导线的位置是从毛发生长面继承的，此时毛发引导线的位置和动画缓存不一致，那么小数帧时生长面的缓存和动画缓存位置不一致，因此，毛发生长面缓存在计算小数帧时有问题。解决此类问题，最好为动画缓存、曲线缓存、生长面缓存都添加缓存的小数帧采样插值。</p></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> Maya </category>
+          
+          <category> 杂项 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Deadline中调试编写的事件</title>
       <link href="/posts/20220721a1.html"/>
       <url>/posts/20220721a1.html</url>

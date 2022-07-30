@@ -18,17 +18,17 @@
   <link 
     rel="icon" 
     href="/images/themes/%E6%98%9F%E7%90%83.png">
-  <title>标签</title>
+  <title>Maya中Xgen毛发渲染问题</title>
   
     
       <meta 
         property="og:title" 
-        content="标签">
+        content="Maya中Xgen毛发渲染问题">
     
     
       <meta 
         property="og:url" 
-        content="http://mirrorcg.github.io/tags/Pipeline/index.html">
+        content="http://mirrorcg.github.io/posts/20220729a1.html">
     
     
       <meta 
@@ -38,8 +38,24 @@
     
       <meta 
         property="og:img" 
-        content="记录工作和学习中的成果，分享一些踩坑记录和代码">
+        content="&lt;p&gt;本文记录了一些Maya中Xgen毛发渲染的相关的问题：">
     
+    
+      <meta 
+        property="og:type" 
+        content="article">
+      <meta 
+        property="og:article:published_time" 
+        content="2022-07-29">
+      <meta 
+        property="og:article:modified_time" 
+        content="2022-07-29">
+      <meta 
+        property="og:article:author" 
+        content="Mirror">
+      
+        
+      
     
   
   <script>
@@ -181,6 +197,8 @@
   
   <link rel="stylesheet" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css">
   
+    <link rel="stylesheet" href="/js/lib/lightbox/baguetteBox.min.css">
+  
 <meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="Mirror的个人博客" type="application/atom+xml">
 </head>
 
@@ -281,95 +299,143 @@
         <div class="container">
           <div class="columns">
             <main class="main-column">
-<div class="card card-content tag-page-card">
-  <div class="tags-page-title">标签&nbsp-&nbspPipeline</div>
-</div>
-<div class="archive-timeline">
-  
-  
+<article class="card card-content">
+  <header>
+    <h1 class="post-title">
+      Maya中Xgen毛发渲染问题
+    </h1>
+  </header>
+  <div class="post-meta post-show-meta">
+    <time datetime="2022-07-29T15:16:15.000Z">
+      <i 
+        class="iconfont icon-calendar" 
+        style="margin-right: 2px;">
+      </i>
+      <span>2022-07-29</span>
+    </time>
     
-      <div class="archive-timeline-tag"><span>2022</span></div>
+      <span class="dot"></span>
+      
+        <a 
+          href="/categories/Maya/" 
+          class="post-meta-link">
+          Maya
+        </a>
+      
+        <a 
+          href="/categories/Maya/%E6%9D%82%E9%A1%B9/" 
+          class="post-meta-link">
+          杂项
+        </a>
       
     
-    <div class="archive-timeline-item">
-      <div class="archive-timeline-post">
-        <div class="card card-content">
-          <div class="archive-timeline-post-date">2022-05-21</div>
-          <div class="archive-timeline-post-content">
-            <a 
-              href="/posts/20220521a1.html" 
-              class="archive-timeline-post-item">
-              Maya中常用的部分环境变量
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  
     
-    <div class="archive-timeline-item">
-      <div class="archive-timeline-post">
-        <div class="card card-content">
-          <div class="archive-timeline-post-date">2022-05-03</div>
-          <div class="archive-timeline-post-content">
-            <a 
-              href="/posts/20220503a6.html" 
-              class="archive-timeline-post-item">
-              Maya中材质文件和缓存文件相结合进行渲染的几种方式
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  
+      <span class="dot"></span>
+      <span>417 字</span>
     
-    <div class="archive-timeline-item">
-      <div class="archive-timeline-post">
-        <div class="card card-content">
-          <div class="archive-timeline-post-date">2022-04-21</div>
-          <div class="archive-timeline-post-content">
-            <a 
-              href="/posts/20220421a1.html" 
-              class="archive-timeline-post-item">
-              USD框架的搭建
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
+  </div>
   
+  </header>
+  <div 
+    id="section" 
+    class="post-content">
+    <p>本文记录了一些Maya中Xgen毛发渲染的相关的问题：<span id="more"></span></p>
+<ol>
+<li>Xgen 毛发渲染运动模糊时，角色ABC和毛发ABC的运动迷糊不匹配的问题（小概率事件）：<p style="text-indent:2em">原因是生长面缓存只有整数帧采样并且在渲染运动模糊时，Xgen没有计算生长面的插值,或者由于前后帧的运动差异过大，Xgen计算出错误的生长面插值，导致毛发生长面的缓存和角色缓存的插值不匹配，生长面缓存和角色缓存在小数帧位置不同，就会导致运动模糊不同。也可以通过实际文件观测到，在运动模糊有问题的小数帧，毛发不加载缓存时，其毛发引导线跟随动画缓存，加载了毛发缓存后，毛发缓存曲线和动画缓存的位置一致，而毛发引导线却和缓存曲线不在相同的位置，毛发引导线和动画缓存脱离，但是毛发引导线的形态和毛发缓存一致，说明毛发引导线只是从毛发缓存继承了形态，并不继承其位置。而毛发引导线的位置是从毛发生长面继承的，此时毛发引导线的位置和动画缓存不一致，那么小数帧时生长面的缓存和动画缓存位置不一致，因此，毛发生长面缓存在计算小数帧时有问题。解决此类问题，最好为动画缓存、曲线缓存、生长面缓存都添加缓存的小数帧采样插值。</p></li>
+</ol>
+
+  </div>
+  <div>
     
-    <div class="archive-timeline-item">
-      <div class="archive-timeline-post">
-        <div class="card card-content">
-          <div class="archive-timeline-post-date">2022-03-14</div>
-          <div class="archive-timeline-post-content">
-            <a 
-              href="/posts/20220314a1.html" 
-              class="archive-timeline-post-item">
-              rez安装使用
-            </a>
-          </div>
-        </div>
+      <div 
+        class="post-note note-warning copyright" 
+        style="margin-top: 42px">
+        <p>
+          <span style="font-weight: bold;">作者：</span><a 
+            target="_blank" 
+            rel="nofollow noopener noreferrer" 
+            href="/about">
+            Mirror
+          </a>
+        </p>
+        <p>
+          <span style="font-weight: bold;">文章链接：</span><a 
+            target="_blank" 
+            rel="nofollow noopener noreferrer" 
+            href="http://mirrorcg.github.io/posts/20220729a1.html">
+            http://mirrorcg.github.io/posts/20220729a1.html
+          </a>
+        </p>
+        <p><span style="font-weight: bold;">版权声明：</span>本博客所有文章除特别声明外，均采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0 协议</a>。转载请注明出处！</p>
       </div>
-    </div>
-  
     
-    <div class="archive-timeline-item">
-      <div class="archive-timeline-post">
-        <div class="card card-content">
-          <div class="archive-timeline-post-date">2022-03-07</div>
-          <div class="archive-timeline-post-content">
-            <a 
-              href="/posts/20220307a1.html" 
-              class="archive-timeline-post-item">
-              CG流程中&#34;USD&#34;的探索与运用
-            </a>
-          </div>
+  </div>
+</article>
+<div class="nav">
+  
+  
+    <div class="nav-item-next">
+      <a 
+        href="/posts/20220721a1.html" 
+        class="nav-link">
+        <div>
+          <div class="nav-label">下一篇</div>
+          
+            <div class="nav-title">Deadline中调试编写的事件 </div>
+          
         </div>
-      </div>
+        <i class="iconfont icon-right nav-next-icon"></i>
+      </a>
     </div>
   
+</div>
+
+  <div 
+    class="card card-content comment-card" 
+    style="margin-top: 16px;">
+    <div class="comment-card-title">评论</div>
+    
+  <div id="vcomments"></div>
+  
+  <script>
+    loadScript("//unpkg.com/valine/dist/Valine.min.js");
+    var oldLoadVa = window.onload;
+    window.onload = function () {
+      oldLoadVa && oldLoadVa();
+      new Valine({
+        el: '#vcomments',
+        appId: 'to35UwTutrjzG0XtFw6gXeKa-gzGzoHsz',
+        appKey: 'z22QceD9W40R0XI8WjvtKEuw',
+        placeholder: '有话直说，不必拘礼',
+        path: window.location.pathname,
+        avatar: 'robohash',
+        meta: ["nick","mail","link"],
+        pageSize: '10',
+        lang: '',
+        visitor: 'true',
+        highlight: true,
+        recordIP: true,
+        
+        
+        
+        enableQQ: 'true',
+        requiredFields: [],
+      });
+    };
+  </script>
+
+  </div>
+
+<div 
+  class="card card-content toc-card" 
+  id="mobiletoc">
+  <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+
 </div></main>
             <aside class="left-column">
               
@@ -500,6 +566,18 @@
 
 
    
+  
+    <article class="display-when-two-columns spacer">
+      <div class="card card-content toc-card">
+        <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+
+      </div>
+    </article>
   
   
   <article class="card card-content categories-widget">
@@ -704,145 +782,21 @@
   </article>
   
   
-    <article class="card card-content widescreen-archive archive-widget">
-      <div class="archive-card">
-  <div class="archive-card-header">
-    <i 
-      class="iconfont icon-wodebaobiao" 
-      style="padding-right: 2px;">
-    </i>归档
-  </div>
-  <div class="archive-card-list">
-    
-    
-    
-      
-        
-        
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-    
-      <a 
-        href="/archives/2022" 
-        class="archive-card-list-item">
-        2022
-        <span class="archive-card-list-item-badge">27</span>
-      </a>
-    
-  </div>
-</div>
-    </article>
-  
 </div>
             </aside>
             <aside class="right-column">
               <div class="sticky-widescreen">
   
+  
+    <article class="card card-content toc-card">
+      <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+
+    </article>
   
   
   <article class="card card-content">
@@ -879,140 +833,6 @@
 </div>
   </article>
   
-  
-    <article class="card card-content">
-      <div class="archive-card">
-  <div class="archive-card-header">
-    <i 
-      class="iconfont icon-wodebaobiao" 
-      style="padding-right: 2px;">
-    </i>归档
-  </div>
-  <div class="archive-card-list">
-    
-    
-    
-      
-        
-        
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-    
-      <a 
-        href="/archives/2022" 
-        class="archive-card-list-item">
-        2022
-        <span class="archive-card-list-item-badge">27</span>
-      </a>
-    
-  </div>
-</div>
-    </article>
   
 </div>
             </aside>
@@ -1124,6 +944,36 @@
 </a> 
      
      
+     
+      <script>
+  var addImgLayout = function () {
+    var img = document.querySelectorAll('.post-content img')
+    var i
+    for (i = 0; i < img.length; i++) {
+      var wrapper = document.createElement('a')
+      wrapper.setAttribute('href', img[i].getAttribute('data-src'))
+      wrapper.setAttribute('aria-label', 'illustration')
+      wrapper.style.cssText =
+        'width: 100%; display: flex; justify-content: center;'
+      if (img[i].alt) wrapper.dataset.caption = img[i].alt
+      wrapper.dataset.nolink = true
+      img[i].before(wrapper)
+      wrapper.append(img[i])
+      var divWrap = document.createElement('div')
+      divWrap.classList.add('gallery')
+      wrapper.before(divWrap)
+      divWrap.append(wrapper)
+    }
+    baguetteBox.run('.gallery')
+  }
+</script>
+<script>
+  loadScript(
+    "/js/lib/lightbox/baguetteBox.min.js",
+    addImgLayout
+  )
+</script>
+ 
      
      
     <script src="/js/main.js"></script> 
