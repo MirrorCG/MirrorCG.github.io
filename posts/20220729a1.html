@@ -55,6 +55,10 @@
         content="Mirror">
       
         
+          <meta 
+            property="og:article:tag" 
+            content="Xgen">
+        
       
     
   
@@ -331,9 +335,28 @@
     
     
       <span class="dot"></span>
-      <span>417 字</span>
+      <span>953 字</span>
     
   </div>
+  
+    <div 
+      class="post-meta post-show-meta" 
+      style="margin-top: -10px;">
+      <div style="display: flex; align-items: center;">
+        <i 
+          class="iconfont icon-biaoqian" 
+          style="margin-right: 2px; font-size: 1.15rem;">
+        </i>
+        
+          
+          <a 
+            href="/tags/Xgen/" 
+            class="post-meta-link">
+            Xgen
+          </a>
+        
+      </div>
+    </div>
   
   </header>
   <div 
@@ -341,7 +364,25 @@
     class="post-content">
     <p>本文记录了一些Maya中Xgen毛发渲染的相关的问题：<span id="more"></span></p>
 <ol>
-<li>Xgen 毛发渲染运动模糊时，角色ABC和毛发ABC的运动迷糊不匹配的问题（小概率事件）：<p style="text-indent:2em">原因是生长面缓存只有整数帧采样并且在渲染运动模糊时，Xgen没有计算生长面的插值,或者由于前后帧的运动差异过大，Xgen计算出错误的生长面插值，导致毛发生长面的缓存和角色缓存的插值不匹配，生长面缓存和角色缓存在小数帧位置不同，就会导致运动模糊不同。也可以通过实际文件观测到，在运动模糊有问题的小数帧，毛发不加载缓存时，其毛发引导线跟随动画缓存，加载了毛发缓存后，毛发缓存曲线和动画缓存的位置一致，而毛发引导线却和缓存曲线不在相同的位置，毛发引导线和动画缓存脱离，但是毛发引导线的形态和毛发缓存一致，说明毛发引导线只是从毛发缓存继承了形态，并不继承其位置。而毛发引导线的位置是从毛发生长面继承的，此时毛发引导线的位置和动画缓存不一致，那么小数帧时生长面的缓存和动画缓存位置不一致，因此，毛发生长面缓存在计算小数帧时有问题。解决此类问题，最好为动画缓存、曲线缓存、生长面缓存都添加缓存的小数帧采样插值。</p></li>
+<li><p>Xgen 角色ABC和毛发ABC的运动模糊不匹配的问题（小概率事件）：</p>
+<p style="text-indent:2em">原因是生长面缓存只有整数帧采样并且在渲染运动模糊时，Xgen没有计算生长面的插值,或者由于前后帧的运动差异过大，Xgen计算出错误的生长面插值，导致毛发生长面的缓存和角色缓存的插值不匹配，生长面缓存和角色缓存在小数帧位置不同，就会导致运动模糊不同。也可以通过实际文件观测到，在运动模糊有问题的小数帧，毛发不加载缓存时，其毛发引导线跟随动画缓存，加载了毛发缓存后，毛发缓存曲线和动画缓存的位置一致，而毛发引导线却和缓存曲线不在相同的位置，毛发引导线和动画缓存脱离，但是毛发引导线的形态和毛发缓存一致，说明毛发引导线只是从毛发缓存继承了形态，并不继承其位置。而毛发引导线的位置是从毛发生长面继承的，此时毛发引导线的位置和动画缓存不一致，那么小数帧时生长面的缓存和动画缓存位置不一致，因此，毛发生长面缓存在计算小数帧时有问题。解决此类问题，最好为动画缓存、曲线缓存、生长面缓存都添加缓存的小数帧采样插值。</p>
+</li>
+<li><p>使用不同名称、完全相同的两个集合体作为Xgen描述的生长面，其基本体随机种子数会有一些差异，随机种子数是根据物体的生长面名称进行hash计算得出的结果，若替换生长面对应的几何体名称，随机种子数会发生细微变化，从而导致效果会有细微差别。</p>
+</li>
+<li><p>xgen文件中只记录几何体的短名，不记录长名(可以手动修改的方式使用maya规范的长名，)，测试结果是只识别几何体短名称，不区分拓扑结构和形状以及uv，只使用.xgen文件中记录的的faceid面数，但拓扑结构不同结果肯定不一样，几何体名和生长面前缀应保持一致。</p>
+</li>
+<li><p>绘制的iff贴图在保存文件后才会写入工程目录的文件夹，描述下有几个生长面就保存几张贴图(从新的几何体添加新的生长面，需要重新绘制贴图，保存后也会对应新增一张贴图)，根据绘制贴图时的生长面_集合_描述名称，xgen中指定的贴图名称命名为：polySurfaceShape1_grass_col_grass_decmask_generator_grass)。</p>
+</li>
+<li><p>生长面跟随几何体放大缩小，但是毛发粗细不变(可写入表达式，待测试)。</p>
+</li>
+<li><p>确定了几何体、绑定几何体并生成生长面之后，不可以修改几何体的名称，指向文件(ptx，xuv等文件)记录的是以几何体命名的贴图名称，更改几何体命名称后，链接断开，指向文件失效。</p>
+</li>
+<li><p>使用相同几何体生成的不同描述，其生长面的名称为“几何体名称_描述名称”，不会重名</p>
+</li>
+<li><p>单个XGen文件的生长面、几何体可以改名;改完命名后直接更改其Xgen文件的几何体名称，另存文件即可;</p>
+</li>
+<li><p>使用几个几何体生成描述，集合下就拥有几个生长面(不建议使用多个几何体映射一个描述，最好先合并成一个几何体，方便管理)</p>
+</li>
 </ol>
 
   </div>
@@ -372,6 +413,20 @@
   </div>
 </article>
 <div class="nav">
+  
+    <div class="nav-item-prev">
+      <a 
+        href="/posts/20220730a1.html" 
+        class="nav-link">
+        <i class="iconfont icon-left nav-prev-icon"></i>
+        <div>
+          <div class="nav-label">上一篇</div>
+          
+            <div class="nav-title">Nuke学习笔记1 </div>
+          
+        </div>
+      </a>
+    </div>
   
   
     <div class="nav-item-next">
@@ -454,19 +509,19 @@
   <a 
     class="author-posts-count" 
     href="/archives">
-    <span>27</span>
+    <span>30</span>
     <span>文章</span>
   </a>
   <a 
     class="author-categories-count" 
     href="/categories">
-    <span>11</span>
+    <span>13</span>
     <span>分类</span>
   </a>
   <a 
     class="author-tags-count" 
     href="/tags">
-    <span>26</span>
+    <span>28</span>
     <span>标签</span>
   </a>
 </div>
@@ -625,6 +680,13 @@
         </div>
       </a>
     
+      <a href="/categories/Nuke/">
+        <div class="categories-list-item">
+          Nuke
+          <span class="categories-list-item-badge">3</span>
+        </div>
+      </a>
+    
       <a href="/categories/Qt/">
         <div class="categories-list-item">
           Qt
@@ -639,6 +701,13 @@
         </div>
       </a>
     
+      <a href="/categories/Maya/%E5%B0%8F%E5%B7%A5%E5%85%B7/">
+        <div class="categories-list-item">
+          Maya/小工具
+          <span class="categories-list-item-badge">3</span>
+        </div>
+      </a>
+    
       <a href="/categories/Rez/">
         <div class="categories-list-item">
           Rez
@@ -646,9 +715,16 @@
         </div>
       </a>
     
-      <a href="/categories/Maya/%E5%B0%8F%E5%B7%A5%E5%85%B7/">
+      <a href="/categories/Maya/arnold/">
         <div class="categories-list-item">
-          Maya/小工具
+          Maya/arnold
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/categories/Nuke/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+        <div class="categories-list-item">
+          Nuke/学习笔记
           <span class="categories-list-item-badge">3</span>
         </div>
       </a>
@@ -657,13 +733,6 @@
         <div class="categories-list-item">
           Qt/学习笔记
           <span class="categories-list-item-badge">3</span>
-        </div>
-      </a>
-    
-      <a href="/categories/Maya/arnold/">
-        <div class="categories-list-item">
-          Maya/arnold
-          <span class="categories-list-item-badge">1</span>
         </div>
       </a>
     
@@ -680,6 +749,12 @@
     </i>热门标签
   </div>
   <div class="tags-list">
+    
+      <a 
+        href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" 
+        title="学习笔记">
+        <div class="tags-list-item">学习笔记</div>
+      </a>
     
       <a 
         href="/tags/Pipeline/" 
@@ -748,6 +823,18 @@
       </a>
     
       <a 
+        href="/tags/github/" 
+        title="github">
+        <div class="tags-list-item">github</div>
+      </a>
+    
+      <a 
+        href="/tags/Markdown/" 
+        title="Markdown">
+        <div class="tags-list-item">Markdown</div>
+      </a>
+    
+      <a 
         href="/tags/aiUserData/" 
         title="aiUserData">
         <div class="tags-list-item">aiUserData</div>
@@ -757,24 +844,6 @@
         href="/tags/Aitoon/" 
         title="Aitoon">
         <div class="tags-list-item">Aitoon</div>
-      </a>
-    
-      <a 
-        href="/tags/github/" 
-        title="github">
-        <div class="tags-list-item">github</div>
-      </a>
-    
-      <a 
-        href="/tags/UV/" 
-        title="UV">
-        <div class="tags-list-item">UV</div>
-      </a>
-    
-      <a 
-        href="/tags/Markdown/" 
-        title="Markdown">
-        <div class="tags-list-item">Markdown</div>
       </a>
     
   </div>
@@ -810,23 +879,23 @@
   <div class="recent-posts-list">
     
       <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-08-01</div>
+        <a href="/posts/20220801a1.html"><div class="recent-posts-item-content">Nuke学习笔记3</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-07-31</div>
+        <a href="/posts/20220731a1.html"><div class="recent-posts-item-content">Nuke学习笔记2</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-07-30</div>
+        <a href="/posts/20220730a1.html"><div class="recent-posts-item-content">Nuke学习笔记1</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
         <div class="recent-posts-item-title">2022-07-29</div>
         <a href="/posts/20220729a1.html"><div class="recent-posts-item-content">Maya中Xgen毛发渲染问题</div></a>
-      </div>
-    
-      <div class="recent-posts-item">
-        <div class="recent-posts-item-title">2022-07-21</div>
-        <a href="/posts/20220721a1.html"><div class="recent-posts-item-content">Deadline中调试编写的事件</div></a>
-      </div>
-    
-      <div class="recent-posts-item">
-        <div class="recent-posts-item-title">2022-07-06</div>
-        <a href="/posts/20220706a1.html"><div class="recent-posts-item-content">CG流程中的ACES概念解释</div></a>
-      </div>
-    
-      <div class="recent-posts-item">
-        <div class="recent-posts-item-title">2022-05-21</div>
-        <a href="/posts/20220521a1.html"><div class="recent-posts-item-content">Maya中常用的部分环境变量</div></a>
       </div>
     
   </div>

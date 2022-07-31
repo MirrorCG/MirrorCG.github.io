@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta charset="UTF-8">
+  <meta 
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta 
+    http-equiv="X-UA-Compatible" 
+    content="ie=edge">
+  <meta 
+    name="theme-color" 
+    content="#fff" 
+    id="theme-color">
+  <meta 
+    name="description" 
+    content="记录工作和学习中的成果，分享一些踩坑记录和代码">
+  <link 
+    rel="icon" 
+    href="/images/themes/%E6%98%9F%E7%90%83.png">
+  <title>Nuke学习笔记1</title>
+  
+    
+      <meta 
+        property="og:title" 
+        content="Nuke学习笔记1">
+    
+    
+      <meta 
+        property="og:url" 
+        content="http://mirrorcg.github.io/posts/20220730a1.html">
+    
+    
+      <meta 
+        property="og:img" 
+        content="/images/home/Myhead.jpg">
+    
+    
+      <meta 
+        property="og:img" 
+        content="&lt;p&gt;Nuke学习笔记">
+    
+    
+      <meta 
+        property="og:type" 
+        content="article">
+      <meta 
+        property="og:article:published_time" 
+        content="2022-07-30">
+      <meta 
+        property="og:article:modified_time" 
+        content="2022-07-31">
+      <meta 
+        property="og:article:author" 
+        content="Mirror">
+      
+        
+          <meta 
+            property="og:article:tag" 
+            content="学习笔记">
+        
+      
+    
+  
+  <script>
+    function loadScript(url, cb) {
+      var script = document.createElement('script');
+      script.src = url;
+      if (cb) script.onload = cb;
+      script.async = true;
+      document.body.appendChild(script);
+    }
+    function loadCSS(href, data, attr) {
+      var sheet = document.createElement('link');
+      sheet.ref = 'stylesheet';
+      sheet.href = href;
+      sheet.dataset[data] = attr;
+      document.head.appendChild(sheet);
+    }
+    function changeCSS(cssFile, data, attr) {
+      var oldlink = document.querySelector(data);
+      var newlink = document.createElement("link");
+      newlink.setAttribute("rel", "stylesheet");
+      newlink.setAttribute("href", cssFile);
+      newlink.dataset.prism = attr;
+      document.head.replaceChild(newlink, oldlink);
+    }
+  </script>
+  
+    
+      
+      
+      
+      
+        
+        
+        
+        <script>
+          function prismThemeChange() {
+            if(document.getElementById('theme-color').dataset.mode === 'dark') {
+              if(document.querySelector('[data-prism]')) {
+                changeCSS('/js/lib/prism/prism-tomorrow.min.css', '[data-prism]', 'prism-tomorrow');
+              } else {
+                loadCSS('/js/lib/prism/prism-tomorrow.min.css', 'prism', 'prism-tomorrow');
+              }
+            } else {
+              if(document.querySelector('[data-prism]')) {
+                changeCSS('/js/lib/prism/prism.min.css', '[data-prism]', 'prism');
+              } else {
+                loadCSS('/js/lib/prism/prism.min.css', 'prism', 'prism');
+              }
+            }
+          }
+          prismThemeChange()
+        </script>
+      
+      
+        
+        <link rel="stylesheet" href="/js/lib/prism/prism-line-numbers.min.css">
+      
+    
+  
+  <script>
+    // control reverse button
+    var reverseDarkList = {
+      dark: 'light',
+      light: 'dark'
+    };
+    var themeColor = {
+      dark: '#1c1c1e',
+      light: '#fff'
+    }
+    // get the data of css prefers-color-scheme
+    var getCssMediaQuery = function() {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    };
+    // reverse current darkmode setting function
+    var reverseDarkModeSetting = function() {
+      var setting = localStorage.getItem('user-color-scheme');
+      if(reverseDarkList[setting]) {
+        setting = reverseDarkList[setting];
+      } else if(setting === null) {
+        setting = reverseDarkList[getCssMediaQuery()];
+      } else {
+        return;
+      }
+      localStorage.setItem('user-color-scheme', setting);
+      return setting;
+    };
+    // apply current darkmode setting
+  </script>
+  
+    <script>
+      var setDarkmode = function(mode) {
+      var setting = mode || localStorage.getItem('user-color-scheme');
+      if(setting === getCssMediaQuery()) {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[setting];
+        document.getElementById('theme-color').dataset.mode = setting;
+        prismThemeChange();
+      } else if(reverseDarkList[setting]) {
+        document.documentElement.setAttribute('data-user-color-scheme', setting);
+        document.getElementById('theme-color').content = themeColor[setting];
+        document.getElementById('theme-color').dataset.mode = setting;
+        prismThemeChange();
+      } else {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[getCssMediaQuery()];
+        document.getElementById('theme-color').dataset.mode = getCssMediaQuery();
+        prismThemeChange();
+      }
+    };
+    setDarkmode();
+    </script>
+  
+  
+  <link rel="preload" href="//at.alicdn.com/t/font_1946621_i1kgafibvw.css" as="style" >
+  <link rel="preload" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css" as="style" >
+  
+  
+    <link rel="preload" href="/js/lib/lightbox/baguetteBox.min.js" as="script">
+    <link rel="preload" href="/js/lib/lightbox/baguetteBox.min.css" as="style" >
+  
+  
+    <link rel="preload" href="/js/lib/lozad.min.js" as="script">
+  
+  
+  
+  
+  
+    
+    <link rel="prefetch" href="//unpkg.com/valine/dist/Valine.min.js" as="script">
+  
+  
+  
+  <link rel="stylesheet" href="/css/main.css">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1946621_i1kgafibvw.css">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css">
+  
+    <link rel="stylesheet" href="/js/lib/lightbox/baguetteBox.min.css">
+  
+<meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="Mirror的个人博客" type="application/atom+xml">
+</head>
+
+  <body>
+    <div class="wrapper">
+       
+      <nav class="navbar">
+  <div class="navbar-logo">
+    <span class="navbar-logo-main">
+      
+        <img 
+          class="navbar-logo-img"
+          width="32"
+          height="32"
+          src="/images/themes/%E6%98%9F%E7%90%83.png" 
+          alt="blog logo">
+      
+      <span class="navbar-logo-dsc">Mirror`s Blog</span>
+    </span>
+  </div>
+  <div class="navbar-menu">
+    
+      <a 
+        href="/" 
+        class="navbar-menu-item">
+        
+          首页
+        
+      </a>
+    
+      <a 
+        href="/archives" 
+        class="navbar-menu-item">
+        
+          归档
+        
+      </a>
+    
+      <a 
+        href="/tags" 
+        class="navbar-menu-item">
+        
+          标签
+        
+      </a>
+    
+      <a 
+        href="/categories" 
+        class="navbar-menu-item">
+        
+          分类
+        
+      </a>
+    
+      <a 
+        href="/links" 
+        class="navbar-menu-item">
+        
+          友链
+        
+      </a>
+    
+      <a 
+        href="/about" 
+        class="navbar-menu-item">
+        
+          关于我
+        
+      </a>
+    
+    <a 
+      class="navbar-menu-item darknavbar" 
+      id="dark">
+      <i class="iconfont icon-weather"></i>
+    </a>
+    <a 
+      class="navbar-menu-item searchnavbar" 
+      id="search">
+      <i 
+        class="iconfont icon-search" 
+        style="font-size: 1.2rem; font-weight: 400;">
+      </i>
+    </a>
+  </div>
+</nav> 
+      
+      <div 
+        id="local-search" 
+        style="display: none">
+        <input
+          class="navbar-menu-item"
+          id="search-input"
+          placeholder="请输入搜索内容..." />
+        <div id="search-content"></div>
+      </div>
+      
+      <div class="section-wrap">
+        <div class="container">
+          <div class="columns">
+            <main class="main-column">
+<article class="card card-content">
+  <header>
+    <h1 class="post-title">
+      Nuke学习笔记1
+    </h1>
+  </header>
+  <div class="post-meta post-show-meta">
+    <time datetime="2022-07-30T13:47:04.000Z">
+      <i 
+        class="iconfont icon-calendar" 
+        style="margin-right: 2px;">
+      </i>
+      <span>2022-07-30</span>
+    </time>
+    
+      <span class="dot"></span>
+      
+        <a 
+          href="/categories/Nuke/" 
+          class="post-meta-link">
+          Nuke
+        </a>
+      
+        <a 
+          href="/categories/Nuke/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" 
+          class="post-meta-link">
+          学习笔记
+        </a>
+      
+    
+    
+      <span class="dot"></span>
+      <span>1.2k 字</span>
+    
+  </div>
+  
+    <div 
+      class="post-meta post-show-meta" 
+      style="margin-top: -10px;">
+      <div style="display: flex; align-items: center;">
+        <i 
+          class="iconfont icon-biaoqian" 
+          style="margin-right: 2px; font-size: 1.15rem;">
+        </i>
+        
+          
+          <a 
+            href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" 
+            class="post-meta-link">
+            学习笔记
+          </a>
+        
+      </div>
+    </div>
+  
+  </header>
+  <div 
+    id="section" 
+    class="post-content">
+    <p>Nuke学习笔记 <span id="more"></span></p>
+<h4 id="Nuke-脚本编辑窗口相关快捷键和操作"><a href="#Nuke-脚本编辑窗口相关快捷键和操作" class="headerlink" title="Nuke 脚本编辑窗口相关快捷键和操作"></a>Nuke 脚本编辑窗口相关快捷键和操作</h4><p>tab键   自动代码补全    输入部分脚本后，可获取相关的方法</p>
+<p style="text-indent:2em">Edit > Preferences > ScriptEditor > echo python commands to output window 将输出常用操作的 Nuke Python API 代码显示在代码执行结果显示区。</p>
+
+<p><img src="/images/Nuke%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/%E8%BE%93%E5%87%BA%E6%93%8D%E4%BD%9CPython%E4%BB%A3%E7%A0%81%E5%88%B0%E8%84%9A%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8.png" alt="输出操作Python代码到脚本编辑器 png" srcset="/images/home/Myhead.jpg" data-src="/images/Nuke%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/%E8%BE%93%E5%87%BA%E6%93%8D%E4%BD%9CPython%E4%BB%A3%E7%A0%81%E5%88%B0%E8%84%9A%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8.png" class="lozad post-image"> </p>
+<h4 id="搭建-Pycharm-IDE-开发环境"><a href="#搭建-Pycharm-IDE-开发环境" class="headerlink" title="搭建 Pycharm IDE 开发环境"></a>搭建 Pycharm IDE 开发环境</h4><p style="text-indent:2em">在 Pycharm 中新建一个项目，用于开发Nuke插件,必须使用Nuke本身的Python编译器 "C:\Program Files\Nuke版本\python.exe"，该python编译器拥有完整的Nuke开发环境。</p>
+<p style="text-indent:2em">关于 nukescripts 模块的使用，需要将“C:\Program Files\Nuke版本号\plugins”加入搜索路径</p>
+<p style="text-indent:2em">关于 Pyside2 模块的使用，需要将“C:\Program Files\Nuke版本号\pythonextensions\site-packages”加入搜索路径</p>
+<p style="text-indent:2em">配置好上面的环境后执行代码会发现报错：缺少一个“_nuke” 模块。这个模块在这里 "C:\Program Files\Nuke12.2v2\lib\site-packages\nuke.pyd" 中，由于这个文件和上面的 nukescripts 模块同级目录的nuke模块重名，导致不能加载这个nuke.pyd，因此会报这个错，如何解决呢？</p>
+
+<ul>
+<li>方法一.从搜索路径中去掉 “C:\Program Files\Nuke版本号\plugins”，但nukescripts模块的会缺少代码补全（加载完nuke.pyd后，会自动加载nuke和nukescripts模块，因此在执行代码时不会报这两个模块的错）.</li>
+<li>方法二.在pycharm中将编辑nuke代码的Python解释器和运行nuke代码的python解释器分开，在编写的nuke代码的时候，将项目中python interpreter中设置的python解释器设置为普通的python解释器，可以在其搜索路径中加入我们想要的搜索路径，然后在运行nuke代码的时候，在Run&#x2F;Debug configuration中设置的python解释器设置为带有nuke环境的python解释器即可。</li>
+</ul>
+<p>  <img src="/images/Nuke%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/%E5%88%87%E6%8D%A2%E6%89%A7%E8%A1%8C%E6%97%B6%E7%9A%84Python%E8%A7%A3%E9%87%8A%E5%99%A8.png" alt="切换执行时的Python解释器 png" srcset="/images/home/Myhead.jpg" data-src="/images/Nuke%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/%E5%88%87%E6%8D%A2%E6%89%A7%E8%A1%8C%E6%97%B6%E7%9A%84Python%E8%A7%A3%E9%87%8A%E5%99%A8.png" class="lozad post-image"> </p>
+<p style="text-indent:2em">此环境可能无法正常运行Pyside2相关的代码，需要在nuke中执行(详情见下一节)。</p>
+
+<p><img src="/images/Nuke%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/Pycharm%E4%B8%AD%E4%BD%BF%E7%94%A8Pyside2%E6%8A%A5%E9%94%99.png" alt="Pycharm中使用Pyside2报错 png" srcset="/images/home/Myhead.jpg" data-src="/images/Nuke%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/Pycharm%E4%B8%AD%E4%BD%BF%E7%94%A8Pyside2%E6%8A%A5%E9%94%99.png" class="lozad post-image">  </p>
+<h4 id="Nuke-命令行模式"><a href="#Nuke-命令行模式" class="headerlink" title="Nuke 命令行模式"></a>Nuke 命令行模式</h4><pre class="language-dos" data-language="dos"><code class="language-dos">&quot;C:\Program Files\Nuke12.2v2\python.exe&quot; &quot;D:\test.py&quot;</code></pre>
+
+<p>运行脚本需使用Nuke的Python解释器，若后台调用脚本，可使用subprocess方法切换至Nuke本身的Python解释器。</p>
+<p>若要使用 Pyside2 模块，需要在通过nuke主程序 nuke.exe 使用参数 -t 就可以运行Pyside2模块。</p>
+<pre class="language-dos" data-language="dos"><code class="language-dos">&quot;C:\Program Files\Nuke12.2v2\nuke.exe&quot; -t &quot;D:\test.py&quot;</code></pre>
+
+<p>但 -t 参数不能获取到 QApplication 类，只能获取到 QCoreApplication 类（QApplication是QCoreApplication的子类），所以要通过 --tg 参数来获取 Pyside2 模块创建窗口所需要的 QApplication 类。</p>
+<pre class="language-dos" data-language="dos"><code class="language-dos">&quot;C:\Program Files\Nuke12.2v2\nuke.exe&quot; --tg &quot;D:\test.py&quot;</code></pre>
+<p>nuke命令行语法：</p>
+<p style="text-indent:4em">nuke.exe <\option> [<\argv>] <\script> [<\range>]</p>
+使用不同类别的主程序常用参数:
+
+<ul>
+<li>--nukex</li>
+<li>--studio</li>
+<li>--nc</li>
+<li>--nukeassist</li>
+</ul>
+<p>可以在Windows环境下使用doskey创建快捷键(只在当前窗口有效)，可以使用PATH环境变量，并写在一个bat脚本中：</p>
+<pre class="language-dos" data-language="dos"><code class="language-dos">doskey nukex &#x3D; &quot;C:\Program Files\Nuke12.2v2\nuke.exe&quot; --nukex $*</code></pre>
+
+<p>效果等于：<br>“C:\Program Files\Nuke12.2v2\nuke.exe” -- nukex &lt;\option&gt; [&lt;\argv&gt;] &lt;\script&gt; [&lt;\range&gt;] &#x3D; nukex &lt;\option&gt; [&lt;\argv&gt;] &lt;\script&gt; [&lt;\range&gt;]</p>
+<p>一些常用的参数：</p>
+<ul>
+<li>-t 适用于纯命令行脚本</li>
+<li>–tg 会产生一个 QApplication 实例，用于执行 Pyside2 的Gui相关脚本</li>
+<li>-x &lt;\scriptname&gt; 渲染名为 \scriptname 的nuke工程中所有激活的write节点</li>
+<li>-X&lt;\nodename&gt; 仅渲染指定名的\nodename的write节点</li>
+<li>-F 指定帧范围</li>
+<li>–cont 出错后继续渲染</li>
+<li>–sro 按顺序依次渲染节点</li>
+<li>-f 以全尺（full resolution）的方式打开nuk工程</li>
+<li>-p 和-f相对，以 proxy 的方式打开nuke工程</li>
+<li>-v 打开指定的图像文件，如果是视频，还需要跟上帧范围（文件路径使用正斜杠，不能使用反斜杠）</li>
+<li>–pause 打开nuke工程时暂停 Viewer 初始化</li>
+<li>-P 显示每个节点的资源占用情况</li>
+<li>-Pf&lt;\filename&gt; 将每个节点的资源占用情况写入名为 \filename 的xml文件中</li>
+<li>–multigpu 启用多gpu支持</li>
+<li>–gpulist 列出当前系统可用的GPU及其索引号</li>
+<li>–gpu ARG 使用由索引号ARG指定的GPU,在终端模式下启动GPU加速</li>
+<li>–safe 安全模式，启动nuke不加载 .nuke、NUKE_PATH及OFX插件</li>
+<li>-m # 指定线程数</li>
+<li>-n 关闭节点postage stamps的预览显示</li>
+<li>-q 关闭终端输出</li>
+<li>-i 使用nuke_i授权，可与 -x 和 -t 连用，写成 -ti 或 -xi,默认情况下使用nuke_r授权，但有些操作需要使用nuke_i授权。</li>
+<li>–remap&lt;\pathPair&gt; 仅能在命令行模式下使用，在当前会话中设置路径映射，要求参数为一对或多对路径拼成的字符串，用逗号分隔</li>
+</ul>
+
+  </div>
+  <div>
+    
+      <div 
+        class="post-note note-warning copyright" 
+        style="margin-top: 42px">
+        <p>
+          <span style="font-weight: bold;">作者：</span><a 
+            target="_blank" 
+            rel="nofollow noopener noreferrer" 
+            href="/about">
+            Mirror
+          </a>
+        </p>
+        <p>
+          <span style="font-weight: bold;">文章链接：</span><a 
+            target="_blank" 
+            rel="nofollow noopener noreferrer" 
+            href="http://mirrorcg.github.io/posts/20220730a1.html">
+            http://mirrorcg.github.io/posts/20220730a1.html
+          </a>
+        </p>
+        <p><span style="font-weight: bold;">版权声明：</span>本博客所有文章除特别声明外，均采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0 协议</a>。转载请注明出处！</p>
+      </div>
+    
+  </div>
+</article>
+<div class="nav">
+  
+    <div class="nav-item-prev">
+      <a 
+        href="/posts/20220731a1.html" 
+        class="nav-link">
+        <i class="iconfont icon-left nav-prev-icon"></i>
+        <div>
+          <div class="nav-label">上一篇</div>
+          
+            <div class="nav-title">Nuke学习笔记2 </div>
+          
+        </div>
+      </a>
+    </div>
+  
+  
+    <div class="nav-item-next">
+      <a 
+        href="/posts/20220729a1.html" 
+        class="nav-link">
+        <div>
+          <div class="nav-label">下一篇</div>
+          
+            <div class="nav-title">Maya中Xgen毛发渲染问题 </div>
+          
+        </div>
+        <i class="iconfont icon-right nav-next-icon"></i>
+      </a>
+    </div>
+  
+</div>
+
+  <div 
+    class="card card-content comment-card" 
+    style="margin-top: 16px;">
+    <div class="comment-card-title">评论</div>
+    
+  <div id="vcomments"></div>
+  
+  <script>
+    loadScript("//unpkg.com/valine/dist/Valine.min.js");
+    var oldLoadVa = window.onload;
+    window.onload = function () {
+      oldLoadVa && oldLoadVa();
+      new Valine({
+        el: '#vcomments',
+        appId: 'to35UwTutrjzG0XtFw6gXeKa-gzGzoHsz',
+        appKey: 'z22QceD9W40R0XI8WjvtKEuw',
+        placeholder: '有话直说，不必拘礼',
+        path: window.location.pathname,
+        avatar: 'robohash',
+        meta: ["nick","mail","link"],
+        pageSize: '10',
+        lang: '',
+        visitor: 'true',
+        highlight: true,
+        recordIP: true,
+        
+        
+        
+        enableQQ: 'true',
+        requiredFields: [],
+      });
+    };
+  </script>
+
+  </div>
+
+<div 
+  class="card card-content toc-card" 
+  id="mobiletoc">
+  <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#Nuke-%E8%84%9A%E6%9C%AC%E7%BC%96%E8%BE%91%E7%AA%97%E5%8F%A3%E7%9B%B8%E5%85%B3%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%92%8C%E6%93%8D%E4%BD%9C"><span class="toc-number">1.</span> <span class="toc-text">Nuke 脚本编辑窗口相关快捷键和操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%90%AD%E5%BB%BA-Pycharm-IDE-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83"><span class="toc-number">2.</span> <span class="toc-text">搭建 Pycharm IDE 开发环境</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Nuke-%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%A8%A1%E5%BC%8F"><span class="toc-number">3.</span> <span class="toc-text">Nuke 命令行模式</span></a></li></ol>
+</div></main>
+            <aside class="left-column">
+              
+              <div class="card card-author">
+                
+  <img 
+    src="/images/home/Myhead.jpg" 
+    class="author-img"
+    width="88"
+    height="88"
+    alt="author avatar">
+
+<p class="author-name">Mirror</p>
+<p class="author-description">一个默默写博客的人,记录工作踩坑和学习过程</p>
+<div class="author-message">
+  <a 
+    class="author-posts-count" 
+    href="/archives">
+    <span>30</span>
+    <span>文章</span>
+  </a>
+  <a 
+    class="author-categories-count" 
+    href="/categories">
+    <span>13</span>
+    <span>分类</span>
+  </a>
+  <a 
+    class="author-tags-count" 
+    href="/tags">
+    <span>28</span>
+    <span>标签</span>
+  </a>
+</div>
+
+  <div class="author-card-society">
+    
+      <div class="author-card-society-icon">
+        <a target="_blank" rel="noopener" href="https://github.com/MirrorCG">
+          <i class="iconfont icon-github society-icon"></i>
+        </a>
+      </div>
+    
+      <div class="author-card-society-icon">
+        <a href="/images/home/QQ.jpg">
+          <i class="iconfont icon-mail society-icon"></i>
+        </a>
+      </div>
+    
+      <div class="author-card-society-icon">
+        <a href="/images/home/weixin.jpg">
+          <i class="iconfont icon-wechat society-icon"></i>
+        </a>
+      </div>
+    
+  </div>
+
+              </div>
+               <div class="sticky-tablet">
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+    <div id="aplayer"></div>
+    <div id="aplayer" style="position:absolute;left;0;bottom:0;"></div>
+    <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/color-thief-don@2.0.2/src/color-thief.js"></script>
+    <script>
+      const ap = new APlayer({
+        container: document.getElementById('aplayer'),
+        autoplay: true, //自动播放
+        listFolded: true, //播放列表默认折叠
+        listMaxHeight: 90, //播放列表最大高度
+        order: 'random', //音频循环顺序, 可选值: 'list', 'random'
+        loop: 'all', //音频循环播放, 可选值: 'all', 'one', 'none'
+        theme: '#e9e9e9', //切换音频时的主题色，优先级低于audio.theme
+        preload: 'none', //音频预加载，可选值: 'none', 'metadata', 'auto'
+        mutex: true, //互斥，阻止多个播放器同时播放，当前播放器播放时暂停其他播放器
+        lrcType: 3, //歌词格式，可选值：3（LRC文件歌词格式），1（JS字符串歌词格式）
+        volume: 0.7, //默认音量，请注意播放器会记忆用户设置，用户手动设置音量后默认音量即失效
+        fixed: false, //吸底模式（fixed:true），迷你模式（mini:true），普通模式（注释此行或者设置fixed:false）
+        audio: [{// https://music.liuzhijin.cn/ 这是歌曲查询网站
+            name: '浪漫过敏',
+            artist: '福合埕在逃牛肉丸',
+            lrc: '',
+            cover: '/images/themes/G.png',
+            url: 'http://music.163.com/song/media/outer/url?id=1921676493.mp3'
+          },
+          {
+            name: '日暮里',
+            artist: 'JINBAO',
+            lrc: '',
+            cover: '/images/themes/M.png',
+            url: 'http://music.163.com/song/media/outer/url?id=1351183637.mp3'
+          },
+          {
+            name: '今晚有雨',
+            artist: '福合埕在逃牛肉丸',
+            lrc: '',
+            cover: '/images/themes/J.png',
+            url: 'http://music.163.com/song/media/outer/url?id=1921683713.mp3'
+          },
+          {
+            name: '漫步于星云之中',
+            artist: 'UM,Relimax,snxsn',
+            lrc: '',
+            cover: '/images/themes/L.png',
+            url: 'http://music.163.com/song/media/outer/url?id=1914485227.mp3'
+          }
+        ]
+      });
+    
+      //实现切换音频时，根据音频的封面图片自适应主题色
+      const colorThief = new ColorThief();
+      const setTheme = (index) => {
+        if (!ap.list.audios[index].theme) {
+          colorThief.getColorAsync(ap.list.audios[index].cover, function(color) {
+            ap.theme(`rgb(${color[0]}, ${color[1]}, ${color[2]})`, index);
+          });
+        }
+      };
+      setTheme(ap.list.index);
+      ap.on('listswitch', (data) => {
+        setTheme(data.index);
+      });
+    </script>
+    
+
+
+
+
+   
+  
+    <article class="display-when-two-columns spacer">
+      <div class="card card-content toc-card">
+        <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#Nuke-%E8%84%9A%E6%9C%AC%E7%BC%96%E8%BE%91%E7%AA%97%E5%8F%A3%E7%9B%B8%E5%85%B3%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%92%8C%E6%93%8D%E4%BD%9C"><span class="toc-number">1.</span> <span class="toc-text">Nuke 脚本编辑窗口相关快捷键和操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%90%AD%E5%BB%BA-Pycharm-IDE-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83"><span class="toc-number">2.</span> <span class="toc-text">搭建 Pycharm IDE 开发环境</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Nuke-%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%A8%A1%E5%BC%8F"><span class="toc-number">3.</span> <span class="toc-text">Nuke 命令行模式</span></a></li></ol>
+      </div>
+    </article>
+  
+  
+  <article class="card card-content categories-widget">
+    <div class="categories-card">
+  <div class="categories-header">
+    <i 
+      class="iconfont icon-fenlei" 
+      style="padding-right: 2px;">
+    </i>分类
+  </div>
+  <div class="categories-list">
+    
+      <a href="/categories/Doc/">
+        <div class="categories-list-item">
+          Doc
+          <span class="categories-list-item-badge">9</span>
+        </div>
+      </a>
+    
+      <a href="/categories/Deadline/">
+        <div class="categories-list-item">
+          Deadline
+          <span class="categories-list-item-badge">3</span>
+        </div>
+      </a>
+    
+      <a href="/categories/Doc/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+        <div class="categories-list-item">
+          Doc/学习笔记
+          <span class="categories-list-item-badge">6</span>
+        </div>
+      </a>
+    
+      <a href="/categories/Maya/">
+        <div class="categories-list-item">
+          Maya
+          <span class="categories-list-item-badge">11</span>
+        </div>
+      </a>
+    
+      <a href="/categories/Deadline/%E6%8F%92%E4%BB%B6/">
+        <div class="categories-list-item">
+          Deadline/插件
+          <span class="categories-list-item-badge">3</span>
+        </div>
+      </a>
+    
+      <a href="/categories/Nuke/">
+        <div class="categories-list-item">
+          Nuke
+          <span class="categories-list-item-badge">3</span>
+        </div>
+      </a>
+    
+      <a href="/categories/Qt/">
+        <div class="categories-list-item">
+          Qt
+          <span class="categories-list-item-badge">3</span>
+        </div>
+      </a>
+    
+      <a href="/categories/Maya/%E6%9D%82%E9%A1%B9/">
+        <div class="categories-list-item">
+          Maya/杂项
+          <span class="categories-list-item-badge">7</span>
+        </div>
+      </a>
+    
+      <a href="/categories/Maya/%E5%B0%8F%E5%B7%A5%E5%85%B7/">
+        <div class="categories-list-item">
+          Maya/小工具
+          <span class="categories-list-item-badge">3</span>
+        </div>
+      </a>
+    
+      <a href="/categories/Rez/">
+        <div class="categories-list-item">
+          Rez
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/categories/Maya/arnold/">
+        <div class="categories-list-item">
+          Maya/arnold
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/categories/Nuke/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+        <div class="categories-list-item">
+          Nuke/学习笔记
+          <span class="categories-list-item-badge">3</span>
+        </div>
+      </a>
+    
+      <a href="/categories/Qt/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+        <div class="categories-list-item">
+          Qt/学习笔记
+          <span class="categories-list-item-badge">3</span>
+        </div>
+      </a>
+    
+  </div>
+</div>
+  </article>
+  
+  <article class="card card-content tags-widget">
+    <div class="tags-card">
+  <div class="tags-header">
+    <i 
+      class="iconfont icon-biaoqian" 
+      style="padding-right: 2px;">
+    </i>热门标签
+  </div>
+  <div class="tags-list">
+    
+      <a 
+        href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" 
+        title="学习笔记">
+        <div class="tags-list-item">学习笔记</div>
+      </a>
+    
+      <a 
+        href="/tags/Pipeline/" 
+        title="Pipeline">
+        <div class="tags-list-item">Pipeline</div>
+      </a>
+    
+      <a 
+        href="/tags/%E7%81%AF%E5%85%89/" 
+        title="灯光">
+        <div class="tags-list-item">灯光</div>
+      </a>
+    
+      <a 
+        href="/tags/QT%E4%BA%8B%E4%BB%B6/" 
+        title="QT事件">
+        <div class="tags-list-item">QT事件</div>
+      </a>
+    
+      <a 
+        href="/tags/%E9%94%A6%E5%9B%8A%E5%B0%8F%E5%A6%99%E6%8B%9B/" 
+        title="锦囊小妙招">
+        <div class="tags-list-item">锦囊小妙招</div>
+      </a>
+    
+      <a 
+        href="/tags/Blog/" 
+        title="Blog">
+        <div class="tags-list-item">Blog</div>
+      </a>
+    
+      <a 
+        href="/tags/%E6%8F%92%E4%BB%B6/" 
+        title="插件">
+        <div class="tags-list-item">插件</div>
+      </a>
+    
+      <a 
+        href="/tags/%E4%BF%A1%E5%8F%B7-%E6%A7%BD/" 
+        title="信号&槽">
+        <div class="tags-list-item">信号&amp;槽</div>
+      </a>
+    
+      <a 
+        href="/tags/Hexo/" 
+        title="Hexo">
+        <div class="tags-list-item">Hexo</div>
+      </a>
+    
+      <a 
+        href="/tags/ACES/" 
+        title="ACES">
+        <div class="tags-list-item">ACES</div>
+      </a>
+    
+      <a 
+        href="/tags/%E7%81%AF%E5%85%89%E5%90%88%E6%88%90/" 
+        title="灯光合成">
+        <div class="tags-list-item">灯光合成</div>
+      </a>
+    
+      <a 
+        href="/tags/USD/" 
+        title="USD">
+        <div class="tags-list-item">USD</div>
+      </a>
+    
+      <a 
+        href="/tags/github/" 
+        title="github">
+        <div class="tags-list-item">github</div>
+      </a>
+    
+      <a 
+        href="/tags/Markdown/" 
+        title="Markdown">
+        <div class="tags-list-item">Markdown</div>
+      </a>
+    
+      <a 
+        href="/tags/aiUserData/" 
+        title="aiUserData">
+        <div class="tags-list-item">aiUserData</div>
+      </a>
+    
+      <a 
+        href="/tags/Aitoon/" 
+        title="Aitoon">
+        <div class="tags-list-item">Aitoon</div>
+      </a>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+            </aside>
+            <aside class="right-column">
+              <div class="sticky-widescreen">
+  
+  
+    <article class="card card-content toc-card">
+      <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#Nuke-%E8%84%9A%E6%9C%AC%E7%BC%96%E8%BE%91%E7%AA%97%E5%8F%A3%E7%9B%B8%E5%85%B3%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%92%8C%E6%93%8D%E4%BD%9C"><span class="toc-number">1.</span> <span class="toc-text">Nuke 脚本编辑窗口相关快捷键和操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%90%AD%E5%BB%BA-Pycharm-IDE-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83"><span class="toc-number">2.</span> <span class="toc-text">搭建 Pycharm IDE 开发环境</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Nuke-%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%A8%A1%E5%BC%8F"><span class="toc-number">3.</span> <span class="toc-text">Nuke 命令行模式</span></a></li></ol>
+    </article>
+  
+  
+  <article class="card card-content">
+    <div class="recent-posts-card">
+  <div class="recent-posts-header">
+    <i 
+      class="iconfont icon-wenzhang_huaban" 
+      style="padding-right: 2px;">
+    </i>最近文章
+  </div>
+  <div class="recent-posts-list">
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-08-01</div>
+        <a href="/posts/20220801a1.html"><div class="recent-posts-item-content">Nuke学习笔记3</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-07-31</div>
+        <a href="/posts/20220731a1.html"><div class="recent-posts-item-content">Nuke学习笔记2</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-07-30</div>
+        <a href="/posts/20220730a1.html"><div class="recent-posts-item-content">Nuke学习笔记1</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-07-29</div>
+        <a href="/posts/20220729a1.html"><div class="recent-posts-item-content">Maya中Xgen毛发渲染问题</div></a>
+      </div>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </div>
+     
+    <footer class="footer">
+  <div class="footer-container">
+    <div>
+      <div class="footer-dsc">
+        <span>
+          Copyright ©
+          
+            2022 -
+          
+          2022
+        </span>
+        &nbsp;
+        <a 
+          href="/" 
+          class="footer-link">
+          Mirror`s Blog
+        </a>
+      </div>
+    </div>
+
+    
+      <div class="footer-dsc">
+        
+          Powered by
+          <a 
+            href="https://hexo.io/" 
+            class="footer-link" 
+            target="_blank" 
+            rel="nofollow noopener noreferrer">
+            &nbsp;Hexo
+          </a>
+        
+        
+          <span>&nbsp;|&nbsp;</span>
+        
+        
+          Theme -
+          <a 
+            href="https://github.com/theme-kaze" 
+            class="footer-link" 
+            target="_blank"
+            rel="nofollow noopener noreferrer">
+            &nbsp;Kaze
+          </a>
+        
+      </div>
+    
+    
+    
+    
+      <div class="footer-dsc">
+        
+          小站被客官们总光顾<span id="busuanzi_value_site_pv"></span>次
+        
+        
+          <span>&nbsp;|&nbsp;</span>
+        
+        
+          小站总接待客官<span id="busuanzi_value_site_uv"></span>人
+        
+      </div>
+      
+    
+</footer> 
+    
+  <a 
+    role="button" 
+    id="scrollbutton" 
+    class="basebutton" 
+    aria-label="回到顶部">
+    <i class="iconfont icon-arrowleft button-icon"></i>
+  </a>
+
+<a 
+  role="button" 
+  id="menubutton"
+  aria-label="menu button"
+  class="basebutton">
+  <i class="iconfont icon-menu button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="popbutton" 
+  class="basebutton" 
+  aria-label="控制中心">
+  <i class="iconfont icon-expand button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="darkbutton" 
+  class="basebutton darkwidget" 
+  aria-label="夜色模式">
+  <i class="iconfont icon-weather button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="searchbutton" 
+  class="basebutton searchwidget" 
+  aria-label="搜索">
+  <i class="iconfont icon-search button-icon"></i>
+</a> 
+     
+     
+     
+      <script>
+  var addImgLayout = function () {
+    var img = document.querySelectorAll('.post-content img')
+    var i
+    for (i = 0; i < img.length; i++) {
+      var wrapper = document.createElement('a')
+      wrapper.setAttribute('href', img[i].getAttribute('data-src'))
+      wrapper.setAttribute('aria-label', 'illustration')
+      wrapper.style.cssText =
+        'width: 100%; display: flex; justify-content: center;'
+      if (img[i].alt) wrapper.dataset.caption = img[i].alt
+      wrapper.dataset.nolink = true
+      img[i].before(wrapper)
+      wrapper.append(img[i])
+      var divWrap = document.createElement('div')
+      divWrap.classList.add('gallery')
+      wrapper.before(divWrap)
+      divWrap.append(wrapper)
+    }
+    baguetteBox.run('.gallery')
+  }
+</script>
+<script>
+  loadScript(
+    "/js/lib/lightbox/baguetteBox.min.js",
+    addImgLayout
+  )
+</script>
+ 
+     
+     
+    <script src="/js/main.js"></script> 
+    
+      <script> 
+        loadScript('/js/lib/busuanzi.min.js') 
+      </script>
+     
+    
+      <script>
+        var addLazyload = function () {
+          var observer = lozad('.lozad', {
+            load: function (el) {
+              el.srcset = el.getAttribute('data-src')
+            },
+            loaded: function (el) {
+              el.classList.add('loaded')
+            },
+          })
+          observer.observe()
+        }
+      </script>
+      <script>
+        loadScript('/js/lib/lozad.min.js', addLazyload)
+      </script>
+     
+    
+    
+      <script>
+        setTimeout(() => {localSearch("search.json")}, 0)
+      </script>
+    
+
+
+
+  
+
+
+  </body>
+</html>

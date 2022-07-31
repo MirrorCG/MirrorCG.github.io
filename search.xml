@@ -4,11 +4,92 @@
   
     
     <entry>
+      <title>Nuke学习笔记3</title>
+      <link href="/posts/20220801a1.html"/>
+      <url>/posts/20220801a1.html</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>Nuke学习笔记 <span id="more"></span></p><h3 id="Nuke-API-文档"><a href="#Nuke-API-文档" class="headerlink" title="Nuke API 文档"></a>Nuke API 文档</h3><ul><li>本地文档：C:\Program Files\Nuke12.2v2\Documentation</li><li>在线文档：<a href="https://learn.foundry.com/nuke/12.2/content/misc/nuke_devs.html">https://learn.foundry.com/nuke/12.2/content/misc/nuke_devs.html</a><ul><li>Nuke Python Developers Guide: 案例教程</li><li>Python Scripting Reference： API 参考文档</li><li>TCL Scripting Reference: TCL 表达式参考文档</li></ul></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Nuke </category>
+          
+          <category> 学习笔记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 学习笔记 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Nuke学习笔记2</title>
+      <link href="/posts/20220731a1.html"/>
+      <url>/posts/20220731a1.html</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>Nuke学习笔记 <span id="more"></span></p><h3 id="Nuke-API-文档"><a href="#Nuke-API-文档" class="headerlink" title="Nuke API 文档"></a>Nuke API 文档</h3><ul><li>本地文档：C:\Program Files\Nuke12.2v2\Documentation</li><li>在线文档：<a href="https://learn.foundry.com/nuke/12.2/content/misc/nuke_devs.html">https://learn.foundry.com/nuke/12.2/content/misc/nuke_devs.html</a><ul><li>Nuke Python Developers Guide: 案例教程</li><li>Python Scripting Reference： API 参考文档</li><li>TCL Scripting Reference: TCL 表达式参考文档</li></ul></li></ul><h3 id="节点创建和删除"><a href="#节点创建和删除" class="headerlink" title="节点创建和删除"></a>节点创建和删除</h3><p>nuke节点的有可能有不同的版本，比如”Text”和”Text2”、 “Merge”和”Merge2”、”Tracher”和”Tracher3”以及”Tracher4”，默认情况下使用的是新版。右键 &gt; Other &gt; All Plugin &gt; Update，这个操作会扫面并加载所有可用的节点。bezier节点不能被扫描出来，可使用Roto代替,若一定要使用，可使用代码创建或使用 Comp Script Command（TCL） 创建想要的节点。节点参数的键可以在Nuke中将鼠标悬停在参数选项上，显示的提示框的第一句就是参数的名称，参数的值可复制节点到文本编辑器中查询，有时参数可能设置不上，是Nuke的一些bug,需要寻找别的手段设置。前台模式适合在Gui模式下交互，并且创建的节点会默认连接到当前选择的节点下，若没有选中节点，则创建在鼠标最后一次点击的位置；后台模式更适合后台运行脚本，创建的节点的位置随机。</p><ul><li>创建节点：<ul><li>前台模式：nuke.createNode(“节点类型”) </li><li>后台模式：nuke.nodes.Read(“”)</li></ul></li><li>创建节点时不弹出参数设置对话框：nuke.createNode(“节点类型”，inpanel&#x3D;False)</li><li>创建节点时设置参数：<ul><li>前台模式：nuke.createNode(“Text2”,”message ‘test’ yjustify center”)</li><li>后台模式：nuke.nodes.Read(message&#x3D;’test’, yjustify&#x3D;center)</li></ul></li><li>获取选中节点类型名：<ul><li>nuke.getNodeClassName()(选中状态的节点)</li><li>node &#x3D; createNode(“Text2”);node.Class()</li></ul></li><li>获取节点名：node.name()</li><li>删除节点：<ul><li>前台模式：nuke.delete(node)</li><li>后台模式：nuke.nodeDelete()(选中状态的节点)</li></ul></li></ul><h3 id="选择和链接节点"><a href="#选择和链接节点" class="headerlink" title="选择和链接节点"></a>选择和链接节点</h3><ul><li>选择节点：nuke.toNode(“节点名”)</li><li>获取节点输入：<ul><li>获取所有输入端：nuke.inputs()</li><li>获取指定输入端：nuke.input(端口数字)</li></ul></li><li>链接节点：nuke.setInput(端口数字，nuke.toNode(“节点名”)) </li><li>获取所有节点：nuke.allNodes()</li><li>获取选中节点：<ul><li>仅返回最后一个被选中的节点 nuke.selectedNode() </li><li>返回主节点树中所有选中的节点 nuke.selectedNodes()</li></ul></li><li>选中以获得的节点<ul><li>将节点设置为选中状态 node &#x3D; createNode(“Text2”);node.setSelect() 也可以传递参数设置选中状态</li><li>将当前节点设置为整个节点树中唯一被选中的状态 node.selectOnly()</li></ul></li><li>选中所有节点 nuke.selectAll()</li><li>选中满足模糊搜索节点名称的节点：nuke.selectPattern() 仅能在GUI模式下使用</li><li>选中与当前选中节点类似的节点：nuke.selectSimilar(“要匹配的类型”)<ul><li>选中有相似的类型 nuke.selectSimilar(nuke.MATCH_CLASS)</li><li>选中有相似的label标签 nuke.selectSimilar(nuke.MATCH_LABEL)</li><li>选中有相似的颜色 nuke.selectSimilar(nuke.MATCH_COLOR)</li></ul></li><li>将选中节点的上下游都设置为选中状态 nuke.selectConnectedNodes()</li><li>判断是否有被选中的节点 nuke.nodesSelected()</li><li>反向选择 nuke.invertSelection()</li><li>将节点从选中的节点中脱离出来 nuke.extractSelected()</li><li>克隆选中的节点 nuke.cloneSelected()</li><li>以递归形式清楚节点的选中状态 nukescript.misc.clear_selection_recursive() 包括Gizmo 和 Group 中选中的节点也会被清楚选中</li></ul><h3 id="节点位置和布局"><a href="#节点位置和布局" class="headerlink" title="节点位置和布局"></a>节点位置和布局</h3><p> NodeGraph 的坐标轴方向是X轴向右，Y轴向下；节点的位置指的是节点左上角的位置.<br> 位置相关方法,node &#x3D; createNode(“Text2”)：</p><ul><li>获取位置<ul><li>node.xPos()、node.yPos()</li><li>node[“xPos”].value、node[“yPos”].value</li></ul></li><li>设置位置<ul><li>node.setxpos(“value”)、node.setYpos(“value”)、node.setXYpos(“value1”,”value2”)</li><li>node[“xPos”].setValue(“value”)、node[“yPos”].setValue(“value”)</li></ul></li><li>获取节点长宽<ul><li>node.screenWidth()、node.screenHeight()</li></ul></li><li>自动布局到选中节点的下方 node.autoplace()</li><li>NodeGraph 缩放比 <ul><li>查询缩放比 nuke.zoom()</li><li>设置缩放比 nuke.zoom(倍数，[焦距的位置X,焦距的位置Y])</li></ul></li></ul><h3 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h3><ul><li>打开新Nuke工程 nuke.scriptNew() ctrl+N</li><li>打开指定Nuke工程 nuke.scriptOpen(“存在的Nuke工程路径”) </li><li>将已有的Nuke工程导入到当前的Nuke工程中<ul><li>nuke.scriptSource()</li><li>nuke.scriptRendFile()</li></ul></li><li>清空当前NodeGraph:<ul><li>直接放弃修改，无返回值 nuke.scriptClear()</li><li>提示是否保存更改，有返回值 nuke.scriptClose()</li></ul></li><li>退出Nuke nuke.scriptExit()</li><li>获取当前文件名称 <ul><li>nuke.scriptName()</li><li>nuke.Root().name()</li><li>nuke.Root()[“name”].value()</li><li>nuke.Root().knob(“name”).value()</li></ul></li><li>返回当前工程所在的文件夹的路径<ul><li>nuke.utils.script_directory()</li><li>nukescripts.script.script_directory()（该方法调用上面的方法）</li></ul></li><li>复制和粘贴<ul><li>从字符串创建一个节点 nuke.scriptReadText(“表示节点的字符串，超麻烦”)</li><li>将选中的节点暂存到文本名或粘贴板名的文件中 nuke.nodeCopy(“文件路径或临时起名的粘贴板中”)</li><li>将粘贴板中的内容粘贴到nuke中 nuke.paste(“文件路径或临时起名的粘贴板中”)  # %clipboard% 可表示系统粘贴板</li></ul></li><li>保存工程 <ul><li>直接保存 nuke.scriptSave()</li><li>另存为 nuke.scriptSaveAs(“文件名”)</li><li>另存时不修改Root节点中的路径 nuke.scriptSaveToTemp(“文件名”)</li><li>保存文件后清空nuke工程 nuke.scriptSaveAndClear()</li></ul></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Nuke </category>
+          
+          <category> 学习笔记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 学习笔记 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Nuke学习笔记1</title>
+      <link href="/posts/20220730a1.html"/>
+      <url>/posts/20220730a1.html</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>Nuke学习笔记 <span id="more"></span></p><h4 id="Nuke-脚本编辑窗口相关快捷键和操作"><a href="#Nuke-脚本编辑窗口相关快捷键和操作" class="headerlink" title="Nuke 脚本编辑窗口相关快捷键和操作"></a>Nuke 脚本编辑窗口相关快捷键和操作</h4><p>tab键   自动代码补全    输入部分脚本后，可获取相关的方法</p><p style="text-indent:2em">Edit > Preferences > ScriptEditor > echo python commands to output window 将输出常用操作的 Nuke Python API 代码显示在代码执行结果显示区。</p><p><img src="/images/Nuke%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/%E8%BE%93%E5%87%BA%E6%93%8D%E4%BD%9CPython%E4%BB%A3%E7%A0%81%E5%88%B0%E8%84%9A%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8.png" alt="输出操作Python代码到脚本编辑器 png" srcset="/images/home/Myhead.jpg" data-src="/images/Nuke%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/%E8%BE%93%E5%87%BA%E6%93%8D%E4%BD%9CPython%E4%BB%A3%E7%A0%81%E5%88%B0%E8%84%9A%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8.png" class="lozad post-image"> </p><h4 id="搭建-Pycharm-IDE-开发环境"><a href="#搭建-Pycharm-IDE-开发环境" class="headerlink" title="搭建 Pycharm IDE 开发环境"></a>搭建 Pycharm IDE 开发环境</h4><p style="text-indent:2em">在 Pycharm 中新建一个项目，用于开发Nuke插件,必须使用Nuke本身的Python编译器 "C:\Program Files\Nuke版本\python.exe"，该python编译器拥有完整的Nuke开发环境。</p><p style="text-indent:2em">关于 nukescripts 模块的使用，需要将“C:\Program Files\Nuke版本号\plugins”加入搜索路径</p><p style="text-indent:2em">关于 Pyside2 模块的使用，需要将“C:\Program Files\Nuke版本号\pythonextensions\site-packages”加入搜索路径</p><p style="text-indent:2em">配置好上面的环境后执行代码会发现报错：缺少一个“_nuke” 模块。这个模块在这里 "C:\Program Files\Nuke12.2v2\lib\site-packages\nuke.pyd" 中，由于这个文件和上面的 nukescripts 模块同级目录的nuke模块重名，导致不能加载这个nuke.pyd，因此会报这个错，如何解决呢？</p><ul><li>方法一.从搜索路径中去掉 “C:\Program Files\Nuke版本号\plugins”，但nukescripts模块的会缺少代码补全（加载完nuke.pyd后，会自动加载nuke和nukescripts模块，因此在执行代码时不会报这两个模块的错）.</li><li>方法二.在pycharm中将编辑nuke代码的Python解释器和运行nuke代码的python解释器分开，在编写的nuke代码的时候，将项目中python interpreter中设置的python解释器设置为普通的python解释器，可以在其搜索路径中加入我们想要的搜索路径，然后在运行nuke代码的时候，在Run&#x2F;Debug configuration中设置的python解释器设置为带有nuke环境的python解释器即可。</li></ul><p>  <img src="/images/Nuke%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/%E5%88%87%E6%8D%A2%E6%89%A7%E8%A1%8C%E6%97%B6%E7%9A%84Python%E8%A7%A3%E9%87%8A%E5%99%A8.png" alt="切换执行时的Python解释器 png" srcset="/images/home/Myhead.jpg" data-src="/images/Nuke%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/%E5%88%87%E6%8D%A2%E6%89%A7%E8%A1%8C%E6%97%B6%E7%9A%84Python%E8%A7%A3%E9%87%8A%E5%99%A8.png" class="lozad post-image"> </p><p style="text-indent:2em">此环境可能无法正常运行Pyside2相关的代码，需要在nuke中执行(详情见下一节)。</p><p><img src="/images/Nuke%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/Pycharm%E4%B8%AD%E4%BD%BF%E7%94%A8Pyside2%E6%8A%A5%E9%94%99.png" alt="Pycharm中使用Pyside2报错 png" srcset="/images/home/Myhead.jpg" data-src="/images/Nuke%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/Pycharm%E4%B8%AD%E4%BD%BF%E7%94%A8Pyside2%E6%8A%A5%E9%94%99.png" class="lozad post-image">  </p><h4 id="Nuke-命令行模式"><a href="#Nuke-命令行模式" class="headerlink" title="Nuke 命令行模式"></a>Nuke 命令行模式</h4><pre class="language-dos" data-language="dos"><code class="language-dos">&quot;C:\Program Files\Nuke12.2v2\python.exe&quot; &quot;D:\test.py&quot;</code></pre><p>运行脚本需使用Nuke的Python解释器，若后台调用脚本，可使用subprocess方法切换至Nuke本身的Python解释器。</p><p>若要使用 Pyside2 模块，需要在通过nuke主程序 nuke.exe 使用参数 -t 就可以运行Pyside2模块。</p><pre class="language-dos" data-language="dos"><code class="language-dos">&quot;C:\Program Files\Nuke12.2v2\nuke.exe&quot; -t &quot;D:\test.py&quot;</code></pre><p>但 -t 参数不能获取到 QApplication 类，只能获取到 QCoreApplication 类（QApplication是QCoreApplication的子类），所以要通过 --tg 参数来获取 Pyside2 模块创建窗口所需要的 QApplication 类。</p><pre class="language-dos" data-language="dos"><code class="language-dos">&quot;C:\Program Files\Nuke12.2v2\nuke.exe&quot; --tg &quot;D:\test.py&quot;</code></pre><p>nuke命令行语法：</p><p style="text-indent:4em">nuke.exe <\option> [<\argv>] <\script> [<\range>]</p>使用不同类别的主程序常用参数:<ul><li>--nukex</li><li>--studio</li><li>--nc</li><li>--nukeassist</li></ul><p>可以在Windows环境下使用doskey创建快捷键(只在当前窗口有效)，可以使用PATH环境变量，并写在一个bat脚本中：</p><pre class="language-dos" data-language="dos"><code class="language-dos">doskey nukex &#x3D; &quot;C:\Program Files\Nuke12.2v2\nuke.exe&quot; --nukex $*</code></pre><p>效果等于：<br>“C:\Program Files\Nuke12.2v2\nuke.exe” -- nukex &lt;\option&gt; [&lt;\argv&gt;] &lt;\script&gt; [&lt;\range&gt;] &#x3D; nukex &lt;\option&gt; [&lt;\argv&gt;] &lt;\script&gt; [&lt;\range&gt;]</p><p>一些常用的参数：</p><ul><li>-t 适用于纯命令行脚本</li><li>–tg 会产生一个 QApplication 实例，用于执行 Pyside2 的Gui相关脚本</li><li>-x &lt;\scriptname&gt; 渲染名为 \scriptname 的nuke工程中所有激活的write节点</li><li>-X&lt;\nodename&gt; 仅渲染指定名的\nodename的write节点</li><li>-F 指定帧范围</li><li>–cont 出错后继续渲染</li><li>–sro 按顺序依次渲染节点</li><li>-f 以全尺（full resolution）的方式打开nuk工程</li><li>-p 和-f相对，以 proxy 的方式打开nuke工程</li><li>-v 打开指定的图像文件，如果是视频，还需要跟上帧范围（文件路径使用正斜杠，不能使用反斜杠）</li><li>–pause 打开nuke工程时暂停 Viewer 初始化</li><li>-P 显示每个节点的资源占用情况</li><li>-Pf&lt;\filename&gt; 将每个节点的资源占用情况写入名为 \filename 的xml文件中</li><li>–multigpu 启用多gpu支持</li><li>–gpulist 列出当前系统可用的GPU及其索引号</li><li>–gpu ARG 使用由索引号ARG指定的GPU,在终端模式下启动GPU加速</li><li>–safe 安全模式，启动nuke不加载 .nuke、NUKE_PATH及OFX插件</li><li>-m # 指定线程数</li><li>-n 关闭节点postage stamps的预览显示</li><li>-q 关闭终端输出</li><li>-i 使用nuke_i授权，可与 -x 和 -t 连用，写成 -ti 或 -xi,默认情况下使用nuke_r授权，但有些操作需要使用nuke_i授权。</li><li>–remap&lt;\pathPair&gt; 仅能在命令行模式下使用，在当前会话中设置路径映射，要求参数为一对或多对路径拼成的字符串，用逗号分隔</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Nuke </category>
+          
+          <category> 学习笔记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 学习笔记 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Maya中Xgen毛发渲染问题</title>
       <link href="/posts/20220729a1.html"/>
       <url>/posts/20220729a1.html</url>
       
-        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>本文记录了一些Maya中Xgen毛发渲染的相关的问题：<span id="more"></span></p><ol><li>Xgen 毛发渲染运动模糊时，角色ABC和毛发ABC的运动迷糊不匹配的问题（小概率事件）：<p style="text-indent:2em">原因是生长面缓存只有整数帧采样并且在渲染运动模糊时，Xgen没有计算生长面的插值,或者由于前后帧的运动差异过大，Xgen计算出错误的生长面插值，导致毛发生长面的缓存和角色缓存的插值不匹配，生长面缓存和角色缓存在小数帧位置不同，就会导致运动模糊不同。也可以通过实际文件观测到，在运动模糊有问题的小数帧，毛发不加载缓存时，其毛发引导线跟随动画缓存，加载了毛发缓存后，毛发缓存曲线和动画缓存的位置一致，而毛发引导线却和缓存曲线不在相同的位置，毛发引导线和动画缓存脱离，但是毛发引导线的形态和毛发缓存一致，说明毛发引导线只是从毛发缓存继承了形态，并不继承其位置。而毛发引导线的位置是从毛发生长面继承的，此时毛发引导线的位置和动画缓存不一致，那么小数帧时生长面的缓存和动画缓存位置不一致，因此，毛发生长面缓存在计算小数帧时有问题。解决此类问题，最好为动画缓存、曲线缓存、生长面缓存都添加缓存的小数帧采样插值。</p></li></ol>]]></content>
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>本文记录了一些Maya中Xgen毛发渲染的相关的问题：<span id="more"></span></p><ol><li><p>Xgen 角色ABC和毛发ABC的运动模糊不匹配的问题（小概率事件）：</p><p style="text-indent:2em">原因是生长面缓存只有整数帧采样并且在渲染运动模糊时，Xgen没有计算生长面的插值,或者由于前后帧的运动差异过大，Xgen计算出错误的生长面插值，导致毛发生长面的缓存和角色缓存的插值不匹配，生长面缓存和角色缓存在小数帧位置不同，就会导致运动模糊不同。也可以通过实际文件观测到，在运动模糊有问题的小数帧，毛发不加载缓存时，其毛发引导线跟随动画缓存，加载了毛发缓存后，毛发缓存曲线和动画缓存的位置一致，而毛发引导线却和缓存曲线不在相同的位置，毛发引导线和动画缓存脱离，但是毛发引导线的形态和毛发缓存一致，说明毛发引导线只是从毛发缓存继承了形态，并不继承其位置。而毛发引导线的位置是从毛发生长面继承的，此时毛发引导线的位置和动画缓存不一致，那么小数帧时生长面的缓存和动画缓存位置不一致，因此，毛发生长面缓存在计算小数帧时有问题。解决此类问题，最好为动画缓存、曲线缓存、生长面缓存都添加缓存的小数帧采样插值。</p></li><li><p>使用不同名称、完全相同的两个集合体作为Xgen描述的生长面，其基本体随机种子数会有一些差异，随机种子数是根据物体的生长面名称进行hash计算得出的结果，若替换生长面对应的几何体名称，随机种子数会发生细微变化，从而导致效果会有细微差别。</p></li><li><p>xgen文件中只记录几何体的短名，不记录长名(可以手动修改的方式使用maya规范的长名，)，测试结果是只识别几何体短名称，不区分拓扑结构和形状以及uv，只使用.xgen文件中记录的的faceid面数，但拓扑结构不同结果肯定不一样，几何体名和生长面前缀应保持一致。</p></li><li><p>绘制的iff贴图在保存文件后才会写入工程目录的文件夹，描述下有几个生长面就保存几张贴图(从新的几何体添加新的生长面，需要重新绘制贴图，保存后也会对应新增一张贴图)，根据绘制贴图时的生长面_集合_描述名称，xgen中指定的贴图名称命名为：polySurfaceShape1_grass_col_grass_decmask_generator_grass)。</p></li><li><p>生长面跟随几何体放大缩小，但是毛发粗细不变(可写入表达式，待测试)。</p></li><li><p>确定了几何体、绑定几何体并生成生长面之后，不可以修改几何体的名称，指向文件(ptx，xuv等文件)记录的是以几何体命名的贴图名称，更改几何体命名称后，链接断开，指向文件失效。</p></li><li><p>使用相同几何体生成的不同描述，其生长面的名称为“几何体名称_描述名称”，不会重名</p></li><li><p>单个XGen文件的生长面、几何体可以改名;改完命名后直接更改其Xgen文件的几何体名称，另存文件即可;</p></li><li><p>使用几个几何体生成描述，集合下就拥有几个生长面(不建议使用多个几何体映射一个描述，最好先合并成一个几何体，方便管理)</p></li></ol>]]></content>
       
       
       <categories>
@@ -19,6 +100,12 @@
           
       </categories>
       
+      
+        <tags>
+            
+            <tag> Xgen </tag>
+            
+        </tags>
       
     </entry>
     
@@ -301,7 +388,7 @@
     
     
     <entry>
-      <title>在物体的点上创建跟踪对象</title>
+      <title>Maya中在物体的点上创建跟踪对象</title>
       <link href="/posts/20220503a1.html"/>
       <url>/posts/20220503a1.html</url>
       
@@ -373,6 +460,8 @@
       
         <tags>
             
+            <tag> 学习笔记 </tag>
+            
             <tag> QT事件 </tag>
             
             <tag> 信号&amp;槽 </tag>
@@ -433,6 +522,8 @@
       
         <tags>
             
+            <tag> 学习笔记 </tag>
+            
             <tag> QT事件 </tag>
             
             <tag> 异形窗口 </tag>
@@ -461,6 +552,8 @@
       
       
         <tags>
+            
+            <tag> 学习笔记 </tag>
             
             <tag> QT事件 </tag>
             
@@ -608,6 +701,8 @@
             <tag> 灯光合成 </tag>
             
             <tag> ACES </tag>
+            
+            <tag> 学习笔记 </tag>
             
         </tags>
       
