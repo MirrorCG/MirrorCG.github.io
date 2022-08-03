@@ -335,7 +335,7 @@
     
     
       <span class="dot"></span>
-      <span>953 字</span>
+      <span>1.1k 字</span>
     
   </div>
   
@@ -367,6 +367,10 @@
 <li><p>Xgen 角色ABC和毛发ABC的运动模糊不匹配的问题（小概率事件）：</p>
 <p style="text-indent:2em">原因是生长面缓存只有整数帧采样并且在渲染运动模糊时，Xgen没有计算生长面的插值,或者由于前后帧的运动差异过大，Xgen计算出错误的生长面插值，导致毛发生长面的缓存和角色缓存的插值不匹配，生长面缓存和角色缓存在小数帧位置不同，就会导致运动模糊不同。也可以通过实际文件观测到，在运动模糊有问题的小数帧，毛发不加载缓存时，其毛发引导线跟随动画缓存，加载了毛发缓存后，毛发缓存曲线和动画缓存的位置一致，而毛发引导线却和缓存曲线不在相同的位置，毛发引导线和动画缓存脱离，但是毛发引导线的形态和毛发缓存一致，说明毛发引导线只是从毛发缓存继承了形态，并不继承其位置。而毛发引导线的位置是从毛发生长面继承的，此时毛发引导线的位置和动画缓存不一致，那么小数帧时生长面的缓存和动画缓存位置不一致，因此，毛发生长面缓存在计算小数帧时有问题。解决此类问题，最好为动画缓存、曲线缓存、生长面缓存都添加缓存的小数帧采样插值。</p>
 </li>
+<li><p>前台批渲染带渲染运动模糊时，代码批量刷新生长面时报错‘not match object “XGEN_RENDER_:XXXX”’：</p>
+<p style="text-indent:2em">Xgen毛发在渲染运动模糊后，会生成可通过xgen.palettes()获取，但是无法使用cmds.sl("")列出，也无法删除的临时生长面，该生长面以“XG_RENDR_:”为前缀，若要在渲染运动模糊后批量处理生长面，需要跳过它，不会有任何影响。该临时生长面不会记录到maya文件中，但是会存在当前软件中，哪怕你清除场景，并重开另一个场景，也可以查询到它，处理时直接跳过无影响。</p></li>
+</ol>
+<h4 id="一些Xgen文件测试记录"><a href="#一些Xgen文件测试记录" class="headerlink" title="一些Xgen文件测试记录"></a>一些Xgen文件测试记录</h4><ol>
 <li><p>使用不同名称、完全相同的两个集合体作为Xgen描述的生长面，其基本体随机种子数会有一些差异，随机种子数是根据物体的生长面名称进行hash计算得出的结果，若替换生长面对应的几何体名称，随机种子数会发生细微变化，从而导致效果会有细微差别。</p>
 </li>
 <li><p>xgen文件中只记录几何体的短名，不记录长名(可以手动修改的方式使用maya规范的长名，)，测试结果是只识别几何体短名称，不区分拓扑结构和形状以及uv，只使用.xgen文件中记录的的faceid面数，但拓扑结构不同结果肯定不一样，几何体名和生长面前缀应保持一致。</p>
@@ -490,7 +494,7 @@
     style="padding-right: 2px;">
   </i>目录
 </div>
-
+<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80%E4%BA%9BXgen%E6%96%87%E4%BB%B6%E6%B5%8B%E8%AF%95%E8%AE%B0%E5%BD%95"><span class="toc-number">1.</span> <span class="toc-text">一些Xgen文件测试记录</span></a></li></ol>
 </div></main>
             <aside class="left-column">
               
@@ -630,7 +634,7 @@
     style="padding-right: 2px;">
   </i>目录
 </div>
-
+<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80%E4%BA%9BXgen%E6%96%87%E4%BB%B6%E6%B5%8B%E8%AF%95%E8%AE%B0%E5%BD%95"><span class="toc-number">1.</span> <span class="toc-text">一些Xgen文件测试记录</span></a></li></ol>
       </div>
     </article>
   
@@ -680,6 +684,13 @@
         </div>
       </a>
     
+      <a href="/categories/Maya/%E6%9D%82%E9%A1%B9/">
+        <div class="categories-list-item">
+          Maya/杂项
+          <span class="categories-list-item-badge">7</span>
+        </div>
+      </a>
+    
       <a href="/categories/Nuke/">
         <div class="categories-list-item">
           Nuke
@@ -694,13 +705,6 @@
         </div>
       </a>
     
-      <a href="/categories/Maya/%E6%9D%82%E9%A1%B9/">
-        <div class="categories-list-item">
-          Maya/杂项
-          <span class="categories-list-item-badge">7</span>
-        </div>
-      </a>
-    
       <a href="/categories/Maya/%E5%B0%8F%E5%B7%A5%E5%85%B7/">
         <div class="categories-list-item">
           Maya/小工具
@@ -708,16 +712,16 @@
         </div>
       </a>
     
-      <a href="/categories/Rez/">
+      <a href="/categories/Maya/arnold/">
         <div class="categories-list-item">
-          Rez
+          Maya/arnold
           <span class="categories-list-item-badge">1</span>
         </div>
       </a>
     
-      <a href="/categories/Maya/arnold/">
+      <a href="/categories/Rez/">
         <div class="categories-list-item">
-          Maya/arnold
+          Rez
           <span class="categories-list-item-badge">1</span>
         </div>
       </a>
@@ -799,6 +803,12 @@
       </a>
     
       <a 
+        href="/tags/USD/" 
+        title="USD">
+        <div class="tags-list-item">USD</div>
+      </a>
+    
+      <a 
         href="/tags/Hexo/" 
         title="Hexo">
         <div class="tags-list-item">Hexo</div>
@@ -817,9 +827,9 @@
       </a>
     
       <a 
-        href="/tags/USD/" 
-        title="USD">
-        <div class="tags-list-item">USD</div>
+        href="/tags/Markdown/" 
+        title="Markdown">
+        <div class="tags-list-item">Markdown</div>
       </a>
     
       <a 
@@ -829,21 +839,15 @@
       </a>
     
       <a 
-        href="/tags/Markdown/" 
-        title="Markdown">
-        <div class="tags-list-item">Markdown</div>
+        href="/tags/%E6%8E%92%E9%94%99%E8%AE%B0%E5%BD%95/" 
+        title="排错记录">
+        <div class="tags-list-item">排错记录</div>
       </a>
     
       <a 
-        href="/tags/aiUserData/" 
-        title="aiUserData">
-        <div class="tags-list-item">aiUserData</div>
-      </a>
-    
-      <a 
-        href="/tags/Aitoon/" 
-        title="Aitoon">
-        <div class="tags-list-item">Aitoon</div>
+        href="/tags/windows/" 
+        title="windows">
+        <div class="tags-list-item">windows</div>
       </a>
     
   </div>
@@ -864,7 +868,7 @@
     style="padding-right: 2px;">
   </i>目录
 </div>
-
+<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80%E4%BA%9BXgen%E6%96%87%E4%BB%B6%E6%B5%8B%E8%AF%95%E8%AE%B0%E5%BD%95"><span class="toc-number">1.</span> <span class="toc-text">一些Xgen文件测试记录</span></a></li></ol>
     </article>
   
   
