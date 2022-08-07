@@ -18,12 +18,12 @@
   <link 
     rel="icon" 
     href="/images/themes/%E6%98%9F%E7%90%83.png">
-  <title>Nuke学习笔记3</title>
+  <title>Nuke学习笔记3_菜单的加载和界面</title>
   
     
       <meta 
         property="og:title" 
-        content="Nuke学习笔记3">
+        content="Nuke学习笔记3_菜单的加载和界面">
     
     
       <meta 
@@ -306,7 +306,7 @@
 <article class="card card-content">
   <header>
     <h1 class="post-title">
-      Nuke学习笔记3
+      Nuke学习笔记3_菜单的加载和界面
     </h1>
   </header>
   <div class="post-meta post-show-meta">
@@ -335,7 +335,7 @@
     
     
       <span class="dot"></span>
-      <span>65 字</span>
+      <span>1.1k 字</span>
     
   </div>
   
@@ -372,7 +372,83 @@
 </ul>
 </li>
 </ul>
-<h3 id="工具加载"><a href="#工具加载" class="headerlink" title="工具加载"></a>工具加载</h3>
+<h3 id="工具加载"><a href="#工具加载" class="headerlink" title="工具加载"></a>工具加载</h3><p>开启 nuke 时，系统会加载两个安装目录的Plugins文件夹下的两个文件：</p>
+<ul>
+<li>init.py : 用于Nuke的环境设置、系统选项和默认参数，不能包含任何界面相关操作，命令行模式和GUI模式下均加载。</li>
+<li>menu.py ：用于跟界面相关的设置、自定义菜单、工具架，仅GUI模式加载。<br>位于用户文件夹下存放用户预设的.nuke文件夹，其下的init.py和menu.py用于存放用户预设。</li>
+</ul>
+<p>加载工具方式</p>
+<ul>
+<li>加载工具不运行：仅需要在init.py导入模块的主函数即可，再通过工具界面去调用主函数</li>
+</ul>
+<h3 id="加载工具相关函数"><a href="#加载工具相关函数" class="headerlink" title="加载工具相关函数"></a>加载工具相关函数</h3><ul>
+<li>获取插件和图标的搜索路径 nuke.pluginPath()</li>
+<li>向系统搜索路径添加路径到开头,并加载路径下的init.py nuke.pluginAddPath(“pathstr or pathList”)</li>
+<li>向系统搜索路径添加路径到结尾,但不加载路径下的init.py nuke.pluginAppendPath(“pathstr or pathList”)</li>
+<li>坚持指定的函数或插件是否存在 nuke.pluginExists(“pluginName or path or fileName”)</li>
+<li>返回所有已经加载的插件的文件路径列表 nuke.pligins(num,”re表达式过滤”，”re表达式过滤”，…)  num为 0，1，2，3</li>
+</ul>
+<h3 id="Nuke环境变量"><a href="#Nuke环境变量" class="headerlink" title="Nuke环境变量"></a>Nuke环境变量</h3><p>NUKE_PATH、OFX_PLUGIN_PATH都是列表后面的路径先加载的路径反向解析加载方式进行的，因此涉及继承和覆盖的通用配置需要放在列表后面，特殊和本地的配置放在列表开头。nuke.pluginPath是正向解析加载方式。</p>
+<ul>
+<li>NUKE_PATH 搜索 Nuke 的init.py 和menu.py文件的路径，可以将插件放在不同的位置，并且每一个插件都有各自的init.py和menu.py文件，就不用将所有插件都写入 .nuke 文件夹下的文件中，实现分布式管理</li>
+<li>OFX_PLUGIN_PATH 用来设置和加载ofx插件的位置，指向ofx的安装路径</li>
+</ul>
+<h3 id="自定义菜单常用类型"><a href="#自定义菜单常用类型" class="headerlink" title="自定义菜单常用类型"></a>自定义菜单常用类型</h3><p>Nuke的菜单界面和Qt是两套体系,Nuke 界面不属于Qt范畴</p>
+<ul>
+<li>菜单栏工具<ul>
+<li>nuke.menu(“Nuke”)</li>
+</ul>
+</li>
+<li>工具栏工具<ul>
+<li>nuke.menu(“Nodes”)</li>
+</ul>
+</li>
+<li>NodeGraph中右键工具<ul>
+<li>nuke.menu(“Node Graph”)</li>
+</ul>
+</li>
+</ul>
+<h3 id="自定义菜单函数"><a href="#自定义菜单函数" class="headerlink" title="自定义菜单函数"></a>自定义菜单函数</h3><ul>
+<li><p>nuke.Menu 菜单类型</p>
+<ul>
+<li>nuke.menu(“Nuke”).findItem(“菜单项名称”) 查找指定菜单项 <ul>
+<li>菜单项名称可以是相对于顶级菜单项的名称 nuke.menu(“Nuke”).findItem(“菜单项1&#x2F;菜单项2&#x2F;菜单项3”)</li>
+</ul>
+</li>
+<li>nuke.menu(“Nuke”).menu(“菜单项名称”) 查找指定菜单项</li>
+<li>nuke.Menu.items() 返回查询到的菜单项</li>
+<li>nuke.menu(“Nuke”).addMenu(“新加项”，icon&#x3D;””,tooltip&#x3D;””,index&#x3D;””) 创建新菜单，其中新加项也是相对路径，index添加位置，默认为-1，只对最后一级有效  </li>
+<li>nuke.menu(“Nuke”).addcommand(“新加项”,”脚本字符串”，“快捷键”，”icon”,”tooltip”，”index”) 添加菜单项命令，其中 “脚本字符串”可以为可执行的Python语句，或lambda函数，若没有指定命令，则会默认为创建一个名为新加项的节点。</li>
+<li>nuke.menu(“Nuke”).removeItem(“删除项”) 删除指定的菜单，其中删除项不为相对路径，要删除指定项，需要从指定级的上一级删除，空菜单会自动删除</li>
+<li>nuke.menu(“Nuke”).clearMenu() 删除菜单下的所有菜单项，也不支持相对路径，不会删除当前空菜单</li>
+</ul>
+</li>
+<li><p>nuke.MenuItem 创建菜单项类</p>
+<ul>
+<li>nuke.menu(“Nuke”).findItem(“菜单项”).action() 获取QAction对象,其父对象是QMainWindow</li>
+<li>nuke.menu(“Nuke”).findItem(“菜单项”).invoke() 直接执行menuItem，等同于nuke.menu(“Nuke”).findItem(“菜单项”).action().trigger()</li>
+<li>nuke.menu(“Nuke”).findItem(“菜单项”).script() 返回对应的字符串，如果是lambda函数，其返回值是空</li>
+<li>nuke.menu(“Nuke”).findItem(“菜单项”).setScript() 重新设置字符串</li>
+</ul>
+</li>
+<li><p>nuke.menu(“菜单名”) 获取指定的根菜单，以下列出部分菜单名</p>
+<ul>
+<li>Nuke 菜单栏</li>
+<li>Nodes 工具栏</li>
+<li>Node Graph NodeGraph中的右键菜单</li>
+<li>Viewer Viewer菜单</li>
+<li>Properties 节点属性对话框中的右键菜单</li>
+<li>Animation 动画控件和曲线编辑器右键菜单</li>
+<li>Pane 界面中面板布局右键菜单</li>
+<li>Axis 坐标右键菜单</li>
+</ul>
+</li>
+</ul>
+<h3 id="获取当前软件QT对象"><a href="#获取当前软件QT对象" class="headerlink" title="获取当前软件QT对象"></a>获取当前软件QT对象</h3><pre class="line-numbers language-pyhton" data-language="pyhton"><code class="language-pyhton">from Pyside2 import QtWidgets
+allWin &#x3D; [w for w in QtWidgets.QApplication.instance().topLevelWidgets() if w.windowTitle() &#x3D;&#x3D; &quot;窗口提示&quot;]
+allMenu &#x3D; [w for w in allWin[0]children() if isinstance(w,QtWidgets.QMenuBar)]
+menubar &#x3D; allMenu[0]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
   </div>
   <div>
     
@@ -402,6 +478,20 @@
 </article>
 <div class="nav">
   
+    <div class="nav-item-prev">
+      <a 
+        href="/posts/20220807a1.html" 
+        class="nav-link">
+        <i class="iconfont icon-left nav-prev-icon"></i>
+        <div>
+          <div class="nav-label">上一篇</div>
+          
+            <div class="nav-title">Nuke学习笔记4 </div>
+          
+        </div>
+      </a>
+    </div>
+  
   
     <div class="nav-item-next">
       <a 
@@ -410,7 +500,7 @@
         <div>
           <div class="nav-label">下一篇</div>
           
-            <div class="nav-title">Nuke学习笔记2 </div>
+            <div class="nav-title">Nuke学习笔记2_节点与Knob </div>
           
         </div>
         <i class="iconfont icon-right nav-next-icon"></i>
@@ -464,7 +554,7 @@
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Nuke-API-%E6%96%87%E6%A1%A3"><span class="toc-number">1.</span> <span class="toc-text">Nuke API 文档</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A5%E5%85%B7%E5%8A%A0%E8%BD%BD"><span class="toc-number">2.</span> <span class="toc-text">工具加载</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Nuke-API-%E6%96%87%E6%A1%A3"><span class="toc-number">1.</span> <span class="toc-text">Nuke API 文档</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A5%E5%85%B7%E5%8A%A0%E8%BD%BD"><span class="toc-number">2.</span> <span class="toc-text">工具加载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E8%BD%BD%E5%B7%A5%E5%85%B7%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0"><span class="toc-number">3.</span> <span class="toc-text">加载工具相关函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Nuke%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-number">4.</span> <span class="toc-text">Nuke环境变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E8%8F%9C%E5%8D%95%E5%B8%B8%E7%94%A8%E7%B1%BB%E5%9E%8B"><span class="toc-number">5.</span> <span class="toc-text">自定义菜单常用类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E8%8F%9C%E5%8D%95%E5%87%BD%E6%95%B0"><span class="toc-number">6.</span> <span class="toc-text">自定义菜单函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E5%BD%93%E5%89%8D%E8%BD%AF%E4%BB%B6QT%E5%AF%B9%E8%B1%A1"><span class="toc-number">7.</span> <span class="toc-text">获取当前软件QT对象</span></a></li></ol>
 </div></main>
             <aside class="left-column">
               
@@ -483,7 +573,7 @@
   <a 
     class="author-posts-count" 
     href="/archives">
-    <span>30</span>
+    <span>31</span>
     <span>文章</span>
   </a>
   <a 
@@ -604,7 +694,7 @@
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Nuke-API-%E6%96%87%E6%A1%A3"><span class="toc-number">1.</span> <span class="toc-text">Nuke API 文档</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A5%E5%85%B7%E5%8A%A0%E8%BD%BD"><span class="toc-number">2.</span> <span class="toc-text">工具加载</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Nuke-API-%E6%96%87%E6%A1%A3"><span class="toc-number">1.</span> <span class="toc-text">Nuke API 文档</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A5%E5%85%B7%E5%8A%A0%E8%BD%BD"><span class="toc-number">2.</span> <span class="toc-text">工具加载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E8%BD%BD%E5%B7%A5%E5%85%B7%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0"><span class="toc-number">3.</span> <span class="toc-text">加载工具相关函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Nuke%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-number">4.</span> <span class="toc-text">Nuke环境变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E8%8F%9C%E5%8D%95%E5%B8%B8%E7%94%A8%E7%B1%BB%E5%9E%8B"><span class="toc-number">5.</span> <span class="toc-text">自定义菜单常用类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E8%8F%9C%E5%8D%95%E5%87%BD%E6%95%B0"><span class="toc-number">6.</span> <span class="toc-text">自定义菜单函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E5%BD%93%E5%89%8D%E8%BD%AF%E4%BB%B6QT%E5%AF%B9%E8%B1%A1"><span class="toc-number">7.</span> <span class="toc-text">获取当前软件QT对象</span></a></li></ol>
       </div>
     </article>
   
@@ -654,17 +744,17 @@
         </div>
       </a>
     
+      <a href="/categories/Nuke/">
+        <div class="categories-list-item">
+          Nuke
+          <span class="categories-list-item-badge">4</span>
+        </div>
+      </a>
+    
       <a href="/categories/Maya/%E6%9D%82%E9%A1%B9/">
         <div class="categories-list-item">
           Maya/杂项
           <span class="categories-list-item-badge">7</span>
-        </div>
-      </a>
-    
-      <a href="/categories/Nuke/">
-        <div class="categories-list-item">
-          Nuke
-          <span class="categories-list-item-badge">3</span>
         </div>
       </a>
     
@@ -682,13 +772,6 @@
         </div>
       </a>
     
-      <a href="/categories/Maya/arnold/">
-        <div class="categories-list-item">
-          Maya/arnold
-          <span class="categories-list-item-badge">1</span>
-        </div>
-      </a>
-    
       <a href="/categories/Rez/">
         <div class="categories-list-item">
           Rez
@@ -699,7 +782,7 @@
       <a href="/categories/Nuke/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
         <div class="categories-list-item">
           Nuke/学习笔记
-          <span class="categories-list-item-badge">3</span>
+          <span class="categories-list-item-badge">4</span>
         </div>
       </a>
     
@@ -707,6 +790,13 @@
         <div class="categories-list-item">
           Qt/学习笔记
           <span class="categories-list-item-badge">3</span>
+        </div>
+      </a>
+    
+      <a href="/categories/Maya/arnold/">
+        <div class="categories-list-item">
+          Maya/arnold
+          <span class="categories-list-item-badge">1</span>
         </div>
       </a>
     
@@ -773,12 +863,6 @@
       </a>
     
       <a 
-        href="/tags/USD/" 
-        title="USD">
-        <div class="tags-list-item">USD</div>
-      </a>
-    
-      <a 
         href="/tags/Hexo/" 
         title="Hexo">
         <div class="tags-list-item">Hexo</div>
@@ -797,9 +881,9 @@
       </a>
     
       <a 
-        href="/tags/Markdown/" 
-        title="Markdown">
-        <div class="tags-list-item">Markdown</div>
+        href="/tags/USD/" 
+        title="USD">
+        <div class="tags-list-item">USD</div>
       </a>
     
       <a 
@@ -809,15 +893,21 @@
       </a>
     
       <a 
-        href="/tags/%E6%8E%92%E9%94%99%E8%AE%B0%E5%BD%95/" 
-        title="排错记录">
-        <div class="tags-list-item">排错记录</div>
+        href="/tags/Markdown/" 
+        title="Markdown">
+        <div class="tags-list-item">Markdown</div>
       </a>
     
       <a 
-        href="/tags/windows/" 
-        title="windows">
-        <div class="tags-list-item">windows</div>
+        href="/tags/aiUserData/" 
+        title="aiUserData">
+        <div class="tags-list-item">aiUserData</div>
+      </a>
+    
+      <a 
+        href="/tags/Aitoon/" 
+        title="Aitoon">
+        <div class="tags-list-item">Aitoon</div>
       </a>
     
   </div>
@@ -838,7 +928,7 @@
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Nuke-API-%E6%96%87%E6%A1%A3"><span class="toc-number">1.</span> <span class="toc-text">Nuke API 文档</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A5%E5%85%B7%E5%8A%A0%E8%BD%BD"><span class="toc-number">2.</span> <span class="toc-text">工具加载</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Nuke-API-%E6%96%87%E6%A1%A3"><span class="toc-number">1.</span> <span class="toc-text">Nuke API 文档</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A5%E5%85%B7%E5%8A%A0%E8%BD%BD"><span class="toc-number">2.</span> <span class="toc-text">工具加载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E8%BD%BD%E5%B7%A5%E5%85%B7%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0"><span class="toc-number">3.</span> <span class="toc-text">加载工具相关函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Nuke%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-number">4.</span> <span class="toc-text">Nuke环境变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E8%8F%9C%E5%8D%95%E5%B8%B8%E7%94%A8%E7%B1%BB%E5%9E%8B"><span class="toc-number">5.</span> <span class="toc-text">自定义菜单常用类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E8%8F%9C%E5%8D%95%E5%87%BD%E6%95%B0"><span class="toc-number">6.</span> <span class="toc-text">自定义菜单函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E5%BD%93%E5%89%8D%E8%BD%AF%E4%BB%B6QT%E5%AF%B9%E8%B1%A1"><span class="toc-number">7.</span> <span class="toc-text">获取当前软件QT对象</span></a></li></ol>
     </article>
   
   
@@ -853,23 +943,23 @@
   <div class="recent-posts-list">
     
       <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-08-07</div>
+        <a href="/posts/20220807a1.html"><div class="recent-posts-item-content">Nuke学习笔记4</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
         <div class="recent-posts-item-title">2022-08-01</div>
-        <a href="/posts/20220801a1.html"><div class="recent-posts-item-content">Nuke学习笔记3</div></a>
+        <a href="/posts/20220801a1.html"><div class="recent-posts-item-content">Nuke学习笔记3_菜单的加载和界面</div></a>
       </div>
     
       <div class="recent-posts-item">
         <div class="recent-posts-item-title">2022-07-31</div>
-        <a href="/posts/20220731a1.html"><div class="recent-posts-item-content">Nuke学习笔记2</div></a>
+        <a href="/posts/20220731a1.html"><div class="recent-posts-item-content">Nuke学习笔记2_节点与Knob</div></a>
       </div>
     
       <div class="recent-posts-item">
         <div class="recent-posts-item-title">2022-07-30</div>
-        <a href="/posts/20220730a1.html"><div class="recent-posts-item-content">Nuke学习笔记1</div></a>
-      </div>
-    
-      <div class="recent-posts-item">
-        <div class="recent-posts-item-title">2022-07-29</div>
-        <a href="/posts/20220729a1.html"><div class="recent-posts-item-content">Maya中Xgen毛发渲染问题</div></a>
+        <a href="/posts/20220730a1.html"><div class="recent-posts-item-content">Nuke学习笔记1_环境与命令行</div></a>
       </div>
     
   </div>
