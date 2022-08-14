@@ -38,7 +38,7 @@
     
       <meta 
         property="og:img" 
-        content="记录工作和学习中的成果，分享一些踩坑记录和代码">
+        content="&lt;p&gt;Nuke学习笔记">
     
     
       <meta 
@@ -335,7 +335,7 @@
     
     
       <span class="dot"></span>
-      <span>0 字</span>
+      <span>610 字</span>
     
   </div>
   
@@ -362,7 +362,51 @@
   <div 
     id="section" 
     class="post-content">
-    
+    <p>Nuke学习笔记 <span id="more"></span></p>
+<h3 id="Nuke-API-文档"><a href="#Nuke-API-文档" class="headerlink" title="Nuke API 文档"></a>Nuke API 文档</h3><ul>
+<li>本地文档：C:\Program Files\Nuke12.2v2\Documentation</li>
+<li>在线文档：<a target="_blank" rel="noopener" href="https://learn.foundry.com/nuke/12.2/content/misc/nuke_devs.html">https://learn.foundry.com/nuke/12.2/content/misc/nuke_devs.html</a><ul>
+<li>Nuke Python Developers Guide: 案例教程</li>
+<li>Python Scripting Reference： API 参考文档</li>
+<li>TCL Scripting Reference: TCL 表达式参考文档</li>
+</ul>
+</li>
+</ul>
+<h3 id="回调函数"><a href="#回调函数" class="headerlink" title="回调函数"></a>回调函数</h3><p>部分回调函数的使用</p>
+<ul>
+<li>添加回调函数<ul>
+<li>nuke.toNode(“节点名”)[“knobChanged”].setValue(回调函数) 仅对选择的节点生效，此处回调函数是字符串格式</li>
+<li>nuke.addOnCreate(callable,args&#x3D;(),kwargs&#x3D;{},nodeClass&#x3D;”*”)</li>
+<li>callable 可调用对象</li>
+<li>args 不定长位置参数列表</li>
+<li>kwargs 不定长关键字参数字典</li>
+<li>nodeClass 默认值是星号，指无论当前节点是什么，在事件发生时都会执行这个回调函数，需自定义</li>
+</ul>
+</li>
+<li>删除回调函数</li>
+<li>事件函数<ul>
+<li><p>knobChanged 用户在打开的面版中改变knob后执行事件，可实现联动事件</p>
+<ul>
+<li>nuke.thisNode() 该控件在打开、关闭面板或输入端改变时，分别指向showPanel、hidePanel、inputChange事件，这三个控件使用代码获取不到，但可以在knobChange中使用控件名<pre class="language-Python" data-language="Python"><code class="language-Python">def testevent():
+    &quot;&quot;&quot;如果打开面板，打印内容&quot;&quot;&quot;
+    k&#x3D;nuke.thisKnob()
+    if k.name() &#x3D;&#x3D; &quot;showPanel&quot;:
+        print(&quot;show&quot;)
+nuke.addKnobChanged(testevent, nodeClass&#x3D;&quot;NoOp&quot;)</code></pre></li>
+</ul>
+</li>
+<li><p>updateUI 任意UI发生变化后触发，比knobChange优先级低，不应在其中添加任何和回调结构有关的操作</p>
+</li>
+<li><p>autolabel 在updateUI之后执行，用于为节点设置在Node Grape中显示的文本 ，按照函数添加的顺序，从后往前执行，只要那个函数的返回值不是None，那么这个返回值就用于该节点的显示文本，若没有返回值或返回值为None,则使用节点名显示，该显示的文本和label标签不同。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>回调函数执行顺序：<br>可以通过控件设置的回调函数 &gt; 使用注册回调函数添加的回调函数<br>使用注册回调函数添加的回调函数的优先级依赖注册的先后顺序，并先执行指定了nodeClass参数的回调，再执行满足所有类型的回调。addAutolabel()和addFilenameFilter()是特里，它们恰恰与之相反。<br>onCreate 对于Group节点，会先执行其中的内部节点，然后再在Group节点上执行一遍回调<br>onDestory事件和onCreate事件相反<br>onUserCreate执行优先级 &gt; onCreate执行优先级 </p>
+<h3 id="部分回调函数"><a href="#部分回调函数" class="headerlink" title="部分回调函数"></a>部分回调函数</h3><table><tr>
+<td><img src="/images/Nuke学习笔记4_回调函数/回调函数1.png" border=0 srcset="/images/home/Myhead.jpg" data-src="/images/Nuke学习笔记4_回调函数/回调函数1.png" class="lozad post-image"></td>
+<td><img src="/images/Nuke学习笔记4_回调函数/回调函数2.png" border=0 srcset="/images/home/Myhead.jpg" data-src="/images/Nuke学习笔记4_回调函数/回调函数2.png" class="lozad post-image"></td>
+</tr></table>
   </div>
   <div>
     
@@ -454,7 +498,7 @@
     style="padding-right: 2px;">
   </i>目录
 </div>
-
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Nuke-API-%E6%96%87%E6%A1%A3"><span class="toc-number">1.</span> <span class="toc-text">Nuke API 文档</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0"><span class="toc-number">2.</span> <span class="toc-text">回调函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%83%A8%E5%88%86%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0"><span class="toc-number">3.</span> <span class="toc-text">部分回调函数</span></a></li></ol>
 </div></main>
             <aside class="left-column">
               
@@ -594,7 +638,7 @@
     style="padding-right: 2px;">
   </i>目录
 </div>
-
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Nuke-API-%E6%96%87%E6%A1%A3"><span class="toc-number">1.</span> <span class="toc-text">Nuke API 文档</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0"><span class="toc-number">2.</span> <span class="toc-text">回调函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%83%A8%E5%88%86%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0"><span class="toc-number">3.</span> <span class="toc-text">部分回调函数</span></a></li></ol>
       </div>
     </article>
   
@@ -679,6 +723,13 @@
         </div>
       </a>
     
+      <a href="/categories/Maya/arnold/">
+        <div class="categories-list-item">
+          Maya/arnold
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
       <a href="/categories/Nuke/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
         <div class="categories-list-item">
           Nuke/学习笔记
@@ -690,13 +741,6 @@
         <div class="categories-list-item">
           Qt/学习笔记
           <span class="categories-list-item-badge">3</span>
-        </div>
-      </a>
-    
-      <a href="/categories/Maya/arnold/">
-        <div class="categories-list-item">
-          Maya/arnold
-          <span class="categories-list-item-badge">1</span>
         </div>
       </a>
     
@@ -763,6 +807,12 @@
       </a>
     
       <a 
+        href="/tags/USD/" 
+        title="USD">
+        <div class="tags-list-item">USD</div>
+      </a>
+    
+      <a 
         href="/tags/Hexo/" 
         title="Hexo">
         <div class="tags-list-item">Hexo</div>
@@ -781,15 +831,9 @@
       </a>
     
       <a 
-        href="/tags/USD/" 
-        title="USD">
-        <div class="tags-list-item">USD</div>
-      </a>
-    
-      <a 
-        href="/tags/github/" 
-        title="github">
-        <div class="tags-list-item">github</div>
+        href="/tags/%E7%BD%91%E7%AB%99%E6%8E%A8%E8%8D%90/" 
+        title="网站推荐">
+        <div class="tags-list-item">网站推荐</div>
       </a>
     
       <a 
@@ -799,15 +843,15 @@
       </a>
     
       <a 
-        href="/tags/aiUserData/" 
-        title="aiUserData">
-        <div class="tags-list-item">aiUserData</div>
+        href="/tags/github/" 
+        title="github">
+        <div class="tags-list-item">github</div>
       </a>
     
       <a 
-        href="/tags/Aitoon/" 
-        title="Aitoon">
-        <div class="tags-list-item">Aitoon</div>
+        href="/tags/%E6%8E%92%E9%94%99%E8%AE%B0%E5%BD%95/" 
+        title="排错记录">
+        <div class="tags-list-item">排错记录</div>
       </a>
     
   </div>
@@ -828,7 +872,7 @@
     style="padding-right: 2px;">
   </i>目录
 </div>
-
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Nuke-API-%E6%96%87%E6%A1%A3"><span class="toc-number">1.</span> <span class="toc-text">Nuke API 文档</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0"><span class="toc-number">2.</span> <span class="toc-text">回调函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%83%A8%E5%88%86%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0"><span class="toc-number">3.</span> <span class="toc-text">部分回调函数</span></a></li></ol>
     </article>
   
   
