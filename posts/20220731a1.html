@@ -429,18 +429,18 @@
 <li>反向选择 nuke.invertSelection()</li>
 <li>将节点从选中的节点中脱离出来 nuke.extractSelected()</li>
 <li>克隆选中的节点 nuke.cloneSelected()</li>
-<li>以递归形式清楚节点的选中状态 nukescript.misc.clear_selection_recursive() 包括Gizmo 和 Group 中选中的节点也会被清楚选中</li>
+<li>以递归形式清除节点的选中状态 nukescript.misc.clear_selection_recursive() 包括Gizmo 和 Group 中选中的节点也会被清除选中。</li>
 </ul>
 <h3 id="节点位置和布局"><a href="#节点位置和布局" class="headerlink" title="节点位置和布局"></a>节点位置和布局</h3><p> NodeGraph 的坐标轴方向是X轴向右，Y轴向下；节点的位置指的是节点左上角的位置.<br> 位置相关方法,node &#x3D; createNode(“Text2”)：</p>
 <ul>
 <li>获取位置<ul>
-<li>node.xPos()、node.yPos()</li>
-<li>node[“xPos”].value、node[“yPos”].value</li>
+<li>node.xpos()、node.ypos()</li>
+<li>node[“xpos”].value、node[“ypos”].value</li>
 </ul>
 </li>
 <li>设置位置<ul>
-<li>node.setxpos(“value”)、node.setYpos(“value”)、node.setXYpos(“value1”,”value2”)</li>
-<li>node[“xPos”].setValue(“value”)、node[“yPos”].setValue(“value”)</li>
+<li>node.setXpos(“value”)、node.setYpos(“value”)、node.setXYpos(“value1”,”value2”)</li>
+<li>node[“xpos”].setValue(“value”)、node[“ypos”].setValue(“value”)</li>
 </ul>
 </li>
 <li>获取节点长宽<ul>
@@ -451,6 +451,7 @@
 <li>NodeGraph 缩放比 <ul>
 <li>查询缩放比 nuke.zoom()</li>
 <li>设置缩放比 nuke.zoom(倍数，[焦距的位置X,焦距的位置Y])</li>
+<li>聚焦到指定节点 nuke.zoom(倍数，[node.xpos(),node.ypos()])</li>
 </ul>
 </li>
 </ul>
@@ -478,13 +479,13 @@
 <li>从节点中进入节点树环境.使用上下文管理器with ‘with nuke.Root()’</li>
 <li>返回当前工程所在的文件夹的路径<ul>
 <li>nuke.utils.script_directory()</li>
-<li>nukescripts.script.script_directory()（该方法调用上面的方法）</li>
+<li>nukescripts.script_directory()（该方法调用上面的方法）</li>
 </ul>
 </li>
 <li>复制和粘贴<ul>
 <li>从字符串创建一个节点 nuke.scriptReadText(“表示节点的字符串，超麻烦”)</li>
 <li>将选中的节点暂存到文本名或粘贴板名的文件中 nuke.nodeCopy(“文件路径或临时起名的粘贴板中”)</li>
-<li>将粘贴板中的内容粘贴到nuke中 nuke.paste(“文件路径或临时起名的粘贴板中”)  # %clipboard% 可表示系统粘贴板</li>
+<li>将粘贴板中的内容粘贴到nuke中 nuke.nodePaste(“文件路径或临时起名的粘贴板中”)  # %clipboard% 可表示系统粘贴板</li>
 </ul>
 </li>
 <li>保存工程 <ul>
@@ -495,7 +496,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="Nuke中的控件（Knob）"><a href="#Nuke中的控件（Knob）" class="headerlink" title="Nuke中的控件（Knob）"></a>Nuke中的控件（Knob）</h3><p>Nuke中的文本框、下拉菜单、复选框、滑块等基本控件，以及色彩设置<br>图片尺寸、坐标值等 专属控件都成为Knob。<br>node &#x3D; nuke.toNode(“Read”)</p>
+<h3 id="Nuke中的控件（Knob）"><a href="#Nuke中的控件（Knob）" class="headerlink" title="Nuke中的控件（Knob）"></a>Nuke中的控件（Knob）</h3><p>Nuke中的文本框、下拉菜单、复选框、滑块等基本控件，以及色彩设置<br>图片尺寸、坐标值等 专属控件都称为Knob。<br>node &#x3D; nuke.toNode(“Read”)</p>
 <ul>
 <li>获取所有的控件 <ul>
 <li>node.allKnobs() 所有控件列表</li>
@@ -708,19 +709,19 @@
   <a 
     class="author-posts-count" 
     href="/archives">
-    <span>31</span>
+    <span>32</span>
     <span>文章</span>
   </a>
   <a 
     class="author-categories-count" 
     href="/categories">
-    <span>13</span>
+    <span>15</span>
     <span>分类</span>
   </a>
   <a 
     class="author-tags-count" 
     href="/tags">
-    <span>28</span>
+    <span>29</span>
     <span>标签</span>
   </a>
 </div>
@@ -900,6 +901,13 @@
         </div>
       </a>
     
+      <a href="/categories/ShotGrid/">
+        <div class="categories-list-item">
+          ShotGrid
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
       <a href="/categories/Maya/%E5%B0%8F%E5%B7%A5%E5%85%B7/">
         <div class="categories-list-item">
           Maya/小工具
@@ -910,13 +918,6 @@
       <a href="/categories/Rez/">
         <div class="categories-list-item">
           Rez
-          <span class="categories-list-item-badge">1</span>
-        </div>
-      </a>
-    
-      <a href="/categories/Maya/arnold/">
-        <div class="categories-list-item">
-          Maya/arnold
           <span class="categories-list-item-badge">1</span>
         </div>
       </a>
@@ -932,6 +933,20 @@
         <div class="categories-list-item">
           Qt/学习笔记
           <span class="categories-list-item-badge">3</span>
+        </div>
+      </a>
+    
+      <a href="/categories/ShotGrid/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+        <div class="categories-list-item">
+          ShotGrid/学习笔记
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/categories/Maya/arnold/">
+        <div class="categories-list-item">
+          Maya/arnold
+          <span class="categories-list-item-badge">1</span>
         </div>
       </a>
     
@@ -998,12 +1013,6 @@
       </a>
     
       <a 
-        href="/tags/USD/" 
-        title="USD">
-        <div class="tags-list-item">USD</div>
-      </a>
-    
-      <a 
         href="/tags/Hexo/" 
         title="Hexo">
         <div class="tags-list-item">Hexo</div>
@@ -1022,15 +1031,21 @@
       </a>
     
       <a 
-        href="/tags/%E7%BD%91%E7%AB%99%E6%8E%A8%E8%8D%90/" 
-        title="网站推荐">
-        <div class="tags-list-item">网站推荐</div>
+        href="/tags/USD/" 
+        title="USD">
+        <div class="tags-list-item">USD</div>
       </a>
     
       <a 
-        href="/tags/Markdown/" 
-        title="Markdown">
-        <div class="tags-list-item">Markdown</div>
+        href="/tags/aiUserData/" 
+        title="aiUserData">
+        <div class="tags-list-item">aiUserData</div>
+      </a>
+    
+      <a 
+        href="/tags/Aitoon/" 
+        title="Aitoon">
+        <div class="tags-list-item">Aitoon</div>
       </a>
     
       <a 
@@ -1040,9 +1055,9 @@
       </a>
     
       <a 
-        href="/tags/%E6%8E%92%E9%94%99%E8%AE%B0%E5%BD%95/" 
-        title="排错记录">
-        <div class="tags-list-item">排错记录</div>
+        href="/tags/%E7%BD%91%E7%AB%99%E6%8E%A8%E8%8D%90/" 
+        title="网站推荐">
+        <div class="tags-list-item">网站推荐</div>
       </a>
     
   </div>
@@ -1078,8 +1093,13 @@
   <div class="recent-posts-list">
     
       <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-08-14</div>
+        <a href="/posts/20220814a1.html"><div class="recent-posts-item-content">ShotGrid的API使用示例</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
         <div class="recent-posts-item-title">2022-08-07</div>
-        <a href="/posts/20220807a1.html"><div class="recent-posts-item-content">Nuke学习笔记4</div></a>
+        <a href="/posts/20220807a1.html"><div class="recent-posts-item-content">Nuke学习笔记4_回调函数</div></a>
       </div>
     
       <div class="recent-posts-item">
@@ -1090,11 +1110,6 @@
       <div class="recent-posts-item">
         <div class="recent-posts-item-title">2022-07-31</div>
         <a href="/posts/20220731a1.html"><div class="recent-posts-item-content">Nuke学习笔记2_节点与Knob</div></a>
-      </div>
-    
-      <div class="recent-posts-item">
-        <div class="recent-posts-item-title">2022-07-30</div>
-        <a href="/posts/20220730a1.html"><div class="recent-posts-item-content">Nuke学习笔记1_环境与命令行</div></a>
       </div>
     
   </div>
