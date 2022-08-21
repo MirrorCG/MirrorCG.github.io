@@ -18,8 +18,8 @@
   
   <entry>
     <title>lua脚本语言</title>
-    <link href="http://mirrorcg.github.io/posts/20220821a1.html"/>
-    <id>http://mirrorcg.github.io/posts/20220821a1.html</id>
+    <link href="http://mirrorcg.github.io/posts/20220821a2.html"/>
+    <id>http://mirrorcg.github.io/posts/20220821a2.html</id>
     <published>2022-08-21T15:38:15.000Z</published>
     <updated>2022-08-21T15:38:15.000Z</updated>
     
@@ -81,9 +81,9 @@
     <category term="学习笔记" scheme="http://mirrorcg.github.io/categories/ShotGrid/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
     
-    <category term="学习笔记" scheme="http://mirrorcg.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
     <category term="Pipeline" scheme="http://mirrorcg.github.io/tags/Pipeline/"/>
+    
+    <category term="学习笔记" scheme="http://mirrorcg.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
     <category term="API" scheme="http://mirrorcg.github.io/tags/API/"/>
     
@@ -323,6 +323,8 @@
     
     
     <category term="插件" scheme="http://mirrorcg.github.io/tags/%E6%8F%92%E4%BB%B6/"/>
+    
+    <category term="API" scheme="http://mirrorcg.github.io/tags/API/"/>
     
   </entry>
   

@@ -5,8 +5,8 @@
     
     <entry>
       <title>lua脚本语言</title>
-      <link href="/posts/20220821a1.html"/>
-      <url>/posts/20220821a1.html</url>
+      <link href="/posts/20220821a2.html"/>
+      <url>/posts/20220821a2.html</url>
       
         <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p style="text-indent:2em">脚本语言--Lua学习笔记。<span id="more"></span></p>]]></content>
       
@@ -76,9 +76,9 @@
       
         <tags>
             
-            <tag> 学习笔记 </tag>
-            
             <tag> Pipeline </tag>
+            
+            <tag> 学习笔记 </tag>
             
             <tag> API </tag>
             
@@ -355,6 +355,8 @@
         <tags>
             
             <tag> 插件 </tag>
+            
+            <tag> API </tag>
             
         </tags>
       
