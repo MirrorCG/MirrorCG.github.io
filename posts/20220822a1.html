@@ -18,17 +18,17 @@
   <link 
     rel="icon" 
     href="/images/themes/%E6%98%9F%E7%90%83.png">
-  <title>归档</title>
+  <title>Python代码中的字符编码</title>
   
     
       <meta 
         property="og:title" 
-        content="归档">
+        content="Python代码中的字符编码">
     
     
       <meta 
         property="og:url" 
-        content="http://mirrorcg.github.io/archives/2022/02/index.html">
+        content="http://mirrorcg.github.io/posts/20220822a1.html">
     
     
       <meta 
@@ -38,8 +38,32 @@
     
       <meta 
         property="og:img" 
-        content="记录工作和学习中的成果，分享一些踩坑记录和代码">
+        content="&lt;p&gt;Python 中的字符编码">
     
+    
+      <meta 
+        property="og:type" 
+        content="article">
+      <meta 
+        property="og:article:published_time" 
+        content="2022-08-22">
+      <meta 
+        property="og:article:modified_time" 
+        content="2022-08-22">
+      <meta 
+        property="og:article:author" 
+        content="Mirror">
+      
+        
+          <meta 
+            property="og:article:tag" 
+            content="锦囊小妙招">
+        
+          <meta 
+            property="og:article:tag" 
+            content="学习记录">
+        
+      
     
   
   <script>
@@ -181,6 +205,8 @@
   
   <link rel="stylesheet" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css">
   
+    <link rel="stylesheet" href="/js/lib/lightbox/baguetteBox.min.css">
+  
 <meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="Mirror的个人博客" type="application/atom+xml">
 </head>
 
@@ -281,97 +307,208 @@
         <div class="container">
           <div class="columns">
             <main class="main-column">
-<div class="card card-content">
-  <h1 class="widget-title">归档</h1>
-</div>
-<div class="archive-timeline">
-  
-  
+<article class="card card-content">
+  <header>
+    <h1 class="post-title">
+      Python代码中的字符编码
+    </h1>
+  </header>
+  <div class="post-meta post-show-meta">
+    <time datetime="2022-08-22T14:52:29.000Z">
+      <i 
+        class="iconfont icon-calendar" 
+        style="margin-right: 2px;">
+      </i>
+      <span>2022-08-22</span>
+    </time>
     
-      <div class="archive-timeline-tag"><span>2022</span></div>
+      <span class="dot"></span>
+      
+        <a 
+          href="/categories/Python/" 
+          class="post-meta-link">
+          Python
+        </a>
       
     
-    <div class="archive-timeline-item">
-      <div class="archive-timeline-post">
-        <div class="card card-content">
-          <div class="archive-timeline-post-date">2022-02-28</div>
-          <div class="archive-timeline-post-content">
-            <a 
-              href="/posts/20220228a1.html"
-              class="archive-timeline-post-item">
-              Maya获取选中相机视角中的所有对象
-            </a>
-          </div>
-        </div>
+    
+      <span class="dot"></span>
+      <span>953 字</span>
+    
+  </div>
+  
+    <div 
+      class="post-meta post-show-meta" 
+      style="margin-top: -10px;">
+      <div style="display: flex; align-items: center;">
+        <i 
+          class="iconfont icon-biaoqian" 
+          style="margin-right: 2px; font-size: 1.15rem;">
+        </i>
+        
+          
+          <a 
+            href="/tags/%E9%94%A6%E5%9B%8A%E5%B0%8F%E5%A6%99%E6%8B%9B/" 
+            class="post-meta-link">
+            锦囊小妙招
+          </a>
+        
+          
+            <span class="dot"></span>
+          
+          <a 
+            href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" 
+            class="post-meta-link">
+            学习记录
+          </a>
+        
       </div>
     </div>
   
+  </header>
+  <div 
+    id="section" 
+    class="post-content">
+    <p>Python 中的字符编码 <span id="more"></span></p>
+<h4 id="文本编辑器存储信息的过程"><a href="#文本编辑器存储信息的过程" class="headerlink" title="文本编辑器存储信息的过程"></a>文本编辑器存储信息的过程</h4><ol>
+<li><p>打开编辑器就在内存中开辟了一个空间，用编辑器编写的内容暂存在内存中，断电会丢失。</p>
+</li>
+<li><p>保存时，编辑器把内存的Unicode数据通过某种编码格式存到了硬盘上。</p>
+</li>
+<li><p>编写.py文件（没有执行时）和编写其他文件没有区别，只是在写一堆字符。</p>
+</li>
+</ol>
+<h4 id="python解释器解释python代码的流程"><a href="#python解释器解释python代码的流程" class="headerlink" title="python解释器解释python代码的流程"></a>python解释器解释python代码的流程</h4><ol>
+<li><p>python解释器启动，相当于启动了一个文本编辑器。</p>
+</li>
+<li><p>python解释器相当于文本编辑器，打开test.py文件，从硬盘将test.py文件通过某种编码格式（gbk,utf8等）解码数据从硬盘读入到内存中（python的解释性决定了解释器只关心文件的内容，不关心文件的后缀）。</p>
+</li>
+<li><p>python解释器解释执行加载到内存中的test.py代码。在该阶段才会识别python语法，为变量值等开辟存储空间。</p>
+</li>
+</ol>
+<h4 id="Python2和Python3的区别"><a href="#Python2和Python3的区别" class="headerlink" title="Python2和Python3的区别"></a>Python2和Python3的区别</h4><ol>
+<li><p>python2有两种存储形式，第一种：Unicode；第二种：按coding头选择存储格式，假设python2用utf8存储 x&#x3D;’中文’，当你print(x)的时候，终端接收gbk的变量x，但是windows终端编码是utf8，会乱码。Python3 默认存储形式为utf-8。</p>
+</li>
+<li><p>字符串类型：Python2 unicode 和 str类型（gbk、utf-8、MP4、MP3、JPG）；Python3 str（Unicode字符串）和bytes类型（（gbk、utf-8、MP4、MP3、JPG））。</p>
+</li>
+<li><p>python3只有Unicode一种存储变量的形式。Python2中默认使用ascii，Python3中默认使用utf-8，部分文本编辑器编写的文件默认为gbk编码格式，需要注意编写代码时文本编辑器的默认编码格式。</p>
+</li>
+<li><p>Python2 解释器编码默认为ASCII，只能处理 ascii字符，如果代码中有中文会报错，所以需要在代码顶部添加下面一行声明，将代码文件编码声明修改为 utf-8。Python3 解释器默认编码为utf-8;可通过 sys.getdefaultencoding() 查询。</p>
+  <pre class="line-numbers language-python" data-language="python"><code class="language-python"># -*- coding:utf-8 -*-
+print(u&quot;测试中文打印&quot;.encode(&quot;gbk&quot;))<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
+</ol>
+<h4 id="文件编码"><a href="#文件编码" class="headerlink" title="文件编码"></a>文件编码</h4><p>  当字符串第一次写入文件时，文件创建成功，文件编码和字符串编码保持一致。如果后续写入其他编码的字符串，则文件编码会被修改，原来的数据会出现乱码。</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ol>
+<li><p>python bytes 也称字节序列，并非字符。取值范围 0 &lt;&#x3D; bytes &lt;&#x3D; 255，输出的时候最前面会有字符b修饰；string 是python中字符串类型;</p>
+</li>
+<li><p>bytes主要是给在计算机看的，string主要是给人看的；string经过编码encode，转化成二进制对象，给计算机识别；bytes经过解码decode，转化成string，让我们看，但是注意反编码的编码规则是有范围,\xc8就不是utf8识别的范围；</p>
+</li>
+<li><p>内存中固定使用Unicode编码，我们只能改变存储到硬盘时使用的编码格式。读文件时，读取文件采用的编码格式与文本原来的编码格式不同则会导致出现乱码。需注意文本编辑器的编码格式，这能直接影响编译器是否能正确编译程序文本文件。同时也要注意控制台的编码格式，其中Windows 默认的编码格式为gbk，因此某些字符需要转码后打印在控制台才不会是乱码：</p>
+  <pre class="line-numbers language-python" data-language="python"><code class="language-python"># -*- coding:utf-8 -*-
+print(u&quot;测试中文打印&quot;.encode(&quot;gbk&quot;))
+print(unicode(&quot;测试中文打印&quot;，&quot;utf-8&quot;).encode(&quot;gbk&quot;))<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>任何语言、任何操作系统、任何编码，都可以和Unicode编码通过decode()和encode()的方式互相转换。</p>
+</li>
+</ol>
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><a href="https://www.cnblogs.com/yyxayz/p/4044528.html" title="" target="">1.Python的字符编码问题</a>
+</br>
+<a href="https://www.runoob.com/python3/python3-func-bytes.html" title="" target="">2.bytes()内建函数</a>
+
+
+  </div>
+  <div>
     
-    <div class="archive-timeline-item">
-      <div class="archive-timeline-post">
-        <div class="card card-content">
-          <div class="archive-timeline-post-date">2022-02-27</div>
-          <div class="archive-timeline-post-content">
-            <a 
-              href="/posts/20220227a1.html"
-              class="archive-timeline-post-item">
-              Maya获取指定物体到Camera焦点平面的距离
-            </a>
-          </div>
-        </div>
+      <div 
+        class="post-note note-warning copyright" 
+        style="margin-top: 42px">
+        <p>
+          <span style="font-weight: bold;">作者：</span><a 
+            target="_blank" 
+            rel="nofollow noopener noreferrer" 
+            href="/about">
+            Mirror
+          </a>
+        </p>
+        <p>
+          <span style="font-weight: bold;">文章链接：</span><a 
+            target="_blank" 
+            rel="nofollow noopener noreferrer" 
+            href="http://mirrorcg.github.io/posts/20220822a1.html">
+            http://mirrorcg.github.io/posts/20220822a1.html
+          </a>
+        </p>
+        <p><span style="font-weight: bold;">版权声明：</span>本博客所有文章除特别声明外，均采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0 协议</a>。转载请注明出处！</p>
       </div>
-    </div>
+    
+  </div>
+</article>
+<div class="nav">
   
-    
-    <div class="archive-timeline-item">
-      <div class="archive-timeline-post">
-        <div class="card card-content">
-          <div class="archive-timeline-post-date">2022-02-26</div>
-          <div class="archive-timeline-post-content">
-            <a 
-              href="/posts/20220226a2.html"
-              class="archive-timeline-post-item">
-              关于Aitoon材质灯光分层的探索
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
   
-    
-    <div class="archive-timeline-item">
-      <div class="archive-timeline-post">
-        <div class="card card-content">
-          <div class="archive-timeline-post-date">2022-02-20</div>
-          <div class="archive-timeline-post-content">
-            <a 
-              href="/posts/20220220a2.html"
-              class="archive-timeline-post-item">
-              博客文章语法示例
-            </a>
-          </div>
+    <div class="nav-item-next">
+      <a 
+        href="/posts/20220821a2.html" 
+        class="nav-link">
+        <div>
+          <div class="nav-label">下一篇</div>
+          
+            <div class="nav-title">Lua脚本语言 </div>
+          
         </div>
-      </div>
-    </div>
-  
-    
-    <div class="archive-timeline-item">
-      <div class="archive-timeline-post">
-        <div class="card card-content">
-          <div class="archive-timeline-post-date">2022-02-20</div>
-          <div class="archive-timeline-post-content">
-            <a 
-              href="/posts/20220220a1.html"
-              class="archive-timeline-post-item">
-              Hexo文档
-            </a>
-          </div>
-        </div>
-      </div>
+        <i class="iconfont icon-right nav-next-icon"></i>
+      </a>
     </div>
   
 </div>
-</main>
+
+  <div 
+    class="card card-content comment-card" 
+    style="margin-top: 16px;">
+    <div class="comment-card-title">评论</div>
+    
+  <div id="vcomments"></div>
+  
+  <script>
+    loadScript("//unpkg.com/valine/dist/Valine.min.js");
+    var oldLoadVa = window.onload;
+    window.onload = function () {
+      oldLoadVa && oldLoadVa();
+      new Valine({
+        el: '#vcomments',
+        appId: 'to35UwTutrjzG0XtFw6gXeKa-gzGzoHsz',
+        appKey: 'z22QceD9W40R0XI8WjvtKEuw',
+        placeholder: '有话直说，不必拘礼',
+        path: window.location.pathname,
+        avatar: 'robohash',
+        meta: ["nick","mail","link"],
+        pageSize: '10',
+        lang: '',
+        visitor: 'true',
+        highlight: true,
+        recordIP: true,
+        
+        
+        
+        enableQQ: 'true',
+        requiredFields: [],
+      });
+    };
+  </script>
+
+  </div>
+
+<div 
+  class="card card-content toc-card" 
+  id="mobiletoc">
+  <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8%E5%AD%98%E5%82%A8%E4%BF%A1%E6%81%AF%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">文本编辑器存储信息的过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#python%E8%A7%A3%E9%87%8A%E5%99%A8%E8%A7%A3%E9%87%8Apython%E4%BB%A3%E7%A0%81%E7%9A%84%E6%B5%81%E7%A8%8B"><span class="toc-number">2.</span> <span class="toc-text">python解释器解释python代码的流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Python2%E5%92%8CPython3%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">3.</span> <span class="toc-text">Python2和Python3的区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%BC%96%E7%A0%81"><span class="toc-number">4.</span> <span class="toc-text">文件编码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">5.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">6.</span> <span class="toc-text">参考</span></a></li></ol>
+</div></main>
             <aside class="left-column">
               
               <div class="card card-author">
@@ -501,6 +638,18 @@
 
 
    
+  
+    <article class="display-when-two-columns spacer">
+      <div class="card card-content toc-card">
+        <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8%E5%AD%98%E5%82%A8%E4%BF%A1%E6%81%AF%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">文本编辑器存储信息的过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#python%E8%A7%A3%E9%87%8A%E5%99%A8%E8%A7%A3%E9%87%8Apython%E4%BB%A3%E7%A0%81%E7%9A%84%E6%B5%81%E7%A8%8B"><span class="toc-number">2.</span> <span class="toc-text">python解释器解释python代码的流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Python2%E5%92%8CPython3%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">3.</span> <span class="toc-text">Python2和Python3的区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%BC%96%E7%A0%81"><span class="toc-number">4.</span> <span class="toc-text">文件编码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">5.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">6.</span> <span class="toc-text">参考</span></a></li></ol>
+      </div>
+    </article>
   
   
   <article class="card card-content categories-widget">
@@ -740,177 +889,21 @@
   </article>
   
   
-    <article class="card card-content widescreen-archive archive-widget">
-      <div class="archive-card">
-  <div class="archive-card-header">
-    <i 
-      class="iconfont icon-wodebaobiao" 
-      style="padding-right: 2px;">
-    </i>归档
-  </div>
-  <div class="archive-card-list">
-    
-    
-    
-      
-        
-        
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-    
-      <a 
-        href="/archives/2022" 
-        class="archive-card-list-item">
-        2022
-        <span class="archive-card-list-item-badge">35</span>
-      </a>
-    
-  </div>
-</div>
-    </article>
-  
 </div>
             </aside>
             <aside class="right-column">
               <div class="sticky-widescreen">
   
+  
+    <article class="card card-content toc-card">
+      <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8%E5%AD%98%E5%82%A8%E4%BF%A1%E6%81%AF%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">文本编辑器存储信息的过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#python%E8%A7%A3%E9%87%8A%E5%99%A8%E8%A7%A3%E9%87%8Apython%E4%BB%A3%E7%A0%81%E7%9A%84%E6%B5%81%E7%A8%8B"><span class="toc-number">2.</span> <span class="toc-text">python解释器解释python代码的流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Python2%E5%92%8CPython3%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">3.</span> <span class="toc-text">Python2和Python3的区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%BC%96%E7%A0%81"><span class="toc-number">4.</span> <span class="toc-text">文件编码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">5.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">6.</span> <span class="toc-text">参考</span></a></li></ol>
+    </article>
   
   
   <article class="card card-content">
@@ -947,172 +940,6 @@
 </div>
   </article>
   
-  
-    <article class="card card-content">
-      <div class="archive-card">
-  <div class="archive-card-header">
-    <i 
-      class="iconfont icon-wodebaobiao" 
-      style="padding-right: 2px;">
-    </i>归档
-  </div>
-  <div class="archive-card-list">
-    
-    
-    
-      
-        
-        
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-    
-      <a 
-        href="/archives/2022" 
-        class="archive-card-list-item">
-        2022
-        <span class="archive-card-list-item-badge">35</span>
-      </a>
-    
-  </div>
-</div>
-    </article>
   
 </div>
             </aside>
@@ -1224,6 +1051,36 @@
 </a> 
      
      
+     
+      <script>
+  var addImgLayout = function () {
+    var img = document.querySelectorAll('.post-content img')
+    var i
+    for (i = 0; i < img.length; i++) {
+      var wrapper = document.createElement('a')
+      wrapper.setAttribute('href', img[i].getAttribute('data-src'))
+      wrapper.setAttribute('aria-label', 'illustration')
+      wrapper.style.cssText =
+        'width: 100%; display: flex; justify-content: center;'
+      if (img[i].alt) wrapper.dataset.caption = img[i].alt
+      wrapper.dataset.nolink = true
+      img[i].before(wrapper)
+      wrapper.append(img[i])
+      var divWrap = document.createElement('div')
+      divWrap.classList.add('gallery')
+      wrapper.before(divWrap)
+      divWrap.append(wrapper)
+    }
+    baguetteBox.run('.gallery')
+  }
+</script>
+<script>
+  loadScript(
+    "/js/lib/lightbox/baguetteBox.min.js",
+    addImgLayout
+  )
+</script>
+ 
      
      
     <script src="/js/main.js"></script> 

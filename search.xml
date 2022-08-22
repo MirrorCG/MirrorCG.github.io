@@ -4,11 +4,38 @@
   
     
     <entry>
-      <title>lua脚本语言</title>
+      <title>Python代码中的字符编码</title>
+      <link href="/posts/20220822a1.html"/>
+      <url>/posts/20220822a1.html</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>Python 中的字符编码 <span id="more"></span></p><h4 id="文本编辑器存储信息的过程"><a href="#文本编辑器存储信息的过程" class="headerlink" title="文本编辑器存储信息的过程"></a>文本编辑器存储信息的过程</h4><ol><li><p>打开编辑器就在内存中开辟了一个空间，用编辑器编写的内容暂存在内存中，断电会丢失。</p></li><li><p>保存时，编辑器把内存的Unicode数据通过某种编码格式存到了硬盘上。</p></li><li><p>编写.py文件（没有执行时）和编写其他文件没有区别，只是在写一堆字符。</p></li></ol><h4 id="python解释器解释python代码的流程"><a href="#python解释器解释python代码的流程" class="headerlink" title="python解释器解释python代码的流程"></a>python解释器解释python代码的流程</h4><ol><li><p>python解释器启动，相当于启动了一个文本编辑器。</p></li><li><p>python解释器相当于文本编辑器，打开test.py文件，从硬盘将test.py文件通过某种编码格式（gbk,utf8等）解码数据从硬盘读入到内存中（python的解释性决定了解释器只关心文件的内容，不关心文件的后缀）。</p></li><li><p>python解释器解释执行加载到内存中的test.py代码。在该阶段才会识别python语法，为变量值等开辟存储空间。</p></li></ol><h4 id="Python2和Python3的区别"><a href="#Python2和Python3的区别" class="headerlink" title="Python2和Python3的区别"></a>Python2和Python3的区别</h4><ol><li><p>python2有两种存储形式，第一种：Unicode；第二种：按coding头选择存储格式，假设python2用utf8存储 x&#x3D;’中文’，当你print(x)的时候，终端接收gbk的变量x，但是windows终端编码是utf8，会乱码。Python3 默认存储形式为utf-8。</p></li><li><p>字符串类型：Python2 unicode 和 str类型（gbk、utf-8、MP4、MP3、JPG）；Python3 str（Unicode字符串）和bytes类型（（gbk、utf-8、MP4、MP3、JPG））。</p></li><li><p>python3只有Unicode一种存储变量的形式。Python2中默认使用ascii，Python3中默认使用utf-8，部分文本编辑器编写的文件默认为gbk编码格式，需要注意编写代码时文本编辑器的默认编码格式。</p></li><li><p>Python2 解释器编码默认为ASCII，只能处理 ascii字符，如果代码中有中文会报错，所以需要在代码顶部添加下面一行声明，将代码文件编码声明修改为 utf-8。Python3 解释器默认编码为utf-8;可通过 sys.getdefaultencoding() 查询。</p>  <pre class="line-numbers language-python" data-language="python"><code class="language-python"># -*- coding:utf-8 -*-print(u&quot;测试中文打印&quot;.encode(&quot;gbk&quot;))<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li></ol><h4 id="文件编码"><a href="#文件编码" class="headerlink" title="文件编码"></a>文件编码</h4><p>  当字符串第一次写入文件时，文件创建成功，文件编码和字符串编码保持一致。如果后续写入其他编码的字符串，则文件编码会被修改，原来的数据会出现乱码。</p><h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ol><li><p>python bytes 也称字节序列，并非字符。取值范围 0 &lt;&#x3D; bytes &lt;&#x3D; 255，输出的时候最前面会有字符b修饰；string 是python中字符串类型;</p></li><li><p>bytes主要是给在计算机看的，string主要是给人看的；string经过编码encode，转化成二进制对象，给计算机识别；bytes经过解码decode，转化成string，让我们看，但是注意反编码的编码规则是有范围,\xc8就不是utf8识别的范围；</p></li><li><p>内存中固定使用Unicode编码，我们只能改变存储到硬盘时使用的编码格式。读文件时，读取文件采用的编码格式与文本原来的编码格式不同则会导致出现乱码。需注意文本编辑器的编码格式，这能直接影响编译器是否能正确编译程序文本文件。同时也要注意控制台的编码格式，其中Windows 默认的编码格式为gbk，因此某些字符需要转码后打印在控制台才不会是乱码：</p>  <pre class="line-numbers language-python" data-language="python"><code class="language-python"># -*- coding:utf-8 -*-print(u&quot;测试中文打印&quot;.encode(&quot;gbk&quot;))print(unicode(&quot;测试中文打印&quot;，&quot;utf-8&quot;).encode(&quot;gbk&quot;))<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li><li><p>任何语言、任何操作系统、任何编码，都可以和Unicode编码通过decode()和encode()的方式互相转换。</p></li></ol><h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><a href="https://www.cnblogs.com/yyxayz/p/4044528.html" title="" target="">1.Python的字符编码问题</a></br><a href="https://www.runoob.com/python3/python3-func-bytes.html" title="" target="">2.bytes()内建函数</a>]]></content>
+      
+      
+      <categories>
+          
+          <category> Python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 锦囊小妙招 </tag>
+            
+            <tag> 学习记录 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Lua脚本语言</title>
       <link href="/posts/20220821a2.html"/>
       <url>/posts/20220821a2.html</url>
       
-        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p style="text-indent:2em">脚本语言--Lua学习笔记。<span id="more"></span></p>]]></content>
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p style="text-indent:2em">脚本语言--Lua学习笔记。<span id="more"></span></p><h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>菜鸟教程：<a href="https://www.runoob.com/lua/lua-tutorial.html">https://www.runoob.com/lua/lua-tutorial.html</a></p>]]></content>
       
       
       <categories>
@@ -35,7 +62,7 @@
       <link href="/posts/20220821a1.html"/>
       <url>/posts/20220821a1.html</url>
       
-        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>本文记录了一些Maya中Yeti毛发的相关的问题：<span id="more"></span></p><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><ul><li><p>对应的版本: yeti插件版本需要与arnold(或redshift渲染器)版本、maya版本相对应，否则不报错且无法使用</p></li><li><p>环境变量：需在 pgYetiMaya.mod写入环境变量的文件(一行一句)。C:\rlm\yeti.lic 为破解文件。</p><ul><li><ul><li>pgYetiMaya 3.6.0 C:\Yeti-v3.6.0_Maya2018-windows</li></ul></li><li>PATH +:&#x3D; bin</li><li>MTOA_EXTENSIONS_PATH +:&#x3D; plug-ins</li><li>ARNOLD_PLUGIN_PATH +:&#x3D; bin</li><li>YETI_DOCS +:&#x3D; docs</li><li>YETI_TMP &#x3D; C:\Yeti-v3.6.0_Maya2018-windows\tmp</li><li>PEREGRINE_LOG_FILE &#x3D; C:\Yeti-v3.6.0_Maya2018-windows\Yeti.log</li><li>YETI_GEOCACHE_SIZE &#x3D; 1024</li><li>YETI_TEXTURECACHE_SIZE &#x3D; 1024</li><li>YETI_HOME &#x3D; C:\Yeti-v3.6.0_Maya2018-windows</li><li>peregrinel_LICENSE &#x3D; C:\rlm\yeti.lic</li></ul></li><li><p>破解：yeti破解文件或通过rlm服务器破解</p></li></ul><h3 id="可能的问题"><a href="#可能的问题" class="headerlink" title="可能的问题"></a>可能的问题</h3><ol><li>yeti 与Arnold版本不匹配，需要下载相对应的各插件版本，具体参考yeti官网文档</li><li>yeti安装后未破解，打开yeti graph editer时会提示没有许可或工具不显示</li><li>yeti破解后没有成功建立和渲染器的链接，需要在上述对应的.mod文件中写入环境变量,成功写入环境变量后即可渲染</li><li>yeti插件与渲染器成功建立来链接后，开启Maya可能会出现.dll文件的报错没然后Maya卡死，该问题是maya环境中没有找到.dll与对应的渲染器，可能是没有安装，删除yeti安装目录文件夹bin下对应的.dll即可</li><li>渲染没有毛发：渲染器和yeti插件的链接没有接上。没有指定xgen缓存的路径</li><li>“pgYetiMaya.mod”文件中不能有空行</li></ol><h3 id="制作和渲染问题"><a href="#制作和渲染问题" class="headerlink" title="制作和渲染问题"></a>制作和渲染问题</h3><ol><li><p>pgYetiPreRender:此代码用于指定yeti渲染前产生的yeti缓存文件存放位置，渲染时直接调用此路径下的.fur文件，若不在Maya渲染射中的中preRenderMel选项中填入此代码，则渲染器找不到生成的缓存，渲染失败。低版本中，此代码不会自动写入和自动清除，高版本会判定场景中是否存在相关yeti节点，然后自动写入或清除。</p></li><li><p>yeti毛发取消缓存(将input Mode 设置为None)，需要保存后重开文件，才能正常渲染出毛发。</p></li></ol>]]></content>
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>本文记录了一些Maya中Yeti毛发的相关的问题：<span id="more"></span></p><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><ul><li><p>对应的版本: yeti插件版本需要与arnold(或redshift渲染器)版本、maya版本相对应，否则不报错且无法使用</p></li><li><p>环境变量：需在 pgYetiMaya.mod写入环境变量的文件(一行一句)。C:\rlm\yeti.lic 为破解文件。</p><ul><li><ul><li>pgYetiMaya 3.6.0 C:\Yeti-v3.6.0_Maya2018-windows</li></ul></li><li>PATH +:&#x3D; bin</li><li>MTOA_EXTENSIONS_PATH +:&#x3D; plug-ins</li><li>ARNOLD_PLUGIN_PATH +:&#x3D; bin</li><li>YETI_DOCS +:&#x3D; docs</li><li>YETI_TMP &#x3D; C:\Yeti-v3.6.0_Maya2018-windows\tmp</li><li>PEREGRINE_LOG_FILE &#x3D; C:\Yeti-v3.6.0_Maya2018-windows\Yeti.log</li><li>YETI_GEOCACHE_SIZE &#x3D; 1024</li><li>YETI_TEXTURECACHE_SIZE &#x3D; 1024</li><li>YETI_HOME &#x3D; C:\Yeti-v3.6.0_Maya2018-windows</li><li>peregrinel_LICENSE &#x3D; C:\rlm\yeti.lic</li></ul></li><li><p>破解：yeti破解文件或通过rlm服务器破解</p></li></ul><h3 id="可能的问题"><a href="#可能的问题" class="headerlink" title="可能的问题"></a>可能的问题</h3><ol><li>yeti 与Arnold版本不匹配，需要下载相对应的各插件版本，具体参考yeti官网文档</li><li>yeti安装后未破解，打开yeti graph editer时会提示没有许可或工具不显示</li><li>yeti破解后没有成功建立和渲染器的链接，需要在上述对应的.mod文件中写入环境变量,成功写入环境变量后即可渲染</li><li>yeti插件与渲染器成功建立来链接后，开启Maya可能会出现.dll文件的报错没然后Maya卡死，该问题是maya环境中没有找到.dll与对应的渲染器，可能是没有安装，删除yeti安装目录文件夹bin下对应的.dll即可</li><li>渲染没有毛发：渲染器和yeti插件的链接没有接上。没有指定Yeti毛发缓存的存放路径YETI_TMP</li><li>“pgYetiMaya.mod”文件中不能有空行</li></ol><h3 id="制作和渲染问题"><a href="#制作和渲染问题" class="headerlink" title="制作和渲染问题"></a>制作和渲染问题</h3><ol><li><p>pgYetiPreRender:此代码用于指定yeti渲染前产生的yeti缓存文件存放位置，渲染时直接调用此路径下的.fur文件，若不在Maya渲染射中的中preRenderMel选项中填入此代码，则渲染器找不到生成的缓存，渲染失败。低版本中，此代码不会自动写入和自动清除，高版本会判定场景中是否存在相关yeti节点，然后自动写入或清除。</p></li><li><p>yeti毛发取消缓存(将input Mode 设置为None)，需要保存后重开文件，才能正常渲染出毛发。</p></li></ol>]]></content>
       
       
       <categories>
@@ -215,6 +242,8 @@
       
         <tags>
             
+            <tag> 排错记录 </tag>
+            
             <tag> Xgen </tag>
             
         </tags>
@@ -228,7 +257,7 @@
       <link href="/posts/20220721a1.html"/>
       <url>/posts/20220721a1.html</url>
       
-        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h4 id="详情"><a href="#详情" class="headerlink" title="详情"></a>详情</h4><p style="text-indent:2em">Deadline 事件依赖于其软件框架，不能进行实时调试，但是可以通过 Console 窗口快速获取获取事件反馈信息。</p><span id="more"></span><p style="text-indent:2em">若想快速查看事件处理的过程，获取结果，首先通过Panels > Console 开启 Console 窗口。</p><p><img src="/images/Deadline%E4%B8%AD%E8%B0%83%E8%AF%95%E7%BC%96%E5%86%99%E7%9A%84%E4%BA%8B%E4%BB%B6/Console.jpg" alt="Console图片" srcset="/images/home/Myhead.jpg" data-src="/images/Deadline%E4%B8%AD%E8%B0%83%E8%AF%95%E7%BC%96%E5%86%99%E7%9A%84%E4%BA%8B%E4%BB%B6/Console.jpg" class="lozad post-image"></p><p style="text-indent:2em">对于事件编写，除了要先配置正确的事件文件以外，还要在代码中加入打印（可通过 DeadlineEventListener 类的 self.LogInfo 或者 print 等方法将调试信息写入代码中，或通过ClientUtils.LogText(str)方法将信息写入 Deadline 的日志文件中），由于 Deadline 会每隔一段时间才会扫描储存库，扫描的默认值一般为5分钟，当扫描过程中发现事件脚本有新的修改时，才会将修改的事件脚本重新构建到任务中，所以，为了让 Deadline 后台及时更新并构建我们修改的事件脚本，我们需要通过Tools > Synchronize Monitor Script and Plugins 功能手动更新事件脚本。</p><p><img src="/images/Deadline%E4%B8%AD%E8%B0%83%E8%AF%95%E7%BC%96%E5%86%99%E7%9A%84%E4%BA%8B%E4%BB%B6/%E5%90%8C%E6%AD%A5%E8%84%9A%E6%9C%AC.jpg" alt="同步脚本" srcset="/images/home/Myhead.jpg" data-src="/images/Deadline%E4%B8%AD%E8%B0%83%E8%AF%95%E7%BC%96%E5%86%99%E7%9A%84%E4%BA%8B%E4%BB%B6/%E5%90%8C%E6%AD%A5%E8%84%9A%E6%9C%AC.jpg" class="lozad post-image"></p><p style="text-indent:2em">此时，Console 窗口会提示：***事件脚本有修改，将重新构建事件脚本的提示语。如果你的脚本有语法错误，Console 窗口还会给你打印一条简短的报错信息。然后 Requeue 目标任务，再将任务切换到我们所要的任务状态（先更新脚本，再操作任务，不能先操作任务再更新脚本，否则，事件不会被更新到任务状态中），Deadline 便会通过当前执行任务的机器执行事件脚本，并在Console 窗口显示反馈信息。通过此方法，可以快速对我们的事件脚本进行编写和调试。</p><h4 id="关于事件脚本中使用中文"><a href="#关于事件脚本中使用中文" class="headerlink" title="关于事件脚本中使用中文"></a>关于事件脚本中使用中文</h4><p style="text-indent:2em">有时会想在日志中打印中文信息，则我们需要将中文字符串解码为"utf8"的人类可读懂的代码。需要注意的是：</p><ul><li>了解事件脚本文件在储存时，使用的编码格式，以及系统文件流的编码格式。不仅如此，我们还会在 python 脚本文件中加入 “# -<em>- coding:utf-8 -</em>-” 类型的注释，因此需要做相应的修改。</li><li>中文字符很容易出错，导致插件执行被打断却没有任何反馈信息的假成功状态，这是由于当Deadline后台检测脚本有字符转换的错误时，它可不执行事件脚本。</li></ul><pre class="language-python" data-language="python"><code class="language-python">self.LogInfo(&quot;测试打印&quot;.decode(&quot;utf8&quot;))</code></pre><h4 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h4><a href="https://docs.thinkboxsoftware.com/products/deadline/10.1/2_Scripting%20Reference/index.html" title="" target="">官方文档中事件脚本文档</a></br><a href="http://www.mirrorcg.com/posts/20220306a1.html" title="" target="">往期相关文章：Deadline中的事件示例</a>]]></content>
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h4 id="详情"><a href="#详情" class="headerlink" title="详情"></a>详情</h4><p style="text-indent:2em">Deadline 事件依赖于其软件框架，不能进行实时调试，但是可以通过 Console 窗口快速获取获取事件反馈信息。</p><span id="more"></span><p style="text-indent:2em">若想快速查看事件处理的过程，获取结果，首先通过Panels > Console 开启 Console 窗口。</p><p><img src="/images/Deadline%E4%B8%AD%E8%B0%83%E8%AF%95%E7%BC%96%E5%86%99%E7%9A%84%E4%BA%8B%E4%BB%B6/Console.jpg" alt="Console图片" srcset="/images/home/Myhead.jpg" data-src="/images/Deadline%E4%B8%AD%E8%B0%83%E8%AF%95%E7%BC%96%E5%86%99%E7%9A%84%E4%BA%8B%E4%BB%B6/Console.jpg" class="lozad post-image"></p><p style="text-indent:2em">对于事件编写，除了要先配置正确的事件文件以外，还要在代码中加入打印（可通过 DeadlineEventListener 类的 self.LogInfo 或者 print 等方法将调试信息写入代码中，或通过ClientUtils.LogText(str)方法将信息写入 Deadline 的日志文件中），由于 Deadline 会每隔一段时间才会扫描储存库，扫描的默认值一般为5分钟，当扫描过程中发现事件脚本有新的修改时，才会将修改的事件脚本重新构建到任务中，所以，为了让 Deadline 后台及时更新并构建我们修改的事件脚本，我们需要通过Tools > Synchronize Monitor Script and Plugins 功能手动更新事件脚本。</p><p><img src="/images/Deadline%E4%B8%AD%E8%B0%83%E8%AF%95%E7%BC%96%E5%86%99%E7%9A%84%E4%BA%8B%E4%BB%B6/%E5%90%8C%E6%AD%A5%E8%84%9A%E6%9C%AC.jpg" alt="同步脚本" srcset="/images/home/Myhead.jpg" data-src="/images/Deadline%E4%B8%AD%E8%B0%83%E8%AF%95%E7%BC%96%E5%86%99%E7%9A%84%E4%BA%8B%E4%BB%B6/%E5%90%8C%E6%AD%A5%E8%84%9A%E6%9C%AC.jpg" class="lozad post-image"></p><p style="text-indent:2em">此时，Console 窗口会提示：***事件脚本有修改，将重新构建事件脚本的提示语。如果你的脚本有语法错误，Console 窗口还会给你打印一条简短的报错信息。然后 Requeue 目标任务，再将任务切换到我们所要的任务状态（先更新脚本，再操作任务，不能先操作任务再更新脚本，否则，事件不会被更新到任务状态中），Deadline 便会通过当前执行任务的机器执行事件脚本，并在Console 窗口显示反馈信息。通过此方法，可以快速对我们的事件脚本进行编写和调试。</p><h4 id="关于事件脚本中使用中文"><a href="#关于事件脚本中使用中文" class="headerlink" title="关于事件脚本中使用中文"></a>关于事件脚本中使用中文</h4><p style="text-indent:2em">有时会在日志中打印中文信息，则我们需要将中文字符串编码为"gbk"（windows系统）的人类可读懂的代码。需要注意的是：</p><ul><li>需了解事件脚本在编写时，文本编辑器使用的编码格式是否为utf8，以及操作系统文件在编译中文时，使用的编码格式（Windows下控制台中的编码使用的是gbk）。因此，我们会在 python 脚本文件头部中加入 “# -<em>- coding:utf-8 -</em>-” 显式编码注释，文本编辑器在存储脚本时会做相应的修改。</li><li>中文字符很容易出错，导致插件执行被打断却没有任何反馈信息的假成功状态，这是由于当Deadline后台检测脚本有字符转换的错误时，它可不执行事件脚本。</li><li>测试 deadline 10.0.6.3 的 Python2 环境打印中文：中文字符串最后一个字符串不能为中文标点符号，否则会报语法错误（控制台在编码中文时，会将最后一个标点符号编码错误为一个‘？’号）。</li></ul>  <pre class="line-numbers language-python" data-language="python"><code class="language-python"># -*- coding:utf-8 -*-def __main__():    print(u&quot;测试中文打印&quot;.encode(&quot;gbk&quot;))    print(unicode(&quot;测试中文打印&quot;，&quot;utf-8&quot;).encode(&quot;gbk&quot;))<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre><ul><li>测试在 deadline 10.1 的环境打印中文则很简单，和普通代码一样直接打印,字符串末尾可以有中文标点符号且不用进行字符编码，否则会报错：  <pre class="line-numbers language-python" data-language="python"><code class="language-python"># -*- coding:utf-8 -*-def __main__():    print(&quot;测试中文打印。&quot;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li></ul><h4 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h4><a href="https://docs.thinkboxsoftware.com/products/deadline/10.1/2_Scripting%20Reference/index.html" title="" target="">1.官方文档中事件脚本文档</a></br><a href="http://www.mirrorcg.com/posts/20220306a1.html" title="" target="">2.往期相关文章：Deadline中的事件示例</a></br><a href="http://www.mirrorcg.com/posts/20220822a1.html" title="" target="">3.相关文章：Python代码中的字符编码</a>]]></content>
       
       
       <categories>
@@ -243,6 +272,8 @@
         <tags>
             
             <tag> 插件 </tag>
+            
+            <tag> API </tag>
             
         </tags>
       
@@ -325,9 +356,9 @@
       
         <tags>
             
-            <tag> windows </tag>
-            
             <tag> 排错记录 </tag>
+            
+            <tag> windows </tag>
             
         </tags>
       
@@ -412,6 +443,8 @@
       
         <tags>
             
+            <tag> 排错记录 </tag>
+            
             <tag> 锦囊小妙招 </tag>
             
         </tags>
@@ -439,6 +472,8 @@
       
         <tags>
             
+            <tag> 排错记录 </tag>
+            
             <tag> 锦囊小妙招 </tag>
             
         </tags>
@@ -465,6 +500,8 @@
       
       
         <tags>
+            
+            <tag> 排错记录 </tag>
             
             <tag> 锦囊小妙招 </tag>
             
@@ -494,6 +531,8 @@
         <tags>
             
             <tag> 检查 </tag>
+            
+            <tag> 排错记录 </tag>
             
         </tags>
       

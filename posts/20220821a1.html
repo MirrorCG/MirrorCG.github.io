@@ -335,7 +335,7 @@
     
     
       <span class="dot"></span>
-      <span>545 字</span>
+      <span>549 字</span>
     
   </div>
   
@@ -392,7 +392,7 @@
 <li>yeti安装后未破解，打开yeti graph editer时会提示没有许可或工具不显示</li>
 <li>yeti破解后没有成功建立和渲染器的链接，需要在上述对应的.mod文件中写入环境变量,成功写入环境变量后即可渲染</li>
 <li>yeti插件与渲染器成功建立来链接后，开启Maya可能会出现.dll文件的报错没然后Maya卡死，该问题是maya环境中没有找到.dll与对应的渲染器，可能是没有安装，删除yeti安装目录文件夹bin下对应的.dll即可</li>
-<li>渲染没有毛发：渲染器和yeti插件的链接没有接上。没有指定xgen缓存的路径</li>
+<li>渲染没有毛发：渲染器和yeti插件的链接没有接上。没有指定Yeti毛发缓存的存放路径YETI_TMP</li>
 <li>“pgYetiMaya.mod”文件中不能有空行</li>
 </ol>
 <h3 id="制作和渲染问题"><a href="#制作和渲染问题" class="headerlink" title="制作和渲染问题"></a>制作和渲染问题</h3><ol>
@@ -439,7 +439,7 @@
         <div>
           <div class="nav-label">上一篇</div>
           
-            <div class="nav-title">lua脚本语言 </div>
+            <div class="nav-title">Lua脚本语言 </div>
           
         </div>
       </a>
@@ -526,19 +526,19 @@
   <a 
     class="author-posts-count" 
     href="/archives">
-    <span>34</span>
+    <span>35</span>
     <span>文章</span>
   </a>
   <a 
     class="author-categories-count" 
     href="/categories">
-    <span>15</span>
+    <span>16</span>
     <span>分类</span>
   </a>
   <a 
     class="author-tags-count" 
     href="/tags">
-    <span>30</span>
+    <span>31</span>
     <span>标签</span>
   </a>
 </div>
@@ -704,6 +704,13 @@
         </div>
       </a>
     
+      <a href="/categories/Python/">
+        <div class="categories-list-item">
+          Python
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
       <a href="/categories/Qt/">
         <div class="categories-list-item">
           Qt
@@ -711,10 +718,10 @@
         </div>
       </a>
     
-      <a href="/categories/Maya/%E5%B0%8F%E5%B7%A5%E5%85%B7/">
+      <a href="/categories/Maya/%E6%9D%82%E9%A1%B9/">
         <div class="categories-list-item">
-          Maya/小工具
-          <span class="categories-list-item-badge">3</span>
+          Maya/杂项
+          <span class="categories-list-item-badge">8</span>
         </div>
       </a>
     
@@ -725,10 +732,10 @@
         </div>
       </a>
     
-      <a href="/categories/Maya/%E6%9D%82%E9%A1%B9/">
+      <a href="/categories/Maya/%E5%B0%8F%E5%B7%A5%E5%85%B7/">
         <div class="categories-list-item">
-          Maya/杂项
-          <span class="categories-list-item-badge">8</span>
+          Maya/小工具
+          <span class="categories-list-item-badge">3</span>
         </div>
       </a>
     
@@ -788,9 +795,21 @@
       </a>
     
       <a 
+        href="/tags/%E6%8E%92%E9%94%99%E8%AE%B0%E5%BD%95/" 
+        title="排错记录">
+        <div class="tags-list-item">排错记录</div>
+      </a>
+    
+      <a 
         href="/tags/Pipeline/" 
         title="Pipeline">
         <div class="tags-list-item">Pipeline</div>
+      </a>
+    
+      <a 
+        href="/tags/%E9%94%A6%E5%9B%8A%E5%B0%8F%E5%A6%99%E6%8B%9B/" 
+        title="锦囊小妙招">
+        <div class="tags-list-item">锦囊小妙招</div>
       </a>
     
       <a 
@@ -806,15 +825,15 @@
       </a>
     
       <a 
-        href="/tags/%E9%94%A6%E5%9B%8A%E5%B0%8F%E5%A6%99%E6%8B%9B/" 
-        title="锦囊小妙招">
-        <div class="tags-list-item">锦囊小妙招</div>
-      </a>
-    
-      <a 
         href="/tags/Blog/" 
         title="Blog">
         <div class="tags-list-item">Blog</div>
+      </a>
+    
+      <a 
+        href="/tags/API/" 
+        title="API">
+        <div class="tags-list-item">API</div>
       </a>
     
       <a 
@@ -833,12 +852,6 @@
         href="/tags/Hexo/" 
         title="Hexo">
         <div class="tags-list-item">Hexo</div>
-      </a>
-    
-      <a 
-        href="/tags/API/" 
-        title="API">
-        <div class="tags-list-item">API</div>
       </a>
     
       <a 
@@ -866,15 +879,9 @@
       </a>
     
       <a 
-        href="/tags/aiUserData/" 
-        title="aiUserData">
-        <div class="tags-list-item">aiUserData</div>
-      </a>
-    
-      <a 
-        href="/tags/Aitoon/" 
-        title="Aitoon">
-        <div class="tags-list-item">Aitoon</div>
+        href="/tags/Markdown/" 
+        title="Markdown">
+        <div class="tags-list-item">Markdown</div>
       </a>
     
   </div>
@@ -910,8 +917,13 @@
   <div class="recent-posts-list">
     
       <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-08-22</div>
+        <a href="/posts/20220822a1.html"><div class="recent-posts-item-content">Python代码中的字符编码</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
         <div class="recent-posts-item-title">2022-08-21</div>
-        <a href="/posts/20220821a2.html"><div class="recent-posts-item-content">lua脚本语言</div></a>
+        <a href="/posts/20220821a2.html"><div class="recent-posts-item-content">Lua脚本语言</div></a>
       </div>
     
       <div class="recent-posts-item">
@@ -922,11 +934,6 @@
       <div class="recent-posts-item">
         <div class="recent-posts-item-title">2022-08-14</div>
         <a href="/posts/20220814a1.html"><div class="recent-posts-item-content">ShotGrid的API使用示例</div></a>
-      </div>
-    
-      <div class="recent-posts-item">
-        <div class="recent-posts-item-title">2022-08-07</div>
-        <a href="/posts/20220807a1.html"><div class="recent-posts-item-content">Nuke学习笔记4_回调函数</div></a>
       </div>
     
   </div>
