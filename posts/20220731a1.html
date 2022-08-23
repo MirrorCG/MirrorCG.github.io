@@ -49,7 +49,7 @@
         content="2022-07-31">
       <meta 
         property="og:article:modified_time" 
-        content="2022-08-01">
+        content="2022-08-24">
       <meta 
         property="og:article:author" 
         content="Mirror">
@@ -335,7 +335,7 @@
     
     
       <span class="dot"></span>
-      <span>2.2k 字</span>
+      <span>2.3k 字</span>
     
   </div>
   
@@ -397,6 +397,26 @@
 </ul>
 </li>
 </ul>
+<h5 id="Read节点读取文件小技巧"><a href="#Read节点读取文件小技巧" class="headerlink" title="Read节点读取文件小技巧"></a>Read节点读取文件小技巧</h5><p>通过fromUserText方法读取视频文件，可以直接获取到视频文件的视频的长度。</p>
+  <pre class="line-numbers language-python" data-language="python"><code class="language-python">import nuke
+readNode &#x3D; nuke.nodes.Read()
+movPath &#x3D; r&quot;D:\mov\test.mov&quot;
+readNode[&#39;file&#39;].fromUserText(movpath)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>如果是exr或者别的图片序列呢？<br>通过nuke.getFileNameList(path)方法可以获取到文件夹下的序列，进行自动分类，并返回一个字符串列表：</p>
+<blockquote><p>[‘N.####.exr 1-15’, ‘Z.####.exr 1-7’, ‘beauty.####.exr 1-160’]</p>
+</blockquote>
+
+<p>创建read节点示例如下：</p>
+  <pre class="line-numbers language-python" data-language="python"><code class="language-python">import nuke
+readNode &#x3D; nuke.nodes.Read()
+exrPath &#x3D; r&quot;D:\image\beauty&quot;
+exrlist &#x3D; nuke.getFileNameList(exrPath)
+for _each in exrlist:
+    readNode &#x3D; nuke.nodes.Read()
+    readNode[&#39;file&#39;].fromUserText(&quot;%s&#x2F;%s&quot; % (exrPath,_each))<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
 <h3 id="选择和链接节点"><a href="#选择和链接节点" class="headerlink" title="选择和链接节点"></a>选择和链接节点</h3><ul>
 <li>获取节点：nuke.toNode(“节点名”)</li>
 <li>获取节点输入：<ul>
@@ -690,7 +710,7 @@
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Nuke-API-%E6%96%87%E6%A1%A3"><span class="toc-number">1.</span> <span class="toc-text">Nuke API 文档</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8A%82%E7%82%B9%E5%88%9B%E5%BB%BA%E5%92%8C%E5%88%A0%E9%99%A4"><span class="toc-number">2.</span> <span class="toc-text">节点创建和删除</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E5%92%8C%E9%93%BE%E6%8E%A5%E8%8A%82%E7%82%B9"><span class="toc-number">3.</span> <span class="toc-text">选择和链接节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8A%82%E7%82%B9%E4%BD%8D%E7%BD%AE%E5%92%8C%E5%B8%83%E5%B1%80"><span class="toc-number">4.</span> <span class="toc-text">节点位置和布局</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C"><span class="toc-number">5.</span> <span class="toc-text">文件操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Nuke%E4%B8%AD%E7%9A%84%E6%8E%A7%E4%BB%B6%EF%BC%88Knob%EF%BC%89"><span class="toc-number">6.</span> <span class="toc-text">Nuke中的控件（Knob）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6"><span class="toc-number">7.</span> <span class="toc-text">自定义控件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Gizmo%E6%93%8D%E4%BD%9C"><span class="toc-number">8.</span> <span class="toc-text">Gizmo操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%BC%E5%85%A5-%E5%AF%BC%E5%87%BAgizmo"><span class="toc-number">8.1.</span> <span class="toc-text">导入\导出gizmo</span></a></li></ol></li></ol>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Nuke-API-%E6%96%87%E6%A1%A3"><span class="toc-number">1.</span> <span class="toc-text">Nuke API 文档</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8A%82%E7%82%B9%E5%88%9B%E5%BB%BA%E5%92%8C%E5%88%A0%E9%99%A4"><span class="toc-number">2.</span> <span class="toc-text">节点创建和删除</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Read%E8%8A%82%E7%82%B9%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6%E5%B0%8F%E6%8A%80%E5%B7%A7"><span class="toc-number">2.0.1.</span> <span class="toc-text">Read节点读取文件小技巧</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E5%92%8C%E9%93%BE%E6%8E%A5%E8%8A%82%E7%82%B9"><span class="toc-number">3.</span> <span class="toc-text">选择和链接节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8A%82%E7%82%B9%E4%BD%8D%E7%BD%AE%E5%92%8C%E5%B8%83%E5%B1%80"><span class="toc-number">4.</span> <span class="toc-text">节点位置和布局</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C"><span class="toc-number">5.</span> <span class="toc-text">文件操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Nuke%E4%B8%AD%E7%9A%84%E6%8E%A7%E4%BB%B6%EF%BC%88Knob%EF%BC%89"><span class="toc-number">6.</span> <span class="toc-text">Nuke中的控件（Knob）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6"><span class="toc-number">7.</span> <span class="toc-text">自定义控件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Gizmo%E6%93%8D%E4%BD%9C"><span class="toc-number">8.</span> <span class="toc-text">Gizmo操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%BC%E5%85%A5-%E5%AF%BC%E5%87%BAgizmo"><span class="toc-number">8.1.</span> <span class="toc-text">导入\导出gizmo</span></a></li></ol></li></ol>
 </div></main>
             <aside class="left-column">
               
@@ -709,7 +729,7 @@
   <a 
     class="author-posts-count" 
     href="/archives">
-    <span>35</span>
+    <span>36</span>
     <span>文章</span>
   </a>
   <a 
@@ -721,7 +741,7 @@
   <a 
     class="author-tags-count" 
     href="/tags">
-    <span>31</span>
+    <span>30</span>
     <span>标签</span>
   </a>
 </div>
@@ -830,7 +850,7 @@
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Nuke-API-%E6%96%87%E6%A1%A3"><span class="toc-number">1.</span> <span class="toc-text">Nuke API 文档</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8A%82%E7%82%B9%E5%88%9B%E5%BB%BA%E5%92%8C%E5%88%A0%E9%99%A4"><span class="toc-number">2.</span> <span class="toc-text">节点创建和删除</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E5%92%8C%E9%93%BE%E6%8E%A5%E8%8A%82%E7%82%B9"><span class="toc-number">3.</span> <span class="toc-text">选择和链接节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8A%82%E7%82%B9%E4%BD%8D%E7%BD%AE%E5%92%8C%E5%B8%83%E5%B1%80"><span class="toc-number">4.</span> <span class="toc-text">节点位置和布局</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C"><span class="toc-number">5.</span> <span class="toc-text">文件操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Nuke%E4%B8%AD%E7%9A%84%E6%8E%A7%E4%BB%B6%EF%BC%88Knob%EF%BC%89"><span class="toc-number">6.</span> <span class="toc-text">Nuke中的控件（Knob）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6"><span class="toc-number">7.</span> <span class="toc-text">自定义控件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Gizmo%E6%93%8D%E4%BD%9C"><span class="toc-number">8.</span> <span class="toc-text">Gizmo操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%BC%E5%85%A5-%E5%AF%BC%E5%87%BAgizmo"><span class="toc-number">8.1.</span> <span class="toc-text">导入\导出gizmo</span></a></li></ol></li></ol>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Nuke-API-%E6%96%87%E6%A1%A3"><span class="toc-number">1.</span> <span class="toc-text">Nuke API 文档</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8A%82%E7%82%B9%E5%88%9B%E5%BB%BA%E5%92%8C%E5%88%A0%E9%99%A4"><span class="toc-number">2.</span> <span class="toc-text">节点创建和删除</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Read%E8%8A%82%E7%82%B9%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6%E5%B0%8F%E6%8A%80%E5%B7%A7"><span class="toc-number">2.0.1.</span> <span class="toc-text">Read节点读取文件小技巧</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E5%92%8C%E9%93%BE%E6%8E%A5%E8%8A%82%E7%82%B9"><span class="toc-number">3.</span> <span class="toc-text">选择和链接节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8A%82%E7%82%B9%E4%BD%8D%E7%BD%AE%E5%92%8C%E5%B8%83%E5%B1%80"><span class="toc-number">4.</span> <span class="toc-text">节点位置和布局</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C"><span class="toc-number">5.</span> <span class="toc-text">文件操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Nuke%E4%B8%AD%E7%9A%84%E6%8E%A7%E4%BB%B6%EF%BC%88Knob%EF%BC%89"><span class="toc-number">6.</span> <span class="toc-text">Nuke中的控件（Knob）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6"><span class="toc-number">7.</span> <span class="toc-text">自定义控件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Gizmo%E6%93%8D%E4%BD%9C"><span class="toc-number">8.</span> <span class="toc-text">Gizmo操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%BC%E5%85%A5-%E5%AF%BC%E5%87%BAgizmo"><span class="toc-number">8.1.</span> <span class="toc-text">导入\导出gizmo</span></a></li></ol></li></ol>
       </div>
     </article>
   
@@ -869,7 +889,7 @@
       <a href="/categories/Maya/">
         <div class="categories-list-item">
           Maya
-          <span class="categories-list-item-badge">12</span>
+          <span class="categories-list-item-badge">13</span>
         </div>
       </a>
     
@@ -901,10 +921,10 @@
         </div>
       </a>
     
-      <a href="/categories/Maya/%E6%9D%82%E9%A1%B9/">
+      <a href="/categories/Maya/%E5%B0%8F%E5%B7%A5%E5%85%B7/">
         <div class="categories-list-item">
-          Maya/杂项
-          <span class="categories-list-item-badge">8</span>
+          Maya/小工具
+          <span class="categories-list-item-badge">4</span>
         </div>
       </a>
     
@@ -915,10 +935,10 @@
         </div>
       </a>
     
-      <a href="/categories/Maya/%E5%B0%8F%E5%B7%A5%E5%85%B7/">
+      <a href="/categories/Maya/%E6%9D%82%E9%A1%B9/">
         <div class="categories-list-item">
-          Maya/小工具
-          <span class="categories-list-item-badge">3</span>
+          Maya/杂项
+          <span class="categories-list-item-badge">8</span>
         </div>
       </a>
     
@@ -1085,7 +1105,7 @@
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Nuke-API-%E6%96%87%E6%A1%A3"><span class="toc-number">1.</span> <span class="toc-text">Nuke API 文档</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8A%82%E7%82%B9%E5%88%9B%E5%BB%BA%E5%92%8C%E5%88%A0%E9%99%A4"><span class="toc-number">2.</span> <span class="toc-text">节点创建和删除</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E5%92%8C%E9%93%BE%E6%8E%A5%E8%8A%82%E7%82%B9"><span class="toc-number">3.</span> <span class="toc-text">选择和链接节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8A%82%E7%82%B9%E4%BD%8D%E7%BD%AE%E5%92%8C%E5%B8%83%E5%B1%80"><span class="toc-number">4.</span> <span class="toc-text">节点位置和布局</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C"><span class="toc-number">5.</span> <span class="toc-text">文件操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Nuke%E4%B8%AD%E7%9A%84%E6%8E%A7%E4%BB%B6%EF%BC%88Knob%EF%BC%89"><span class="toc-number">6.</span> <span class="toc-text">Nuke中的控件（Knob）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6"><span class="toc-number">7.</span> <span class="toc-text">自定义控件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Gizmo%E6%93%8D%E4%BD%9C"><span class="toc-number">8.</span> <span class="toc-text">Gizmo操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%BC%E5%85%A5-%E5%AF%BC%E5%87%BAgizmo"><span class="toc-number">8.1.</span> <span class="toc-text">导入\导出gizmo</span></a></li></ol></li></ol>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Nuke-API-%E6%96%87%E6%A1%A3"><span class="toc-number">1.</span> <span class="toc-text">Nuke API 文档</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8A%82%E7%82%B9%E5%88%9B%E5%BB%BA%E5%92%8C%E5%88%A0%E9%99%A4"><span class="toc-number">2.</span> <span class="toc-text">节点创建和删除</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Read%E8%8A%82%E7%82%B9%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6%E5%B0%8F%E6%8A%80%E5%B7%A7"><span class="toc-number">2.0.1.</span> <span class="toc-text">Read节点读取文件小技巧</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E5%92%8C%E9%93%BE%E6%8E%A5%E8%8A%82%E7%82%B9"><span class="toc-number">3.</span> <span class="toc-text">选择和链接节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8A%82%E7%82%B9%E4%BD%8D%E7%BD%AE%E5%92%8C%E5%B8%83%E5%B1%80"><span class="toc-number">4.</span> <span class="toc-text">节点位置和布局</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C"><span class="toc-number">5.</span> <span class="toc-text">文件操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Nuke%E4%B8%AD%E7%9A%84%E6%8E%A7%E4%BB%B6%EF%BC%88Knob%EF%BC%89"><span class="toc-number">6.</span> <span class="toc-text">Nuke中的控件（Knob）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6"><span class="toc-number">7.</span> <span class="toc-text">自定义控件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Gizmo%E6%93%8D%E4%BD%9C"><span class="toc-number">8.</span> <span class="toc-text">Gizmo操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%BC%E5%85%A5-%E5%AF%BC%E5%87%BAgizmo"><span class="toc-number">8.1.</span> <span class="toc-text">导入\导出gizmo</span></a></li></ol></li></ol>
     </article>
   
   
@@ -1100,6 +1120,11 @@
   <div class="recent-posts-list">
     
       <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-08-23</div>
+        <a href="/posts/20220823a1.html"><div class="recent-posts-item-content">Maya中创建UI</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
         <div class="recent-posts-item-title">2022-08-22</div>
         <a href="/posts/20220822a1.html"><div class="recent-posts-item-content">Python代码中的字符编码</div></a>
       </div>
@@ -1112,11 +1137,6 @@
       <div class="recent-posts-item">
         <div class="recent-posts-item-title">2022-08-21</div>
         <a href="/posts/20220821a1.html"><div class="recent-posts-item-content">Yeti毛发</div></a>
-      </div>
-    
-      <div class="recent-posts-item">
-        <div class="recent-posts-item-title">2022-08-14</div>
-        <a href="/posts/20220814a1.html"><div class="recent-posts-item-content">ShotGrid的API使用示例</div></a>
       </div>
     
   </div>
