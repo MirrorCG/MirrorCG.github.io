@@ -450,13 +450,6 @@
   </url>
   
   <url>
-    <loc>http://mirrorcg.github.io/tags/%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/</loc>
-    <lastmod>2022-08-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>http://mirrorcg.github.io/tags/%E7%81%AF%E5%85%89/</loc>
     <lastmod>2022-08-24</lastmod>
     <changefreq>weekly</changefreq>
@@ -465,6 +458,13 @@
   
   <url>
     <loc>http://mirrorcg.github.io/tags/UV/</loc>
+    <lastmod>2022-08-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://mirrorcg.github.io/tags/%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/</loc>
     <lastmod>2022-08-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -485,14 +485,14 @@
   </url>
   
   <url>
-    <loc>http://mirrorcg.github.io/tags/OpenMaya/</loc>
+    <loc>http://mirrorcg.github.io/tags/%E5%90%91%E9%87%8F%E8%AE%A1%E7%AE%97/</loc>
     <lastmod>2022-08-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://mirrorcg.github.io/tags/%E5%90%91%E9%87%8F%E8%AE%A1%E7%AE%97/</loc>
+    <loc>http://mirrorcg.github.io/tags/OpenMaya/</loc>
     <lastmod>2022-08-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -548,14 +548,14 @@
   </url>
   
   <url>
-    <loc>http://mirrorcg.github.io/tags/%E7%BD%91%E7%AB%99%E6%8E%A8%E8%8D%90/</loc>
+    <loc>http://mirrorcg.github.io/tags/%E5%8C%85%E7%AE%A1%E7%90%86/</loc>
     <lastmod>2022-08-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://mirrorcg.github.io/tags/%E5%8C%85%E7%AE%A1%E7%90%86/</loc>
+    <loc>http://mirrorcg.github.io/tags/%E7%BD%91%E7%AB%99%E6%8E%A8%E8%8D%90/</loc>
     <lastmod>2022-08-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -634,14 +634,14 @@
   </url>
   
   <url>
-    <loc>http://mirrorcg.github.io/categories/Python/</loc>
+    <loc>http://mirrorcg.github.io/categories/Qt/</loc>
     <lastmod>2022-08-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://mirrorcg.github.io/categories/Qt/</loc>
+    <loc>http://mirrorcg.github.io/categories/Python/</loc>
     <lastmod>2022-08-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
