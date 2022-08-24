@@ -339,7 +339,7 @@
     
     
       <span class="dot"></span>
-      <span>148 字</span>
+      <span>605 字</span>
     
   </div>
   
@@ -377,6 +377,8 @@
     class="post-content">
     <p>在maya中创建各种UI<span id="more"></span></p>
 <h4 id="创建主菜单和菜单项："><a href="#创建主菜单和菜单项：" class="headerlink" title="创建主菜单和菜单项："></a>创建主菜单和菜单项：</h4><p>menuItem() 若不指定父级,都默认将菜单项添加到上一个创建的菜单中。</p>
+<p><img src="/images/Maya%E4%B8%AD%E5%88%9B%E5%BB%BAUI/%E4%B8%BB%E8%8F%9C%E5%8D%95%E8%8F%9C%E5%8D%95%E9%A1%B9.png" alt="主菜单菜单项.png" srcset="/images/home/Myhead.jpg" data-src="/images/Maya%E4%B8%AD%E5%88%9B%E5%BB%BAUI/%E4%B8%BB%E8%8F%9C%E5%8D%95%E8%8F%9C%E5%8D%95%E9%A1%B9.png" class="lozad post-image"></p>
+<p>示例代码：</p>
   <pre class="line-numbers language-python" data-language="python"><code class="language-python">import maya.cmds as cmds 
 cmds.menu( &quot;test&quot;,label&#x3D;&#39;流程框架&#39;, tearOff&#x3D;True,parent&#x3D;&quot;MayaWindow&quot; )
 cmds.menuItem( label&#x3D;&#39;New&#39; )
@@ -385,7 +387,36 @@ cmds.menuItem( label&#x3D;&#39;Save&#39; )
 cmds.menuItem( divider&#x3D;True )  # 分隔线
 cmds.menuItem( label&#x3D;&#39;print&#39;,c&#x3D;&quot;print(11111)&quot; )<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h4 id="创建菜单集"><a href="#创建菜单集" class="headerlink" title="创建菜单集"></a>创建菜单集</h4><h4 id="创建状态行"><a href="#创建状态行" class="headerlink" title="创建状态行"></a>创建状态行</h4><h4 id="创建工具架和工具架分页："><a href="#创建工具架和工具架分页：" class="headerlink" title="创建工具架和工具架分页："></a>创建工具架和工具架分页：</h4><h4 id="创建侧栏工具页"><a href="#创建侧栏工具页" class="headerlink" title="创建侧栏工具页"></a>创建侧栏工具页</h4><h4 id="创建类似用户账户菜单"><a href="#创建类似用户账户菜单" class="headerlink" title="创建类似用户账户菜单"></a>创建类似用户账户菜单</h4>
+<h4 id="创建菜单集"><a href="#创建菜单集" class="headerlink" title="创建菜单集"></a>创建菜单集</h4><p>菜单集中的菜单项来自于上面创建的主菜单，因此需要有菜单项才能添加和显示菜单集。空的菜单集不在菜单集的下拉框中显示，因此菜单集下至少应该拥有一项菜单项。</p>
+<p><img src="/images/Maya%E4%B8%AD%E5%88%9B%E5%BB%BAUI/%E8%8F%9C%E5%8D%95%E9%9B%86.png" alt="菜单集.png" srcset="/images/home/Myhead.jpg" data-src="/images/Maya%E4%B8%AD%E5%88%9B%E5%BB%BAUI/%E8%8F%9C%E5%8D%95%E9%9B%86.png" class="lozad post-image"></p>
+<p>示例代码：</p>
+  <pre class="line-numbers language-python" data-language="python"><code class="language-python">import maya.cmds as cmds 
+cmds.menuSet( &#39;testSet&#39;, label&#x3D;&#39;testSetLabel&#39; )  # 创建菜单集,不指定标签，显示为空行
+cmds.menuSet(am&#x3D;&quot;mainKeysMenu&quot;)  # 从当前菜单添加
+cmds.menuSet(cms&#x3D;1,q&#x3D;1 ) #  设置当前激活的菜单，只是激活，不刷新显示
+cmds.menuSet (ams&#x3D;True,q&#x3D;True)  # 所有的菜单集
+cmds.menuSet(rm&#x3D;&quot;mainKeysMenu&quot;)  # 从当前菜单移除
+currentmenus &#x3D; cmds.menuSet(query&#x3D;True, menuArray&#x3D;True)  # 查询当前流单集中所有的菜单项<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="创建状态栏菜单"><a href="#创建状态栏菜单" class="headerlink" title="创建状态栏菜单"></a>创建状态栏菜单</h4><p>状态行只需要为控件指定父级窗口为”statusFieldButton”即可。</p>
+<p><img src="/images/Maya%E4%B8%AD%E5%88%9B%E5%BB%BAUI/%E7%8A%B6%E6%80%81%E6%A0%8F.png" alt="状态栏.png" srcset="/images/home/Myhead.jpg" data-src="/images/Maya%E4%B8%AD%E5%88%9B%E5%BB%BAUI/%E7%8A%B6%E6%80%81%E6%A0%8F.png" class="lozad post-image">  </p>
+<p>示例代码：</p>
+  <pre class="line-numbers language-python" data-language="python"><code class="language-python">import maya.cmds as cmds 
+cmds.iconTextButton(&quot;状态行名称1&quot;,l&#x3D;&quot;标签1&quot;,style&#x3D;&quot;textOnly&quot;,al&#x3D;&#39;center&#39;,p&#x3D;cmds.iconTextButton(&quot;statusFieldButton&quot;,q&#x3D;1,p&#x3D;1))
+cmds.button(&quot;状态行名称2&quot;,l&#x3D;&quot;标签2&quot;,al&#x3D;&#39;center&#39;,p&#x3D;cmds.iconTextButton(&quot;statusFieldButton&quot;,q&#x3D;1,p&#x3D;1))
+cmds.nodeIconButton(&quot;状态行名称3&quot;, label&#x3D;&quot;标签3&quot; , style&#x3D;&#39;iconAndTextHorizontal&#39;, command&#x3D;&#39;cmds.spotLight()&#39;, image1&#x3D;&#39;spotlight.png&#39;,p&#x3D;cmds.iconTextButton(&quot;statusFieldButton&quot;,q&#x3D;1,p&#x3D;1))<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="创建侧栏工具页"><a href="#创建侧栏工具页" class="headerlink" title="创建侧栏工具页"></a>创建侧栏工具页</h4><p>侧栏工具页通过 toolBar 控件生成，创建后可指定吸附到边界上。</p>
+<p><img src="/images/Maya%E4%B8%AD%E5%88%9B%E5%BB%BAUI/%E4%BE%A7%E6%A0%8F%E5%B7%A5%E5%85%B7%E9%A1%B5.png" alt="侧栏工具页.png" srcset="/images/home/Myhead.jpg" data-src="/images/Maya%E4%B8%AD%E5%88%9B%E5%BB%BAUI/%E4%BE%A7%E6%A0%8F%E5%B7%A5%E5%85%B7%E9%A1%B5.png" class="lozad post-image">  </p>
+<p>示例代码：<br>  <pre class="line-numbers language-python" data-language="python"><code class="language-python">import maya.cmds as cmds 
+myWindow&#x3D;cmds.window()
+buttonForm &#x3D; cmds.formLayout( parent &#x3D; myWindow)
+cmds.button( parent &#x3D; buttonForm,l&#x3D;&quot;testSide&quot;)
+cmds.toolBar( area&#x3D;&#39;top&#39;, content&#x3D;myWindow, allowedArea&#x3D;[&#39;top&#39;, &#39;bottom&#39;, &quot;left&quot;, &quot;right&quot;])<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
+<h4 id="创建工具架和工具架分页："><a href="#创建工具架和工具架分页：" class="headerlink" title="创建工具架和工具架分页："></a>创建工具架和工具架分页：</h4><h4 id="创建类似用户账户菜单"><a href="#创建类似用户账户菜单" class="headerlink" title="创建类似用户账户菜单"></a>创建类似用户账户菜单</h4><h4 id="删除UI"><a href="#删除UI" class="headerlink" title="删除UI"></a>删除UI</h4><p>删除UI需要知道窗口的窗口名称：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">import maya.cmds as cmds 
+cmds.deleteUI(&quot;windowName&quot;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
   </div>
   <div>
     
@@ -477,7 +508,7 @@ cmds.menuItem( label&#x3D;&#39;print&#39;,c&#x3D;&quot;print(11111)&quot; )<span
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%BB%E8%8F%9C%E5%8D%95%E5%92%8C%E8%8F%9C%E5%8D%95%E9%A1%B9%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">创建主菜单和菜单项：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%8F%9C%E5%8D%95%E9%9B%86"><span class="toc-number">2.</span> <span class="toc-text">创建菜单集</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%8A%B6%E6%80%81%E8%A1%8C"><span class="toc-number">3.</span> <span class="toc-text">创建状态行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%B7%A5%E5%85%B7%E6%9E%B6%E5%92%8C%E5%B7%A5%E5%85%B7%E6%9E%B6%E5%88%86%E9%A1%B5%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">创建工具架和工具架分页：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%BE%A7%E6%A0%8F%E5%B7%A5%E5%85%B7%E9%A1%B5"><span class="toc-number">5.</span> <span class="toc-text">创建侧栏工具页</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%B1%BB%E4%BC%BC%E7%94%A8%E6%88%B7%E8%B4%A6%E6%88%B7%E8%8F%9C%E5%8D%95"><span class="toc-number">6.</span> <span class="toc-text">创建类似用户账户菜单</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%BB%E8%8F%9C%E5%8D%95%E5%92%8C%E8%8F%9C%E5%8D%95%E9%A1%B9%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">创建主菜单和菜单项：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%8F%9C%E5%8D%95%E9%9B%86"><span class="toc-number">2.</span> <span class="toc-text">创建菜单集</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%8A%B6%E6%80%81%E6%A0%8F%E8%8F%9C%E5%8D%95"><span class="toc-number">3.</span> <span class="toc-text">创建状态栏菜单</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%BE%A7%E6%A0%8F%E5%B7%A5%E5%85%B7%E9%A1%B5"><span class="toc-number">4.</span> <span class="toc-text">创建侧栏工具页</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%B7%A5%E5%85%B7%E6%9E%B6%E5%92%8C%E5%B7%A5%E5%85%B7%E6%9E%B6%E5%88%86%E9%A1%B5%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">创建工具架和工具架分页：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%B1%BB%E4%BC%BC%E7%94%A8%E6%88%B7%E8%B4%A6%E6%88%B7%E8%8F%9C%E5%8D%95"><span class="toc-number">6.</span> <span class="toc-text">创建类似用户账户菜单</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A0%E9%99%A4UI"><span class="toc-number">7.</span> <span class="toc-text">删除UI</span></a></li></ol>
 </div></main>
             <aside class="left-column">
               
@@ -617,7 +648,7 @@ cmds.menuItem( label&#x3D;&#39;print&#39;,c&#x3D;&quot;print(11111)&quot; )<span
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%BB%E8%8F%9C%E5%8D%95%E5%92%8C%E8%8F%9C%E5%8D%95%E9%A1%B9%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">创建主菜单和菜单项：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%8F%9C%E5%8D%95%E9%9B%86"><span class="toc-number">2.</span> <span class="toc-text">创建菜单集</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%8A%B6%E6%80%81%E8%A1%8C"><span class="toc-number">3.</span> <span class="toc-text">创建状态行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%B7%A5%E5%85%B7%E6%9E%B6%E5%92%8C%E5%B7%A5%E5%85%B7%E6%9E%B6%E5%88%86%E9%A1%B5%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">创建工具架和工具架分页：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%BE%A7%E6%A0%8F%E5%B7%A5%E5%85%B7%E9%A1%B5"><span class="toc-number">5.</span> <span class="toc-text">创建侧栏工具页</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%B1%BB%E4%BC%BC%E7%94%A8%E6%88%B7%E8%B4%A6%E6%88%B7%E8%8F%9C%E5%8D%95"><span class="toc-number">6.</span> <span class="toc-text">创建类似用户账户菜单</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%BB%E8%8F%9C%E5%8D%95%E5%92%8C%E8%8F%9C%E5%8D%95%E9%A1%B9%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">创建主菜单和菜单项：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%8F%9C%E5%8D%95%E9%9B%86"><span class="toc-number">2.</span> <span class="toc-text">创建菜单集</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%8A%B6%E6%80%81%E6%A0%8F%E8%8F%9C%E5%8D%95"><span class="toc-number">3.</span> <span class="toc-text">创建状态栏菜单</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%BE%A7%E6%A0%8F%E5%B7%A5%E5%85%B7%E9%A1%B5"><span class="toc-number">4.</span> <span class="toc-text">创建侧栏工具页</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%B7%A5%E5%85%B7%E6%9E%B6%E5%92%8C%E5%B7%A5%E5%85%B7%E6%9E%B6%E5%88%86%E9%A1%B5%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">创建工具架和工具架分页：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%B1%BB%E4%BC%BC%E7%94%A8%E6%88%B7%E8%B4%A6%E6%88%B7%E8%8F%9C%E5%8D%95"><span class="toc-number">6.</span> <span class="toc-text">创建类似用户账户菜单</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A0%E9%99%A4UI"><span class="toc-number">7.</span> <span class="toc-text">删除UI</span></a></li></ol>
       </div>
     </article>
   
@@ -872,7 +903,7 @@ cmds.menuItem( label&#x3D;&#39;print&#39;,c&#x3D;&quot;print(11111)&quot; )<span
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%BB%E8%8F%9C%E5%8D%95%E5%92%8C%E8%8F%9C%E5%8D%95%E9%A1%B9%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">创建主菜单和菜单项：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%8F%9C%E5%8D%95%E9%9B%86"><span class="toc-number">2.</span> <span class="toc-text">创建菜单集</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%8A%B6%E6%80%81%E8%A1%8C"><span class="toc-number">3.</span> <span class="toc-text">创建状态行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%B7%A5%E5%85%B7%E6%9E%B6%E5%92%8C%E5%B7%A5%E5%85%B7%E6%9E%B6%E5%88%86%E9%A1%B5%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">创建工具架和工具架分页：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%BE%A7%E6%A0%8F%E5%B7%A5%E5%85%B7%E9%A1%B5"><span class="toc-number">5.</span> <span class="toc-text">创建侧栏工具页</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%B1%BB%E4%BC%BC%E7%94%A8%E6%88%B7%E8%B4%A6%E6%88%B7%E8%8F%9C%E5%8D%95"><span class="toc-number">6.</span> <span class="toc-text">创建类似用户账户菜单</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%BB%E8%8F%9C%E5%8D%95%E5%92%8C%E8%8F%9C%E5%8D%95%E9%A1%B9%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">创建主菜单和菜单项：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%8F%9C%E5%8D%95%E9%9B%86"><span class="toc-number">2.</span> <span class="toc-text">创建菜单集</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%8A%B6%E6%80%81%E6%A0%8F%E8%8F%9C%E5%8D%95"><span class="toc-number">3.</span> <span class="toc-text">创建状态栏菜单</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%BE%A7%E6%A0%8F%E5%B7%A5%E5%85%B7%E9%A1%B5"><span class="toc-number">4.</span> <span class="toc-text">创建侧栏工具页</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%B7%A5%E5%85%B7%E6%9E%B6%E5%92%8C%E5%B7%A5%E5%85%B7%E6%9E%B6%E5%88%86%E9%A1%B5%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">创建工具架和工具架分页：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%B1%BB%E4%BC%BC%E7%94%A8%E6%88%B7%E8%B4%A6%E6%88%B7%E8%8F%9C%E5%8D%95"><span class="toc-number">6.</span> <span class="toc-text">创建类似用户账户菜单</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A0%E9%99%A4UI"><span class="toc-number">7.</span> <span class="toc-text">删除UI</span></a></li></ol>
     </article>
   
   

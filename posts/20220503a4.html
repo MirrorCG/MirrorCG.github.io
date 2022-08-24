@@ -49,7 +49,7 @@
         content="2022-05-03">
       <meta 
         property="og:article:modified_time" 
-        content="2022-05-03">
+        content="2022-08-24">
       <meta 
         property="og:article:author" 
         content="Mirror">
@@ -339,7 +339,7 @@
     
     
       <span class="dot"></span>
-      <span>603 字</span>
+      <span>702 字</span>
     
   </div>
   
@@ -442,7 +442,26 @@ def switch_preview():
 import xgenm as xg
 palettes &#x3D; xg.palettes()  # 获取Xgen 所有描述
 if not (xgenmExternalAPI.xgg.DescriptionEditor is None):
-    xgenmExternalAPI.xgg.DescriptionEditor.refresh(&quot;Full&quot;)  # 刷新所有Xgen面板<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+    xgenmExternalAPI.xgg.DescriptionEditor.refresh(&quot;Full&quot;)  # 刷新所有Xgen面板<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>开启软件时关闭材质刷新</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">cmds.scriptJob(event&#x3D;(&#39;SceneOpened&#39;,&#39;cmds.renderThumbnailUpdate(False)&#39;))<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>添加回调</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">import maya.OpenMaya as OpenMaya
+OpenMaya.MSceneMessage().addCallback(37, funcName)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>清除进程任务</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">import pymel.core.language as pcl
+_jobs &#x3D;pcl.scriptJob(lj&#x3D;1)
+#.清除内存任务 if._jobs:
+for _job in _jobs:
+    job_id &#x3D; int(_job.split(&#39;:&#39;)[0])
+    print(u&#39;清除进程任务:%s&#39; % _job) 
+    try:
+        pcl.scriptJob(kill&#x3D;job_id, force&#x3D;True)
+    except:
+        pass<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ol>
 
   </div>
