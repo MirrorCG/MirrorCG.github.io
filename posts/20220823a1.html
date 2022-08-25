@@ -339,7 +339,7 @@
     
     
       <span class="dot"></span>
-      <span>605 字</span>
+      <span>698 字</span>
     
   </div>
   
@@ -413,7 +413,13 @@ myWindow&#x3D;cmds.window()
 buttonForm &#x3D; cmds.formLayout( parent &#x3D; myWindow)
 cmds.button( parent &#x3D; buttonForm,l&#x3D;&quot;testSide&quot;)
 cmds.toolBar( area&#x3D;&#39;top&#39;, content&#x3D;myWindow, allowedArea&#x3D;[&#39;top&#39;, &#39;bottom&#39;, &quot;left&quot;, &quot;right&quot;])<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
-<h4 id="创建工具架和工具架分页："><a href="#创建工具架和工具架分页：" class="headerlink" title="创建工具架和工具架分页："></a>创建工具架和工具架分页：</h4><h4 id="创建类似用户账户菜单"><a href="#创建类似用户账户菜单" class="headerlink" title="创建类似用户账户菜单"></a>创建类似用户账户菜单</h4><h4 id="删除UI"><a href="#删除UI" class="headerlink" title="删除UI"></a>删除UI</h4><p>删除UI需要知道窗口的窗口名称：</p>
+<h4 id="创建工具架分页："><a href="#创建工具架分页：" class="headerlink" title="创建工具架分页："></a>创建工具架分页：</h4><p>工具架分页由cmds.shelfLayout()创建，将创建的工具架分页的父级指向shelf主窗口即可，然后在shelfLayout下创建工具按钮即可：</p>
+<p>示例代码：<br>  <pre class="line-numbers language-python" data-language="python"><code class="language-python">import maya.cmds as cmds 
+myWindow&#x3D;cmds.window()
+buttonForm &#x3D; cmds.formLayout( parent &#x3D; myWindow)
+cmds.button( parent &#x3D; buttonForm,l&#x3D;&quot;testSide&quot;)
+cmds.toolBar( area&#x3D;&#39;top&#39;, content&#x3D;myWindow, allowedArea&#x3D;[&#39;top&#39;, &#39;bottom&#39;, &quot;left&quot;, &quot;right&quot;])<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
+<h4 id="创建类似用户账户菜单"><a href="#创建类似用户账户菜单" class="headerlink" title="创建类似用户账户菜单"></a>创建类似用户账户菜单</h4><h4 id="删除UI"><a href="#删除UI" class="headerlink" title="删除UI"></a>删除UI</h4><p>删除UI需要知道窗口的窗口名称：</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">import maya.cmds as cmds 
 cmds.deleteUI(&quot;windowName&quot;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
@@ -508,7 +514,7 @@ cmds.deleteUI(&quot;windowName&quot;)<span aria-hidden="true" class="line-number
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%BB%E8%8F%9C%E5%8D%95%E5%92%8C%E8%8F%9C%E5%8D%95%E9%A1%B9%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">创建主菜单和菜单项：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%8F%9C%E5%8D%95%E9%9B%86"><span class="toc-number">2.</span> <span class="toc-text">创建菜单集</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%8A%B6%E6%80%81%E6%A0%8F%E8%8F%9C%E5%8D%95"><span class="toc-number">3.</span> <span class="toc-text">创建状态栏菜单</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%BE%A7%E6%A0%8F%E5%B7%A5%E5%85%B7%E9%A1%B5"><span class="toc-number">4.</span> <span class="toc-text">创建侧栏工具页</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%B7%A5%E5%85%B7%E6%9E%B6%E5%92%8C%E5%B7%A5%E5%85%B7%E6%9E%B6%E5%88%86%E9%A1%B5%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">创建工具架和工具架分页：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%B1%BB%E4%BC%BC%E7%94%A8%E6%88%B7%E8%B4%A6%E6%88%B7%E8%8F%9C%E5%8D%95"><span class="toc-number">6.</span> <span class="toc-text">创建类似用户账户菜单</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A0%E9%99%A4UI"><span class="toc-number">7.</span> <span class="toc-text">删除UI</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%BB%E8%8F%9C%E5%8D%95%E5%92%8C%E8%8F%9C%E5%8D%95%E9%A1%B9%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">创建主菜单和菜单项：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%8F%9C%E5%8D%95%E9%9B%86"><span class="toc-number">2.</span> <span class="toc-text">创建菜单集</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%8A%B6%E6%80%81%E6%A0%8F%E8%8F%9C%E5%8D%95"><span class="toc-number">3.</span> <span class="toc-text">创建状态栏菜单</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%BE%A7%E6%A0%8F%E5%B7%A5%E5%85%B7%E9%A1%B5"><span class="toc-number">4.</span> <span class="toc-text">创建侧栏工具页</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%B7%A5%E5%85%B7%E6%9E%B6%E5%88%86%E9%A1%B5%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">创建工具架分页：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%B1%BB%E4%BC%BC%E7%94%A8%E6%88%B7%E8%B4%A6%E6%88%B7%E8%8F%9C%E5%8D%95"><span class="toc-number">6.</span> <span class="toc-text">创建类似用户账户菜单</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A0%E9%99%A4UI"><span class="toc-number">7.</span> <span class="toc-text">删除UI</span></a></li></ol>
 </div></main>
             <aside class="left-column">
               
@@ -648,7 +654,7 @@ cmds.deleteUI(&quot;windowName&quot;)<span aria-hidden="true" class="line-number
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%BB%E8%8F%9C%E5%8D%95%E5%92%8C%E8%8F%9C%E5%8D%95%E9%A1%B9%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">创建主菜单和菜单项：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%8F%9C%E5%8D%95%E9%9B%86"><span class="toc-number">2.</span> <span class="toc-text">创建菜单集</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%8A%B6%E6%80%81%E6%A0%8F%E8%8F%9C%E5%8D%95"><span class="toc-number">3.</span> <span class="toc-text">创建状态栏菜单</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%BE%A7%E6%A0%8F%E5%B7%A5%E5%85%B7%E9%A1%B5"><span class="toc-number">4.</span> <span class="toc-text">创建侧栏工具页</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%B7%A5%E5%85%B7%E6%9E%B6%E5%92%8C%E5%B7%A5%E5%85%B7%E6%9E%B6%E5%88%86%E9%A1%B5%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">创建工具架和工具架分页：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%B1%BB%E4%BC%BC%E7%94%A8%E6%88%B7%E8%B4%A6%E6%88%B7%E8%8F%9C%E5%8D%95"><span class="toc-number">6.</span> <span class="toc-text">创建类似用户账户菜单</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A0%E9%99%A4UI"><span class="toc-number">7.</span> <span class="toc-text">删除UI</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%BB%E8%8F%9C%E5%8D%95%E5%92%8C%E8%8F%9C%E5%8D%95%E9%A1%B9%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">创建主菜单和菜单项：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%8F%9C%E5%8D%95%E9%9B%86"><span class="toc-number">2.</span> <span class="toc-text">创建菜单集</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%8A%B6%E6%80%81%E6%A0%8F%E8%8F%9C%E5%8D%95"><span class="toc-number">3.</span> <span class="toc-text">创建状态栏菜单</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%BE%A7%E6%A0%8F%E5%B7%A5%E5%85%B7%E9%A1%B5"><span class="toc-number">4.</span> <span class="toc-text">创建侧栏工具页</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%B7%A5%E5%85%B7%E6%9E%B6%E5%88%86%E9%A1%B5%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">创建工具架分页：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%B1%BB%E4%BC%BC%E7%94%A8%E6%88%B7%E8%B4%A6%E6%88%B7%E8%8F%9C%E5%8D%95"><span class="toc-number">6.</span> <span class="toc-text">创建类似用户账户菜单</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A0%E9%99%A4UI"><span class="toc-number">7.</span> <span class="toc-text">删除UI</span></a></li></ol>
       </div>
     </article>
   
@@ -705,17 +711,10 @@ cmds.deleteUI(&quot;windowName&quot;)<span aria-hidden="true" class="line-number
         </div>
       </a>
     
-      <a href="/categories/Qt/">
+      <a href="/categories/Maya/%E6%9D%82%E9%A1%B9/">
         <div class="categories-list-item">
-          Qt
-          <span class="categories-list-item-badge">3</span>
-        </div>
-      </a>
-    
-      <a href="/categories/Python/">
-        <div class="categories-list-item">
-          Python
-          <span class="categories-list-item-badge">1</span>
+          Maya/杂项
+          <span class="categories-list-item-badge">8</span>
         </div>
       </a>
     
@@ -726,6 +725,13 @@ cmds.deleteUI(&quot;windowName&quot;)<span aria-hidden="true" class="line-number
         </div>
       </a>
     
+      <a href="/categories/Qt/">
+        <div class="categories-list-item">
+          Qt
+          <span class="categories-list-item-badge">3</span>
+        </div>
+      </a>
+    
       <a href="/categories/ShotGrid/">
         <div class="categories-list-item">
           ShotGrid
@@ -733,16 +739,16 @@ cmds.deleteUI(&quot;windowName&quot;)<span aria-hidden="true" class="line-number
         </div>
       </a>
     
-      <a href="/categories/Maya/%E6%9D%82%E9%A1%B9/">
+      <a href="/categories/Python/">
         <div class="categories-list-item">
-          Maya/杂项
-          <span class="categories-list-item-badge">8</span>
+          Python
+          <span class="categories-list-item-badge">1</span>
         </div>
       </a>
     
-      <a href="/categories/Rez/">
+      <a href="/categories/Maya/arnold/">
         <div class="categories-list-item">
-          Rez
+          Maya/arnold
           <span class="categories-list-item-badge">1</span>
         </div>
       </a>
@@ -768,9 +774,9 @@ cmds.deleteUI(&quot;windowName&quot;)<span aria-hidden="true" class="line-number
         </div>
       </a>
     
-      <a href="/categories/Maya/arnold/">
+      <a href="/categories/Rez/">
         <div class="categories-list-item">
-          Maya/arnold
+          Rez
           <span class="categories-list-item-badge">1</span>
         </div>
       </a>
@@ -826,15 +832,15 @@ cmds.deleteUI(&quot;windowName&quot;)<span aria-hidden="true" class="line-number
       </a>
     
       <a 
-        href="/tags/Blog/" 
-        title="Blog">
-        <div class="tags-list-item">Blog</div>
-      </a>
-    
-      <a 
         href="/tags/API/" 
         title="API">
         <div class="tags-list-item">API</div>
+      </a>
+    
+      <a 
+        href="/tags/Blog/" 
+        title="Blog">
+        <div class="tags-list-item">Blog</div>
       </a>
     
       <a 
@@ -856,6 +862,12 @@ cmds.deleteUI(&quot;windowName&quot;)<span aria-hidden="true" class="line-number
       </a>
     
       <a 
+        href="/tags/USD/" 
+        title="USD">
+        <div class="tags-list-item">USD</div>
+      </a>
+    
+      <a 
         href="/tags/ACES/" 
         title="ACES">
         <div class="tags-list-item">ACES</div>
@@ -868,21 +880,15 @@ cmds.deleteUI(&quot;windowName&quot;)<span aria-hidden="true" class="line-number
       </a>
     
       <a 
-        href="/tags/USD/" 
-        title="USD">
-        <div class="tags-list-item">USD</div>
-      </a>
-    
-      <a 
         href="/tags/github/" 
         title="github">
         <div class="tags-list-item">github</div>
       </a>
     
       <a 
-        href="/tags/Markdown/" 
-        title="Markdown">
-        <div class="tags-list-item">Markdown</div>
+        href="/tags/%E7%BD%91%E7%AB%99%E6%8E%A8%E8%8D%90/" 
+        title="网站推荐">
+        <div class="tags-list-item">网站推荐</div>
       </a>
     
   </div>
@@ -903,7 +909,7 @@ cmds.deleteUI(&quot;windowName&quot;)<span aria-hidden="true" class="line-number
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%BB%E8%8F%9C%E5%8D%95%E5%92%8C%E8%8F%9C%E5%8D%95%E9%A1%B9%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">创建主菜单和菜单项：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%8F%9C%E5%8D%95%E9%9B%86"><span class="toc-number">2.</span> <span class="toc-text">创建菜单集</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%8A%B6%E6%80%81%E6%A0%8F%E8%8F%9C%E5%8D%95"><span class="toc-number">3.</span> <span class="toc-text">创建状态栏菜单</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%BE%A7%E6%A0%8F%E5%B7%A5%E5%85%B7%E9%A1%B5"><span class="toc-number">4.</span> <span class="toc-text">创建侧栏工具页</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%B7%A5%E5%85%B7%E6%9E%B6%E5%92%8C%E5%B7%A5%E5%85%B7%E6%9E%B6%E5%88%86%E9%A1%B5%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">创建工具架和工具架分页：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%B1%BB%E4%BC%BC%E7%94%A8%E6%88%B7%E8%B4%A6%E6%88%B7%E8%8F%9C%E5%8D%95"><span class="toc-number">6.</span> <span class="toc-text">创建类似用户账户菜单</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A0%E9%99%A4UI"><span class="toc-number">7.</span> <span class="toc-text">删除UI</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%BB%E8%8F%9C%E5%8D%95%E5%92%8C%E8%8F%9C%E5%8D%95%E9%A1%B9%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">创建主菜单和菜单项：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%8F%9C%E5%8D%95%E9%9B%86"><span class="toc-number">2.</span> <span class="toc-text">创建菜单集</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%8A%B6%E6%80%81%E6%A0%8F%E8%8F%9C%E5%8D%95"><span class="toc-number">3.</span> <span class="toc-text">创建状态栏菜单</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%BE%A7%E6%A0%8F%E5%B7%A5%E5%85%B7%E9%A1%B5"><span class="toc-number">4.</span> <span class="toc-text">创建侧栏工具页</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%B7%A5%E5%85%B7%E6%9E%B6%E5%88%86%E9%A1%B5%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">创建工具架分页：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%B1%BB%E4%BC%BC%E7%94%A8%E6%88%B7%E8%B4%A6%E6%88%B7%E8%8F%9C%E5%8D%95"><span class="toc-number">6.</span> <span class="toc-text">创建类似用户账户菜单</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A0%E9%99%A4UI"><span class="toc-number">7.</span> <span class="toc-text">删除UI</span></a></li></ol>
     </article>
   
   
