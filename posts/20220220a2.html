@@ -339,7 +339,7 @@
     
     
       <span class="dot"></span>
-      <span>247 字</span>
+      <span>594 字</span>
     
   </div>
   
@@ -377,18 +377,25 @@
     class="post-content">
     <p>这是文章摘要 <span id="more"></span>，下面是废话</p>
 <p>文件最上方以 — 分隔的区域称为”Front_matter”</p>
-<h2 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h2><p>首行缩进</p>
-<p style="text-indent:2em">内容</p>
+<h2 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h2><h3 id="首行缩进"><a href="#首行缩进" class="headerlink" title="首行缩进"></a>首行缩进</h3><p style="text-indent:2em">内容</p>
 
-<p>这是引用块</p>
-<blockquote><p>NEW: DevDocs now comes with syntax highlighting. <a target="_blank" rel="noopener" href="http://devdocs.io/">http://devdocs.io</a></p>
+<h3 id="段落格式"><a href="#段落格式" class="headerlink" title="段落格式"></a>段落格式</h3><p>段落没有特殊的格式，直接编写文字就好，<br>段落的换行是使用两个以上空格加上回车，</p>
+<p>也可以在段落后面使用一个空行来表示重新开始一个段落</p>
+<h4 id="字体"><a href="#字体" class="headerlink" title="字体"></a>字体</h4><p><em>斜体文本</em><br><em>斜体文本</em><br><strong>粗体文本</strong><br><strong>粗体文本</strong><br><em><strong>粗斜体文本</strong></em><br><em><strong>粗斜体文本</strong></em></p>
+<h4 id="分隔线"><a href="#分隔线" class="headerlink" title="分隔线"></a>分隔线</h4><hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<h4 id="删除线"><a href="#删除线" class="headerlink" title="删除线"></a>删除线</h4><p><del>BAIDU.COM</del></p>
+<h4 id="下划线"><a href="#下划线" class="headerlink" title="下划线"></a>下划线</h4><p><u>带下划线文本</u></p>
+<h4 id="脚注"><a href="#脚注" class="headerlink" title="脚注"></a>脚注</h4><p>[^要注明的文本]</p>
+<h3 id="这是引用块"><a href="#这是引用块" class="headerlink" title="这是引用块"></a>这是引用块</h3><blockquote><p>NEW: DevDocs now comes with syntax highlighting. <a target="_blank" rel="noopener" href="http://devdocs.io/">http://devdocs.io</a></p>
 <footer><strong>@DevDocs</strong><cite><a target="_blank" rel="noopener" href="https://www.baidu.com">www.baidu.com</a></cite></footer></blockquote>
 
-<p>这是文字链接</p>
-<a href="https://git-scm.com/download/win" title="" target="">下载git</a>
-
-<p>这是代码块</p>
-<pre class="language-none"><code class="language-none">alert(&#39;Hello World!&#39;);</code></pre>
+<h3 id="这是文字链接"><a href="#这是文字链接" class="headerlink" title="这是文字链接"></a>这是文字链接</h3><a href="https://git-scm.com/download/win" title="" target="">下载git</a>
+<p>这是一个链接 <a target="_blank" rel="noopener" href="https://www.runoob.com/">菜鸟教程</a><br>或直接使用网址 <a target="_blank" rel="noopener" href="https://www.runoob.com/">https://www.runoob.com</a></p>
+<h3 id="这是代码块"><a href="#这是代码块" class="headerlink" title="这是代码块"></a>这是代码块</h3><pre class="language-none"><code class="language-none">alert(&#39;Hello World!&#39;);</code></pre>
 
 <pre class="line-numbers language-objc" data-language="objc"><code class="language-objc">[rectangle setX: 10 y: 10 width: 20 height: 20];<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
@@ -397,33 +404,90 @@
 <pre class="line-numbers language-none"><div class="caption"><span>_.compact</span><a target="_blank" rel="noopener" href="http://underscorejs.org/#compact">Underscore.js</a></div><code class="language-none">_.compact([0, 1, false, 2, &#39;&#39;, 3]);
 &#x3D;&gt; [1, 2, 3]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<p>这是反引号代码块<br><code> [1, 2, 3] 标题  https://www.baidu.com 百度地址 code snippet array.map(callback[, thisArg])</code></p>
+<p>这是反引号代码块</p>
+<pre class="line-numbers language-语言名称" data-language="语言名称"><div class="caption"><span>标题</span></div><code class="language-语言名称">array.map(callback[, thisArg])
+print(11111)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
 <p>pull quote</p>
 <blockquote class="pullquote [class]"><p>content<br>sss<br>sss<br>sss</p>
 </blockquote>
 
-<p>这是jsFiddle(jsFiddle是一个在线的shell编辑器)</p>
-<iframe scrolling="no" width="[width]" height="[height]" src="https://jsfiddle.net/shorttag/embedded/[tabs]/[skin]" frameborder="0" loading="lazy" allowfullscreen></iframe>
+<h3 id="这是jsFiddle-jsFiddle是一个在线的shell编辑器"><a href="#这是jsFiddle-jsFiddle是一个在线的shell编辑器" class="headerlink" title="这是jsFiddle(jsFiddle是一个在线的shell编辑器)"></a>这是jsFiddle(jsFiddle是一个在线的shell编辑器)</h3><iframe scrolling="no" width="[width]" height="[height]" src="https://jsfiddle.net/shorttag/embedded/[tabs]/[skin]" frameborder="0" loading="lazy" allowfullscreen></iframe>
 
-<p>在文章中插入指定大小的图片</p>
-<img src="/images/%E6%B5%B7.jpg" class="[文章jpg] lozad post-image" width="200" height="100" title="title text" alt="alt text" srcset="/images/home/Myhead.jpg" data-src="/images/%E6%B5%B7.jpg">
+<h3 id="在文章中插入指定大小的图片"><a href="#在文章中插入指定大小的图片" class="headerlink" title="在文章中插入指定大小的图片"></a>在文章中插入指定大小的图片</h3><img src="/images/%E6%B5%B7.jpg" class="[文章jpg] lozad post-image" width="200" height="100" title="title text" alt="alt text" srcset="/images/home/Myhead.jpg" data-src="/images/%E6%B5%B7.jpg">
 <p><img src="/images/%E6%B5%B7.jpg" alt="img jpg" srcset="/images/home/Myhead.jpg" data-src="/images/%E6%B5%B7.jpg" class="lozad post-image">  </p>
-<p>html支持的使用表放置图片的方式</p>
-<table><tr>
+<h3 id="html支持的使用表放置图片的方式"><a href="#html支持的使用表放置图片的方式" class="headerlink" title="html支持的使用表放置图片的方式"></a>html支持的使用表放置图片的方式</h3><table><tr>
 <td><img src="/images/关于Aitoon材质灯光分层的探索/图2-3.png" border=0 srcset="/images/home/Myhead.jpg" data-src="/images/关于Aitoon材质灯光分层的探索/图2-3.png" class="lozad post-image"></td>
 <td><img src="/images/关于Aitoon材质灯光分层的探索/图2-4.png" border=0 srcset="/images/home/Myhead.jpg" data-src="/images/关于Aitoon材质灯光分层的探索/图2-4.png" class="lozad post-image"></td>
 </tr></table>
 
 
-<p>这是视频</p>
-<div class="video-container"><iframe src="https://www.youtube.com/embed/lJIrF4YjHfQ" frameborder="0" loading="lazy" allowfullscreen></iframe></div>
+<h3 id="这是视频"><a href="#这是视频" class="headerlink" title="这是视频"></a>这是视频</h3><div class="video-container"><iframe src="https://www.youtube.com/embed/lJIrF4YjHfQ" frameborder="0" loading="lazy" allowfullscreen></iframe></div>
 <p>这是文本引用</p>
 <a href="#">Post not found: hexo-4-released How to use <b> tag</b> in title</a>
 
-<p>这是数据引用<br>&lt;% for (var link in site.data.menu) { %&gt;<br>  <a href="<%= site.data.menu[link] %>"> &lt;%&#x3D; link %&gt; </a><br>&lt;% } %&gt;</p>
+<h3 id="这是数据引用"><a href="#这是数据引用" class="headerlink" title="这是数据引用"></a>这是数据引用</h3><p>&lt;% for (var link in site.data.menu) { %&gt;<br>  <a href="<%= site.data.menu[link] %>"> &lt;%&#x3D; link %&gt; </a><br>&lt;% } %&gt;</p>
 <hr>
 <h2 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h2><p>内容</p>
-<hr>
+<h3 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h3><p>这是表格示例，使用 | 来分隔不同的单元格，使用 - 来分隔表头和其他行</p>
+<table>
+<thead>
+<tr>
+<th align="left">左对齐</th>
+<th align="right">右对齐</th>
+<th align="center">居中对齐</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">单元格</td>
+<td align="right">单元格</td>
+<td align="center">单元格</td>
+</tr>
+<tr>
+<td align="left">单元格</td>
+<td align="right">单元格</td>
+<td align="center">单元格</td>
+</tr>
+</tbody></table>
+<h3 id="区块"><a href="#区块" class="headerlink" title="区块"></a>区块</h3><ul>
+<li>无标区块1</li>
+</ul>
+<ul>
+<li>无标区块2</li>
+</ul>
+<ol>
+<li>有标区块</li>
+</ol>
+<p>区块是可以嵌套的，一个 &gt; 符号是最外层，两个 &gt; 符号是第一层嵌套，以此类推：</p>
+<blockquote>
+<p>嵌套标区块1</p>
+<blockquote>
+<p>嵌套区块2</p>
+<blockquote>
+<p>嵌套区块3</p>
+</blockquote>
+</blockquote>
+<ul>
+<li>嵌套区块4</li>
+</ul>
+</blockquote>
+<h3 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h3><p>无序列表使用星号(*)、加号(+)或是减号(-)作为列表标记，这些标记后面要添加一个空格，然后再填写内容：</p>
+<ul>
+<li>第一项</li>
+</ul>
+<ul>
+<li>第二项</li>
+</ul>
+<ul>
+<li>第三项</li>
+</ul>
+<p>嵌套列表<br>列表嵌套只需在子列表中的选项前面添加两个或四个空格即可</p>
+<ol>
+<li>第一项<ul>
+<li>嵌套的第一个元素</li>
+</ul>
+</li>
+</ol>
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a target="_blank" rel="noopener" href="http://www.codesheep.cn/">www.codesheep.cn</a></p>
 <!-- 下面是评论界面 -->
 <div id="gitalk-container"></div>
@@ -548,7 +612,7 @@ gitalk.render('gitalk-container')
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0"><span class="toc-number">1.</span> <span class="toc-text">第一章</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0"><span class="toc-number">2.</span> <span class="toc-text">第二章</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-number">3.</span> <span class="toc-text">参考文献</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0"><span class="toc-number">1.</span> <span class="toc-text">第一章</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A6%96%E8%A1%8C%E7%BC%A9%E8%BF%9B"><span class="toc-number">1.1.</span> <span class="toc-text">首行缩进</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AE%B5%E8%90%BD%E6%A0%BC%E5%BC%8F"><span class="toc-number">1.2.</span> <span class="toc-text">段落格式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%97%E4%BD%93"><span class="toc-number">1.2.1.</span> <span class="toc-text">字体</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E9%9A%94%E7%BA%BF"><span class="toc-number">1.2.2.</span> <span class="toc-text">分隔线</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E7%BA%BF"><span class="toc-number">1.2.3.</span> <span class="toc-text">删除线</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8B%E5%88%92%E7%BA%BF"><span class="toc-number">1.2.4.</span> <span class="toc-text">下划线</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%84%9A%E6%B3%A8"><span class="toc-number">1.2.5.</span> <span class="toc-text">脚注</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%99%E6%98%AF%E5%BC%95%E7%94%A8%E5%9D%97"><span class="toc-number">1.3.</span> <span class="toc-text">这是引用块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%99%E6%98%AF%E6%96%87%E5%AD%97%E9%93%BE%E6%8E%A5"><span class="toc-number">1.4.</span> <span class="toc-text">这是文字链接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%99%E6%98%AF%E4%BB%A3%E7%A0%81%E5%9D%97"><span class="toc-number">1.5.</span> <span class="toc-text">这是代码块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%99%E6%98%AFjsFiddle-jsFiddle%E6%98%AF%E4%B8%80%E4%B8%AA%E5%9C%A8%E7%BA%BF%E7%9A%84shell%E7%BC%96%E8%BE%91%E5%99%A8"><span class="toc-number">1.6.</span> <span class="toc-text">这是jsFiddle(jsFiddle是一个在线的shell编辑器)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E6%96%87%E7%AB%A0%E4%B8%AD%E6%8F%92%E5%85%A5%E6%8C%87%E5%AE%9A%E5%A4%A7%E5%B0%8F%E7%9A%84%E5%9B%BE%E7%89%87"><span class="toc-number">1.7.</span> <span class="toc-text">在文章中插入指定大小的图片</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#html%E6%94%AF%E6%8C%81%E7%9A%84%E4%BD%BF%E7%94%A8%E8%A1%A8%E6%94%BE%E7%BD%AE%E5%9B%BE%E7%89%87%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="toc-number">1.8.</span> <span class="toc-text">html支持的使用表放置图片的方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%99%E6%98%AF%E8%A7%86%E9%A2%91"><span class="toc-number">1.9.</span> <span class="toc-text">这是视频</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%99%E6%98%AF%E6%95%B0%E6%8D%AE%E5%BC%95%E7%94%A8"><span class="toc-number">1.10.</span> <span class="toc-text">这是数据引用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0"><span class="toc-number">2.</span> <span class="toc-text">第二章</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A8%E6%A0%BC"><span class="toc-number">2.1.</span> <span class="toc-text">表格</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%BA%E5%9D%97"><span class="toc-number">2.2.</span> <span class="toc-text">区块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%97%E8%A1%A8"><span class="toc-number">2.3.</span> <span class="toc-text">列表</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-number">3.</span> <span class="toc-text">参考文献</span></a></li></ol>
 </div></main>
             <aside class="left-column">
               
@@ -688,7 +752,7 @@ gitalk.render('gitalk-container')
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0"><span class="toc-number">1.</span> <span class="toc-text">第一章</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0"><span class="toc-number">2.</span> <span class="toc-text">第二章</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-number">3.</span> <span class="toc-text">参考文献</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0"><span class="toc-number">1.</span> <span class="toc-text">第一章</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A6%96%E8%A1%8C%E7%BC%A9%E8%BF%9B"><span class="toc-number">1.1.</span> <span class="toc-text">首行缩进</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AE%B5%E8%90%BD%E6%A0%BC%E5%BC%8F"><span class="toc-number">1.2.</span> <span class="toc-text">段落格式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%97%E4%BD%93"><span class="toc-number">1.2.1.</span> <span class="toc-text">字体</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E9%9A%94%E7%BA%BF"><span class="toc-number">1.2.2.</span> <span class="toc-text">分隔线</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E7%BA%BF"><span class="toc-number">1.2.3.</span> <span class="toc-text">删除线</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8B%E5%88%92%E7%BA%BF"><span class="toc-number">1.2.4.</span> <span class="toc-text">下划线</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%84%9A%E6%B3%A8"><span class="toc-number">1.2.5.</span> <span class="toc-text">脚注</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%99%E6%98%AF%E5%BC%95%E7%94%A8%E5%9D%97"><span class="toc-number">1.3.</span> <span class="toc-text">这是引用块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%99%E6%98%AF%E6%96%87%E5%AD%97%E9%93%BE%E6%8E%A5"><span class="toc-number">1.4.</span> <span class="toc-text">这是文字链接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%99%E6%98%AF%E4%BB%A3%E7%A0%81%E5%9D%97"><span class="toc-number">1.5.</span> <span class="toc-text">这是代码块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%99%E6%98%AFjsFiddle-jsFiddle%E6%98%AF%E4%B8%80%E4%B8%AA%E5%9C%A8%E7%BA%BF%E7%9A%84shell%E7%BC%96%E8%BE%91%E5%99%A8"><span class="toc-number">1.6.</span> <span class="toc-text">这是jsFiddle(jsFiddle是一个在线的shell编辑器)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E6%96%87%E7%AB%A0%E4%B8%AD%E6%8F%92%E5%85%A5%E6%8C%87%E5%AE%9A%E5%A4%A7%E5%B0%8F%E7%9A%84%E5%9B%BE%E7%89%87"><span class="toc-number">1.7.</span> <span class="toc-text">在文章中插入指定大小的图片</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#html%E6%94%AF%E6%8C%81%E7%9A%84%E4%BD%BF%E7%94%A8%E8%A1%A8%E6%94%BE%E7%BD%AE%E5%9B%BE%E7%89%87%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="toc-number">1.8.</span> <span class="toc-text">html支持的使用表放置图片的方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%99%E6%98%AF%E8%A7%86%E9%A2%91"><span class="toc-number">1.9.</span> <span class="toc-text">这是视频</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%99%E6%98%AF%E6%95%B0%E6%8D%AE%E5%BC%95%E7%94%A8"><span class="toc-number">1.10.</span> <span class="toc-text">这是数据引用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0"><span class="toc-number">2.</span> <span class="toc-text">第二章</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A8%E6%A0%BC"><span class="toc-number">2.1.</span> <span class="toc-text">表格</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%BA%E5%9D%97"><span class="toc-number">2.2.</span> <span class="toc-text">区块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%97%E8%A1%A8"><span class="toc-number">2.3.</span> <span class="toc-text">列表</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-number">3.</span> <span class="toc-text">参考文献</span></a></li></ol>
       </div>
     </article>
   
@@ -745,17 +809,10 @@ gitalk.render('gitalk-container')
         </div>
       </a>
     
-      <a href="/categories/Maya/%E6%9D%82%E9%A1%B9/">
+      <a href="/categories/Python/">
         <div class="categories-list-item">
-          Maya/杂项
-          <span class="categories-list-item-badge">8</span>
-        </div>
-      </a>
-    
-      <a href="/categories/Maya/%E5%B0%8F%E5%B7%A5%E5%85%B7/">
-        <div class="categories-list-item">
-          Maya/小工具
-          <span class="categories-list-item-badge">4</span>
+          Python
+          <span class="categories-list-item-badge">1</span>
         </div>
       </a>
     
@@ -766,6 +823,13 @@ gitalk.render('gitalk-container')
         </div>
       </a>
     
+      <a href="/categories/Maya/%E5%B0%8F%E5%B7%A5%E5%85%B7/">
+        <div class="categories-list-item">
+          Maya/小工具
+          <span class="categories-list-item-badge">4</span>
+        </div>
+      </a>
+    
       <a href="/categories/ShotGrid/">
         <div class="categories-list-item">
           ShotGrid
@@ -773,16 +837,16 @@ gitalk.render('gitalk-container')
         </div>
       </a>
     
-      <a href="/categories/Python/">
+      <a href="/categories/Maya/%E6%9D%82%E9%A1%B9/">
         <div class="categories-list-item">
-          Python
-          <span class="categories-list-item-badge">1</span>
+          Maya/杂项
+          <span class="categories-list-item-badge">8</span>
         </div>
       </a>
     
-      <a href="/categories/Maya/arnold/">
+      <a href="/categories/Rez/">
         <div class="categories-list-item">
-          Maya/arnold
+          Rez
           <span class="categories-list-item-badge">1</span>
         </div>
       </a>
@@ -808,9 +872,9 @@ gitalk.render('gitalk-container')
         </div>
       </a>
     
-      <a href="/categories/Rez/">
+      <a href="/categories/Maya/arnold/">
         <div class="categories-list-item">
-          Rez
+          Maya/arnold
           <span class="categories-list-item-badge">1</span>
         </div>
       </a>
@@ -866,15 +930,15 @@ gitalk.render('gitalk-container')
       </a>
     
       <a 
-        href="/tags/API/" 
-        title="API">
-        <div class="tags-list-item">API</div>
-      </a>
-    
-      <a 
         href="/tags/Blog/" 
         title="Blog">
         <div class="tags-list-item">Blog</div>
+      </a>
+    
+      <a 
+        href="/tags/API/" 
+        title="API">
+        <div class="tags-list-item">API</div>
       </a>
     
       <a 
@@ -896,12 +960,6 @@ gitalk.render('gitalk-container')
       </a>
     
       <a 
-        href="/tags/USD/" 
-        title="USD">
-        <div class="tags-list-item">USD</div>
-      </a>
-    
-      <a 
         href="/tags/ACES/" 
         title="ACES">
         <div class="tags-list-item">ACES</div>
@@ -914,15 +972,21 @@ gitalk.render('gitalk-container')
       </a>
     
       <a 
+        href="/tags/USD/" 
+        title="USD">
+        <div class="tags-list-item">USD</div>
+      </a>
+    
+      <a 
         href="/tags/github/" 
         title="github">
         <div class="tags-list-item">github</div>
       </a>
     
       <a 
-        href="/tags/%E7%BD%91%E7%AB%99%E6%8E%A8%E8%8D%90/" 
-        title="网站推荐">
-        <div class="tags-list-item">网站推荐</div>
+        href="/tags/Markdown/" 
+        title="Markdown">
+        <div class="tags-list-item">Markdown</div>
       </a>
     
   </div>
@@ -943,7 +1007,7 @@ gitalk.render('gitalk-container')
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0"><span class="toc-number">1.</span> <span class="toc-text">第一章</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0"><span class="toc-number">2.</span> <span class="toc-text">第二章</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-number">3.</span> <span class="toc-text">参考文献</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0"><span class="toc-number">1.</span> <span class="toc-text">第一章</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A6%96%E8%A1%8C%E7%BC%A9%E8%BF%9B"><span class="toc-number">1.1.</span> <span class="toc-text">首行缩进</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AE%B5%E8%90%BD%E6%A0%BC%E5%BC%8F"><span class="toc-number">1.2.</span> <span class="toc-text">段落格式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%97%E4%BD%93"><span class="toc-number">1.2.1.</span> <span class="toc-text">字体</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E9%9A%94%E7%BA%BF"><span class="toc-number">1.2.2.</span> <span class="toc-text">分隔线</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E7%BA%BF"><span class="toc-number">1.2.3.</span> <span class="toc-text">删除线</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8B%E5%88%92%E7%BA%BF"><span class="toc-number">1.2.4.</span> <span class="toc-text">下划线</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%84%9A%E6%B3%A8"><span class="toc-number">1.2.5.</span> <span class="toc-text">脚注</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%99%E6%98%AF%E5%BC%95%E7%94%A8%E5%9D%97"><span class="toc-number">1.3.</span> <span class="toc-text">这是引用块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%99%E6%98%AF%E6%96%87%E5%AD%97%E9%93%BE%E6%8E%A5"><span class="toc-number">1.4.</span> <span class="toc-text">这是文字链接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%99%E6%98%AF%E4%BB%A3%E7%A0%81%E5%9D%97"><span class="toc-number">1.5.</span> <span class="toc-text">这是代码块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%99%E6%98%AFjsFiddle-jsFiddle%E6%98%AF%E4%B8%80%E4%B8%AA%E5%9C%A8%E7%BA%BF%E7%9A%84shell%E7%BC%96%E8%BE%91%E5%99%A8"><span class="toc-number">1.6.</span> <span class="toc-text">这是jsFiddle(jsFiddle是一个在线的shell编辑器)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E6%96%87%E7%AB%A0%E4%B8%AD%E6%8F%92%E5%85%A5%E6%8C%87%E5%AE%9A%E5%A4%A7%E5%B0%8F%E7%9A%84%E5%9B%BE%E7%89%87"><span class="toc-number">1.7.</span> <span class="toc-text">在文章中插入指定大小的图片</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#html%E6%94%AF%E6%8C%81%E7%9A%84%E4%BD%BF%E7%94%A8%E8%A1%A8%E6%94%BE%E7%BD%AE%E5%9B%BE%E7%89%87%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="toc-number">1.8.</span> <span class="toc-text">html支持的使用表放置图片的方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%99%E6%98%AF%E8%A7%86%E9%A2%91"><span class="toc-number">1.9.</span> <span class="toc-text">这是视频</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%99%E6%98%AF%E6%95%B0%E6%8D%AE%E5%BC%95%E7%94%A8"><span class="toc-number">1.10.</span> <span class="toc-text">这是数据引用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0"><span class="toc-number">2.</span> <span class="toc-text">第二章</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A8%E6%A0%BC"><span class="toc-number">2.1.</span> <span class="toc-text">表格</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%BA%E5%9D%97"><span class="toc-number">2.2.</span> <span class="toc-text">区块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%97%E8%A1%A8"><span class="toc-number">2.3.</span> <span class="toc-text">列表</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-number">3.</span> <span class="toc-text">参考文献</span></a></li></ol>
     </article>
   
   

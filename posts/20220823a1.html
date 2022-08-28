@@ -49,7 +49,7 @@
         content="2022-08-23">
       <meta 
         property="og:article:modified_time" 
-        content="2022-08-24">
+        content="2022-08-28">
       <meta 
         property="og:article:author" 
         content="Mirror">
@@ -339,7 +339,7 @@
     
     
       <span class="dot"></span>
-      <span>698 字</span>
+      <span>1.5k 字</span>
     
   </div>
   
@@ -413,13 +413,91 @@ myWindow&#x3D;cmds.window()
 buttonForm &#x3D; cmds.formLayout( parent &#x3D; myWindow)
 cmds.button( parent &#x3D; buttonForm,l&#x3D;&quot;testSide&quot;)
 cmds.toolBar( area&#x3D;&#39;top&#39;, content&#x3D;myWindow, allowedArea&#x3D;[&#39;top&#39;, &#39;bottom&#39;, &quot;left&quot;, &quot;right&quot;])<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
-<h4 id="创建工具架分页："><a href="#创建工具架分页：" class="headerlink" title="创建工具架分页："></a>创建工具架分页：</h4><p>工具架分页由cmds.shelfLayout()创建，将创建的工具架分页的父级指向shelf主窗口即可，然后在shelfLayout下创建工具按钮即可：</p>
-<p>示例代码：<br>  <pre class="line-numbers language-python" data-language="python"><code class="language-python">import maya.cmds as cmds 
-myWindow&#x3D;cmds.window()
-buttonForm &#x3D; cmds.formLayout( parent &#x3D; myWindow)
-cmds.button( parent &#x3D; buttonForm,l&#x3D;&quot;testSide&quot;)
-cmds.toolBar( area&#x3D;&#39;top&#39;, content&#x3D;myWindow, allowedArea&#x3D;[&#39;top&#39;, &#39;bottom&#39;, &quot;left&quot;, &quot;right&quot;])<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
-<h4 id="创建类似用户账户菜单"><a href="#创建类似用户账户菜单" class="headerlink" title="创建类似用户账户菜单"></a>创建类似用户账户菜单</h4><h4 id="删除UI"><a href="#删除UI" class="headerlink" title="删除UI"></a>删除UI</h4><p>删除UI需要知道窗口的窗口名称：</p>
+<h4 id="创建工具架分页："><a href="#创建工具架分页：" class="headerlink" title="创建工具架分页："></a>创建工具架分页：</h4><p>工具架分页由cmds.shelfLayout()创建，将创建的工具架分页的父级指向shelf主窗口，然后在shelfLayout下创建工具按钮即可：</p>
+<p><img src="/images/Maya%E4%B8%AD%E5%88%9B%E5%BB%BAUI/%E5%B7%A5%E5%85%B7%E6%9E%B6%E5%88%86%E9%A1%B5.png" alt="工具架分页.png" srcset="/images/home/Myhead.jpg" data-src="/images/Maya%E4%B8%AD%E5%88%9B%E5%BB%BAUI/%E5%B7%A5%E5%85%B7%E6%9E%B6%E5%88%86%E9%A1%B5.png" class="lozad post-image">  </p>
+<p>示例代码：<br>  <pre class="line-numbers language-python" data-language="python"><code class="language-python">import maya.mel as mm
+import maya.cmds as cmds
+
+mainTopShelfTab &#x3D; mm.eval(&#39;global string $gShelfTopLevel;string $a&#x3D;$gShelfTopLevel;&#39;)# 获取工具架顶级布局
+newShelfLayout &#x3D; cmds.shelfLayout(&quot;NewLayout&quot;,p&#x3D;mainTopShelfTab)  # 创建工具架分页
+newToolButton &#x3D; cmds.shelfButton(&quot;testShelf&quot;,docTag&#x3D;u&quot;测试工具&quot;,rpt&#x3D;1,l&#x3D;&quot;工具&quot;,i1 &#x3D; r&quot;S:&#x2F;icon&#x2F;TDtool.ico&quot;,iol&#x3D;&quot;工具&quot;,c&#x3D;&#39;print(u&quot;测试&quot;)&#39;,p&#x3D;newShelfLayout)  # 添加工具按钮<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
+<p>一些常用代码：<br>  <pre class="line-numbers language-python" data-language="python"><code class="language-python">mainTopShelfTab &#x3D; mm.eval(&#39;global string $gShelfTopLevel;string $a&#x3D;$gShelfTopLevel;&#39;)  # 获取工具架顶级布局
+shelfnum &#x3D; cmds.shelfTabLayout(mainTopShelfTab,q&#x3D;1,numberOfChildren&#x3D;1)  # 获取指定工具架窗口的工具数量
+shelfTools &#x3D; cmds.shelfTabLayout(mainTopShelfTab,q&#x3D;1,ca&#x3D;1) # 获取工具架上所有工具栏
+shelf_fullname &#x3D; cmds.shelfLayout(shelfTool[2],q &#x3D; 1,fpn &#x3D; 1)  # 获取指定名称的工具架全路径
+shelfVisible &#x3D; cmds.shelfButton(&quot;testShelf&quot;,e&#x3D;1,visible&#x3D;0) # 设置工具按钮可见性
+maya.mel.eval(&#39;addNewShelfTab &quot;test&quot;&#39;)  # 添加指定名称工具架页
+maya.mel.eval(&#39;deleteShelfTab &quot;test&quot;&#39;)  #删除指定个名称工具架<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
+<p>从maya文档中加载默认工具架及其按钮：<br>  <pre class="line-numbers language-python" data-language="python"><code class="language-python">#注意此脚本会将一部分默认不加载的工具架也加载到maya工具架下 
+def get_shelf():
+  &quot;&quot;&quot;获取maya安装目录下shelf&quot;&quot;&quot;
+  shelf_files &#x3D; []
+  maya_shelf_path &#x3D; &#39;&#123;&#125;&#x2F;scripts&#x2F;shelves&#39;.format(os.getenv(&#39;MAYA_LOCATION&#39;))
+  files &#x3D; os.listdir( maya_shelf_path)
+  if files:
+      for _file in files:
+          if &quot;_&quot; in _file and &quot;.&quot; in _file and &quot;.res.&quot; not in _file:
+              shelf_files.append(_file.split(&#39;.&#39;)[0].split(&#39;_&#39;)[-1])
+  return shelf_files
+
+def load_shelf():
+  &quot;&quot;&quot;加载maya默认shelf&quot;&quot;&quot;
+
+  allShelfs &#x3D; mel.eval(&#39;shelfTabLayout -q -childArray $gShelfTopLevel&#39;) # 获取maya默认shelfs
+  maya_files &#x3D; get_shelf()
+  if maya_files:
+      for _shelf in maya_files:
+          if _shelf not in allShelfs:
+              mel.eval(&#39;loadNewShelf &quot;shelf_&#123;&#125;.mel&quot;;&#39;.format(_shelf))<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
+<p>循环删除指定工具架下的按钮：<br>  <pre class="line-numbers language-python" data-language="python"><code class="language-python">def remove button (self,shelf):
+    &quot;&quot;&quot;批量删除指定工具架下的工具&quot;&quot;&quot;&quot;
+    shelf_fullname &#x3D; cmds.shelfLayout (&quot;shelfname&quot;,q&#x3D;1,fpn&#x3D;1)
+   buttons &#x3D; cmds.shelfLayout(shelf_fullname,q &#x3D; 1,ca &#x3D; 1)
+    for _button in buttons:
+        button_fullname &#x3D; cmds.shelfButton(_button,q &#x3D;1,fpn &#x3D;1)
+        cmds.deleteUI( button_fullname)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
+<p>删除指定的工具架，方法改自deleteShelfTab，会删除一些首选项中存储的变量：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">import os
+import maya.cmds as cmds
+import maya.mel as mm 
+
+
+def remove_shelf(_shelfname):
+    mainTopShelfTab &#x3D; mm.eval(&#39;global string $gShelfTopLevel;string $a&#x3D;$gShelfTopLevel;&#39;)
+    shelf_info &#x3D; &#123;i: _shelf for i, _shelf in enumerate(cmds.shelfTabLayout(mainTopShelfTab, q&#x3D;1, ca&#x3D;1)) 
+                  if _shelf.split(&quot;|&quot;)[-1].startswith(_shelfname[:2])&#125;
+    shelfnum&#x3D; cmds.shelfTabLayout(mainTopShelfTab, q&#x3D;1, numberofChildren&#x3D;1)
+    if shelf_info:
+        for _k,_v in shelf_info.items():
+            if _v &#x3D;&#x3D; _shelfname:
+                shelf_fullname &#x3D; cmds.shelfLayout(_v, q&#x3D;1, fpn&#x3D;1)
+                for _i in range(shelfnum):
+                    _align_c &#x3D; &quot;left&quot;
+                    if cmds.optionVar(ex&#x3D;&quot;shelfAlign&#123;&#125;&quot;.format(_i+1)):
+                        _align_c &#x3D; cmds.optionVar(q&#x3D;&quot;shelfAlign&#123;&#125;&quot;.format(_i+1))
+                    _shelfload_c &#x3D; cmds.optionVar(q&#x3D;&quot;shelfLoad&#123;&#125;&quot;.format(_i+1))
+                    _shelfname_c &#x3D; cmds.optionVar(q&#x3D;&quot;shelfName&#123;&#125;&quot;.format(_i+1))
+                    _shelffile_c &#x3D; cmds.optionVar(q&#x3D;&quot;shelfFile&#123;&#125;&quot;.format(_i+1))
+                    cmds.optionVar(
+                        iv&#x3D;(&quot;shelfLoad&#123;&#125;&quot;.format(_i+1), _shelfload_c),
+                        sv&#x3D;[(&quot;shelfAlign&#123;&#125;&quot;.format(_i+1), _align_c),
+                            (&quot;shelfName&#123;&#125;&quot;.format(_i+1), _shelfname_c),
+                            (&quot;shelfFile&#123;&#125;&quot;.format(_i+1), _shelffile_c)
+                            ])
+                cmds.optionVar(remove &#x3D;[&quot;shelfLoad&#123;&#125;&quot;.format(_k),
+                                        &quot;shelfAlign&#123;&#125;&quot;.format(_k),
+                                        &quot;shelfName&#123;&#125;&quot;.format(_k),
+                                        &quot;shelfFile&#123;&#125;&quot;.format(_k)
+                                        ])
+                cmds.deleteUI(shelf_fullname, layout&#x3D;1)
+                shelfDir &#x3D; cmds.internalVar(ush&#x3D;1)
+                shelfFile &#x3D; os.path.join(shelfDir, &quot;shelf_&#123;&#125;.mel&quot;.format(_v))
+                if os.path.exists(shelfFile):
+                    os.remove(shelfFile)
+  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+<h4 id="删除UI"><a href="#删除UI" class="headerlink" title="删除UI"></a>删除UI</h4><p>删除UI需要知道窗口的窗口名称：</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">import maya.cmds as cmds 
 cmds.deleteUI(&quot;windowName&quot;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
@@ -514,7 +592,7 @@ cmds.deleteUI(&quot;windowName&quot;)<span aria-hidden="true" class="line-number
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%BB%E8%8F%9C%E5%8D%95%E5%92%8C%E8%8F%9C%E5%8D%95%E9%A1%B9%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">创建主菜单和菜单项：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%8F%9C%E5%8D%95%E9%9B%86"><span class="toc-number">2.</span> <span class="toc-text">创建菜单集</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%8A%B6%E6%80%81%E6%A0%8F%E8%8F%9C%E5%8D%95"><span class="toc-number">3.</span> <span class="toc-text">创建状态栏菜单</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%BE%A7%E6%A0%8F%E5%B7%A5%E5%85%B7%E9%A1%B5"><span class="toc-number">4.</span> <span class="toc-text">创建侧栏工具页</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%B7%A5%E5%85%B7%E6%9E%B6%E5%88%86%E9%A1%B5%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">创建工具架分页：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%B1%BB%E4%BC%BC%E7%94%A8%E6%88%B7%E8%B4%A6%E6%88%B7%E8%8F%9C%E5%8D%95"><span class="toc-number">6.</span> <span class="toc-text">创建类似用户账户菜单</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A0%E9%99%A4UI"><span class="toc-number">7.</span> <span class="toc-text">删除UI</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%BB%E8%8F%9C%E5%8D%95%E5%92%8C%E8%8F%9C%E5%8D%95%E9%A1%B9%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">创建主菜单和菜单项：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%8F%9C%E5%8D%95%E9%9B%86"><span class="toc-number">2.</span> <span class="toc-text">创建菜单集</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%8A%B6%E6%80%81%E6%A0%8F%E8%8F%9C%E5%8D%95"><span class="toc-number">3.</span> <span class="toc-text">创建状态栏菜单</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%BE%A7%E6%A0%8F%E5%B7%A5%E5%85%B7%E9%A1%B5"><span class="toc-number">4.</span> <span class="toc-text">创建侧栏工具页</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%B7%A5%E5%85%B7%E6%9E%B6%E5%88%86%E9%A1%B5%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">创建工具架分页：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A0%E9%99%A4UI"><span class="toc-number">6.</span> <span class="toc-text">删除UI</span></a></li></ol>
 </div></main>
             <aside class="left-column">
               
@@ -654,7 +732,7 @@ cmds.deleteUI(&quot;windowName&quot;)<span aria-hidden="true" class="line-number
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%BB%E8%8F%9C%E5%8D%95%E5%92%8C%E8%8F%9C%E5%8D%95%E9%A1%B9%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">创建主菜单和菜单项：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%8F%9C%E5%8D%95%E9%9B%86"><span class="toc-number">2.</span> <span class="toc-text">创建菜单集</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%8A%B6%E6%80%81%E6%A0%8F%E8%8F%9C%E5%8D%95"><span class="toc-number">3.</span> <span class="toc-text">创建状态栏菜单</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%BE%A7%E6%A0%8F%E5%B7%A5%E5%85%B7%E9%A1%B5"><span class="toc-number">4.</span> <span class="toc-text">创建侧栏工具页</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%B7%A5%E5%85%B7%E6%9E%B6%E5%88%86%E9%A1%B5%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">创建工具架分页：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%B1%BB%E4%BC%BC%E7%94%A8%E6%88%B7%E8%B4%A6%E6%88%B7%E8%8F%9C%E5%8D%95"><span class="toc-number">6.</span> <span class="toc-text">创建类似用户账户菜单</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A0%E9%99%A4UI"><span class="toc-number">7.</span> <span class="toc-text">删除UI</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%BB%E8%8F%9C%E5%8D%95%E5%92%8C%E8%8F%9C%E5%8D%95%E9%A1%B9%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">创建主菜单和菜单项：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%8F%9C%E5%8D%95%E9%9B%86"><span class="toc-number">2.</span> <span class="toc-text">创建菜单集</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%8A%B6%E6%80%81%E6%A0%8F%E8%8F%9C%E5%8D%95"><span class="toc-number">3.</span> <span class="toc-text">创建状态栏菜单</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%BE%A7%E6%A0%8F%E5%B7%A5%E5%85%B7%E9%A1%B5"><span class="toc-number">4.</span> <span class="toc-text">创建侧栏工具页</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%B7%A5%E5%85%B7%E6%9E%B6%E5%88%86%E9%A1%B5%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">创建工具架分页：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A0%E9%99%A4UI"><span class="toc-number">6.</span> <span class="toc-text">删除UI</span></a></li></ol>
       </div>
     </article>
   
@@ -711,17 +789,10 @@ cmds.deleteUI(&quot;windowName&quot;)<span aria-hidden="true" class="line-number
         </div>
       </a>
     
-      <a href="/categories/Maya/%E6%9D%82%E9%A1%B9/">
+      <a href="/categories/Python/">
         <div class="categories-list-item">
-          Maya/杂项
-          <span class="categories-list-item-badge">8</span>
-        </div>
-      </a>
-    
-      <a href="/categories/Maya/%E5%B0%8F%E5%B7%A5%E5%85%B7/">
-        <div class="categories-list-item">
-          Maya/小工具
-          <span class="categories-list-item-badge">4</span>
+          Python
+          <span class="categories-list-item-badge">1</span>
         </div>
       </a>
     
@@ -732,6 +803,13 @@ cmds.deleteUI(&quot;windowName&quot;)<span aria-hidden="true" class="line-number
         </div>
       </a>
     
+      <a href="/categories/Maya/%E5%B0%8F%E5%B7%A5%E5%85%B7/">
+        <div class="categories-list-item">
+          Maya/小工具
+          <span class="categories-list-item-badge">4</span>
+        </div>
+      </a>
+    
       <a href="/categories/ShotGrid/">
         <div class="categories-list-item">
           ShotGrid
@@ -739,16 +817,16 @@ cmds.deleteUI(&quot;windowName&quot;)<span aria-hidden="true" class="line-number
         </div>
       </a>
     
-      <a href="/categories/Python/">
+      <a href="/categories/Maya/%E6%9D%82%E9%A1%B9/">
         <div class="categories-list-item">
-          Python
-          <span class="categories-list-item-badge">1</span>
+          Maya/杂项
+          <span class="categories-list-item-badge">8</span>
         </div>
       </a>
     
-      <a href="/categories/Maya/arnold/">
+      <a href="/categories/Rez/">
         <div class="categories-list-item">
-          Maya/arnold
+          Rez
           <span class="categories-list-item-badge">1</span>
         </div>
       </a>
@@ -774,9 +852,9 @@ cmds.deleteUI(&quot;windowName&quot;)<span aria-hidden="true" class="line-number
         </div>
       </a>
     
-      <a href="/categories/Rez/">
+      <a href="/categories/Maya/arnold/">
         <div class="categories-list-item">
-          Rez
+          Maya/arnold
           <span class="categories-list-item-badge">1</span>
         </div>
       </a>
@@ -832,15 +910,15 @@ cmds.deleteUI(&quot;windowName&quot;)<span aria-hidden="true" class="line-number
       </a>
     
       <a 
-        href="/tags/API/" 
-        title="API">
-        <div class="tags-list-item">API</div>
-      </a>
-    
-      <a 
         href="/tags/Blog/" 
         title="Blog">
         <div class="tags-list-item">Blog</div>
+      </a>
+    
+      <a 
+        href="/tags/API/" 
+        title="API">
+        <div class="tags-list-item">API</div>
       </a>
     
       <a 
@@ -862,12 +940,6 @@ cmds.deleteUI(&quot;windowName&quot;)<span aria-hidden="true" class="line-number
       </a>
     
       <a 
-        href="/tags/USD/" 
-        title="USD">
-        <div class="tags-list-item">USD</div>
-      </a>
-    
-      <a 
         href="/tags/ACES/" 
         title="ACES">
         <div class="tags-list-item">ACES</div>
@@ -880,15 +952,21 @@ cmds.deleteUI(&quot;windowName&quot;)<span aria-hidden="true" class="line-number
       </a>
     
       <a 
+        href="/tags/USD/" 
+        title="USD">
+        <div class="tags-list-item">USD</div>
+      </a>
+    
+      <a 
         href="/tags/github/" 
         title="github">
         <div class="tags-list-item">github</div>
       </a>
     
       <a 
-        href="/tags/%E7%BD%91%E7%AB%99%E6%8E%A8%E8%8D%90/" 
-        title="网站推荐">
-        <div class="tags-list-item">网站推荐</div>
+        href="/tags/Markdown/" 
+        title="Markdown">
+        <div class="tags-list-item">Markdown</div>
       </a>
     
   </div>
@@ -909,7 +987,7 @@ cmds.deleteUI(&quot;windowName&quot;)<span aria-hidden="true" class="line-number
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%BB%E8%8F%9C%E5%8D%95%E5%92%8C%E8%8F%9C%E5%8D%95%E9%A1%B9%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">创建主菜单和菜单项：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%8F%9C%E5%8D%95%E9%9B%86"><span class="toc-number">2.</span> <span class="toc-text">创建菜单集</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%8A%B6%E6%80%81%E6%A0%8F%E8%8F%9C%E5%8D%95"><span class="toc-number">3.</span> <span class="toc-text">创建状态栏菜单</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%BE%A7%E6%A0%8F%E5%B7%A5%E5%85%B7%E9%A1%B5"><span class="toc-number">4.</span> <span class="toc-text">创建侧栏工具页</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%B7%A5%E5%85%B7%E6%9E%B6%E5%88%86%E9%A1%B5%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">创建工具架分页：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%B1%BB%E4%BC%BC%E7%94%A8%E6%88%B7%E8%B4%A6%E6%88%B7%E8%8F%9C%E5%8D%95"><span class="toc-number">6.</span> <span class="toc-text">创建类似用户账户菜单</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A0%E9%99%A4UI"><span class="toc-number">7.</span> <span class="toc-text">删除UI</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%BB%E8%8F%9C%E5%8D%95%E5%92%8C%E8%8F%9C%E5%8D%95%E9%A1%B9%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">创建主菜单和菜单项：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%8F%9C%E5%8D%95%E9%9B%86"><span class="toc-number">2.</span> <span class="toc-text">创建菜单集</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%8A%B6%E6%80%81%E6%A0%8F%E8%8F%9C%E5%8D%95"><span class="toc-number">3.</span> <span class="toc-text">创建状态栏菜单</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%BE%A7%E6%A0%8F%E5%B7%A5%E5%85%B7%E9%A1%B5"><span class="toc-number">4.</span> <span class="toc-text">创建侧栏工具页</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%B7%A5%E5%85%B7%E6%9E%B6%E5%88%86%E9%A1%B5%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">创建工具架分页：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A0%E9%99%A4UI"><span class="toc-number">6.</span> <span class="toc-text">删除UI</span></a></li></ol>
     </article>
   
   

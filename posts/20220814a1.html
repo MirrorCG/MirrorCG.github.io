@@ -57,11 +57,11 @@
         
           <meta 
             property="og:article:tag" 
-            content="学习笔记">
+            content="Pipeline">
         
           <meta 
             property="og:article:tag" 
-            content="Pipeline">
+            content="学习笔记">
         
           <meta 
             property="og:article:tag" 
@@ -343,7 +343,7 @@
     
     
       <span class="dot"></span>
-      <span>2.6k 字</span>
+      <span>3.1k 字</span>
     
   </div>
   
@@ -358,18 +358,18 @@
         
           
           <a 
-            href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" 
+            href="/tags/Pipeline/" 
             class="post-meta-link">
-            学习笔记
+            Pipeline
           </a>
         
           
             <span class="dot"></span>
           
           <a 
-            href="/tags/Pipeline/" 
+            href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" 
             class="post-meta-link">
-            Pipeline
+            学习笔记
           </a>
         
           
@@ -418,7 +418,7 @@
                         script_name&#x3D;&quot;rhendriks&quot;,
                         api_key&#x3D;&quot;c0mPre$Hi0n&quot;)</code></pre></li>
 </ul>
-<h3 id="查询内容"><a href="#查询内容" class="headerlink" title="查询内容"></a>查询内容</h3><p>查询结果默认返回查询对象的id,如果使用实体作为过滤项，每个filter中的实体都应该包含实体的id，这个实体是要筛选和查询的范围，那么必须使用实体的id进行过滤，不能使用名称或其他条件，例如[“shot”,”is”,{“type”:”Shot”,”id”:123}]；如果过滤项不是实体，那么可以使用名称或其他标签进行过滤，但必须使用点语法（链式调用），例如[“shot.Shot.code”,”is”,”seq110”]；点语法：”fieldname.entityname.fieldname.entityname.fieldname…” 只能单实体关系使用语法，查询多实体链接时无用。不显示字段代码名称的字段，可以从filed &gt; 右键菜单 &gt; ConfigField 中获取field code名称</p>
+<h3 id="查询内容"><a href="#查询内容" class="headerlink" title="查询内容"></a>查询内容</h3><p>查询结果默认返回查询对象的id,字段中的实体通过id连接，如果使用实体作为过滤项（过滤条件有大括号），每个filter中的实体都应该包含实体的id，这个实体用于筛选查询的范围，那么必须使用实体的id进行过滤，不能使用名称或其他条件，例如[ “shot”,”is”,{“type”:”Shot”,”id”:1173}]；如果过滤项不是实体，那么可以使用名称或其他字段进行过滤，但必须使用点语法（链式调用），例如[ “shot.Shot.code”,”is”,”seq110”]。点语法用于查询点语法中使用的实体以外的实体，例如，project.Project.name为点语法的项目名，只能通过项目名查场次和镜头等，不能用它查询项目本身。查询本身不用点语法，直接使用shotgun.find(“Project”,[ “name”，”is”，”Test_Fly”],[])；点语法：”fieldname.entityname.fieldname.entityname.fieldname…” 只能单实体关系使用语法，由于性能问题，一个字段链接了多个实体时，不能通过点语法获得结果，需要遍历获取。不显示字段代码名称的字段，可以从filed &gt; 右键菜单 &gt; ConfigField 中获取field code名称</p>
 <ul>
 <li><p>查询所有项目</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">sg_project &#x3D; sg.find(&quot;Project&quot;, [], [&quot;id&quot;, &quot;name&quot;])<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
@@ -454,29 +454,43 @@ sequence_id &#x3D; 182
 filter &#x3D;  [
   [&#39;project&#39;, &#39;is&#39;, &#123;&#39;type&#39;: &#39;Project&#39;, &#39;id&#39;: project_id&#125;],
   [&#39;sg_asset_type&#39;, &#39;is&#39;, &#39;Character&#39;],
-  [&#39;sequences&#39;, &#39;is&#39;, &#123;&#39;type&#39;: &#39;Sequence&#39;, &#39;id&#39;: sequence_id&#125;]
-] 
+  [&#39;sequences&#39;, &#39;is&#39;, &#123;&#39;type&#39;: &#39;Sequence&#39;, &#39;id&#39;: sequence_id&#125;]] 
 fields &#x3D; [&#39;id&#39;, &#39;code&#39;, &#39;sg_asset_type&#39;]
-asset &#x3D; sg.find(&quot;Asset&quot;, filter, fields)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+asset &#x3D; sg.find(&quot;Asset&quot;, filter, fields)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>获取指定类型的资产</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">  fields &#x3D; [&#39;id&#39;, &#39;sg_asset_type&#39;, &#39;code&#39;]
-  filters &#x3D; [
-    [&#39;project&#39;, &#39;is&#39;, &#123;&#39;type&#39;: &#39;Project&#39;, &#39;id&#39;:122&#125;],
-    [&#39;sequence&#39;, &#39;is&#39;, &#123;&#39;type&#39;: &#39;Sequence&#39;, &#39;id&#39;: 145&#125;],
-    [&#39;sg_asset_type&#39;, &#39;is&#39;, &#39;Character&#39;]
-  ]
-  Character &#x3D; sg.find(&#39;Asset&#39;, filters, fields)
-
-* 计算指定Sequence里所有的任务数量，并找到其中最近截止日期
-  &lt;pre class&#x3D;&quot;line-numbers language-python&quot; data-language&#x3D;&quot;python&quot;&gt;&lt;code class&#x3D;&quot;language-python&quot;&gt;entity_type&#x3D;&#39;Task&#39;
-filter &#x3D; [[&#39;entity.Shot.sg_sequence&#39;, &#39;is&#39;, &amp;#123;&#39;type&#39;:&#39;Sequence&#39;, &#39;id&#39;:2&amp;#125;],[&#39;sg_status_list&#39;, &#39;is_not&#39;, &#39;na&#39;]]
-summary_field &#x3D; [&amp;#123;&#39;field&#39;:&#39;id&#39;, &#39;type&#39;:&#39;count&#39;&amp;#125;,&amp;#123;&#39;field&#39;:&#39;due_date&#39;,&#39;type&#39;:&#39;latest&#39;&amp;#125;]
-result &#x3D; sg.summarize(entity_type,filter,summary_field)&lt;span aria-hidden&#x3D;&quot;true&quot; class&#x3D;&quot;line-numbers-rows&quot;&gt;&lt;span&gt;&lt;&#x2F;span&gt;&lt;span&gt;&lt;&#x2F;span&gt;&lt;span&gt;&lt;&#x2F;span&gt;&lt;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;&#x2F;li&gt;
-&lt;&#x2F;ul&gt;
-&lt;h1 id&#x3D;&quot;最近的截至日期，和当前场次所有任务的总数&quot;&gt;&lt;a href&#x3D;&quot;#最近的截至日期，和当前场次所有任务的总数&quot; class&#x3D;&quot;headerlink&quot; title&#x3D;&quot;最近的截至日期，和当前场次所有任务的总数&quot;&gt;&lt;&#x2F;a&gt;最近的截至日期，和当前场次所有任务的总数&lt;&#x2F;h1&gt;&lt;p&gt;&#123;‘groups’: [], ‘summaries’: &#123;‘due_date’: ‘2013-07-05’, ‘id’: 30&#125;&#125;&lt;br&gt;  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></p>
-<ul>
-<li>获取指定 Version id 的mov<pre class="line-numbers language-python" data-language="python"><code class="language-python">mov &#x3D; sg.find(&quot;Version&quot;, [&quot;id&quot;, &quot;is&quot;, 12321], [&quot;sg_uploaded_movie&quot;])<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">fields &#x3D; [&#39;id&#39;, &#39;sg_asset_type&#39;, &#39;code&#39;]
+filters &#x3D; [
+  [&#39;project&#39;, &#39;is&#39;, &#123;&#39;type&#39;: &#39;Project&#39;, &#39;id&#39;:122&#125;],
+  [&#39;sequence&#39;, &#39;is&#39;, &#123;&#39;type&#39;: &#39;Sequence&#39;, &#39;id&#39;: 145&#125;],
+  [&#39;sg_asset_type&#39;, &#39;is&#39;, &#39;Character&#39;]]
+Character &#x3D; sg.find(&#39;Asset&#39;, filters, fields)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>计算指定Sequence里所有的任务数量，并找到其中最近截止日期</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">entity_type&#x3D;&#39;Task&#39;
+filter &#x3D; [[&#39;entity.Shot.sg_sequence&#39;, &#39;is&#39;, &#123;&#39;type&#39;:&#39;Sequence&#39;, &#39;id&#39;:2&#125;],[&#39;sg_status_list&#39;, &#39;is_not&#39;, &#39;na&#39;]]
+summary_field &#x3D; [&#123;&#39;field&#39;:&#39;id&#39;, &#39;type&#39;:&#39;count&#39;&#125;,&#123;&#39;field&#39;:&#39;due_date&#39;,&#39;type&#39;:&#39;latest&#39;&#125;]
+result &#x3D; sg.summarize(entity_type,filter,summary_field)
+#最近的截至日期，和当前场次所有任务的总数
+#&#123;&#39;groups&#39;: [], &#39;summaries&#39;: &#123;&#39;due_date&#39;: &#39;2013-07-05&#39;, &#39;id&#39;: 30&#125;&#125;  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>获取指定 Version id 的mov</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">mov &#x3D; sg.find(&quot;Version&quot;, [&quot;id&quot;, &quot;is&quot;, 12321], [ &quot;sg_uploaded_movie&quot;])<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>查询所有的工作流环节</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">pipeline &#x3D; shotgun.find(&quot;Step&quot;,[ ],[ &quot;code&quot;])<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>查询指定工作流环节</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">shotgun.find(&quot;Step&quot;,[ &quot;code&quot;，&quot;is&quot;，&quot;Animation&quot;],[])<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>查询指定id的镜头</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">shotgun.find(&quot;Shot&quot;,[ &quot;id&quot;，&quot;is&quot;，&quot;1207&quot;],[ &quot;code&quot;])<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>获取指定镜头的指定环节的task信息（task是单独的，筛选它的link字段为entity，因此下面是筛选link字段中id为1207的镜头。注意，过滤器的第三项是要过滤的实体的话，必须使用实体id）</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">shotgun.find(&quot;Task&quot;,[[ &quot;entity&quot;，&quot;is&quot;，&#123;&quot;type&quot;:&quot;shot&quot;,&quot;id&quot;:1207&#125;],[ &quot;shot&quot;,&quot;is&quot;,&#123;&quot;type&quot;:&quot;Shot&quot;,&quot;id&quot;:1174&#125;],[ &quot;content&quot;,&quot;is&quot;,&quot;anim&quot;]],[])<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>获取指定镜头、指定环节、指定名称的task信息</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">shotgun.find(&quot;Task&quot;,[[ &quot;entity&quot;，&quot;is&quot;，&#123;&quot;type&quot;:&quot;shot&quot;,&quot;id&quot;:1207&#125;],[ &quot;shot&quot;,&quot;is&quot;,&#123;&quot;type&quot;:&quot;Shot&quot;,&quot;id&quot;:1174&#125;],[ &quot;content&quot;,&quot;is&quot;,&quot;anim&quot;]],[])<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
 </ul>
 <h3 id="下载mov"><a href="#下载mov" class="headerlink" title="下载mov"></a>下载mov</h3><p>下载指定 Version id 的mov<br>  <pre class="line-numbers language-python" data-language="python"><code class="language-python">mov &#x3D; sg.find(&quot;Version&quot;, [&quot;id&quot;, &quot;is&quot;, 12321], [&quot;sg_uploaded_movie&quot;])
 localpath &#x3D; r&quot;E:\temp&quot; + mov[&quot;sg_uploaded_movie&quot;][&quot;name&quot;]
@@ -492,9 +506,9 @@ data &#x3D; &#123;
 &#125;
 shot &#x3D; sg.create(&#39;Shot&#39;, data)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
-<li><p>镜头下创建Task</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">animationStepId &#x3D; 12345
-shotId &#x3D; 1234 
+<li><p>在镜头的pipeline步环节下创建task(一个流程环节可以有多个任务)</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">animationStepId &#x3D; 106
+shotId &#x3D; 1173 
 data &#x3D; &#123;
   &#39;project&#39;: &#123;&#39;type&#39;: &#39;Project&#39;, &#39;id&#39;: 122&#125;,
   &#39;content&#39;: &#39;anim&#39;, # 任务名
@@ -505,21 +519,21 @@ task &#x3D; sg.create(&#39;Task&#39;, data)<span aria-hidden="true" class="line-
 </li>
 <li><p>Task下创建Version</p>
  <pre class="line-numbers language-python" data-language="python"><code class="language-python">taskCode &#x3D; &#39;testVersion_v001&#39;
-shotId &#x3D; 1234 
-taskId &#x3D; 12345
+shotId &#x3D; 1173 
+taskId &#x3D; 5964
 data &#x3D; &#123;
   &#39;project&#39;: &#123;&#39;type&#39;: &#39;Project&#39;, &#39;id&#39;: 122&#125;,
   &#39;code&#39; : taskCode,
   &#39;sg_status_list&#39; : &#39;rev&#39;,
   &#39;entity&#39;: &#123;&#39;type&#39;: &#39;Shot&#39;, &#39;id&#39;: shotId&#125;, 
   &#39;sg_task&#39;: &#123;&#39;type&#39;: &#39;Task&#39;, &#39;id&#39;: taskId&#125;, 
-  &#39;user&#39;: &#123;&#39;type&#39;: &#39;artor&#39;, &#39;id&#39;: 220&#125; # 创建Version的人员
+  &#39;user&#39;: &#123;&#39;type&#39;: &#39;HumanUser&#39;, &#39;id&#39;: 220&#125; # 创建Version的人员
 &#125;
 version &#x3D; sg.create(&#39;Version&#39;, data)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>创建带有镜头和任务链接的版本</p>
- <pre class="line-numbers language-python" data-language="python"><code class="language-python">shotID &#x3D; 123123
-taskID &#x3D; 123124
+ <pre class="line-numbers language-python" data-language="python"><code class="language-python">shotID &#x3D; 1173
+taskID &#x3D; 5964
  data &#x3D; &#123; &#39;project&#39;: &#123;&#39;type&#39;: &#39;Project&#39;,&#39;id&#39;: 122&#125;,
         &#39;code&#39;: &#39;100_010_anim_v1&#39;,
         &#39;description&#39;: &#39;first pass at opening shot with bunnies&#39;,
@@ -534,7 +548,7 @@ taskID &#x3D; 123124
 <li><p>使用任务模板创建任务</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">filters &#x3D; [[&#39;code&#39;,&#39;is&#39;, &#39;3D Shot Template&#39; ]]
 taskTemplate &#x3D; sg.find_one(&#39;TaskTemplate&#39;, filters)  # 查找任务模板
-taskId &#x3D; 12345
+taskId &#x3D; 5964
 data &#x3D; &#123;&#39;project&#39;: &#123;&#39;type&#39;: &#39;Project&#39;,&#39;id&#39;: 122&#125;,
       &#39;code&#39;: &#39;seq001_sc001&#39;,
       &#39;description&#39;: &#39;creating a task with taskTemplate&#39;,
@@ -545,7 +559,7 @@ result &#x3D; sg.create(&#39;Shot&#39;, data)<span aria-hidden="true" class="lin
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">data &#x3D; &#123;
   &#39;project&#39;: &#123;&#39;type&#39;: &#39;Project&#39;, &#39;id&#39;: 122&#125;,
   &#39;code&#39;: &#39;test_plate_v001&#39;,
-  &#39;sg_shot&#39;: &#123;&#39;type&#39;: &#39;Shot&#39;, &#39;id&#39;: 123123&#125;,
+  &#39;sg_shot&#39;: &#123;&#39;type&#39;: &#39;Shot&#39;, &#39;id&#39;: 1173&#125;,
   &#39;updated_by&#39;: &#123;&#39;type&#39;: &#39;Group&#39;, &#39;id&#39;: 3&#125;, # 更新用户为群组
   &#39;sg_original_resolution&#39;: &#39;1920x1080&#39;,
   &#39;sg_plate_type&#39;: &#39;BG01&#39;,
@@ -562,7 +576,7 @@ sg.upload_thumbnail(&quot;Version&quot;, versionID, picPath)<span aria-hidden="t
 </ul>
 <h3 id="更新内容"><a href="#更新内容" class="headerlink" title="更新内容"></a>更新内容</h3><ul>
 <li><p>更新镜头</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">shotId &#x3D; 123123
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">shotId &#x3D; 1173
 data &#x3D; &#123;
   &#39;description&#39;: &#39;Open on a beautiful field with fuzzy bunnies&#39;,
   &#39;sg_status_list&#39;: &#39;ip&#39;
@@ -579,11 +593,11 @@ sg.upload(&quot;Shot&quot;, shotId, mov_file, field_name&#x3D;&quot;sg_latest_qu
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">sg_delete &#x3D; sg.delete(&quot;Project&quot;,155)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 </li>
 <li><p>删除指定镜头</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">shotId &#x3D; 123124
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">shotId &#x3D; 1173
 result &#x3D; sg.delete(&quot;Shot&quot;,shotId)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
 </ul>
 <h3 id="恢复内容"><a href="#恢复内容" class="headerlink" title="恢复内容"></a>恢复内容</h3><ul>
-<li>恢复删掉的镜头<pre class="line-numbers language-python" data-language="python"><code class="language-python">shotId &#x3D; 123124
+<li>恢复删掉的镜头<pre class="line-numbers language-python" data-language="python"><code class="language-python">shotId &#x3D; 1173
 sg.revive(&quot;Shot&quot;, shotId)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
 </ul>
 <h3 id="批量处理（创建，删除，更新）镜头"><a href="#批量处理（创建，删除，更新）镜头" class="headerlink" title="批量处理（创建，删除，更新）镜头"></a>批量处理（创建，删除，更新）镜头</h3><p>使用batch函数的任务，要么全部完成，要么全都不完成</p>
@@ -604,6 +618,246 @@ sg.batch(batch_data) # 三种不同类型可同时存在<span aria-hidden="true"
 
 <h3 id="关闭链接"><a href="#关闭链接" class="headerlink" title="关闭链接"></a>关闭链接</h3>  <pre class="line-numbers language-python" data-language="python"><code class="language-python">sg.close()<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
+<h3 id="部分可查询实体类型"><a href="#部分可查询实体类型" class="headerlink" title="部分可查询实体类型"></a>部分可查询实体类型</h3><table>
+<thead>
+<tr>
+<th align="right">实体类型名称</th>
+<th align="left">实体含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">ActionMenuItem</td>
+<td align="left">动作菜单</td>
+</tr>
+<tr>
+<td align="right">ApiUser</td>
+<td align="left">脚本</td>
+</tr>
+<tr>
+<td align="right">Asset</td>
+<td align="left">资产</td>
+</tr>
+<tr>
+<td align="right">Attachment</td>
+<td align="left">附件</td>
+</tr>
+<tr>
+<td align="right">Booking</td>
+<td align="left">人员规划</td>
+</tr>
+<tr>
+<td align="right">Camera</td>
+<td align="left">摄像机</td>
+</tr>
+<tr>
+<td align="right">ClientUser</td>
+<td align="left">客户</td>
+</tr>
+<tr>
+<td align="right">Composition</td>
+<td align="left">合成</td>
+</tr>
+<tr>
+<td align="right">Cut</td>
+<td align="left">剪辑镜头</td>
+</tr>
+<tr>
+<td align="right">CutItem</td>
+<td align="left">剪辑镜头项</td>
+</tr>
+<tr>
+<td align="right">Delivery</td>
+<td align="left">分发</td>
+</tr>
+<tr>
+<td align="right">Department</td>
+<td align="left">部门</td>
+</tr>
+<tr>
+<td align="right">Episode</td>
+<td align="left">季</td>
+</tr>
+<tr>
+<td align="right">EventLogEntry</td>
+<td align="left">事件日志</td>
+</tr>
+<tr>
+<td align="right">FilesystemLocation</td>
+<td align="left">文件系统位置</td>
+</tr>
+<tr>
+<td align="right">Group</td>
+<td align="left">组</td>
+</tr>
+<tr>
+<td align="right">HumanUser</td>
+<td align="left">人员</td>
+</tr>
+<tr>
+<td align="right">Icon</td>
+<td align="left">图标</td>
+</tr>
+<tr>
+<td align="right">Level</td>
+<td align="left">关卡</td>
+</tr>
+<tr>
+<td align="right">LocalStorage</td>
+<td align="left">本地存储</td>
+</tr>
+<tr>
+<td align="right">MocapPass</td>
+<td align="left">动作捕捉过程</td>
+</tr>
+<tr>
+<td align="right">MocapSetup</td>
+<td align="left">动作捕捉设置</td>
+</tr>
+<tr>
+<td align="right">MocapTake</td>
+<td align="left">动作捕捉条目</td>
+</tr>
+<tr>
+<td align="right">MocapTakeRange</td>
+<td align="left">动作捕捉条目范围</td>
+</tr>
+<tr>
+<td align="right">Note</td>
+<td align="left">反馈，记录</td>
+</tr>
+<tr>
+<td align="right">Page</td>
+<td align="left">页面</td>
+</tr>
+<tr>
+<td align="right">PageHit</td>
+<td align="left">页面点击</td>
+</tr>
+<tr>
+<td align="right">PageSetting</td>
+<td align="left">页面设置</td>
+</tr>
+<tr>
+<td align="right">Performer</td>
+<td align="left">演员</td>
+</tr>
+<tr>
+<td align="right">PermissionRuleSet</td>
+<td align="left">权限组设置</td>
+</tr>
+<tr>
+<td align="right">Phase</td>
+<td align="left">项目时间表</td>
+</tr>
+<tr>
+<td align="right">PhysicalAsset</td>
+<td align="left">实拍道具</td>
+</tr>
+<tr>
+<td align="right">PipelineConfiguration</td>
+<td align="left">工作流工序配置</td>
+</tr>
+<tr>
+<td align="right">Playlist</td>
+<td align="left">播放表单</td>
+</tr>
+<tr>
+<td align="right">PlaylistShare</td>
+<td align="left">共享的播放表单</td>
+</tr>
+<tr>
+<td align="right">Project</td>
+<td align="left">项目</td>
+</tr>
+<tr>
+<td align="right">PublishedFile</td>
+<td align="left">已发布文件</td>
+</tr>
+<tr>
+<td align="right">PublishedFileDependency</td>
+<td align="left">已发布文件依存关系</td>
+</tr>
+<tr>
+<td align="right">PublishedFileType</td>
+<td align="left">已发布文件类型</td>
+</tr>
+<tr>
+<td align="right">Release</td>
+<td align="left">软件发布版本</td>
+</tr>
+<tr>
+<td align="right">Reply</td>
+<td align="left">回复</td>
+</tr>
+<tr>
+<td align="right">Revision</td>
+<td align="left">修正版本</td>
+</tr>
+<tr>
+<td align="right">Routine</td>
+<td align="left">运动捕捉例程</td>
+</tr>
+<tr>
+<td align="right">RvLicense</td>
+<td align="left">RV许可证</td>
+</tr>
+<tr>
+<td align="right">Scene</td>
+<td align="left">场</td>
+</tr>
+<tr>
+<td align="right">Sequence</td>
+<td align="left">本</td>
+</tr>
+<tr>
+<td align="right">ShootDay</td>
+<td align="left">拍摄日期</td>
+</tr>
+<tr>
+<td align="right">Shot</td>
+<td align="left">镜头</td>
+</tr>
+<tr>
+<td align="right">Software</td>
+<td align="left">DCC软件</td>
+</tr>
+<tr>
+<td align="right">Status</td>
+<td align="left">状态</td>
+</tr>
+<tr>
+<td align="right">Step</td>
+<td align="left">工作流工序</td>
+</tr>
+<tr>
+<td align="right">Tag</td>
+<td align="left">标签</td>
+</tr>
+<tr>
+<td align="right">Task</td>
+<td align="left">任务</td>
+</tr>
+<tr>
+<td align="right">TaskDependency</td>
+<td align="left">任务依存关系</td>
+</tr>
+<tr>
+<td align="right">TaskTemplate</td>
+<td align="left">任务模版</td>
+</tr>
+<tr>
+<td align="right">Ticket</td>
+<td align="left">软件开发工单</td>
+</tr>
+<tr>
+<td align="right">TimeLog</td>
+<td align="left">工时记录</td>
+</tr>
+<tr>
+<td align="right">Version</td>
+<td align="left">版本</td>
+</tr>
+</tbody></table>
 <h3 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h3><p>ShotGrid API文档：<a target="_blank" rel="noopener" href="https://developer.shotgridsoftware.com/python-api/">https://developer.shotgridsoftware.com/python-api/</a><br>用户帮助文档：<a target="_blank" rel="noopener" href="https://shotgunsoftware.zendesk.com/hc/zh-cn">https://shotgunsoftware.zendesk.com/hc/zh-cn</a><br>站点状态查询网站：<a target="_blank" rel="noopener" href="https://status.shotgridsoftware.com/">https://status.shotgridsoftware.com/</a><br>shot教学视频：<a target="_blank" rel="noopener" href="https://space.bilibili.com/399556599">https://space.bilibili.com/399556599</a></p>
 
   </div>
@@ -711,7 +965,7 @@ sg.batch(batch_data) # 三种不同类型可同时存在<span aria-hidden="true"
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E5%86%8C%E7%BD%91%E7%AB%99"><span class="toc-number">1.</span> <span class="toc-text">注册网站</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">2.</span> <span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%80%E4%BD%8E%E8%A6%81%E6%B1%82"><span class="toc-number">2.0.1.</span> <span class="toc-text">最低要求</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E5%B9%B6%E5%86%99%E5%85%A5Python%E6%90%9C%E7%B4%A2%E8%B7%AF%E5%BE%84"><span class="toc-number">2.0.2.</span> <span class="toc-text">下载并写入Python搜索路径</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%99%BB%E5%BD%95"><span class="toc-number">3.</span> <span class="toc-text">登录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E5%86%85%E5%AE%B9"><span class="toc-number">4.</span> <span class="toc-text">查询内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BDmov"><span class="toc-number">5.</span> <span class="toc-text">下载mov</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%86%85%E5%AE%B9"><span class="toc-number">6.</span> <span class="toc-text">创建内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0%E5%86%85%E5%AE%B9"><span class="toc-number">7.</span> <span class="toc-text">更新内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E5%86%85%E5%AE%B9"><span class="toc-number">8.</span> <span class="toc-text">删除内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%81%A2%E5%A4%8D%E5%86%85%E5%AE%B9"><span class="toc-number">9.</span> <span class="toc-text">恢复内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%B9%E9%87%8F%E5%A4%84%E7%90%86%EF%BC%88%E5%88%9B%E5%BB%BA%EF%BC%8C%E5%88%A0%E9%99%A4%EF%BC%8C%E6%9B%B4%E6%96%B0%EF%BC%89%E9%95%9C%E5%A4%B4"><span class="toc-number">10.</span> <span class="toc-text">批量处理（创建，删除，更新）镜头</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%97%AD%E9%93%BE%E6%8E%A5"><span class="toc-number">11.</span> <span class="toc-text">关闭链接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3"><span class="toc-number">12.</span> <span class="toc-text">参考文档</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E5%86%8C%E7%BD%91%E7%AB%99"><span class="toc-number">1.</span> <span class="toc-text">注册网站</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">2.</span> <span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%80%E4%BD%8E%E8%A6%81%E6%B1%82"><span class="toc-number">2.0.1.</span> <span class="toc-text">最低要求</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E5%B9%B6%E5%86%99%E5%85%A5Python%E6%90%9C%E7%B4%A2%E8%B7%AF%E5%BE%84"><span class="toc-number">2.0.2.</span> <span class="toc-text">下载并写入Python搜索路径</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%99%BB%E5%BD%95"><span class="toc-number">3.</span> <span class="toc-text">登录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E5%86%85%E5%AE%B9"><span class="toc-number">4.</span> <span class="toc-text">查询内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BDmov"><span class="toc-number">5.</span> <span class="toc-text">下载mov</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%86%85%E5%AE%B9"><span class="toc-number">6.</span> <span class="toc-text">创建内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0%E5%86%85%E5%AE%B9"><span class="toc-number">7.</span> <span class="toc-text">更新内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E5%86%85%E5%AE%B9"><span class="toc-number">8.</span> <span class="toc-text">删除内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%81%A2%E5%A4%8D%E5%86%85%E5%AE%B9"><span class="toc-number">9.</span> <span class="toc-text">恢复内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%B9%E9%87%8F%E5%A4%84%E7%90%86%EF%BC%88%E5%88%9B%E5%BB%BA%EF%BC%8C%E5%88%A0%E9%99%A4%EF%BC%8C%E6%9B%B4%E6%96%B0%EF%BC%89%E9%95%9C%E5%A4%B4"><span class="toc-number">10.</span> <span class="toc-text">批量处理（创建，删除，更新）镜头</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%97%AD%E9%93%BE%E6%8E%A5"><span class="toc-number">11.</span> <span class="toc-text">关闭链接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%83%A8%E5%88%86%E5%8F%AF%E6%9F%A5%E8%AF%A2%E5%AE%9E%E4%BD%93%E7%B1%BB%E5%9E%8B"><span class="toc-number">12.</span> <span class="toc-text">部分可查询实体类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3"><span class="toc-number">13.</span> <span class="toc-text">参考文档</span></a></li></ol>
 </div></main>
             <aside class="left-column">
               
@@ -851,7 +1105,7 @@ sg.batch(batch_data) # 三种不同类型可同时存在<span aria-hidden="true"
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E5%86%8C%E7%BD%91%E7%AB%99"><span class="toc-number">1.</span> <span class="toc-text">注册网站</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">2.</span> <span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%80%E4%BD%8E%E8%A6%81%E6%B1%82"><span class="toc-number">2.0.1.</span> <span class="toc-text">最低要求</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E5%B9%B6%E5%86%99%E5%85%A5Python%E6%90%9C%E7%B4%A2%E8%B7%AF%E5%BE%84"><span class="toc-number">2.0.2.</span> <span class="toc-text">下载并写入Python搜索路径</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%99%BB%E5%BD%95"><span class="toc-number">3.</span> <span class="toc-text">登录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E5%86%85%E5%AE%B9"><span class="toc-number">4.</span> <span class="toc-text">查询内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BDmov"><span class="toc-number">5.</span> <span class="toc-text">下载mov</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%86%85%E5%AE%B9"><span class="toc-number">6.</span> <span class="toc-text">创建内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0%E5%86%85%E5%AE%B9"><span class="toc-number">7.</span> <span class="toc-text">更新内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E5%86%85%E5%AE%B9"><span class="toc-number">8.</span> <span class="toc-text">删除内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%81%A2%E5%A4%8D%E5%86%85%E5%AE%B9"><span class="toc-number">9.</span> <span class="toc-text">恢复内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%B9%E9%87%8F%E5%A4%84%E7%90%86%EF%BC%88%E5%88%9B%E5%BB%BA%EF%BC%8C%E5%88%A0%E9%99%A4%EF%BC%8C%E6%9B%B4%E6%96%B0%EF%BC%89%E9%95%9C%E5%A4%B4"><span class="toc-number">10.</span> <span class="toc-text">批量处理（创建，删除，更新）镜头</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%97%AD%E9%93%BE%E6%8E%A5"><span class="toc-number">11.</span> <span class="toc-text">关闭链接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3"><span class="toc-number">12.</span> <span class="toc-text">参考文档</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E5%86%8C%E7%BD%91%E7%AB%99"><span class="toc-number">1.</span> <span class="toc-text">注册网站</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">2.</span> <span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%80%E4%BD%8E%E8%A6%81%E6%B1%82"><span class="toc-number">2.0.1.</span> <span class="toc-text">最低要求</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E5%B9%B6%E5%86%99%E5%85%A5Python%E6%90%9C%E7%B4%A2%E8%B7%AF%E5%BE%84"><span class="toc-number">2.0.2.</span> <span class="toc-text">下载并写入Python搜索路径</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%99%BB%E5%BD%95"><span class="toc-number">3.</span> <span class="toc-text">登录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E5%86%85%E5%AE%B9"><span class="toc-number">4.</span> <span class="toc-text">查询内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BDmov"><span class="toc-number">5.</span> <span class="toc-text">下载mov</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%86%85%E5%AE%B9"><span class="toc-number">6.</span> <span class="toc-text">创建内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0%E5%86%85%E5%AE%B9"><span class="toc-number">7.</span> <span class="toc-text">更新内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E5%86%85%E5%AE%B9"><span class="toc-number">8.</span> <span class="toc-text">删除内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%81%A2%E5%A4%8D%E5%86%85%E5%AE%B9"><span class="toc-number">9.</span> <span class="toc-text">恢复内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%B9%E9%87%8F%E5%A4%84%E7%90%86%EF%BC%88%E5%88%9B%E5%BB%BA%EF%BC%8C%E5%88%A0%E9%99%A4%EF%BC%8C%E6%9B%B4%E6%96%B0%EF%BC%89%E9%95%9C%E5%A4%B4"><span class="toc-number">10.</span> <span class="toc-text">批量处理（创建，删除，更新）镜头</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%97%AD%E9%93%BE%E6%8E%A5"><span class="toc-number">11.</span> <span class="toc-text">关闭链接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%83%A8%E5%88%86%E5%8F%AF%E6%9F%A5%E8%AF%A2%E5%AE%9E%E4%BD%93%E7%B1%BB%E5%9E%8B"><span class="toc-number">12.</span> <span class="toc-text">部分可查询实体类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3"><span class="toc-number">13.</span> <span class="toc-text">参考文档</span></a></li></ol>
       </div>
     </article>
   
@@ -908,17 +1162,10 @@ sg.batch(batch_data) # 三种不同类型可同时存在<span aria-hidden="true"
         </div>
       </a>
     
-      <a href="/categories/Maya/%E6%9D%82%E9%A1%B9/">
+      <a href="/categories/Python/">
         <div class="categories-list-item">
-          Maya/杂项
-          <span class="categories-list-item-badge">8</span>
-        </div>
-      </a>
-    
-      <a href="/categories/Maya/%E5%B0%8F%E5%B7%A5%E5%85%B7/">
-        <div class="categories-list-item">
-          Maya/小工具
-          <span class="categories-list-item-badge">4</span>
+          Python
+          <span class="categories-list-item-badge">1</span>
         </div>
       </a>
     
@@ -929,6 +1176,13 @@ sg.batch(batch_data) # 三种不同类型可同时存在<span aria-hidden="true"
         </div>
       </a>
     
+      <a href="/categories/Maya/%E5%B0%8F%E5%B7%A5%E5%85%B7/">
+        <div class="categories-list-item">
+          Maya/小工具
+          <span class="categories-list-item-badge">4</span>
+        </div>
+      </a>
+    
       <a href="/categories/ShotGrid/">
         <div class="categories-list-item">
           ShotGrid
@@ -936,16 +1190,16 @@ sg.batch(batch_data) # 三种不同类型可同时存在<span aria-hidden="true"
         </div>
       </a>
     
-      <a href="/categories/Python/">
+      <a href="/categories/Maya/%E6%9D%82%E9%A1%B9/">
         <div class="categories-list-item">
-          Python
-          <span class="categories-list-item-badge">1</span>
+          Maya/杂项
+          <span class="categories-list-item-badge">8</span>
         </div>
       </a>
     
-      <a href="/categories/Maya/arnold/">
+      <a href="/categories/Rez/">
         <div class="categories-list-item">
-          Maya/arnold
+          Rez
           <span class="categories-list-item-badge">1</span>
         </div>
       </a>
@@ -971,9 +1225,9 @@ sg.batch(batch_data) # 三种不同类型可同时存在<span aria-hidden="true"
         </div>
       </a>
     
-      <a href="/categories/Rez/">
+      <a href="/categories/Maya/arnold/">
         <div class="categories-list-item">
-          Rez
+          Maya/arnold
           <span class="categories-list-item-badge">1</span>
         </div>
       </a>
@@ -1029,15 +1283,15 @@ sg.batch(batch_data) # 三种不同类型可同时存在<span aria-hidden="true"
       </a>
     
       <a 
-        href="/tags/API/" 
-        title="API">
-        <div class="tags-list-item">API</div>
-      </a>
-    
-      <a 
         href="/tags/Blog/" 
         title="Blog">
         <div class="tags-list-item">Blog</div>
+      </a>
+    
+      <a 
+        href="/tags/API/" 
+        title="API">
+        <div class="tags-list-item">API</div>
       </a>
     
       <a 
@@ -1059,12 +1313,6 @@ sg.batch(batch_data) # 三种不同类型可同时存在<span aria-hidden="true"
       </a>
     
       <a 
-        href="/tags/USD/" 
-        title="USD">
-        <div class="tags-list-item">USD</div>
-      </a>
-    
-      <a 
         href="/tags/ACES/" 
         title="ACES">
         <div class="tags-list-item">ACES</div>
@@ -1077,15 +1325,21 @@ sg.batch(batch_data) # 三种不同类型可同时存在<span aria-hidden="true"
       </a>
     
       <a 
+        href="/tags/USD/" 
+        title="USD">
+        <div class="tags-list-item">USD</div>
+      </a>
+    
+      <a 
         href="/tags/github/" 
         title="github">
         <div class="tags-list-item">github</div>
       </a>
     
       <a 
-        href="/tags/%E7%BD%91%E7%AB%99%E6%8E%A8%E8%8D%90/" 
-        title="网站推荐">
-        <div class="tags-list-item">网站推荐</div>
+        href="/tags/Markdown/" 
+        title="Markdown">
+        <div class="tags-list-item">Markdown</div>
       </a>
     
   </div>
@@ -1106,7 +1360,7 @@ sg.batch(batch_data) # 三种不同类型可同时存在<span aria-hidden="true"
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E5%86%8C%E7%BD%91%E7%AB%99"><span class="toc-number">1.</span> <span class="toc-text">注册网站</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">2.</span> <span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%80%E4%BD%8E%E8%A6%81%E6%B1%82"><span class="toc-number">2.0.1.</span> <span class="toc-text">最低要求</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E5%B9%B6%E5%86%99%E5%85%A5Python%E6%90%9C%E7%B4%A2%E8%B7%AF%E5%BE%84"><span class="toc-number">2.0.2.</span> <span class="toc-text">下载并写入Python搜索路径</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%99%BB%E5%BD%95"><span class="toc-number">3.</span> <span class="toc-text">登录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E5%86%85%E5%AE%B9"><span class="toc-number">4.</span> <span class="toc-text">查询内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BDmov"><span class="toc-number">5.</span> <span class="toc-text">下载mov</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%86%85%E5%AE%B9"><span class="toc-number">6.</span> <span class="toc-text">创建内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0%E5%86%85%E5%AE%B9"><span class="toc-number">7.</span> <span class="toc-text">更新内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E5%86%85%E5%AE%B9"><span class="toc-number">8.</span> <span class="toc-text">删除内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%81%A2%E5%A4%8D%E5%86%85%E5%AE%B9"><span class="toc-number">9.</span> <span class="toc-text">恢复内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%B9%E9%87%8F%E5%A4%84%E7%90%86%EF%BC%88%E5%88%9B%E5%BB%BA%EF%BC%8C%E5%88%A0%E9%99%A4%EF%BC%8C%E6%9B%B4%E6%96%B0%EF%BC%89%E9%95%9C%E5%A4%B4"><span class="toc-number">10.</span> <span class="toc-text">批量处理（创建，删除，更新）镜头</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%97%AD%E9%93%BE%E6%8E%A5"><span class="toc-number">11.</span> <span class="toc-text">关闭链接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3"><span class="toc-number">12.</span> <span class="toc-text">参考文档</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E5%86%8C%E7%BD%91%E7%AB%99"><span class="toc-number">1.</span> <span class="toc-text">注册网站</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">2.</span> <span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%80%E4%BD%8E%E8%A6%81%E6%B1%82"><span class="toc-number">2.0.1.</span> <span class="toc-text">最低要求</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E5%B9%B6%E5%86%99%E5%85%A5Python%E6%90%9C%E7%B4%A2%E8%B7%AF%E5%BE%84"><span class="toc-number">2.0.2.</span> <span class="toc-text">下载并写入Python搜索路径</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%99%BB%E5%BD%95"><span class="toc-number">3.</span> <span class="toc-text">登录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E5%86%85%E5%AE%B9"><span class="toc-number">4.</span> <span class="toc-text">查询内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BDmov"><span class="toc-number">5.</span> <span class="toc-text">下载mov</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%86%85%E5%AE%B9"><span class="toc-number">6.</span> <span class="toc-text">创建内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0%E5%86%85%E5%AE%B9"><span class="toc-number">7.</span> <span class="toc-text">更新内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E5%86%85%E5%AE%B9"><span class="toc-number">8.</span> <span class="toc-text">删除内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%81%A2%E5%A4%8D%E5%86%85%E5%AE%B9"><span class="toc-number">9.</span> <span class="toc-text">恢复内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%B9%E9%87%8F%E5%A4%84%E7%90%86%EF%BC%88%E5%88%9B%E5%BB%BA%EF%BC%8C%E5%88%A0%E9%99%A4%EF%BC%8C%E6%9B%B4%E6%96%B0%EF%BC%89%E9%95%9C%E5%A4%B4"><span class="toc-number">10.</span> <span class="toc-text">批量处理（创建，删除，更新）镜头</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%97%AD%E9%93%BE%E6%8E%A5"><span class="toc-number">11.</span> <span class="toc-text">关闭链接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%83%A8%E5%88%86%E5%8F%AF%E6%9F%A5%E8%AF%A2%E5%AE%9E%E4%BD%93%E7%B1%BB%E5%9E%8B"><span class="toc-number">12.</span> <span class="toc-text">部分可查询实体类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3"><span class="toc-number">13.</span> <span class="toc-text">参考文档</span></a></li></ol>
     </article>
   
   
