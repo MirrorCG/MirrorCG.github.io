@@ -339,7 +339,7 @@
     
     
       <span class="dot"></span>
-      <span>768 字</span>
+      <span>803 字</span>
     
   </div>
   
@@ -467,7 +467,11 @@ for _job in _jobs:
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">import maya.cmds as cmds
 start &#x3D;int(cmds.playbackOptions(q&#x3D;True, minTime&#x3D;True))
 end &#x3D; int(cmds.playbackOptions(q&#x3D;True, maxTime&#x3D;True))
-cmds.bakeResults(simulation&#x3D;False, t&#x3D;(start, end))<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
+cmds.bakeResults(simulation&#x3D;False, t&#x3D;(start, end))<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>12代 Intel cpu 不兼容py插件问题：<br>添加环境变量不要py中ssl相关的东西</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">变量名：OPENSSL_ia32cap
+变量值：~0x200000200000000<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
 </ol>
 
   </div>
@@ -772,9 +776,9 @@ cmds.bakeResults(simulation&#x3D;False, t&#x3D;(start, end))<span aria-hidden="t
         </div>
       </a>
     
-      <a href="/categories/Qt/">
+      <a href="/categories/Maya/%E5%B0%8F%E5%B7%A5%E5%85%B7/">
         <div class="categories-list-item">
-          Qt
+          Maya/小工具
           <span class="categories-list-item-badge">4</span>
         </div>
       </a>
@@ -786,9 +790,9 @@ cmds.bakeResults(simulation&#x3D;False, t&#x3D;(start, end))<span aria-hidden="t
         </div>
       </a>
     
-      <a href="/categories/Maya/%E5%B0%8F%E5%B7%A5%E5%85%B7/">
+      <a href="/categories/Qt/">
         <div class="categories-list-item">
-          Maya/小工具
+          Qt
           <span class="categories-list-item-badge">4</span>
         </div>
       </a>
@@ -814,13 +818,6 @@ cmds.bakeResults(simulation&#x3D;False, t&#x3D;(start, end))<span aria-hidden="t
         </div>
       </a>
     
-      <a href="/categories/Maya/arnold/">
-        <div class="categories-list-item">
-          Maya/arnold
-          <span class="categories-list-item-badge">1</span>
-        </div>
-      </a>
-    
       <a href="/categories/Nuke/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
         <div class="categories-list-item">
           Nuke/学习笔记
@@ -838,6 +835,13 @@ cmds.bakeResults(simulation&#x3D;False, t&#x3D;(start, end))<span aria-hidden="t
       <a href="/categories/ShotGrid/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
         <div class="categories-list-item">
           ShotGrid/学习笔记
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/categories/Maya/arnold/">
+        <div class="categories-list-item">
+          Maya/arnold
           <span class="categories-list-item-badge">1</span>
         </div>
       </a>
