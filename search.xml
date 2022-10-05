@@ -4,6 +4,39 @@
   
     
     <entry>
+      <title>自定义cryptomatteAov</title>
+      <link href="/posts/20221005a1.html"/>
+      <url>/posts/20221005a1.html</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>通过 Arnold 渲染器的 crypmatte 节点和 Maya 的额外属性，在 Maya 中创建自定义 ID 通道。<span id="more"></span><br>第一步：在物体的 mesh或aiStandIn等可着色对象上创建 maya 额外属性，此属性可被 Arnold 识别，命名方式为：mtoa_constant_”属性名”，其中mtoa_constant_为固定前缀，”属性名”为自定义名称，例如，mtoa_constant_testcrptomt。</p><p><img src="/images/%E8%87%AA%E5%AE%9A%E4%B9%89cryptomatteAov/%E5%88%9B%E5%BB%BA%E9%A2%9D%E5%A4%96%E5%B1%9E%E6%80%A7.png" alt="创建额外属性.png" srcset="/images/home/Myhead.jpg" data-src="/images/%E8%87%AA%E5%AE%9A%E4%B9%89cryptomatteAov/%E5%88%9B%E5%BB%BA%E9%A2%9D%E5%A4%96%E5%B1%9E%E6%80%A7.png" class="lozad post-image">  </p><p><img src="/images/%E8%87%AA%E5%AE%9A%E4%B9%89cryptomatteAov/%E9%A2%9D%E5%A4%96%E5%B1%9E%E6%80%A7.png" alt="额外属性.png" srcset="/images/home/Myhead.jpg" data-src="/images/%E8%87%AA%E5%AE%9A%E4%B9%89cryptomatteAov/%E9%A2%9D%E5%A4%96%E5%B1%9E%E6%80%A7.png" class="lozad post-image"> </p><p>第二步：创建自定义 aov, aov 命名的方式为可任意命名，也可按照crypto_”aov 名称”的规范命名，其中“aov 名称”为自定义的名称，例如，crypto_test。</p><p><img src="/images/%E8%87%AA%E5%AE%9A%E4%B9%89cryptomatteAov/%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89aov.png" alt="创建自定义aov.png" srcset="/images/home/Myhead.jpg" data-src="/images/%E8%87%AA%E5%AE%9A%E4%B9%89cryptomatteAov/%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89aov.png" class="lozad post-image"></p><p>第三步：创建 cryptomatte 节点，并在节点的 UserCryptoAov* 中填入第二步中aov的全名，在UserCryptoSrc* 中填入第一步中创建的属性名。</p><p><img src="/images/%E8%87%AA%E5%AE%9A%E4%B9%89cryptomatteAov/cryptomatte%E5%B1%9E%E6%80%A7%E5%86%85%E5%AE%B9.png" alt="cryptomatte属性内容.png" srcset="/images/home/Myhead.jpg" data-src="/images/%E8%87%AA%E5%AE%9A%E4%B9%89cryptomatteAov/cryptomatte%E5%B1%9E%E6%80%A7%E5%86%85%E5%AE%B9.png" class="lozad post-image"></p><p>第四步：将第三步创建的 cryptomatte 节点填入第二步创建的 aov 节点的 Shader 属性中。</p><p><img src="/images/%E8%87%AA%E5%AE%9A%E4%B9%89cryptomatteAov/%E8%8A%82%E7%82%B9%E5%B1%9E%E6%80%A7%E9%93%BE%E6%8E%A5.png" alt="节点属性链接.png" srcset="/images/home/Myhead.jpg" data-src="/images/%E8%87%AA%E5%AE%9A%E4%B9%89cryptomatteAov/%E8%8A%82%E7%82%B9%E5%B1%9E%E6%80%A7%E9%93%BE%E6%8E%A5.png" class="lozad post-image"></p><p>以上即可获取场景中的单个shape 模型的 cryptomatte 的 id aov 通道。</p><p><img src="/images/%E8%87%AA%E5%AE%9A%E4%B9%89cryptomatteAov/%E6%B8%B2%E6%9F%93%E7%BB%93%E6%9E%9C.png" alt="渲染结果.png" srcset="/images/home/Myhead.jpg" data-src="/images/%E8%87%AA%E5%AE%9A%E4%B9%89cryptomatteAov/%E6%B8%B2%E6%9F%93%E7%BB%93%E6%9E%9C.png" class="lozad post-image"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Maya </category>
+          
+          <category> arnold </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 灯光合成 </tag>
+            
+            <tag> 灯光 </tag>
+            
+            <tag> Aov </tag>
+            
+            <tag> cryptomatte </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>QT-QPainter</title>
       <link href="/posts/20220914a1.html"/>
       <url>/posts/20220914a1.html</url>
@@ -1030,6 +1063,8 @@
             <tag> Aitoon </tag>
             
             <tag> aiUserData </tag>
+            
+            <tag> Aov </tag>
             
         </tags>
       
