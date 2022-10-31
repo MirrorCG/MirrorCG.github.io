@@ -6,7 +6,7 @@
   <link href="http://mirrorcg.github.io/atom.xml" rel="self"/>
   
   <link href="http://mirrorcg.github.io/"/>
-  <updated>2022-10-05T15:58:25.000Z</updated>
+  <updated>2022-10-31T13:53:00.000Z</updated>
   <id>http://mirrorcg.github.io/</id>
   
   <author>
@@ -15,6 +15,53 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Maya_C++开发环境搭建</title>
+    <link href="http://mirrorcg.github.io/posts/20221031a1.html"/>
+    <id>http://mirrorcg.github.io/posts/20221031a1.html</id>
+    <published>2022-10-31T12:53:00.000Z</published>
+    <updated>2022-10-31T13:53:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>记录一下 Maya 的C++开发环境搭建<span id="more"></span></p><h4 id="软件准备"><a href="#软件准备" class="headerlink" title="软件准备"></a>软件准备</h4><ul><li><p>安装Visual Studio 2015 作为IDE，这里需要注意一下，不同的VS版本对应不同的默认平台工具集，如果需要VS使用别的的平台工具集，需要修改安装指定的平台工具集.</p></li><li><p>安装 Maya2020.</p></li><li><p>获取软件版本对应的开发包（从Maya2016开始，maya软件安装包中不再携带开发包，而开发包作为一个单独的下载包存在）,也可以不下载开发包，C++ 环境搭建需要的 Lib 链接库和 include 头文件在软件安装目录中已经存在，但我们可以获取开发包里 devkit 文件夹中的代码示例和插件向导(MayaPluginWizard2.0.zip)用于学习.</p><ul><li>maya 开发包下载地址 ：<a href="https://www.autodesk.com/developer-network/platform-technologies/maya?_ga=2.166960190.1858012794.1667146574-781835133.1667146574" title="" target="">从这里下载</a></li></ul></li></ul><h4 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a>配置环境</h4><h5 id="手动配置"><a href="#手动配置" class="headerlink" title="手动配置"></a>手动配置</h5><p>  在 Visual Studio 2015 IDE 中新建一个”空项目”，然后点击项目,右键设置项目属性，将下列配置一一修改。</p><ul><li>配置：debug  平台：x64</li><li>配置属性 》 常规 》 项目默认配置 》 配置类型 :动态库.dll</li><li>配置属性 》 常规》 常规 》 目标文件拓展名 :.mll</li><li>C&#x2F;C++ 》 常规 》 附加包含目录 :C:\Program Files\Autodesk\Maya2020\include;%(AdditionalLibraryDirectories)</li><li>C&#x2F;C++ 》 预处理器 》 加入预处理器指令:WIN32;NDEBUG;_DEBUG;_WINDOWS;NT_PLUGIN;REQUIRE_IOSTREAM;_USRDLL;MAYAPLUGIN1_EXPORTS; </li><li>链接器 》 常规 》 输出文件：C:\Users\mirror\Documents\maya\2020\plug-ins$(ProjectName)$(TargetExt)(自定义，这是你的插件生成的位置)</li><li>链接器 》 常规 》 附加库目录：C:\Program Files\Autodesk\Maya2020\lib;%(AdditionalLibraryDirectories)</li><li>链接器 》 输入 》 附加依赖项：Foundation.lib;OpenMaya.lib;OpenMayaUI.lib;OpenMayaAnim.lib;OpenMayaFX.lib;OpenMayaRender.lib;Image.lib;opengl32.lib;glu32.lib;</li></ul><p>  若为配置方案指定名称，如”maya2020”，将上列的 maya2020 替换成maya${Configuration},其中 ${Configuration} 是配置方案的名称，可快捷切换开发环境，而不用重新配置。<br>  $(TargetDir)是在目标文件后自动赋予值为文件所在位置<br>  $(TargetExt)目标文件拓展名<br>  $(ProjectName)项目名</p><h5 id="通过插件向导配置"><a href="#通过插件向导配置" class="headerlink" title="通过插件向导配置"></a>通过插件向导配置</h5><p>  <img src="/images/Maya_C++%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/%E6%8F%92%E4%BB%B6%E5%90%91%E5%AF%BC.png" alt="插件向导.png" srcset="/images/home/Myhead.jpg" data-src="/images/Maya_C++%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/%E6%8F%92%E4%BB%B6%E5%90%91%E5%AF%BC.png" class="lozad post-image"></p><p>  在下载好的开发包中找到插件向导文件夹–pluginwizard，其中有两个文件：</p><ul><li>MayaPluginWizard2.0.zip</li><li>MayaWizardReadme.txt<br>  其中 MayaWizardReadme.txt 会告诉你官方推荐使用什么版本的 Visual Studio IDE 以及插件MayaPluginWizard2.0.zip中的内容的使用方法，例如，开发maya2020，应使用 Visual Studio 14.0 即 Visual Studio 2015 默认的平台工具集；并且需要将对应的文件拷贝到指定的文件路径中。</li></ul><p>  由于我使用的是 Visual Studio 2019 需要将文件拷贝到不同的路径：</p><ul><li><p>将下列文件拷贝到路径(若没有，则新建):C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\VC\VCWizards</p><blockquote><ul><li>MayaPluginWizard.ico</li><li>MayaPluginWizard.vsdir</li><li>MayaPluginWizard.vsz</li></ul></blockquote></li><li><p>将下列文件夹拷贝到路径(若没有，则新建):C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\VC\vcprojects</p><blockquote><ul><li>MayaPluginWizard</li></ul></blockquote></li></ul><p>  若在创建新项目的时候，创建项目失败，则需要将 MayaPluginWizard.vsz 文件内容中的 VS版本 改为 Visual Studio IDE 对应的版本<br>  <img src="/images/Maya_C++%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/%E9%A1%B9%E7%9B%AE%E5%88%9B%E5%BB%BA%E5%A4%B1%E8%B4%A5.png" alt="项目创建失败.png" srcset="/images/home/Myhead.jpg" data-src="/images/Maya_C++%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/%E9%A1%B9%E7%9B%AE%E5%88%9B%E5%BB%BA%E5%A4%B1%E8%B4%A5.png" class="lozad post-image"></p><p>配置好后，编译的插件会出现在 “输出文件” 的路径中。</p><h4 id="软件安装踩坑"><a href="#软件安装踩坑" class="headerlink" title="软件安装踩坑"></a>软件安装踩坑</h4><p>  不同 Visual Studio 版本默认的平台工具集不同，需要视情况配置不同的工具集，Maya2020需要使用 Visual Studio 2015,因此会使用V140平台工具集，若使用高版本 Visual Studio ,需要切换平台工具集版本：</p><ul><li>Visual Studio 2019: V142</li><li>Visual Studio 2017: V141</li><li>Visual Studio 2015: V140</li><li>Visual Studio 2013: V120</li><li>Visual Studio 2012: V110</li><li>Visual Studio 2010: V100</li><li>Visual Studio 2008: V90</li><li>Visual Studio 2005: V80</li><li>Visual Studio 2003: V71</li><li>Visual Studio 2002: V70</li><li>Visual Studio 6: V60<br>  若低版本软件安装不上，在卸载和清理了软件之后，可以尝试先安装高版本软件，再安装低版本软件，具体原因不清楚（可能是高版本软件在安装过程中将低版本报错的组件安装了），但是真的行得通。安装 Visual Studio IDE 软件需要给注册表开权限哦！！！</li></ul><h5 id="安装平台工具集"><a href="#安装平台工具集" class="headerlink" title="安装平台工具集"></a>安装平台工具集</h5><p>  升级打开低版本VS工程，需要切换工具集版本 和 windowos SDK版本</p><ol><li>修改&#x2F;添加 Visual Studio_IDE :</li></ol><p>  <img src="/images/Maya_C++%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/%E4%BF%AE%E6%94%B9VS_IDE.png" alt="修改VS_IDE.png" srcset="/images/home/Myhead.jpg" data-src="/images/Maya_C++%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/%E4%BF%AE%E6%94%B9VS_IDE.png" class="lozad post-image"></p><ol start="2"><li><p>选择单个组件,并找到 MSVC v140-VS 2015 C++ 生成工具（v14.00）:<br>  <img src="/images/Maya_C++%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/%E9%80%89%E6%8B%A9%E5%8D%95%E4%B8%AA%E7%BB%84%E4%BB%B6.png" alt="选择单个组件.png" srcset="/images/home/Myhead.jpg" data-src="/images/Maya_C++%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/%E9%80%89%E6%8B%A9%E5%8D%95%E4%B8%AA%E7%BB%84%E4%BB%B6.png" class="lozad post-image"></p></li><li><p>在项目属性中选取指定的工具集.png :<br>  <img src="/images/Maya_C++%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/%E5%9C%A8%E9%A1%B9%E7%9B%AE%E4%B8%AD%E9%80%89%E5%8F%96%E6%8C%87%E5%AE%9A%E7%9A%84%E5%B7%A5%E5%85%B7%E9%9B%86.png" alt="在项目中选取指定的工具集.png" srcset="/images/home/Myhead.jpg" data-src="/images/Maya_C++%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/%E5%9C%A8%E9%A1%B9%E7%9B%AE%E4%B8%AD%E9%80%89%E5%8F%96%E6%8C%87%E5%AE%9A%E7%9A%84%E5%B7%A5%E5%85%B7%E9%9B%86.png" class="lozad post-image"></p></li><li><p>(略)若使用高版本打开低版本的项目，还需要重复以上步骤，安装&#x2F;切换对应低版本的 Windows SDK 版本 :<br>  <img src="/images/Maya_C++%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/%E5%88%87%E6%8D%A2%E4%BD%8E%E7%89%88%E6%9C%AC%E7%9A%84WindowsSDK.png" alt="切换低版本的WindowsSDK.png" srcset="/images/home/Myhead.jpg" data-src="/images/Maya_C++%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/%E5%88%87%E6%8D%A2%E4%BD%8E%E7%89%88%E6%9C%AC%E7%9A%84WindowsSDK.png" class="lozad post-image"></p></li></ol><h4 id="插件踩坑"><a href="#插件踩坑" class="headerlink" title="插件踩坑"></a>插件踩坑</h4><p>由于一开始不知道需要指定的工具集版本，导致编译的插件不能被加载，前前后后排查花费了大量时间，深感可惜，最后总结一下：</p><ul><li><p>编译好的文件如果从插件编辑器中无法显示：</p><blockquote><ol><li>可能是开软件前，该插件的路径还没有生成,需要重启may.</li><li>可能是插件不在Maya的插件搜索路径中,需要添加环境变量.</li><li>插件本身有问题，需检查插件。</li></ol></blockquote></li><li><p>如果无法加载插件，在保证插件代码正确的情况下，可能是没有使用正确的VC编译器，详细参照前文.</p></li></ul><ul><li></li></ul>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;记录一下 Maya 的C++开发环境搭建</summary>
+    
+    
+    
+    <category term="Maya" scheme="http://mirrorcg.github.io/categories/Maya/"/>
+    
+    <category term="学习笔记" scheme="http://mirrorcg.github.io/categories/Maya/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="学习笔记" scheme="http://mirrorcg.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    <category term="OpenMaya" scheme="http://mirrorcg.github.io/tags/OpenMaya/"/>
+    
+    <category term="C++" scheme="http://mirrorcg.github.io/tags/C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Arnold开发环境搭建</title>
+    <link href="http://mirrorcg.github.io/posts/20221027a1.html"/>
+    <id>http://mirrorcg.github.io/posts/20221027a1.html</id>
+    <published>2022-10-27T15:55:47.095Z</published>
+    <updated>2022-10-31T15:42:01.102Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>1,下载安装vs2015</p><p>下载地址：<a href="http://download.microsoft.com/download/B/8/9/B898E46E-CBAE-4045-A8E2-2D33DD36F3C4/vs2015.pro_chs.iso">http://download.microsoft.com/download/B/8/9/B898E46E-CBAE-4045-A8E2-2D33DD36F3C4/vs2015.pro_chs.iso</a><br>密钥：HM6NR-QXX7C-DFW2Y-8B82K-WTYJV<br>2.下载安装Cmake &gt;&#x3D;2.8<br>下载地址:<a href="https://cmake.org/download/">https://cmake.org/download/</a><br>3.配置cmake环境</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>自定义cryptomatteAov</title>
@@ -462,59 +509,6 @@
     <category term="插件" scheme="http://mirrorcg.github.io/tags/%E6%8F%92%E4%BB%B6/"/>
     
     <category term="API" scheme="http://mirrorcg.github.io/tags/API/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Maya中材质文件和缓存文件相结合进行渲染的几种方式</title>
-    <link href="http://mirrorcg.github.io/posts/20220503a6.html"/>
-    <id>http://mirrorcg.github.io/posts/20220503a6.html</id>
-    <published>2022-05-03T08:48:37.000Z</published>
-    <updated>2022-05-03T09:06:10.000Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p style="text-indent:2em">本文记录材质文件和缓存文件相结合，组装渲染镜头文件的几种方式.<span id="more"></span></p><h3 id="缓存驱动材质文件进行渲染"><a href="#缓存驱动材质文件进行渲染" class="headerlink" title="缓存驱动材质文件进行渲染"></a>缓存驱动材质文件进行渲染</h3><p>使用缓存文件驱动材质文件的方式进行渲染。</p><h3 id="缓存文件直接替换材质文件的几何体进行渲染"><a href="#缓存文件直接替换材质文件的几何体进行渲染" class="headerlink" title="缓存文件直接替换材质文件的几何体进行渲染"></a>缓存文件直接替换材质文件的几何体进行渲染</h3><h3 id="缓存文件包裹材质文件进行渲染"><a href="#缓存文件包裹材质文件进行渲染" class="headerlink" title="缓存文件包裹材质文件进行渲染"></a>缓存文件包裹材质文件进行渲染</h3><h3 id="给缓存文件赋予材质进行渲染"><a href="#给缓存文件赋予材质进行渲染" class="headerlink" title="给缓存文件赋予材质进行渲染"></a>给缓存文件赋予材质进行渲染</h3>]]></content>
-    
-    
-    <summary type="html">&lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p style=&quot;text-indent:2em&quot;&gt;本文记录材质文件和缓存文件相结合，组装渲染镜头文件的几种方式.</summary>
-    
-    
-    
-    <category term="Maya" scheme="http://mirrorcg.github.io/categories/Maya/"/>
-    
-    <category term="杂项" scheme="http://mirrorcg.github.io/categories/Maya/%E6%9D%82%E9%A1%B9/"/>
-    
-    
-    <category term="Pipeline" scheme="http://mirrorcg.github.io/tags/Pipeline/"/>
-    
-    <category term="灯光" scheme="http://mirrorcg.github.io/tags/%E7%81%AF%E5%85%89/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Maya软件渲染问题集锦</title>
-    <link href="http://mirrorcg.github.io/posts/20220503a5.html"/>
-    <id>http://mirrorcg.github.io/posts/20220503a5.html</id>
-    <published>2022-05-03T08:01:45.000Z</published>
-    <updated>2022-05-03T09:06:10.000Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><ol><li><p>渲染崩溃可能的问题：</p><ul><li>被赋予Arnold材质3s散射的物体是片，导致散射时不是在物体内部散射，而是在整个场景中散射，计算量特别大从而崩溃。</li><li>文件中毛发的密度太大导致渲染机内存不够用。</li><li>文件本身有问题。</li><li>具体问题，具体分析。</li></ul></li><li><p>Redshift:提示：’Mesh pCubeShape1 is instanced and uses adaptive tessellation, which isn’t supported. Disabling tessellation. If you need tessellation, please use fixed tessellation settings: i.e. disable ‘screen space adaptive’ and set ‘min edge length’ to zero to force a maximum tessellation level’。对象细分后在实例错误提示：对象在实例化后细分，被实例化对象在屏幕自适应时找不到细分对象，就不会进行细分。如果需要细分，就关闭屏幕自适应，并把最小边缘强度设置为零，以强制使用最大边缘强度，如图：</p><p> <img src="/images/Maya%E8%BD%AF%E4%BB%B6%E6%B8%B2%E6%9F%93%E9%97%AE%E9%A2%98%E9%9B%86%E9%94%A6/Redshift%E5%AE%9E%E4%BE%8B%E5%AF%B9%E8%B1%A1%E8%87%AA%E9%80%82%E5%BA%94%E7%BB%86%E5%88%86.png" alt="Redshift实例对象自适应细分" srcset="/images/home/Myhead.jpg" data-src="/images/Maya%E8%BD%AF%E4%BB%B6%E6%B8%B2%E6%9F%93%E9%97%AE%E9%A2%98%E9%9B%86%E9%94%A6/Redshift%E5%AE%9E%E4%BE%8B%E5%AF%B9%E8%B1%A1%E8%87%AA%E9%80%82%E5%BA%94%E7%BB%86%E5%88%86.png" class="lozad post-image"></p></li><li><p>农场机提示找不到可执行渲染的文件：“Katana render executable was not found in the semicolon separated list”（在分号分隔的列表中没有找到Katana渲染的可执行文件），该机器上没有安装相应的软件，或软件没有安装在默认的路径。</p></li><li><p>Cannot find procedure “pgYetiVRayPreRender”（或”pgYetiPreRender”）报错导致渲染暂停：渲染文件中没有Yeti毛发节点，却在渲染文件的渲染设置中填入了“pgYetiVRayPreRender”（或”pgYetiPreRender”）代码，导致渲染器找不到对应的节点而报错，我们只需要打开文件，删除渲染设置中的以下代码就行了（Render Settings &gt; Common &gt; Render Options，删除报错的MEL，一般情况下也可以全部删除）：</p> <table><tr> <td><img src="/images/Maya软件渲染问题集锦/Yeti报错.png" border=0 srcset="/images/home/Myhead.jpg" data-src="/images/Maya软件渲染问题集锦/Yeti报错.png" class="lozad post-image"></td> <td><img src="/images/Maya软件渲染问题集锦/删除Yeti报错设置.png" border=0 srcset="/images/home/Myhead.jpg" data-src="/images/Maya软件渲染问题集锦/删除Yeti报错设置.png" class="lozad post-image"></td> </tr></table></li><li><p>贴图文件正在上传或修改。日志出现：File“*******”was modified after being opened by OIIO，这是因为文件在渲染的时候，被文件IO读取的贴图文件还在上传或更新中<br> 解决办法：等待贴图上传完成后再渲染文件</p></li><li><p>盘符掉了或没有输出磁盘：<br> 解决办法：映射一个盘符</p> <pre class="line-numbers language-doc" data-language="doc"><code class="language-doc">subst D: C:\D  ::映射D盘盘符到C盘的D文件夹<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li><li><p>Deadline农场渲染报错“defaultRenderLayer” is a layer from a referenced and is not allowed to be the current layer ,其可能是之一是：maya 的 renderLayerManage节点被改名导致 maya 不能生成默认的master layer渲染层（在.ma文件中的名称为defaultRenderLayer），因此可以将文件保存为.ma格式的文件，用文本的方式打开，将renderLayerManager节点的名称改为默认的’renderLayerManager’(没有任何修饰)，同时由于默认的renderLayerManager节点已经被修改过，默认的渲染层名称也发生了改变，导致渲染程序在调用的代码中，该层被判定为非默认的渲染层而报错“unable to modify overrides to the default layer”,因此，还需要将文件中的 defaultRenderLayer节点 (本问题记录时该节点名称为 defaultRenderLayer1 ),改为默认的名称defaultRenderLayer，即可。</p></li><li><p>maya动画文件直渲，后台批量渲染时，角色控制器带动角色模型不规则抖动的可能原因：这是旧版绑定系统的问题，这种问题一般可通过走 abc 流程规避，否则需要更新绑定的 cluster 节点选项。禁用”cluster.relative”，并将”cluster.angleInterpolation”的值设置为3，代码如下：</p> <pre class="line-numbers language-doc" data-language="doc"><code class="language-doc">import maya.cmds as mcfor each in mc.ls(typ&#x3D;&quot;cluster&quot;):mc.setAttr(&quot;cluster1.relative&quot;, 0)mc.setAttr(&quot;cluster1.angleInterpolation&quot;, 3)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li><li><p>maya动画文件直渲，后台批渲时，动画文件中的约束失效，例如角色对道具的约束丢失或者效果不对；可能原因：</p><ul><li>动画文件后台渲染其中的动力学不出缓存，会重新计算。</li><li>动画文件后台渲染时表达式会失效。<br>解决办法：（1）烘焙动画曲线：选择绑定组大组执行 Animation &gt; Key &gt; Bake Simulation 等待读条完成后会将控制器的每一帧都K上关键帧，然后再提交渲染即可；（2）在Premel中填入可拖动时间滑块到当前帧的mel表达式，该表达式会在渲染开始前对镜头中的帧进行切换，从开始帧逐渐切换至当前帧，相当于对文件中的控制器进行了一次”脏”运算。达到数据正确的目的。（3）走 abc 流程。</li></ul></li><li><p>maya 创建polygon报错：error line0:connection not made :”****.instObjGroup[0]”-initalShaderGroup.dagSetMembers[-1].destination is locked:可能原因：</p><ul><li>相关节点被锁</li><li>相关属性被锁<br>解决办法：解锁相关节点或相关属性，或者重启 Maya 可解决问题。</li></ul></li><li><p>后台渲染丢材质报错：[mtoa][translator polymesh] ShadingGroup ******:*****SG has no faceShader input …。可能原因：材质没有连接上对应模型或制作过程中切换过不同的渲染器，导致材质与物体mesh的链接断开；<br>解决办法：修改材质文件中的材质链接或重新连接材质，注意查看材质文件的材质、渲染器输出信息；或先赋予Lambert材质,再重新赋予原来的材质。</p></li><li><p>后台渲染和前台渲染的exr图片颜色空间不一致，或颜色不一致。可能原因：</p><ol><li>首选项中勾选了的 Preferences &gt; Output color preferences &gt; Apply Output Transform to Render ，并将Output Transform 设置为 Use View Transform ,该选项会应用 Preferences &gt; Color Transform Preferences 中的 View Transform 值到输出图片，该选项的作用是将渲染预览的结果转换并应用到输出图片（包括色彩空间），如果渲染预览的图片为sRGB编码的色彩空间图，则输出图片也会转换为sRGB色彩空间的图（如下图左1）。</li><li>渲染器驱动节点的”defaultArnoldDriver.colorManagement”渲染设置为了 Use View Transform ，其默认值为 Use Output Transform，原因和 1 一致（正确设置如下图右1所示）。<br>选中驱动节点代码：<pre class="line-numbers language-doc" data-language="doc"><code class="language-doc">mc.select(&quot;defaultArnoldDriver.colorManagement&quot;)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><table><tr><td><img src="/images/Maya软件渲染问题集锦/渲染空间不一致首选项设置 .png" border=0 srcset="/images/home/Myhead.jpg" data-src="/images/Maya软件渲染问题集锦/渲染空间不一致首选项设置 .png" class="lozad post-image"></td><td><img src="/images/Maya软件渲染问题集锦/渲染空间不一致节点选项设置.png" border=0 srcset="/images/home/Myhead.jpg" data-src="/images/Maya软件渲染问题集锦/渲染空间不一致节点选项设置.png" class="lozad post-image"></td></tr></table></li></ol></li><li><p>同一个场景代理文件，渲染颜色不一致、闪烁，可能原因：代理文件导入maya后，其材质网络被修改过，使两个aistand_in使用相同的代理颜色却不一样，从而产生错误（原因未知）。解决办法：1.改会原来的材质。2.修改使用两个不同的代理文件。</p></li></ol>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    <category term="Maya" scheme="http://mirrorcg.github.io/categories/Maya/"/>
-    
-    <category term="杂项" scheme="http://mirrorcg.github.io/categories/Maya/%E6%9D%82%E9%A1%B9/"/>
-    
-    
-    <category term="排错记录" scheme="http://mirrorcg.github.io/tags/%E6%8E%92%E9%94%99%E8%AE%B0%E5%BD%95/"/>
-    
-    <category term="锦囊小妙招" scheme="http://mirrorcg.github.io/tags/%E9%94%A6%E5%9B%8A%E5%B0%8F%E5%A6%99%E6%8B%9B/"/>
     
   </entry>
   

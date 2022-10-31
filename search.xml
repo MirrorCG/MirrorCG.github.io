@@ -4,6 +4,50 @@
   
     
     <entry>
+      <title>Maya_C++开发环境搭建</title>
+      <link href="/posts/20221031a1.html"/>
+      <url>/posts/20221031a1.html</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>记录一下 Maya 的C++开发环境搭建<span id="more"></span></p><h4 id="软件准备"><a href="#软件准备" class="headerlink" title="软件准备"></a>软件准备</h4><ul><li><p>安装Visual Studio 2015 作为IDE，这里需要注意一下，不同的VS版本对应不同的默认平台工具集，如果需要VS使用别的的平台工具集，需要修改安装指定的平台工具集.</p></li><li><p>安装 Maya2020.</p></li><li><p>获取软件版本对应的开发包（从Maya2016开始，maya软件安装包中不再携带开发包，而开发包作为一个单独的下载包存在）,也可以不下载开发包，C++ 环境搭建需要的 Lib 链接库和 include 头文件在软件安装目录中已经存在，但我们可以获取开发包里 devkit 文件夹中的代码示例和插件向导(MayaPluginWizard2.0.zip)用于学习.</p><ul><li>maya 开发包下载地址 ：<a href="https://www.autodesk.com/developer-network/platform-technologies/maya?_ga=2.166960190.1858012794.1667146574-781835133.1667146574" title="" target="">从这里下载</a></li></ul></li></ul><h4 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a>配置环境</h4><h5 id="手动配置"><a href="#手动配置" class="headerlink" title="手动配置"></a>手动配置</h5><p>  在 Visual Studio 2015 IDE 中新建一个”空项目”，然后点击项目,右键设置项目属性，将下列配置一一修改。</p><ul><li>配置：debug  平台：x64</li><li>配置属性 》 常规 》 项目默认配置 》 配置类型 :动态库.dll</li><li>配置属性 》 常规》 常规 》 目标文件拓展名 :.mll</li><li>C&#x2F;C++ 》 常规 》 附加包含目录 :C:\Program Files\Autodesk\Maya2020\include;%(AdditionalLibraryDirectories)</li><li>C&#x2F;C++ 》 预处理器 》 加入预处理器指令:WIN32;NDEBUG;_DEBUG;_WINDOWS;NT_PLUGIN;REQUIRE_IOSTREAM;_USRDLL;MAYAPLUGIN1_EXPORTS; </li><li>链接器 》 常规 》 输出文件：C:\Users\mirror\Documents\maya\2020\plug-ins$(ProjectName)$(TargetExt)(自定义，这是你的插件生成的位置)</li><li>链接器 》 常规 》 附加库目录：C:\Program Files\Autodesk\Maya2020\lib;%(AdditionalLibraryDirectories)</li><li>链接器 》 输入 》 附加依赖项：Foundation.lib;OpenMaya.lib;OpenMayaUI.lib;OpenMayaAnim.lib;OpenMayaFX.lib;OpenMayaRender.lib;Image.lib;opengl32.lib;glu32.lib;</li></ul><p>  若为配置方案指定名称，如”maya2020”，将上列的 maya2020 替换成maya${Configuration},其中 ${Configuration} 是配置方案的名称，可快捷切换开发环境，而不用重新配置。<br>  $(TargetDir)是在目标文件后自动赋予值为文件所在位置<br>  $(TargetExt)目标文件拓展名<br>  $(ProjectName)项目名</p><h5 id="通过插件向导配置"><a href="#通过插件向导配置" class="headerlink" title="通过插件向导配置"></a>通过插件向导配置</h5><p>  <img src="/images/Maya_C++%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/%E6%8F%92%E4%BB%B6%E5%90%91%E5%AF%BC.png" alt="插件向导.png" srcset="/images/home/Myhead.jpg" data-src="/images/Maya_C++%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/%E6%8F%92%E4%BB%B6%E5%90%91%E5%AF%BC.png" class="lozad post-image"></p><p>  在下载好的开发包中找到插件向导文件夹–pluginwizard，其中有两个文件：</p><ul><li>MayaPluginWizard2.0.zip</li><li>MayaWizardReadme.txt<br>  其中 MayaWizardReadme.txt 会告诉你官方推荐使用什么版本的 Visual Studio IDE 以及插件MayaPluginWizard2.0.zip中的内容的使用方法，例如，开发maya2020，应使用 Visual Studio 14.0 即 Visual Studio 2015 默认的平台工具集；并且需要将对应的文件拷贝到指定的文件路径中。</li></ul><p>  由于我使用的是 Visual Studio 2019 需要将文件拷贝到不同的路径：</p><ul><li><p>将下列文件拷贝到路径(若没有，则新建):C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\VC\VCWizards</p><blockquote><ul><li>MayaPluginWizard.ico</li><li>MayaPluginWizard.vsdir</li><li>MayaPluginWizard.vsz</li></ul></blockquote></li><li><p>将下列文件夹拷贝到路径(若没有，则新建):C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\VC\vcprojects</p><blockquote><ul><li>MayaPluginWizard</li></ul></blockquote></li></ul><p>  若在创建新项目的时候，创建项目失败，则需要将 MayaPluginWizard.vsz 文件内容中的 VS版本 改为 Visual Studio IDE 对应的版本<br>  <img src="/images/Maya_C++%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/%E9%A1%B9%E7%9B%AE%E5%88%9B%E5%BB%BA%E5%A4%B1%E8%B4%A5.png" alt="项目创建失败.png" srcset="/images/home/Myhead.jpg" data-src="/images/Maya_C++%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/%E9%A1%B9%E7%9B%AE%E5%88%9B%E5%BB%BA%E5%A4%B1%E8%B4%A5.png" class="lozad post-image"></p><p>配置好后，编译的插件会出现在 “输出文件” 的路径中。</p><h4 id="软件安装踩坑"><a href="#软件安装踩坑" class="headerlink" title="软件安装踩坑"></a>软件安装踩坑</h4><p>  不同 Visual Studio 版本默认的平台工具集不同，需要视情况配置不同的工具集，Maya2020需要使用 Visual Studio 2015,因此会使用V140平台工具集，若使用高版本 Visual Studio ,需要切换平台工具集版本：</p><ul><li>Visual Studio 2019: V142</li><li>Visual Studio 2017: V141</li><li>Visual Studio 2015: V140</li><li>Visual Studio 2013: V120</li><li>Visual Studio 2012: V110</li><li>Visual Studio 2010: V100</li><li>Visual Studio 2008: V90</li><li>Visual Studio 2005: V80</li><li>Visual Studio 2003: V71</li><li>Visual Studio 2002: V70</li><li>Visual Studio 6: V60<br>  若低版本软件安装不上，在卸载和清理了软件之后，可以尝试先安装高版本软件，再安装低版本软件，具体原因不清楚（可能是高版本软件在安装过程中将低版本报错的组件安装了），但是真的行得通。安装 Visual Studio IDE 软件需要给注册表开权限哦！！！</li></ul><h5 id="安装平台工具集"><a href="#安装平台工具集" class="headerlink" title="安装平台工具集"></a>安装平台工具集</h5><p>  升级打开低版本VS工程，需要切换工具集版本 和 windowos SDK版本</p><ol><li>修改&#x2F;添加 Visual Studio_IDE :</li></ol><p>  <img src="/images/Maya_C++%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/%E4%BF%AE%E6%94%B9VS_IDE.png" alt="修改VS_IDE.png" srcset="/images/home/Myhead.jpg" data-src="/images/Maya_C++%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/%E4%BF%AE%E6%94%B9VS_IDE.png" class="lozad post-image"></p><ol start="2"><li><p>选择单个组件,并找到 MSVC v140-VS 2015 C++ 生成工具（v14.00）:<br>  <img src="/images/Maya_C++%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/%E9%80%89%E6%8B%A9%E5%8D%95%E4%B8%AA%E7%BB%84%E4%BB%B6.png" alt="选择单个组件.png" srcset="/images/home/Myhead.jpg" data-src="/images/Maya_C++%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/%E9%80%89%E6%8B%A9%E5%8D%95%E4%B8%AA%E7%BB%84%E4%BB%B6.png" class="lozad post-image"></p></li><li><p>在项目属性中选取指定的工具集.png :<br>  <img src="/images/Maya_C++%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/%E5%9C%A8%E9%A1%B9%E7%9B%AE%E4%B8%AD%E9%80%89%E5%8F%96%E6%8C%87%E5%AE%9A%E7%9A%84%E5%B7%A5%E5%85%B7%E9%9B%86.png" alt="在项目中选取指定的工具集.png" srcset="/images/home/Myhead.jpg" data-src="/images/Maya_C++%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/%E5%9C%A8%E9%A1%B9%E7%9B%AE%E4%B8%AD%E9%80%89%E5%8F%96%E6%8C%87%E5%AE%9A%E7%9A%84%E5%B7%A5%E5%85%B7%E9%9B%86.png" class="lozad post-image"></p></li><li><p>(略)若使用高版本打开低版本的项目，还需要重复以上步骤，安装&#x2F;切换对应低版本的 Windows SDK 版本 :<br>  <img src="/images/Maya_C++%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/%E5%88%87%E6%8D%A2%E4%BD%8E%E7%89%88%E6%9C%AC%E7%9A%84WindowsSDK.png" alt="切换低版本的WindowsSDK.png" srcset="/images/home/Myhead.jpg" data-src="/images/Maya_C++%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/%E5%88%87%E6%8D%A2%E4%BD%8E%E7%89%88%E6%9C%AC%E7%9A%84WindowsSDK.png" class="lozad post-image"></p></li></ol><h4 id="插件踩坑"><a href="#插件踩坑" class="headerlink" title="插件踩坑"></a>插件踩坑</h4><p>由于一开始不知道需要指定的工具集版本，导致编译的插件不能被加载，前前后后排查花费了大量时间，深感可惜，最后总结一下：</p><ul><li><p>编译好的文件如果从插件编辑器中无法显示：</p><blockquote><ol><li>可能是开软件前，该插件的路径还没有生成,需要重启may.</li><li>可能是插件不在Maya的插件搜索路径中,需要添加环境变量.</li><li>插件本身有问题，需检查插件。</li></ol></blockquote></li><li><p>如果无法加载插件，在保证插件代码正确的情况下，可能是没有使用正确的VC编译器，详细参照前文.</p></li></ul><ul><li></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Maya </category>
+          
+          <category> 学习笔记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 学习笔记 </tag>
+            
+            <tag> OpenMaya </tag>
+            
+            <tag> C++ </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Arnold开发环境搭建</title>
+      <link href="/posts/20221027a1.html"/>
+      <url>/posts/20221027a1.html</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>1,下载安装vs2015</p><p>下载地址：<a href="http://download.microsoft.com/download/B/8/9/B898E46E-CBAE-4045-A8E2-2D33DD36F3C4/vs2015.pro_chs.iso">http://download.microsoft.com/download/B/8/9/B898E46E-CBAE-4045-A8E2-2D33DD36F3C4/vs2015.pro_chs.iso</a><br>密钥：HM6NR-QXX7C-DFW2Y-8B82K-WTYJV<br>2.下载安装Cmake &gt;&#x3D;2.8<br>下载地址:<a href="https://cmake.org/download/">https://cmake.org/download/</a><br>3.配置cmake环境</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>自定义cryptomatteAov</title>
       <link href="/posts/20221005a1.html"/>
       <url>/posts/20221005a1.html</url>
