@@ -390,7 +390,7 @@
     class="post-content">
     <p>记录一下 Maya 的C++开发环境搭建<span id="more"></span></p>
 <h4 id="软件准备"><a href="#软件准备" class="headerlink" title="软件准备"></a>软件准备</h4><ul>
-<li><p>安装Visual Studio 2015 作为IDE，这里需要注意一下，不同的VS版本对应不同的默认平台工具集，如果需要VS使用别的的平台工具集，需要修改安装指定的平台工具集.</p>
+<li><p>安装Visual Studio 2017 作为IDE，这里需要注意一下，不同的VS版本对应不同的默认平台工具集，如果需要VS使用别的的平台工具集，需要修改安装指定的平台工具集.</p>
 </li>
 <li><p>安装 Maya2020.</p>
 </li>
@@ -400,7 +400,7 @@
 </ul>
 </li>
 </ul>
-<h4 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a>配置环境</h4><h5 id="手动配置"><a href="#手动配置" class="headerlink" title="手动配置"></a>手动配置</h5><p>  在 Visual Studio 2015 IDE 中新建一个”空项目”，然后点击项目,右键设置项目属性，将下列配置一一修改。</p>
+<h4 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a>配置环境</h4><h5 id="手动配置"><a href="#手动配置" class="headerlink" title="手动配置"></a>手动配置</h5><p>  在 Visual Studio 2017 IDE 中新建一个”空项目”，然后点击项目,右键设置项目属性，将下列配置一一修改。</p>
 <ul>
 <li>配置：debug  平台：x64</li>
 <li>配置属性 》 常规 》 项目默认配置 》 配置类型 :动态库.dll</li>
@@ -416,7 +416,7 @@
 <p>  在下载好的开发包中找到插件向导文件夹–pluginwizard，其中有两个文件：</p>
 <ul>
 <li>MayaPluginWizard2.0.zip</li>
-<li>MayaWizardReadme.txt<br>  其中 MayaWizardReadme.txt 会告诉你官方推荐使用什么版本的 Visual Studio IDE 以及插件MayaPluginWizard2.0.zip中的内容的使用方法，例如，开发maya2020，应使用 Visual Studio 14.0 即 Visual Studio 2015 默认的平台工具集；并且需要将对应的文件拷贝到指定的文件路径中。</li>
+<li>MayaWizardReadme.txt<br>  其中 MayaWizardReadme.txt 会告诉你官方推荐使用什么版本的 Visual Studio IDE 以及插件MayaPluginWizard2.0.zip中的内容的使用方法，例如，开发maya2020，应使用 Visual Studio 14.0 即 Visual Studio 2015(可以使用2017及其以上版本，然后配置2015的环境)默认的平台工具集；并且需要将对应的文件拷贝到指定的文件路径中。</li>
 </ul>
 <p>  由于我使用的是 Visual Studio 2019 需要将文件拷贝到不同的路径：</p>
 <ul>
@@ -439,7 +439,7 @@
 </ul>
 <p>  若在创建新项目的时候，创建项目失败，则需要将 MayaPluginWizard.vsz 文件内容中的 VS版本 改为 Visual Studio IDE 对应的版本<br>  <img src="/images/Maya_C++%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/%E9%A1%B9%E7%9B%AE%E5%88%9B%E5%BB%BA%E5%A4%B1%E8%B4%A5.png" alt="项目创建失败.png" srcset="/images/home/Myhead.jpg" data-src="/images/Maya_C++%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/%E9%A1%B9%E7%9B%AE%E5%88%9B%E5%BB%BA%E5%A4%B1%E8%B4%A5.png" class="lozad post-image"></p>
 <p>配置好后，编译的插件会出现在 “输出文件” 的路径中。</p>
-<h4 id="软件安装踩坑"><a href="#软件安装踩坑" class="headerlink" title="软件安装踩坑"></a>软件安装踩坑</h4><p>  不同 Visual Studio 版本默认的平台工具集不同，需要视情况配置不同的工具集，Maya2020需要使用 Visual Studio 2015,因此会使用V140平台工具集，若使用高版本 Visual Studio ,需要切换平台工具集版本：</p>
+<h4 id="软件安装踩坑"><a href="#软件安装踩坑" class="headerlink" title="软件安装踩坑"></a>软件安装踩坑</h4><p>  不同 Visual Studio 版本默认的平台工具集不同，需要视情况配置不同的工具集，Maya2020 C++ API 需要使用 Visual Studio 2017（前面的插件向导要求使用，Visual Studio 2015，这并不冲突）,因此会使用V140平台工具集，若使用高版本 Visual Studio ,需要切换平台工具集版本：</p>
 <ul>
 <li>Visual Studio 2019: V142</li>
 <li>Visual Studio 2017: V141</li>
@@ -466,7 +466,7 @@
 <li><p>(略)若使用高版本打开低版本的项目，还需要重复以上步骤，安装&#x2F;切换对应低版本的 Windows SDK 版本 :<br>  <img src="/images/Maya_C++%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/%E5%88%87%E6%8D%A2%E4%BD%8E%E7%89%88%E6%9C%AC%E7%9A%84WindowsSDK.png" alt="切换低版本的WindowsSDK.png" srcset="/images/home/Myhead.jpg" data-src="/images/Maya_C++%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/%E5%88%87%E6%8D%A2%E4%BD%8E%E7%89%88%E6%9C%AC%E7%9A%84WindowsSDK.png" class="lozad post-image"></p>
 </li>
 </ol>
-<h4 id="插件踩坑"><a href="#插件踩坑" class="headerlink" title="插件踩坑"></a>插件踩坑</h4><p>由于一开始不知道需要指定的工具集版本，导致编译的插件不能被加载，前前后后排查花费了大量时间，深感可惜，最后总结一下：</p>
+<h4 id="插件踩坑"><a href="#插件踩坑" class="headerlink" title="插件踩坑"></a>插件踩坑</h4><p>由于一开始不知道需要指定的工具集版本，导致编译的插件不能被加载，前前后后排查花费了大量时间，最后总结一下：</p>
 <ul>
 <li><p>编译好的文件如果从插件编辑器中无法显示：</p>
 <blockquote>
@@ -821,13 +821,6 @@
         </div>
       </a>
     
-      <a href="/categories/Maya/arnold/">
-        <div class="categories-list-item">
-          Maya/arnold
-          <span class="categories-list-item-badge">2</span>
-        </div>
-      </a>
-    
       <a href="/categories/Nuke/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
         <div class="categories-list-item">
           Nuke/学习笔记
@@ -846,6 +839,13 @@
         <div class="categories-list-item">
           ShotGrid/学习笔记
           <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/categories/Maya/arnold/">
+        <div class="categories-list-item">
+          Maya/arnold
+          <span class="categories-list-item-badge">2</span>
         </div>
       </a>
     
@@ -882,15 +882,15 @@
       </a>
     
       <a 
-        href="/tags/%E7%81%AF%E5%85%89/" 
-        title="灯光">
-        <div class="tags-list-item">灯光</div>
-      </a>
-    
-      <a 
         href="/tags/QT%E4%BA%8B%E4%BB%B6/" 
         title="QT事件">
         <div class="tags-list-item">QT事件</div>
+      </a>
+    
+      <a 
+        href="/tags/%E7%81%AF%E5%85%89/" 
+        title="灯光">
+        <div class="tags-list-item">灯光</div>
       </a>
     
       <a 
@@ -1071,6 +1071,11 @@
       </div>
     
     
+    
+      <div class="BbeiAn-info">
+        <a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">蜀ICP备2022006030号 </a>
+      </div>
+      
     
     
       <div class="footer-dsc">

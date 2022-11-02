@@ -49,7 +49,7 @@
         content="2022-10-27">
       <meta 
         property="og:article:modified_time" 
-        content="2022-10-31">
+        content="2022-11-02">
       <meta 
         property="og:article:author" 
         content="Mirror">
@@ -316,7 +316,7 @@
     
     
       <span class="dot"></span>
-      <span>56 字</span>
+      <span>2.9k 字</span>
     
   </div>
   
@@ -326,6 +326,89 @@
     class="post-content">
     <p>1,下载安装vs2015</p>
 <p>下载地址：<a target="_blank" rel="noopener" href="http://download.microsoft.com/download/B/8/9/B898E46E-CBAE-4045-A8E2-2D33DD36F3C4/vs2015.pro_chs.iso">http://download.microsoft.com/download/B/8/9/B898E46E-CBAE-4045-A8E2-2D33DD36F3C4/vs2015.pro_chs.iso</a><br>密钥：HM6NR-QXX7C-DFW2Y-8B82K-WTYJV<br>2.下载安装Cmake &gt;&#x3D;2.8<br>下载地址:<a target="_blank" rel="noopener" href="https://cmake.org/download/">https://cmake.org/download/</a><br>3.配置cmake环境</p>
+<p>OSL材质</p>
+<p>简单的示例</p>
+<ul>
+<li>osl代码块<br>shader gamma(<br>  color Cin &#x3D; color(0, 0, 0),<br>  float exponent &#x3D; 1,<br>  output color Cout &#x3D; color(0, 0, 0))<br>{<br>  Cout &#x3D; pow(Cin, 1&#x2F;exponent);<br>}</li>
+<li>osl代码块</li>
+</ul>
+<p>图形渲染大体原理观</p>
+<p>场景构成： 几何体基本体 光源 相机</p>
+<p>每一个几何体基本体 都携带一组几何体变量，也称为内插值或用户数据，有不同的方式添加该数据到几何体：单个几何体，单个面，多个面；如果着色器输入参数的名称和类型与对象上基元变量的名称和类型匹配（并且该输入参数尚未显式连接到另一个图层的输出），内插的原始变量将覆盖实例值或默认值</p>
+<p>每个几何图元都有一组属性（有时称为图形状态），包括其变换矩阵、照亮它的灯光列表（无论是单面还是双面）、着色器指定等。还可能有一长串与每个对象关联的渲染器特定属性或用户指定属性。特定属性状态可以在许多几何图元之间共享。</p>
+<p>曲面和体积着色器的闭包计算</p>
+<ul>
+<li>评估：给定输入和输出光方向，计算光从输入传播到输出的比例。</li>
+<li>采样：仅给定一个输入（或输出）方向，选择一个散射方向，其概率分布与最终将沿各个方向传播的光量成正比</li>
+<li>积分：给定所有灯光和视图方向，计算在视图方向上离开表面的光总量</li>
+</ul>
+<p> 集成器：渲染器包含许多集成器（可通过渲染器的 API 进行选择），这些积分器将表面和体积计算的颜色闭合与光源和视图相关信息相结合，以产生相机可见的光量。</p>
+<p>单位： 您可以告诉渲染器（通过全局选项）场景使用的距离和时间单位。然后着色器有一个名为 transformu（）的内置函数，它的工作方式很像 transform（），但它不是在坐标系之间进行转换，而是在单位之间进行转换。</p>
+<p>因此，您可以编写一个着色器以在真实世界单位中实现某种效果，并且该着色器在另一个使用不同建模单位的节目中完全可以重复使用。<br>它知道所有的标准名称，如“cm”、“in”、“km”等，并且可以在任何这些名称之间以及命名的坐标系之间进行转换。</p>
+<p>词汇结构</p>
+<p>字符<br>Open Shading Language的源代码由ASCII或UTF-8字符组成。</p>
+<p>空格、制表符、回车符和换行符统称为空白。空白字符分隔标识符、关键字或其他符号，但除此之外没有语法意义。一行中的多个空白字符等同于一个空白字符</p>
+<p>源代码可以分成多行，由行尾标记（回车符和&#x2F;或换行符）分隔。行可以是任何长度，行尾标记与其他空白没有明显区别，除非它们终止于 &#x2F;&#x2F; 的注释和分隔预处理器指令</p>
+<p>标识符</p>
+<p>标识符是变量、参数、函数和着色器的名称。在OSL中，标识符由一个或多个字符组成。第一个字符可以是字母（a-Z或a-Z）或下划线（_），随后的字符可以是字符、下划线或数字（0-9）</p>
+<p>注释</p>
+<p>和C++ 一样， OSL 也有两种注释方式 </p>
+<ul>
+<li>&#x2F;* 多行注释 *&#x2F; </li>
+<li>&#x2F;&#x2F; 单行注释</li>
+</ul>
+<p>关键字和保留字</p>
+<p>关键字和保留字不能作为标识符<br>以下是在Open Shading Language中具有特殊含义的关键字：</p>
+<ul>
+<li>and break closure color continue do else emit float for if illuminance</li>
+<li>illuminate int matrix normal not or output point public return string</li>
+<li>struct vector void while</li>
+</ul>
+<p>以下是目前在OSL中没有特殊含义的保留词，但我们保留它们以备将来使用，或者因为它们与相关编程语言中的关键字非常相似</p>
+<ul>
+<li>bool case catch char class const delete default double enum extern</li>
+<li>false friend goto inline long new operator private protected short</li>
+<li>signed sizeof static switch template this throw true try typedef uniform</li>
+<li>union unsigned varying virtual volatile</li>
+</ul>
+<p>预处理器</p>
+<p>着色器源代码通过标准C预处理器作为解析的第一步<br>预处理器指令由哈希标记（#）指定为行上的第一个字符，后跟预处理器指令名称。哈希和指令名称之间可能会出现空白<br>开放着色语言编译器支持C&#x2F;C++预处理指令的完整补充，包括：<br>#define<br>#undef<br>#if<br>#ifdef<br>#ifndef<br>#elif<br>#else<br>#endif<br>#include<br>#pragma error “message”<br>#pragma once<br>#pragma osl …<br>#pragma warning “message”</p>
+<p>此外，编译器已经定义了以下预处理器符号：</p>
+<p>OSL VERSION MAJOR Major version (e.g., 1)<br>OSL VERSION MINOR Minor version (e.g., 9)<br>OSL VERSION PATCH Patch version (e.g., 3)<br>OSL VERSION Combined version number &#x3D; 10000<em>major + 100</em>minor +<br>patch (e.g., 10903 for version 1.9.3)</p>
+<p>粗略语法、着色器类型、参数</p>
+<p>着色器的总体结构如下：</p>
+<p>可选函数或结构声明<br>着色器类型着色器名称（可选参数）<br>代码块<br>{<br>声明<br>}<br>代码块</p>
+<p>请注意，语句可能包括函数或结构定义、局部变量声明或公共方法，以及普通执行指令（如赋值等）</p>
+<p>着色器类型</p>
+<p>着色器类型包括：曲面、置换、灯光、体积和常规着色器。某些操作只能在某些类型的着色器内执行（例如，在置换着色器中只能调用置换（）或更改P），而某些全局变量只能从某些类型的着色器内访问（例如，dPdu未在体积着色器内定义）<br>以下是着色器的基本类型的简要描述</p>
+<p>曲面着色器</p>
+<p>曲面着色器确定曲面的基本材质特性及其对灯光的反应。他们负责计算描述材质的闭包颜色，并可选地设置其他用户定义的输出变量。它们可能不会改变曲面的位置。<br>表面着色器的编写方式就好像它们描述了基元上单个点的行为，渲染器将选择必须评估着色器的位置表面。<br>表面着色器还用于描述自发光对象，即光源。OSL 不需要单独的着色器类型来描述光源（光源即是着色器）</p>
+<p>置换着色器</p>
+<p>置换着色器更改位置和着色法线（或者，也可以选择仅更改着色法线），使几何体看起来变形、起皱或凹凸不平。它们是唯一允许更改基元位置的着色器。</p>
+<p>体积着色器</p>
+<p>体积着色器描述了参与介质（空气、烟雾、玻璃等）如何对光线做出反应并影响介质另一侧对象的外观。它们类似于表面着色器，不同之处在于可以从不位于任何特定基元（也不一定与任何特定基元相关联）的位置调用它们。</p>
+<p>着色器通用着色器</p>
+<p>通用着色器用于实用程序代码，通用例程可以作为着色器组中的各个层调用。常规着色器不需要指定着色器类型，因此可以从内部曲面、置换或体积着色器组中重复使用。但因此，它们可能不包含任何无法从所有着色器类型内部执行的功能（例如，它们可能无法更改P，这只能从置换着色器内部执行）</p>
+<p>着色器参数</p>
+<p>单个着色器具有（可选）许多参数，这些参数的值可以以多种方式设置，以便单个着色器在用于不同对象时具有不同的行为或外观。</p>
+<p>着色器参数语法</p>
+<p>着色器参数在着色器声明中指定，位于着色器名称后的括号中。这很像OSL函数（或C或类似语言中的函数）的参数，不同之处在于着色器参数必须具有初始值设定项，为参数提供默认值。Shader 参数默认初始值设定项可以是表达式（即，可以计算而不是限制为数字常量），并且按声明参数的顺序进行计算，并且可以包括对先前声明的参数的引用。形式上，简单参数声明的语法如下所示：</p>
+<ul>
+<li>type parametername &#x3D; default-expression<br>其中 type 是第 5 章中描述的数据类型之一，参数名称是参数的名称，默认表达式是有效的表达式（参见第 6.2 节）。多个参数仅用逗号分隔：</li>
+<li>type parametername [ array-length ] &#x3D; { expr0 , expr1 … }<br>其中数组长度是给出数组长度的正整数常数，初始值设定项是在大括号之间列出的一系列初始化表达式。第一个初始化表达式为数组的第一个元素提供初始化器，第二个表达式为数组第二个元素提供初始值设定器，依此类推。如果初始化表达式的数量小于数组的长度，则任何其他数组元素都将具有未定义的值。<br>数组也可以在没有设置长度的情况下声明：</li>
+<li>type parametername [ ] &#x3D; { expr0 , expr1 … }<br>其中在方括号之间找不到数组长度。这表示数组的长度将基于从组中着色器的输出（采用该输出的长度）、实例值（采用实例值声明指定的长度）或基元变量（由其在基元上的声明确定的长度）在连接中传递的内容来确定。如果未提供实例值、原语值或连接，则初始化表达式的数量将决定数组的长度和默认值.<br>结构参数也很容易声明：</li>
+<li>structure-type parametername &#x3D; { expr0 , expr1 … }<br>其中structure type是先前声明的结构类型的名称，expr初始值设定项对应于结构中的每个相应字段。结构的每个字段都需要适当类型的初始值设定项。</li>
+</ul>
+<p>着色器输出参数</p>
+<p>默认情况下，着色器参数在着色器主体中是只读的。然而，特殊的输出参数可能会因着色器的执行而改变。参数可以在参数的类型声明之前使用output关键字指定为输出：</p>
+<ul>
+<li>output type parametername &#x3D; expr<br>（输出参数可以是数组和结构，但我们将省略此处的明显语法。）</li>
+</ul>
+<p>输出参数可以连接到着色器组中稍后运行的着色器层的输入，可以由组中稍后的着色器通过消息传递（即getmessage（）调用）查询，或者由渲染器用作输出图像通道（以通过渲染器API描述的方式）。</p>
+<p>着色器参数示例</p>
+<p>下面是一个着色器声明的示例，包含几个参数：<br>surface wood (<br>    &#x2F;* Simple params with constant initializers <em>&#x2F;<br>        float Kd &#x3D; 0.5,<br>        color woodcolor &#x3D; color (.7, .5, .3),<br>        string texturename &#x3D; “wood.tx”,<br>    &#x2F;</em> Computed from an earlier parameter <em>&#x2F;<br>        color ringcolor &#x3D; 0.25 * woodcolor,<br>    &#x2F;</em> Fixed-length array <em>&#x2F;<br>        color paintcolors[3] &#x3D; { color(0,.25,0.7), color(1,1,1),<br>        color(0.75,0.5,0.2) },<br>    &#x2F;</em> variable-length array <em>&#x2F;<br>        int pattern[] &#x3D; { 2, 4, 2, 1 },<br>    &#x2F;</em> output parameter *&#x2F;<br>        output color Cunlit &#x3D; 0<br>    )<br>{<br>…<br>}</p>
+<p>着色器参数如何获取其值</p>
+<p>&#x2F;&#x2F;page 18</p>
 
   </div>
   <div>
@@ -678,13 +761,6 @@
         </div>
       </a>
     
-      <a href="/categories/Maya/arnold/">
-        <div class="categories-list-item">
-          Maya/arnold
-          <span class="categories-list-item-badge">2</span>
-        </div>
-      </a>
-    
       <a href="/categories/Nuke/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
         <div class="categories-list-item">
           Nuke/学习笔记
@@ -703,6 +779,13 @@
         <div class="categories-list-item">
           ShotGrid/学习笔记
           <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/categories/Maya/arnold/">
+        <div class="categories-list-item">
+          Maya/arnold
+          <span class="categories-list-item-badge">2</span>
         </div>
       </a>
     
@@ -739,15 +822,15 @@
       </a>
     
       <a 
-        href="/tags/%E7%81%AF%E5%85%89/" 
-        title="灯光">
-        <div class="tags-list-item">灯光</div>
-      </a>
-    
-      <a 
         href="/tags/QT%E4%BA%8B%E4%BB%B6/" 
         title="QT事件">
         <div class="tags-list-item">QT事件</div>
+      </a>
+    
+      <a 
+        href="/tags/%E7%81%AF%E5%85%89/" 
+        title="灯光">
+        <div class="tags-list-item">灯光</div>
       </a>
     
       <a 
@@ -928,6 +1011,11 @@
       </div>
     
     
+    
+      <div class="BbeiAn-info">
+        <a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">蜀ICP备2022006030号 </a>
+      </div>
+      
     
     
       <div class="footer-dsc">
