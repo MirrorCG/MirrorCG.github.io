@@ -6,7 +6,7 @@
   <link href="http://mirrorcg.github.io/atom.xml" rel="self"/>
   
   <link href="http://mirrorcg.github.io/"/>
-  <updated>2022-12-12T13:56:17.000Z</updated>
+  <updated>2022-12-12T15:51:26.000Z</updated>
   <id>http://mirrorcg.github.io/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Maya-PythonAPI插件示例</title>
+    <link href="http://mirrorcg.github.io/posts/20221212a2.html"/>
+    <id>http://mirrorcg.github.io/posts/20221212a2.html</id>
+    <published>2022-12-12T15:01:26.000Z</published>
+    <updated>2022-12-12T15:51:26.000Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p style="text-indent:2em">记录 Maya 的 PythonAPI 命令插件示例.<span id="more"></span></p><pre class="line-numbers language-python" data-language="python"><code class="language-python"># -*- coding: utf-8 -*-# !&#x2F;usr&#x2F;bin&#x2F;env python2# @Author: Mirror# @Time: 2022&#x2F;12&#x2F;10# description: Maya插件示例# &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;import sysimport maya.api.OpenMaya as apidef maya_useNewAPI():    u&quot;&quot;&quot;用于告诉Maya使用API2.0&quot;&quot;&quot;    passclass HelloWorldCmd(api.MPxCommand):    kCmdName &#x3D; &quot;helloWorld&quot;  # 命令名称    def __inin__(self):        api.MPxCommand.__init__(self)    @staticmethod    def creator():        return HelloWorldCmd()    def doIt(self, *args):        u&quot;&quot;&quot;命令内容&quot;&quot;&quot;        print(&quot;Hello,World!&quot;)def initializePlugin(mobject):    u&quot;&quot;&quot;注册插件&quot;&quot;&quot;    fn_plugin &#x3D; api.MFnPlugin(mobject, &quot;mirrorcg.com&quot;, &quot;1.0.0&quot;, &quot;any&quot;)    try:        fn_plugin.registerCommand(            HelloWorldCmd.kCmdName,            HelloWorldCmd.creator        )    except:        sys.stdout.write(u&quot;Failed to register command: &quot; + HelloWorldCmd.kCmdName)def uninitializePlugin(mobject):    u&quot;&quot;&quot;卸载插件&quot;&quot;&quot;    fn_plugin &#x3D; api.MFnPlugin(mobject)    try:        fn_plugin.deregisterCommand(            HelloWorldCmd.kCmdName        )    except:        sys.stdout.write(u&quot;Failed to deregister command: &quot; + HelloWorldCmd.kCmdName)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+    
+    
+    <summary type="html">&lt;p style=&quot;text-indent:2em&quot;&gt;记录 Maya 的 PythonAPI 命令插件示例.</summary>
+    
+    
+    
+    <category term="Maya" scheme="http://mirrorcg.github.io/categories/Maya/"/>
+    
+    <category term="学习笔记" scheme="http://mirrorcg.github.io/categories/Maya/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="学习笔记" scheme="http://mirrorcg.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    <category term="OpenMaya" scheme="http://mirrorcg.github.io/tags/OpenMaya/"/>
+    
+    <category term="MayaAPI" scheme="http://mirrorcg.github.io/tags/MayaAPI/"/>
+    
+    <category term="MayaPlugin" scheme="http://mirrorcg.github.io/tags/MayaPlugin/"/>
+    
+  </entry>
   
   <entry>
     <title>Maya创建操纵器</title>
@@ -485,34 +514,6 @@
     <category term="插件" scheme="http://mirrorcg.github.io/tags/%E6%8F%92%E4%BB%B6/"/>
     
     <category term="API" scheme="http://mirrorcg.github.io/tags/API/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>CG流程中的ACES概念解释</title>
-    <link href="http://mirrorcg.github.io/posts/20220706a1.html"/>
-    <id>http://mirrorcg.github.io/posts/20220706a1.html</id>
-    <published>2022-07-06T15:18:49.000Z</published>
-    <updated>2022-07-06T15:18:49.000Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h4 id="ACES-一些散记"><a href="#ACES-一些散记" class="headerlink" title="ACES 一些散记"></a>ACES 一些散记</h4><p>  经过IDT转换的图片只能保证其在AECS色域中渲染的颜色信息和ACES相比较是正确的，不能保证渲染的效果和SRGB的原效果一致。<br>  线性图和非线性图的区别在于是否经过Gamma1.8到gamma2.2的曲线矫正,矫正的目的是为了迎合人眼观察的同时，方便使用8位图存储色彩信息。浮点图没有色彩存储空间不够的情况，因此浮点图一般是线性图。<br>  ACES推荐使用EXR、TIF、HDR等浮点图存储信息，最少使用16位(exr是HDR标准的图片格式，拥有多通道存储的能力，使用1位、5位、10位分段分别存储不同的信息)。<br>  CG流程中ODT用于ACES到SRGB色域的转换，通常是使用‘output_srgb’类型。<br>  Maya中输出的16位ACES图和32位图色彩信息有些许肉眼可见的不同。请自行测试。</p><h4 id="一些文章参考"><a href="#一些文章参考" class="headerlink" title="一些文章参考"></a>一些文章参考</h4><br><p style="text-indent:2em">国内网页：</p><a href="https://www.bilibili.com/video/BV1jM4y1N7yT?spm_id_from=444.41.top_right_bar_window_default_collection.content.click&vd_source=171f08b062938f0a4038de13d7e2c9a2" title="" target="">ACES编码及色彩原理（CG）</a><br><a href="https://www.bilibili.com/video/BV1Fg411M7H6?p=1&share_medium=android&share_plat=android&share_session_id=665fc73f-fd8b-484a-9cb2-7bf453d6035e&share_source=WEIXIN&share_tag=s_i&timestamp=1656295742&unique_k=SDBzFDb&vd_source=171f08b062938f0a4038de13d7e2c9a2" title="" target="">ACES通俗讲解</a><br><a href="https://www.bilibili.com/read/cv9842761" title="" target="">色彩原理</a><br><a href="https://www.bilibili.com/video/BV1dV411i7M1?spm_id_from=333.788.top_right_bar_window_default_collection.content.click&vd_source=171f08b062938f0a4038de13d7e2c9a2" title="" target="">Nuke色彩空间（Gamma）的转换和原理</a><br><a href="https://www.shangyexinzhi.com/article/1960438.html" title="" target="">参考文章1</a><br><a href="https://www.toadstorm.com/blog/?p=694" title="" target="">参考文章2</a><br><a href="https://chrisbrejon.com/cg-cinematography/chapter-1-5-academy-color-encoding-system-aces/" title="" target="">参考文章3</a><br><br><p style="text-indent:2em">以下需科学上网：</p><a href="https://www.youtube.com/watch?v=W9Z1Std_1Kc" title="" target="">ACES Workflow in Maya with Redshift and Arnold</a>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    <category term="Doc" scheme="http://mirrorcg.github.io/categories/Doc/"/>
-    
-    <category term="学习笔记" scheme="http://mirrorcg.github.io/categories/Doc/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
-    
-    <category term="灯光合成" scheme="http://mirrorcg.github.io/tags/%E7%81%AF%E5%85%89%E5%90%88%E6%88%90/"/>
-    
-    <category term="ACES" scheme="http://mirrorcg.github.io/tags/ACES/"/>
     
   </entry>
   

@@ -18,17 +18,17 @@
   <link 
     rel="icon" 
     href="/images/themes/%E6%98%9F%E7%90%83.png">
-  <title>归档</title>
+  <title>Maya-PythonAPI插件示例</title>
   
     
       <meta 
         property="og:title" 
-        content="归档">
+        content="Maya-PythonAPI插件示例">
     
     
       <meta 
         property="og:url" 
-        content="http://mirrorcg.github.io/archives/2022/03/index.html">
+        content="http://mirrorcg.github.io/posts/20221212a2.html">
     
     
       <meta 
@@ -38,8 +38,40 @@
     
       <meta 
         property="og:img" 
-        content="记录工作和学习中的成果，分享一些踩坑记录和代码">
+        content="&lt;p style=&#34;text-indent:2em&#34;&gt;记录 Maya 的 PythonAPI 命令插件示例.">
     
+    
+      <meta 
+        property="og:type" 
+        content="article">
+      <meta 
+        property="og:article:published_time" 
+        content="2022-12-12">
+      <meta 
+        property="og:article:modified_time" 
+        content="2022-12-12">
+      <meta 
+        property="og:article:author" 
+        content="Mirror">
+      
+        
+          <meta 
+            property="og:article:tag" 
+            content="学习笔记">
+        
+          <meta 
+            property="og:article:tag" 
+            content="OpenMaya">
+        
+          <meta 
+            property="og:article:tag" 
+            content="MayaAPI">
+        
+          <meta 
+            property="og:article:tag" 
+            content="MayaPlugin">
+        
+      
     
   
   <script>
@@ -181,6 +213,8 @@
   
   <link rel="stylesheet" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css">
   
+    <link rel="stylesheet" href="/js/lib/lightbox/baguetteBox.min.css">
+  
 <meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="Mirror的个人博客" type="application/atom+xml">
 </head>
 
@@ -281,129 +315,239 @@
         <div class="container">
           <div class="columns">
             <main class="main-column">
-<div class="card card-content">
-  <h1 class="widget-title">归档</h1>
-</div>
-<div class="archive-timeline">
-  
-  
+<article class="card card-content">
+  <header>
+    <h1 class="post-title">
+      Maya-PythonAPI插件示例
+    </h1>
+  </header>
+  <div class="post-meta post-show-meta">
+    <time datetime="2022-12-12T15:01:26.000Z">
+      <i 
+        class="iconfont icon-calendar" 
+        style="margin-right: 2px;">
+      </i>
+      <span>2022-12-12</span>
+    </time>
     
-      <div class="archive-timeline-tag"><span>2022</span></div>
+      <span class="dot"></span>
+      
+        <a 
+          href="/categories/Maya/" 
+          class="post-meta-link">
+          Maya
+        </a>
+      
+        <a 
+          href="/categories/Maya/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" 
+          class="post-meta-link">
+          学习笔记
+        </a>
       
     
-    <div class="archive-timeline-item">
-      <div class="archive-timeline-post">
-        <div class="card card-content">
-          <div class="archive-timeline-post-date">2022-03-26</div>
-          <div class="archive-timeline-post-content">
-            <a 
-              href="/posts/20220326a2.html"
-              class="archive-timeline-post-item">
-              QT中的异形窗口
-            </a>
-          </div>
-        </div>
+    
+      <span class="dot"></span>
+      <span>235 字</span>
+    
+  </div>
+  
+    <div 
+      class="post-meta post-show-meta" 
+      style="margin-top: -10px;">
+      <div style="display: flex; align-items: center;">
+        <i 
+          class="iconfont icon-biaoqian" 
+          style="margin-right: 2px; font-size: 1.15rem;">
+        </i>
+        
+          
+          <a 
+            href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" 
+            class="post-meta-link">
+            学习笔记
+          </a>
+        
+          
+            <span class="dot"></span>
+          
+          <a 
+            href="/tags/OpenMaya/" 
+            class="post-meta-link">
+            OpenMaya
+          </a>
+        
+          
+            <span class="dot"></span>
+          
+          <a 
+            href="/tags/MayaAPI/" 
+            class="post-meta-link">
+            MayaAPI
+          </a>
+        
+          
+            <span class="dot"></span>
+          
+          <a 
+            href="/tags/MayaPlugin/" 
+            class="post-meta-link">
+            MayaPlugin
+          </a>
+        
       </div>
     </div>
   
+  </header>
+  <div 
+    id="section" 
+    class="post-content">
+    <p style="text-indent:2em">记录 Maya 的 PythonAPI 命令插件示例.<span id="more"></span></p>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"># -*- coding: utf-8 -*-
+# !&#x2F;usr&#x2F;bin&#x2F;env python2
+# @Author: Mirror
+# @Time: 2022&#x2F;12&#x2F;10
+# description: Maya插件示例
+# &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+import sys
+import maya.api.OpenMaya as api
+
+
+def maya_useNewAPI():
+    u&quot;&quot;&quot;用于告诉Maya使用API2.0&quot;&quot;&quot;
+    pass
+
+class HelloWorldCmd(api.MPxCommand):
+    kCmdName &#x3D; &quot;helloWorld&quot;  # 命令名称
+
+    def __inin__(self):
+        api.MPxCommand.__init__(self)
+
+
+    @staticmethod
+    def creator():
+        return HelloWorldCmd()
+
+    def doIt(self, *args):
+        u&quot;&quot;&quot;命令内容&quot;&quot;&quot;
+        print(&quot;Hello,World!&quot;)
+
+def initializePlugin(mobject):
+    u&quot;&quot;&quot;注册插件&quot;&quot;&quot;
+    fn_plugin &#x3D; api.MFnPlugin(mobject, &quot;mirrorcg.com&quot;, &quot;1.0.0&quot;, &quot;any&quot;)
+    try:
+        fn_plugin.registerCommand(
+            HelloWorldCmd.kCmdName,
+            HelloWorldCmd.creator
+        )
+    except:
+        sys.stdout.write(u&quot;Failed to register command: &quot; + HelloWorldCmd.kCmdName)
+
+def uninitializePlugin(mobject):
+    u&quot;&quot;&quot;卸载插件&quot;&quot;&quot;
+    fn_plugin &#x3D; api.MFnPlugin(mobject)
+    try:
+        fn_plugin.deregisterCommand(
+            HelloWorldCmd.kCmdName
+        )
+    except:
+        sys.stdout.write(u&quot;Failed to deregister command: &quot; + HelloWorldCmd.kCmdName)
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+  </div>
+  <div>
     
-    <div class="archive-timeline-item">
-      <div class="archive-timeline-post">
-        <div class="card card-content">
-          <div class="archive-timeline-post-date">2022-03-26</div>
-          <div class="archive-timeline-post-content">
-            <a 
-              href="/posts/20220326a1.html"
-              class="archive-timeline-post-item">
-              QT中QToolButton的双击事件
-            </a>
-          </div>
-        </div>
+      <div 
+        class="post-note note-warning copyright" 
+        style="margin-top: 42px">
+        <p>
+          <span style="font-weight: bold;">作者：</span><a 
+            target="_blank" 
+            rel="nofollow noopener noreferrer" 
+            href="/about">
+            Mirror
+          </a>
+        </p>
+        <p>
+          <span style="font-weight: bold;">文章链接：</span><a 
+            target="_blank" 
+            rel="nofollow noopener noreferrer" 
+            href="http://mirrorcg.github.io/posts/20221212a2.html">
+            http://mirrorcg.github.io/posts/20221212a2.html
+          </a>
+        </p>
+        <p><span style="font-weight: bold;">版权声明：</span>本博客所有文章除特别声明外，均采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0 协议</a>。转载请注明出处！</p>
       </div>
-    </div>
+    
+  </div>
+</article>
+<div class="nav">
   
-    
-    <div class="archive-timeline-item">
-      <div class="archive-timeline-post">
-        <div class="card card-content">
-          <div class="archive-timeline-post-date">2022-03-14</div>
-          <div class="archive-timeline-post-content">
-            <a 
-              href="/posts/20220314a1.html"
-              class="archive-timeline-post-item">
-              rez安装使用
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
   
-    
-    <div class="archive-timeline-item">
-      <div class="archive-timeline-post">
-        <div class="card card-content">
-          <div class="archive-timeline-post-date">2022-03-07</div>
-          <div class="archive-timeline-post-content">
-            <a 
-              href="/posts/20220307a1.html"
-              class="archive-timeline-post-item">
-              CG流程中&#34;USD&#34;的探索与运用
-            </a>
-          </div>
+    <div class="nav-item-next">
+      <a 
+        href="/posts/20221212a1.html" 
+        class="nav-link">
+        <div>
+          <div class="nav-label">下一篇</div>
+          
+            <div class="nav-title">Maya创建操纵器 </div>
+          
         </div>
-      </div>
-    </div>
-  
-    
-    <div class="archive-timeline-item">
-      <div class="archive-timeline-post">
-        <div class="card card-content">
-          <div class="archive-timeline-post-date">2022-03-06</div>
-          <div class="archive-timeline-post-content">
-            <a 
-              href="/posts/20220306a1.html"
-              class="archive-timeline-post-item">
-              Deadline中的事件示例
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  
-    
-    <div class="archive-timeline-item">
-      <div class="archive-timeline-post">
-        <div class="card card-content">
-          <div class="archive-timeline-post-date">2022-03-02</div>
-          <div class="archive-timeline-post-content">
-            <a 
-              href="/posts/20220302a2.html"
-              class="archive-timeline-post-item">
-              如何搭建个人博客
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  
-    
-    <div class="archive-timeline-item">
-      <div class="archive-timeline-post">
-        <div class="card card-content">
-          <div class="archive-timeline-post-date">2022-03-02</div>
-          <div class="archive-timeline-post-content">
-            <a 
-              href="/posts/20220302a1.html"
-              class="archive-timeline-post-item">
-              CG流程中使用ACES色彩管理
-            </a>
-          </div>
-        </div>
-      </div>
+        <i class="iconfont icon-right nav-next-icon"></i>
+      </a>
     </div>
   
 </div>
-</main>
+
+  <div 
+    class="card card-content comment-card" 
+    style="margin-top: 16px;">
+    <div class="comment-card-title">评论</div>
+    
+  <div id="vcomments"></div>
+  
+  <script>
+    loadScript("//unpkg.com/valine/dist/Valine.min.js");
+    var oldLoadVa = window.onload;
+    window.onload = function () {
+      oldLoadVa && oldLoadVa();
+      new Valine({
+        el: '#vcomments',
+        appId: 'to35UwTutrjzG0XtFw6gXeKa-gzGzoHsz',
+        appKey: 'z22QceD9W40R0XI8WjvtKEuw',
+        placeholder: '有话直说，不必拘礼',
+        path: window.location.pathname,
+        avatar: 'robohash',
+        meta: ["nick","mail","link"],
+        pageSize: '10',
+        lang: '',
+        visitor: 'true',
+        highlight: true,
+        recordIP: true,
+        
+        
+        
+        enableQQ: 'true',
+        requiredFields: [],
+      });
+    };
+  </script>
+
+  </div>
+
+<div 
+  class="card card-content toc-card" 
+  id="mobiletoc">
+  <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+
+</div></main>
             <aside class="left-column">
               
               <div class="card card-author">
@@ -533,6 +677,18 @@
 
 
    
+  
+    <article class="display-when-two-columns spacer">
+      <div class="card card-content toc-card">
+        <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+
+      </div>
+    </article>
   
   
   <article class="card card-content categories-widget">
@@ -779,217 +935,21 @@
   </article>
   
   
-    <article class="card card-content widescreen-archive archive-widget">
-      <div class="archive-card">
-  <div class="archive-card-header">
-    <i 
-      class="iconfont icon-wodebaobiao" 
-      style="padding-right: 2px;">
-    </i>归档
-  </div>
-  <div class="archive-card-list">
-    
-    
-    
-      
-        
-        
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-    
-      <a 
-        href="/archives/2022" 
-        class="archive-card-list-item">
-        2022
-        <span class="archive-card-list-item-badge">45</span>
-      </a>
-    
-  </div>
-</div>
-    </article>
-  
 </div>
             </aside>
             <aside class="right-column">
               <div class="sticky-widescreen">
   
+  
+    <article class="card card-content toc-card">
+      <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+
+    </article>
   
   
   <article class="card card-content">
@@ -1026,212 +986,6 @@
 </div>
   </article>
   
-  
-    <article class="card card-content">
-      <div class="archive-card">
-  <div class="archive-card-header">
-    <i 
-      class="iconfont icon-wodebaobiao" 
-      style="padding-right: 2px;">
-    </i>归档
-  </div>
-  <div class="archive-card-list">
-    
-    
-    
-      
-        
-        
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-    
-      <a 
-        href="/archives/2022" 
-        class="archive-card-list-item">
-        2022
-        <span class="archive-card-list-item-badge">45</span>
-      </a>
-    
-  </div>
-</div>
-    </article>
   
 </div>
             </aside>
@@ -1348,6 +1102,36 @@
 </a> 
      
      
+     
+      <script>
+  var addImgLayout = function () {
+    var img = document.querySelectorAll('.post-content img')
+    var i
+    for (i = 0; i < img.length; i++) {
+      var wrapper = document.createElement('a')
+      wrapper.setAttribute('href', img[i].getAttribute('data-src'))
+      wrapper.setAttribute('aria-label', 'illustration')
+      wrapper.style.cssText =
+        'width: 100%; display: flex; justify-content: center;'
+      if (img[i].alt) wrapper.dataset.caption = img[i].alt
+      wrapper.dataset.nolink = true
+      img[i].before(wrapper)
+      wrapper.append(img[i])
+      var divWrap = document.createElement('div')
+      divWrap.classList.add('gallery')
+      wrapper.before(divWrap)
+      divWrap.append(wrapper)
+    }
+    baguetteBox.run('.gallery')
+  }
+</script>
+<script>
+  loadScript(
+    "/js/lib/lightbox/baguetteBox.min.js",
+    addImgLayout
+  )
+</script>
+ 
      
      
     <script src="/js/main.js"></script> 

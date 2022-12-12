@@ -4,6 +4,39 @@
   
     
     <entry>
+      <title>Maya-PythonAPI插件示例</title>
+      <link href="/posts/20221212a2.html"/>
+      <url>/posts/20221212a2.html</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p style="text-indent:2em">记录 Maya 的 PythonAPI 命令插件示例.<span id="more"></span></p><pre class="line-numbers language-python" data-language="python"><code class="language-python"># -*- coding: utf-8 -*-# !&#x2F;usr&#x2F;bin&#x2F;env python2# @Author: Mirror# @Time: 2022&#x2F;12&#x2F;10# description: Maya插件示例# &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;import sysimport maya.api.OpenMaya as apidef maya_useNewAPI():    u&quot;&quot;&quot;用于告诉Maya使用API2.0&quot;&quot;&quot;    passclass HelloWorldCmd(api.MPxCommand):    kCmdName &#x3D; &quot;helloWorld&quot;  # 命令名称    def __inin__(self):        api.MPxCommand.__init__(self)    @staticmethod    def creator():        return HelloWorldCmd()    def doIt(self, *args):        u&quot;&quot;&quot;命令内容&quot;&quot;&quot;        print(&quot;Hello,World!&quot;)def initializePlugin(mobject):    u&quot;&quot;&quot;注册插件&quot;&quot;&quot;    fn_plugin &#x3D; api.MFnPlugin(mobject, &quot;mirrorcg.com&quot;, &quot;1.0.0&quot;, &quot;any&quot;)    try:        fn_plugin.registerCommand(            HelloWorldCmd.kCmdName,            HelloWorldCmd.creator        )    except:        sys.stdout.write(u&quot;Failed to register command: &quot; + HelloWorldCmd.kCmdName)def uninitializePlugin(mobject):    u&quot;&quot;&quot;卸载插件&quot;&quot;&quot;    fn_plugin &#x3D; api.MFnPlugin(mobject)    try:        fn_plugin.deregisterCommand(            HelloWorldCmd.kCmdName        )    except:        sys.stdout.write(u&quot;Failed to deregister command: &quot; + HelloWorldCmd.kCmdName)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Maya </category>
+          
+          <category> 学习笔记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 学习笔记 </tag>
+            
+            <tag> OpenMaya </tag>
+            
+            <tag> MayaAPI </tag>
+            
+            <tag> MayaPlugin </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Maya创建操纵器</title>
       <link href="/posts/20221212a1.html"/>
       <url>/posts/20221212a1.html</url>
